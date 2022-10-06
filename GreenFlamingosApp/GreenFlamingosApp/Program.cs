@@ -15,6 +15,4 @@ do
         Console.WriteLine("Twoj wybor nie jest liczbą, Wybierz opcję z przedziału 1-6");
         Console.ReadKey();
     }
-
-    Console.WriteLine("Test");
 } while (userInput != 6);
