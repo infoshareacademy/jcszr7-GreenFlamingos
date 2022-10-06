@@ -8,24 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\48668\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Ewa\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\48668\\Desktop\\C#\\Projekt_GreenFlamingos\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp\\GreenFlamingosApp.csproj",
+      "projectUniqueName": "C:\\Users\\Ewa\\Desktop\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp\\GreenFlamingosApp.csproj",
       "projectName": "GreenFlamingosApp",
-      "projectPath": "C:\\Users\\48668\\Desktop\\C#\\Projekt_GreenFlamingos\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp\\GreenFlamingosApp.csproj",
-      "packagesPath": "C:\\Users\\48668\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\48668\\Desktop\\C#\\Projekt_GreenFlamingos\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp\\obj\\",
+      "projectPath": "C:\\Users\\Ewa\\Desktop\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp\\GreenFlamingosApp.csproj",
+      "packagesPath": "C:\\Users\\Ewa\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Ewa\\Desktop\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\48668\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Ewa\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -33,7 +28,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
