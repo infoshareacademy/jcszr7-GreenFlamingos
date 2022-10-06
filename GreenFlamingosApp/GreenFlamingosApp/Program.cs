@@ -1,7 +1,7 @@
 ﻿using GreenFlamingosApp.Services;
 
 int userInput;
-bool userStatus = false;  // false - not logged, true - logged in 
+bool userStatus = true;  // false - not logged, true - logged in 
 do
 {
     GreenFlamingosLibrary.Menu(userStatus);
