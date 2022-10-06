@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.DataBase\\GreenFlamingosApp.DataBase.csproj",
+      "projectUniqueName": "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\Projekt_C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.DataBase\\GreenFlamingosApp.DataBase.csproj",
       "projectName": "GreenFlamingosApp.DataBase",
-      "projectPath": "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.DataBase\\GreenFlamingosApp.DataBase.csproj",
+      "projectPath": "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\Projekt_C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.DataBase\\GreenFlamingosApp.DataBase.csproj",
       "packagesPath": "C:\\Users\\AutomationPC3\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.DataBase\\obj\\",
+      "outputPath": "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\Projekt_C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.DataBase\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\AutomationPC3\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -32,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.Services\\GreenFlamingosApp.Services.csproj",
+      "projectUniqueName": "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\Projekt_C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.Services\\GreenFlamingosApp.Services.csproj",
       "projectName": "GreenFlamingosApp.Services",
-      "projectPath": "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.Services\\GreenFlamingosApp.Services.csproj",
+      "projectPath": "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\Projekt_C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.Services\\GreenFlamingosApp.Services.csproj",
       "packagesPath": "C:\\Users\\AutomationPC3\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.Services\\obj\\",
+      "outputPath": "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\Projekt_C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.Services\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\AutomationPC3\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -53,8 +53,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.DataBase\\GreenFlamingosApp.DataBase.csproj": {
-              "projectPath": "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.DataBase\\GreenFlamingosApp.DataBase.csproj"
+            "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\Projekt_C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.DataBase\\GreenFlamingosApp.DataBase.csproj": {
+              "projectPath": "C:\\Users\\AutomationPC3\\Desktop\\JG\\C#\\Projekt_C#\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingosApp.DataBase\\GreenFlamingosApp.DataBase.csproj"
             }
           }
         }
