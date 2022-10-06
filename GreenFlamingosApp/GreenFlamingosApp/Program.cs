@@ -4,11 +4,11 @@ int userInput;
 bool userStatus = true;  // false - not logged, true - logged in 
 do
 {
-    GreenFlamingosLibrary.Menu(userStatus);
+    MainMenu.Menu(userStatus);
 
     if (int.TryParse(Console.ReadLine(), out userInput))
     {
-       GreenFlamingosLibrary.MenuService(userStatus,userInput);
+       MainMenu.MenuService(userStatus,userInput);
     }
     else
     {

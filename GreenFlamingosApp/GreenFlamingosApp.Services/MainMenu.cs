@@ -3,7 +3,7 @@
 
 namespace GreenFlamingosApp.Services
 {
-    public class GreenFlamingosLibrary
+    public class MainMenu
     {
         public static void Menu(bool userStatus)
         {
@@ -37,22 +37,22 @@ namespace GreenFlamingosApp.Services
                 switch (userInput)
                 {
                     case 1:
-                        GreenFlamingosLibrary.LoginIn();
+                        MainMenu.LoginIn();
                         break;
                     case 2:
-                        GreenFlamingosLibrary.SignUp();
+                        MainMenu.SignUp();
                         break;
                     case 3:
-                        GreenFlamingosLibrary.Drinks();
+                        MainMenu.Drinks();
                         break;
                     case 4:
-                        GreenFlamingosLibrary.Shots();
+                        MainMenu.Shots();
                         break;
                     case 5:
-                        GreenFlamingosLibrary.Coctails();
+                        MainMenu.Coctails();
                         break;
                     case 6:
-                        GreenFlamingosLibrary.Exit();
+                        MainMenu.Exit();
                         break;
                 }
             }
@@ -61,22 +61,22 @@ namespace GreenFlamingosApp.Services
                 switch (userInput)
                 {
                     case 1:
-                        GreenFlamingosLibrary.Drinks();
+                        MainMenu.Drinks();
                         break;
                     case 2:
-                        GreenFlamingosLibrary.Shots();
+                        MainMenu.Shots();
                         break;
                     case 3:
-                        GreenFlamingosLibrary.Coctails();
+                        MainMenu.Coctails();
                         break;
                     case 4:
-                        GreenFlamingosLibrary.LogOut();
+                        MainMenu.LogOut();
                         break;
                     case 5:
-                        GreenFlamingosLibrary.AccountService();
+                        MainMenu.AccountService();
                         break;
                     case 6:
-                        GreenFlamingosLibrary.Exit();
+                        MainMenu.Exit();
                         break;
                 }
             }
