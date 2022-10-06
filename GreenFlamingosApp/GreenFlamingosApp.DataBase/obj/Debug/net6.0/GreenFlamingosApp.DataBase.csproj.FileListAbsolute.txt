@@ -1,0 +1,12 @@
+C:\Users\AutomationPC3\Desktop\JG\C#\Projekt\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingosApp.DataBase\bin\Debug\net6.0\GreenFlamingosApp.DataBase.deps.json
+C:\Users\AutomationPC3\Desktop\JG\C#\Projekt\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingosApp.DataBase\bin\Debug\net6.0\GreenFlamingosApp.DataBase.dll
+C:\Users\AutomationPC3\Desktop\JG\C#\Projekt\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingosApp.DataBase\bin\Debug\net6.0\GreenFlamingosApp.DataBase.pdb
+C:\Users\AutomationPC3\Desktop\JG\C#\Projekt\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingosApp.DataBase\obj\Debug\net6.0\GreenFlamingosApp.DataBase.csproj.AssemblyReference.cache
+C:\Users\AutomationPC3\Desktop\JG\C#\Projekt\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingosApp.DataBase\obj\Debug\net6.0\GreenFlamingosApp.DataBase.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AutomationPC3\Desktop\JG\C#\Projekt\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingosApp.DataBase\obj\Debug\net6.0\GreenFlamingosApp.DataBase.AssemblyInfoInputs.cache
+C:\Users\AutomationPC3\Desktop\JG\C#\Projekt\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingosApp.DataBase\obj\Debug\net6.0\GreenFlamingosApp.DataBase.AssemblyInfo.cs
+C:\Users\AutomationPC3\Desktop\JG\C#\Projekt\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingosApp.DataBase\obj\Debug\net6.0\GreenFlamingosApp.DataBase.csproj.CoreCompileInputs.cache
+C:\Users\AutomationPC3\Desktop\JG\C#\Projekt\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingosApp.DataBase\obj\Debug\net6.0\GreenFlamingosApp.DataBase.dll
+C:\Users\AutomationPC3\Desktop\JG\C#\Projekt\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingosApp.DataBase\obj\Debug\net6.0\refint\GreenFlamingosApp.DataBase.dll
+C:\Users\AutomationPC3\Desktop\JG\C#\Projekt\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingosApp.DataBase\obj\Debug\net6.0\GreenFlamingosApp.DataBase.pdb
+C:\Users\AutomationPC3\Desktop\JG\C#\Projekt\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingosApp.DataBase\obj\Debug\net6.0\ref\GreenFlamingosApp.DataBase.dll
