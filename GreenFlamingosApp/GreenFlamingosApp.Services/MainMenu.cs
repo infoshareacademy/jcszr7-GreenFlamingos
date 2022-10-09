@@ -5,7 +5,9 @@ namespace GreenFlamingosApp.Services
 {
     public class MainMenu
     {
-        public static void Menu(bool userStatus)
+        UsersBook userBook = new UsersBook();
+        
+        public void Menu(bool userStatus)
         {
             Console.Clear();
             Console.WriteLine("Witaj w aplikacji GreenFlamingos! Wybierz jedną z opcji");
@@ -30,17 +32,18 @@ namespace GreenFlamingosApp.Services
             }
         }
 
-        public static void MenuStatus(bool userStatus, int userInput)
+        public void MenuStatus(ref bool userStatus, int userInput)
         {
             if (!userStatus)
             {
                 switch (userInput)
                 {
                     case 1:
-                        MainMenu.LoginIn();
+                        userStatus = userBook.LogIn();
                         break;
                     case 2:
-                        MainMenu.SignUp();
+                        userBook.AddUser();
+                        Console.ReadKey();
                         break;
                     case 3:
                         MainMenu.Drinks();
@@ -70,7 +73,7 @@ namespace GreenFlamingosApp.Services
                         MainMenu.Coctails();
                         break;
                     case 4:
-                        MainMenu.LogOut();
+                        userStatus = userBook.LogOut();
                         break;
                     case 5:
                         MainMenu.AccountService();
@@ -83,13 +86,11 @@ namespace GreenFlamingosApp.Services
 
         }
 
-        public static void MenuService(bool userStatus, int userInput)
+        public void MenuService(ref bool userStatus, int userInput)
         {
-            
-
                 if (userInput > 0 && userInput <= 6)
                 {
-                    MenuStatus(userStatus, userInput);
+                    MenuStatus(ref userStatus, userInput);
                 }
                 else
                 {
@@ -122,20 +123,6 @@ namespace GreenFlamingosApp.Services
         {
             Console.Clear();
             Console.WriteLine("Zaloguj sie");
-            Console.ReadKey();
-        }
-
-        public static void SignUp()
-        {
-            Console.Clear();
-            Console.WriteLine("Zarejestruj sie");
-            Console.ReadKey();
-        }
-
-        public static void LogOut()
-        {
-            Console.Clear();
-            Console.WriteLine("Wyloguj sie");
             Console.ReadKey();
         }
 
