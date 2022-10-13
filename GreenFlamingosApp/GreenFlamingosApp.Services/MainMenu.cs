@@ -24,6 +24,7 @@ namespace GreenFlamingosApp.Services
             }
             else
             {
+                Console.WriteLine($"Witaj {user.UserMail}");
                 Console.WriteLine("1.Drinki z alkoholem");
                 Console.WriteLine("2.Shoty");
                 Console.WriteLine("3.Koktajle");
@@ -45,7 +46,6 @@ namespace GreenFlamingosApp.Services
                         break;
                     case 2:
                         userBook.AddUser();
-                        Console.ReadKey();
                         break;
                     case 3:
                         Drinks();
@@ -105,7 +105,6 @@ namespace GreenFlamingosApp.Services
         public void Drinks()
         {
             Console.Clear();
-            //  Console.WriteLine("Drinks");
             drinkMenu.DrinkService();
             Console.ReadKey();
         }

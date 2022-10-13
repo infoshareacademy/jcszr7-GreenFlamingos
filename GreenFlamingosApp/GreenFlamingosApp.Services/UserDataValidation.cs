@@ -51,7 +51,6 @@ namespace GreenFlamingosApp.Services
                 }
                 else
                 {
-                    Console.WriteLine("Gratulacje, udało ci się zarejestrować konto");
                     passwordCorrect = true;
                 }
             } while (!passwordCorrect);

@@ -84,7 +84,7 @@ namespace GreenFlamingosApp.Services
     {
         public Shot(string name, string mainIgredient, int capacity)
         {
-            DrinkType = "Drink";
+            DrinkType = "Shot";
             Name = name;
             MainIngredient = mainIgredient;
 

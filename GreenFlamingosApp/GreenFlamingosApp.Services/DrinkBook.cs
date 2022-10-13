@@ -8,7 +8,7 @@ namespace GreenFlamingosApp.Services
 {
     internal class DrinkBook
     {
-        public static List<Drink> DrinkList = new List<Drink>();
+        public List<Drink> DrinkList = new List<Drink>();
         AlcoDrink alcoDrink = new AlcoDrink();
         public DrinkBook(){}
         public void AddDrink(Drink drink)
@@ -25,24 +25,45 @@ namespace GreenFlamingosApp.Services
             Console.WriteLine("Drink usunięty z książki.\n");
         }
 
-        public AlcoDrink CreateAlcoDrink()
+        //Function to add extra ingredients ( max cuantity of ingredients is 3 - can be more, but Drink class has to be changed)
+        public string AdditionalIgredient()
+        {
+            string ingredient;
+            Console.WriteLine("Czy chcesz podac dodatkowe skladniki ? (y)");
+            string userInput = Console.ReadLine();
+            if (string.Equals(userInput, "y"))
+            {
+                Console.WriteLine("Podaj dodatkowy skladnik:");
+                ingredient = Console.ReadLine();
+            }
+            else
+            {
+                ingredient = null;
+            }
+
+            return ingredient;
+        }
+
+        public void CreateAlcoDrink(AlcoDrink newAlcoDrink)
         {
             Console.WriteLine("Podaj nazwę drinka:");
-            var Name = Console.ReadLine();
+            newAlcoDrink.Name = Console.ReadLine();
             Console.WriteLine("Podaj główny składnik drinka:");
-            var MainIngredient = Console.ReadLine();
+            newAlcoDrink.MainIngredient = Console.ReadLine();
             Console.WriteLine("Podaj objętość drinka:");
-            int Capacity = int.Parse(Console.ReadLine());
-            Console.WriteLine("Podaj składniki:");
-            Console.WriteLine("Składnik 1:");
-            var Ingredient1 = Console.ReadLine();
-            Console.WriteLine("Składnik 2:");
-            var Ingredient2 = Console.ReadLine();
-            Console.WriteLine("Składnik 3:");
-            var Ingredient3 = Console.ReadLine();
-            var drinkToAdd = new AlcoDrink(Name, MainIngredient, Capacity, Ingredient1, Ingredient2, Ingredient3);
-            return drinkToAdd;
+            newAlcoDrink.Capacity = int.Parse(Console.ReadLine());
 
+            //////Extra Ingredients Service//////////
+            newAlcoDrink.Ingredient1 = AdditionalIgredient();
+            if (newAlcoDrink.Ingredient1 is null)
+                return;
+            else
+                newAlcoDrink.Ingredient2 = AdditionalIgredient();
+            if (newAlcoDrink.Ingredient2 is null)
+                return;
+            else
+                newAlcoDrink.Ingredient3 = AdditionalIgredient();
+            return;
         }
         //public void RemoveDrinksWithIngridient()
         //{
@@ -69,12 +90,10 @@ namespace GreenFlamingosApp.Services
             {
                 Console.WriteLine("Książka jest pusta!");
             }
-            int i = 0;
+       
             foreach (var drink in DrinkList)
             {
-                i++;
-                Console.WriteLine($"{i}. \nNazwa: {drink.Name}.\nGłówny składnik: {drink.MainIngredient}\nObjętość: {drink.Capacity}\n" +
-                    $"Składniki: {drink.Ingredient1}\n{drink.Ingredient2}\n{drink.Ingredient3}.\n");
+                drink.ShowDrink();
             }
         }
     }

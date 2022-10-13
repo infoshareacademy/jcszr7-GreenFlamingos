@@ -15,9 +15,21 @@ namespace GreenFlamingosApp.Services
         {
             var userRegister = new UserRegister(user);
             user = userRegister.RecordUser();
-            users.Add(user);
-            Random random = new Random();
-            user.UserID = users.Count + 100;
+
+            var userToAdd = users.FirstOrDefault(d => string.Equals(d.UserMail.ToLower(), user.UserMail.ToLower()));
+
+            if (userToAdd != null)
+            {
+                Console.WriteLine("Uzytkownik z takim emailem już istnieje");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Gratulacje, udalo ci sie zarejestrować konto");
+                Console.ReadKey();
+                users.Add(user);
+                user.UserID = users.Count + 100;
+            }
         }
 
         public void ShowAllUsers()
@@ -44,6 +56,7 @@ namespace GreenFlamingosApp.Services
                         Console.ReadLine();
                         unLoggedUser.UserStatus = true;
                         user = unLoggedUser;
+                        break;
                         
                     }
                     else

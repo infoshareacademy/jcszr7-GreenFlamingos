@@ -12,13 +12,13 @@ namespace GreenFlamingosApp.Services
         public void DrinkOptions()
         {
             Console.Clear();
-            Console.WriteLine("Menu dla drinków:");
+            Console.WriteLine("Menu dla drinków i koktajli :");
             Console.WriteLine();
-            Console.WriteLine("1.Dodaj drink");
-            Console.WriteLine("2.Pokaż wszystkie drinki");
-            Console.WriteLine("3.Usuń drinka");
-            Console.WriteLine("4.Znajdź drinka");
-            Console.WriteLine("5.Edycja drinka");
+            Console.WriteLine("1.Dodaj");
+            Console.WriteLine("2.Pokaż wszystkie ");
+            Console.WriteLine("3.Usuń ");
+            Console.WriteLine("4.Znajdź ");
+            Console.WriteLine("5.Edycja ");
             Console.WriteLine("6.Wyjście");           
         }
 
@@ -33,7 +33,29 @@ namespace GreenFlamingosApp.Services
                     switch(userInput)
                     {
                         case 1:
-                            drinkBook.AddDrink(drinkBook.CreateAlcoDrink());
+                            var newAlcoDrink = new AlcoDrink();
+                            drinkBook.CreateAlcoDrink(newAlcoDrink);
+
+                            //Validation of drink name - if in DrinkBook exists drink with the same name as user set - do not add.
+                            var drinkToAdd = drinkBook.DrinkList.Find(d => string.Equals(d.Name.ToUpper(), newAlcoDrink.Name.ToUpper()));
+                            if (drinkToAdd != null)
+                            {
+                                Console.WriteLine("Drink o podanej nazwie istnieje");
+                                Console.ReadKey();
+                            }
+                            else
+                            {
+                                drinkToAdd = new AlcoDrink(newAlcoDrink.Name,
+                                                           newAlcoDrink.MainIngredient,
+                                                           newAlcoDrink.Capacity,
+                                                           newAlcoDrink.Ingredient1,
+                                                           newAlcoDrink.Ingredient2,
+                                                           newAlcoDrink.Ingredient3);
+                                drinkBook.AddDrink(drinkToAdd);
+                                Console.WriteLine("Brawo, Pomyslnie stworzyłeś drinka !");
+                                Console.ReadKey();
+                            }
+
                             Console.ReadKey();
                             break;
                         case 2:
@@ -59,32 +81,6 @@ namespace GreenFlamingosApp.Services
                 }
                 }while (userInput!=6);
         }
-        //public static void MenuStatus(bool userStatus, int userInput)
-        //{
-        //    if (!userStatus)
-        //    {
-        //        switch (userInput)
-        //        {
-        //            case 1:
-        //                //  MainMenu.LoginIn();
-        //                break;
-        //            case 2:
-        //                //    MainMenu.SignUp();
-        //                break;
-        //            case 3:
-        //                //    MainMenu.Drinks();
-        //                break;
-        //            case 4:
-        //                //   MainMenu.Shots();
-        //                break;
-        //            case 5:
-        //                //    MainMenu.Coctails();
-        //                break;
-        //            case 6:
-        //                MainMenu.Exit();
-        //                break;
-
-        //        }
-        //    }
+        
     }
 }
