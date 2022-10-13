@@ -102,6 +102,56 @@ namespace GreenFlamingosApp.Services
         {
             Console.Clear();
             Console.WriteLine("Drinks");
+            Console.WriteLine("1. Dodaj drinka");
+            Console.WriteLine("2. Usuń drinka");
+            Console.WriteLine("3. Usuń wszystkie drinki z książki");
+            Console.WriteLine("4. Edytuj drinka");
+            Console.WriteLine("5. Sortuj");
+            Console.WriteLine("6. Pokaz drinki z ksiazki");
+            var drinksMenuInput = int.Parse(Console.ReadLine());
+            var drinkbook = new DrinkBook();
+
+            switch (drinksMenuInput)
+            {
+                case 1:
+                    Console.WriteLine("Podaj nazwę drinka:");
+                    var Name = Console.ReadLine();
+                    Console.WriteLine("Podaj główny składnik drinka:");
+                    var MainIngredient = Console.ReadLine();
+                    Console.WriteLine("Podaj objętość drinka:");
+                    int Capacity = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Podaj składniki:");
+                    Console.WriteLine("Składnik 1:");
+                    var Ingredient1 = Console.ReadLine();
+                    Console.WriteLine("Składnik 2:");
+                    var Ingredient2 = Console.ReadLine();
+                    Console.WriteLine("Składnik 3:");
+                    var Ingredient3 = Console.ReadLine();
+                    var drink = new AlcoDrink(Name, MainIngredient, Capacity, Ingredient1, Ingredient2, Ingredient3);
+                    drinkbook.AddDrink(drink);
+                    break;
+                case 2:
+                    drinkbook.RemoveDrink();
+                    break;
+                case 3:
+                    drinkbook.ClearDrinkBook();
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    MainMenu.Shots();
+                    break;
+                case 6:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("\tOto lista drinków w Twojej książce z drinkami:\n");
+                    Console.ResetColor();
+                    drinkbook.ShowAllDrinks();
+                    break;
+
+                case 7:
+                    MainMenu.Exit();
+                    break;
+            }
             Console.ReadKey();
         }
         public static void Shots()
