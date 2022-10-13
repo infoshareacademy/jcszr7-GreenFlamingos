@@ -9,11 +9,12 @@ namespace GreenFlamingosApp.Services
     public class UsersBook
     {
         List<User> users = new List<User>();
+        User user = new User();
 
         public void AddUser()
         {
-            var user = new User();
-            user = user.SignUp();
+            var userRegister = new UserRegister(user);
+            user = userRegister.RecordUser();
             users.Add(user);
             Random random = new Random();
             user.UserID = users.Count + 100;
@@ -27,31 +28,37 @@ namespace GreenFlamingosApp.Services
             }
         }
 
-        public bool LogIn()
+        public User LogIn()
         {
-            bool userLogged = false;
             Console.WriteLine("Podaj Login");
             string login = Console.ReadLine();
             Console.WriteLine("Podaj haslo");
             string password = Console.ReadLine();
-            foreach (var user in users)
+            foreach (var unLoggedUser in users)
             {
-                if (string.Equals(user.UserMail, login))
+                if (string.Equals(unLoggedUser.UserMail.ToLower(), login.ToLower()))
                 {
-                    if (string.Equals(user.Password, password))
+                    if (string.Equals(unLoggedUser.Password, password))
                     {
-                        Console.WriteLine($"Witaj użytkowniku {user.UserMail}");
+                        Console.WriteLine($"Witaj użytkowniku {unLoggedUser.UserMail}");
                         Console.ReadLine();
-                        userLogged = true;
+                        unLoggedUser.UserStatus = true;
+                        user = unLoggedUser;
+                        
                     }
                     else
                     {
-                        userLogged = false;
+                        user.UserStatus = false;
                         Console.WriteLine("Błedne haslo");
                     }
                 }
             }
-            return userLogged;
+            return user;
+        }
+
+        public void LogOut(User user)
+        {
+            user.UserStatus = false;
         }
 
     }

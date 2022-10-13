@@ -1,16 +1,15 @@
 ﻿using GreenFlamingosApp.Services;
 
 int userInput;
-bool userStatus = false;  // false - not logged, true - logged in 
-
 var mainMenu = new MainMenu();
+var user = new User();
 do
 {
-    mainMenu.Menu(userStatus);
+    mainMenu.Menu(user);
 
     if (int.TryParse(Console.ReadLine(), out userInput))
     {
-        mainMenu.MenuService(ref userStatus,userInput);
+        user = mainMenu.MenuService(userInput);
     }
     else
     {

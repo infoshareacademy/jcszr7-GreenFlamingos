@@ -54,6 +54,7 @@ namespace GreenFlamingosApp.Services
 
     public class AlcoDrink : Drink
     {
+        public AlcoDrink() {}
         public AlcoDrink(string name, string mainIgredient, int capacity)
         {
             DrinkType = "Drink";
@@ -62,6 +63,8 @@ namespace GreenFlamingosApp.Services
 
             if (capacity < 100 || capacity > 500)
                 throw new ArgumentOutOfRangeException();
+            else
+                Capacity = capacity;
         }
 
         public AlcoDrink(string name, string mainIgredient, int capacity, string igredient1) : this(name, mainIgredient, capacity)

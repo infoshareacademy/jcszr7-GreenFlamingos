@@ -5,13 +5,14 @@ namespace GreenFlamingosApp.Services
 {
     public class MainMenu
     {
-        UsersBook userBook = new UsersBook();
-        
-        public void Menu(bool userStatus)
+        public UsersBook userBook = new UsersBook();
+        public User user = new User();
+        public DrinksMenu drinkMenu = new DrinksMenu();
+        public void Menu(User user)
         {
             Console.Clear();
             Console.WriteLine("Witaj w aplikacji GreenFlamingos! Wybierz jedną z opcji");
-            if (!userStatus)
+            if (!user.UserStatus)
             {
 
                 Console.WriteLine("1.Zaloguj sie");
@@ -32,30 +33,31 @@ namespace GreenFlamingosApp.Services
             }
         }
 
-        public void MenuStatus(ref bool userStatus, int userInput)
+        public User MenuStatus(int userInput)
         {
-            if (!userStatus)
+            
+            if (!user.UserStatus)
             {
                 switch (userInput)
                 {
                     case 1:
-                        userStatus = userBook.LogIn();
+                        user  = userBook.LogIn();
                         break;
                     case 2:
                         userBook.AddUser();
                         Console.ReadKey();
                         break;
                     case 3:
-                        MainMenu.Drinks();
+                        Drinks();
                         break;
                     case 4:
-                        MainMenu.Shots();
+                        Shots();
                         break;
                     case 5:
-                        MainMenu.Coctails();
+                        Coctails();
                         break;
                     case 6:
-                        MainMenu.Exit();
+                        Exit();
                         break;
                 }
             }
@@ -64,71 +66,64 @@ namespace GreenFlamingosApp.Services
                 switch (userInput)
                 {
                     case 1:
-                        MainMenu.Drinks();
+                        Drinks();
                         break;
                     case 2:
-                        MainMenu.Shots();
+                        Shots();
                         break;
                     case 3:
-                        MainMenu.Coctails();
+                        Coctails();
                         break;
                     case 4:
-                        userStatus = userBook.LogOut();
+                        userBook.LogOut(user);
                         break;
                     case 5:
-                        MainMenu.AccountService();
+                        AccountService();
                         break;
                     case 6:
-                        MainMenu.Exit();
+                        Exit();
                         break;
                 }
             }
-
+            return user;
         }
 
-        public void MenuService(ref bool userStatus, int userInput)
+        public User MenuService(int userInput)
         {
                 if (userInput > 0 && userInput <= 6)
                 {
-                    MenuStatus(ref userStatus, userInput);
+                    user = MenuStatus(userInput);
                 }
                 else
                 {
                     Console.WriteLine("Podałes liczbe z poza zakresu 1-6");
                     Console.ReadKey();
                 }
+            return user;
         }
 
-        public static void Drinks()
+        public void Drinks()
         {
             Console.Clear();
-            Console.WriteLine("Drinks");
-            DrinksMenu.DrinkOptions(true);
+            //  Console.WriteLine("Drinks");
+            drinkMenu.DrinkService();
             Console.ReadKey();
         }
-        public static void Shots()
+        public void Shots()
         {
             Console.Clear();
             Console.WriteLine("Shots");
-            DrinksMenu.DrinkOptions(true);
+            drinkMenu.DrinkOptions();
             Console.ReadKey();
         }
 
-        public static void Coctails()
+        public void Coctails()
         {
             Console.Clear();
             Console.WriteLine("Cocktails");
-            DrinksMenu.DrinkOptions(true);
+            drinkMenu.DrinkOptions();
             Console.ReadKey();
         }
-
-        public static void LoginIn()
-        {
-            Console.Clear();
-            Console.WriteLine("Zaloguj sie");
-            Console.ReadKey();
-        }
-
         public static void AccountService()
         {
             Console.Clear();
