@@ -103,12 +103,14 @@ namespace GreenFlamingosApp.Services
         {
             Console.Clear();
             Console.WriteLine("Drinks");
+            DrinksMenu.DrinkOptions(true);
             Console.ReadKey();
         }
         public static void Shots()
         {
             Console.Clear();
             Console.WriteLine("Shots");
+            DrinksMenu.DrinkOptions(true);
             Console.ReadKey();
         }
 
@@ -116,6 +118,7 @@ namespace GreenFlamingosApp.Services
         {
             Console.Clear();
             Console.WriteLine("Cocktails");
+            DrinksMenu.DrinkOptions(true);
             Console.ReadKey();
         }
 
