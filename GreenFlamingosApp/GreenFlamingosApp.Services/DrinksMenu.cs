@@ -8,6 +8,7 @@ namespace GreenFlamingosApp.Services
 {
     internal class DrinksMenu
     {
+       
         public static void DrinkOptions(bool userStatus)
         {
             Console.Clear();
@@ -21,33 +22,35 @@ namespace GreenFlamingosApp.Services
             Console.WriteLine("6.Wyjście");
             
         }
-        public static void MenuStatus(bool userStatus, int userInput)
+        int userInput2 = int.Parse(Console.ReadLine());
+        public static void MenuStatus(int userInput2)
         {
-            if (!userStatus)
-            {
-                switch (userInput)
+                switch (userInput2)
                 {
                     case 1:
-                      //  MainMenu.LoginIn();
+                        Console.WriteLine("dodaj drink");
+                        //DrinkBook.AddDrink(drink);
                         break;
                     case 2:
-                    //    MainMenu.SignUp();
+                        //DrinkBook.ShowAllDrinks();
                         break;
                     case 3:
-                    //    MainMenu.Drinks();
+                        //DrinkBook.RemoveDrink();
                         break;
                     case 4:
-                    //   MainMenu.Shots();
+                       //DrinkBook.FindDrink(drink);
                         break;
                     case 5:
-                    //    MainMenu.Coctails();
+                       //DrinkBook.EditDrink(drink);
                         break;
                     case 6:
                         MainMenu.Exit();
                         break;
-                   
+                    default: 
+                        Console.WriteLine("Podano wartość spoza zakresu 1-6");
+                        break;
                 }
-            }
+        
         }
     }
 }
