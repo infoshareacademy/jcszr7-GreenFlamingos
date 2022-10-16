@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using GreenFlamingos.Model;
 
 namespace GreenFlamingosApp.Services
 {
@@ -14,7 +15,7 @@ namespace GreenFlamingosApp.Services
         {
             _user = user;
         }
-        public string EmailValidation()
+        public string ValidateEmail()
         {
             bool emailCorrect = false;
             string userMail;
@@ -36,7 +37,7 @@ namespace GreenFlamingosApp.Services
             return userMail;
         }
 
-        public string PasswordValidation()
+        public string ValidatePassword()
         {
             bool passwordCorrect = false;
             string password;

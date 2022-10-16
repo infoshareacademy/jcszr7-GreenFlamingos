@@ -1,33 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GreenFlamingos.Model;
+using GreenFlamingos.Model.Drinks;
 
 namespace GreenFlamingosApp.Services
 {
     public class DrinksMenu
     {
-        DrinkBook drinkBook = new DrinkBook();
-        public void DrinkOptions()
-        {
-            Console.Clear();
-            Console.WriteLine("Menu dla drinków i koktajli :");
-            Console.WriteLine();
-            Console.WriteLine("1.Dodaj");
-            Console.WriteLine("2.Pokaż wszystkie ");
-            Console.WriteLine("3.Usuń ");
-            Console.WriteLine("4.Znajdź ");
-            Console.WriteLine("5.Edycja ");
-            Console.WriteLine("6.Wyjście");           
-        }
+        DrinkBookService drinkBook = new DrinkBookService();
 
         public void DrinkService()
         {
             int userInput;   
             do 
             {
-                DrinkOptions();
+                DefaultMenu.DrinkOptions();
                 if (int.TryParse(Console.ReadLine(), out userInput))
                 {
                     switch(userInput)
@@ -36,7 +21,7 @@ namespace GreenFlamingosApp.Services
                             var newAlcoDrink = new AlcoDrink();
                             drinkBook.CreateAlcoDrink(newAlcoDrink);
 
-                            //Validation of drink name - if in DrinkBook exists drink with the same name as user set - do not add.
+                            //Validation of drink name - if in DrinkBookService exists drink with the same name as user set - do not add.
                             var drinkToAdd = drinkBook.DrinkList.Find(d => string.Equals(d.Name.ToUpper(), newAlcoDrink.Name.ToUpper()));
                             if (drinkToAdd != null)
                             {
