@@ -1,11 +1,12 @@
-﻿using GreenFlamingosApp.Services;
+﻿using GreenFlamingos.Model;
+using GreenFlamingosApp.Services;
 
 int userInput;
-var mainMenu = new MainMenu();
+var mainMenu = new MainMenuService();
 var user = new User();
 do
 {
-    mainMenu.Menu(user);
+    UserInterface.Menu(user);
 
     if (int.TryParse(Console.ReadLine(), out userInput))
     {

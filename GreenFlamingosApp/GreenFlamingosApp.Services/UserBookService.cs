@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreenFlamingos.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GreenFlamingosApp.Services
 {
-    public class UsersBook
+    public class UserBookService
     {
         List<User> users = new List<User>();
         User user = new User();

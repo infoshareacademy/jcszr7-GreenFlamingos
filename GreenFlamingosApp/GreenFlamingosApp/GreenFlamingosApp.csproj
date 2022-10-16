@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GreenFlamingos.Model\GreenFlamingos.Model.csproj" />
     <ProjectReference Include="..\GreenFlamingosApp.Services\GreenFlamingosApp.Services.csproj" />
   </ItemGroup>
 

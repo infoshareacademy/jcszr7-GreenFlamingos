@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GreenFlamingosApp.Services
+namespace GreenFlamingos.Model
 {
     public class User
     {
@@ -19,7 +19,7 @@ namespace GreenFlamingosApp.Services
             UserMail = userMail;
         }
 
-        public bool UserStatus { get; set; }           
+        public bool UserStatus { get; set; }
         public void ShowUser()
         {
             Console.WriteLine($"Login: {UserMail}, haslo: {Password}, ID = {UserID}");

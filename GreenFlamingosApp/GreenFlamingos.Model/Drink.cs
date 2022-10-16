@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GreenFlamingosApp.Services
+namespace GreenFlamingos.Model
 {
     public abstract class Drink
     {
@@ -46,15 +46,15 @@ namespace GreenFlamingosApp.Services
 
         public virtual void ShowDrink()
         {
-                ShowIngredients();
-                ShowRecipe();
+            ShowIngredients();
+            ShowRecipe();
         }
 
     }
 
     public class AlcoDrink : Drink
     {
-        public AlcoDrink() {}
+        public AlcoDrink() { }
         public AlcoDrink(string name, string mainIgredient, int capacity)
         {
             DrinkType = "Drink";

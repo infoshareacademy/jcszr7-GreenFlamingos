@@ -1,38 +1,15 @@
-﻿using GreenFlamingosApp.DataBase;
+﻿using GreenFlamingos.Model;
+using GreenFlamingosApp.DataBase;
 
 
 namespace GreenFlamingosApp.Services
 {
-    public class MainMenu
+    public class MainMenuService
     {
-        public UsersBook userBook = new UsersBook();
+        public UserBookService userBook = new UserBookService();
         public User user = new User();
         public DrinksMenu drinkMenu = new DrinksMenu();
-        public void Menu(User user)
-        {
-            Console.Clear();
-            Console.WriteLine("Witaj w aplikacji GreenFlamingos! Wybierz jedną z opcji");
-            if (!user.UserStatus)
-            {
-
-                Console.WriteLine("1.Zaloguj sie");
-                Console.WriteLine("2.Zarejestruj konto");
-                Console.WriteLine("3.Drinki z alkoholem");
-                Console.WriteLine("4.Shoty");
-                Console.WriteLine("5.Koktajle");
-                Console.WriteLine("6.Wyjście");
-            }
-            else
-            {
-                Console.WriteLine($"Witaj {user.UserMail}");
-                Console.WriteLine("1.Drinki z alkoholem");
-                Console.WriteLine("2.Shoty");
-                Console.WriteLine("3.Koktajle");
-                Console.WriteLine("4.Wylogowanie");
-                Console.WriteLine("5.Dane Konta");
-                Console.WriteLine("6.Wyjście");
-            }
-        }
+        //UserInterface userInterface = new UserInterface();
 
         public User MenuStatus(int userInput)
         {
@@ -112,7 +89,7 @@ namespace GreenFlamingosApp.Services
         {
             Console.Clear();
             Console.WriteLine("Shots");
-            drinkMenu.DrinkOptions();
+            UserInterface.DrinkOptions();
             Console.ReadKey();
         }
 
@@ -120,7 +97,7 @@ namespace GreenFlamingosApp.Services
         {
             Console.Clear();
             Console.WriteLine("Cocktails");
-            drinkMenu.DrinkOptions();
+            UserInterface.DrinkOptions();
             Console.ReadKey();
         }
         public static void AccountService()

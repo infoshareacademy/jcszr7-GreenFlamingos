@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreenFlamingos.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace GreenFlamingosApp.Services
 {
-    internal class DrinkBook
+    internal class DrinkBookService
     {
         public List<Drink> DrinkList = new List<Drink>();
         AlcoDrink alcoDrink = new AlcoDrink();
-        public DrinkBook(){}
+        public DrinkBookService(){}
         public void AddDrink(Drink drink)
         {
             DrinkList.Add(drink);
