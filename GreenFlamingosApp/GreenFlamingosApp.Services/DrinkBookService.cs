@@ -1,10 +1,13 @@
-﻿using GreenFlamingos.Model.Drinks;
+﻿using GreenFlamingos.Model;
+using GreenFlamingos.Model.Drinks;
 
 namespace GreenFlamingosApp.Services
 {
     internal class DrinkBookService
     {
         public List<Drink> DrinkList = new List<Drink>();
+        public List<string> IngredientsList = new List<string>();
+        public List<string> PreparationStepsList = new List<string>();
         AlcoDrink alcoDrink = new AlcoDrink();
         public DrinkBookService(){}
         public void AddDrink(Drink drink)
@@ -73,18 +76,31 @@ namespace GreenFlamingosApp.Services
             Console.WriteLine("Podaj główny składnik drinka:");
             newAlcoDrink.MainIngredient = Console.ReadLine();
             newAlcoDrink.Capacity = Capacity_Check();
-
-            //////Extra Ingredients Service//////////
-            newAlcoDrink.Ingredient1 = AdditionalIgredient();
-            if (newAlcoDrink.Ingredient1 is null)
-                return;
-            else
-                newAlcoDrink.Ingredient2 = AdditionalIgredient();
-            if (newAlcoDrink.Ingredient2 is null)
-                return;
-            else
-                newAlcoDrink.Ingredient3 = AdditionalIgredient();
-            return;
+            newAlcoDrink.Owner = new User();
+            Console.WriteLine("Podaj zawartość alkoholu w drinku w %: ");
+            newAlcoDrink.AlcoholContent = int.Parse(Console.ReadLine());
+            Console.WriteLine("Podaj ilość kalorii drinka: ");
+            newAlcoDrink.Calories = int.Parse(Console.ReadLine());
+            Console.WriteLine("Podaj opis: ");
+            newAlcoDrink.Description = Console.ReadLine();
+            Console.WriteLine("Ile składników chcesz dodać?");
+            var ingredientamount = int.Parse(Console.ReadLine());
+            for (int i = 0; i < ingredientamount; i++)
+            {
+                Console.WriteLine("Podaj składnik: ");
+                var ingredient = Console.ReadLine();
+                IngredientsList.Add(ingredient);
+            }
+            Console.WriteLine("Ile kroków potrzeba do przygotowania drinka?");
+            var stepsAmount = int.Parse(Console.ReadLine());
+            for (int i = 0; i < stepsAmount; i++)
+            {
+                Console.WriteLine("Podaj krok: ");
+                var step = Console.ReadLine();
+                PreparationStepsList.Add(step);
+            }
+            newAlcoDrink.Ingredients = IngredientsList;
+            newAlcoDrink.Preparation = PreparationStepsList;
         }
 
         public void ClearDrinkBook()

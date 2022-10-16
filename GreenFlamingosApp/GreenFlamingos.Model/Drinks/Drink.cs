@@ -38,7 +38,8 @@
             foreach (string step in Preparation)
             {
                 Console.WriteLine($" - {step}");
-            }         
+            }
+            Console.WriteLine("\n");
         }
 
         public virtual void ShowDrink()

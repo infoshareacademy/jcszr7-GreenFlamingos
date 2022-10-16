@@ -30,12 +30,15 @@ namespace GreenFlamingosApp.Services
                             }
                             else
                             {
-                                drinkToAdd = new AlcoDrink(newAlcoDrink.Name,
-                                                           newAlcoDrink.MainIngredient,
+                                drinkToAdd = new AlcoDrink(newAlcoDrink.Name, 
+                                                           newAlcoDrink.Owner, 
+                                                           newAlcoDrink.MainIngredient, 
                                                            newAlcoDrink.Capacity,
-                                                           newAlcoDrink.Ingredient1,
-                                                           newAlcoDrink.Ingredient2,
-                                                           newAlcoDrink.Ingredient3);
+                                                           newAlcoDrink.AlcoholContent, 
+                                                           newAlcoDrink.Calories, 
+                                                           newAlcoDrink.Ingredients, 
+                                                           newAlcoDrink.Description, 
+                                                           newAlcoDrink.Preparation);
                                 drinkBook.AddDrink(drinkToAdd);
                                 Console.WriteLine("Brawo, Pomyslnie stworzyłeś drinka !");
                                 Console.ReadKey();
