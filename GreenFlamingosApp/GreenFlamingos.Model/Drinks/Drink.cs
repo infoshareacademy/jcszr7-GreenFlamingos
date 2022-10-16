@@ -1,47 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GreenFlamingos.Model.Drinks
+﻿namespace GreenFlamingos.Model.Drinks
 {
     public abstract class Drink
     {
+        private int _drinkID;
+        public int DrinkID { get { return _drinkID; } set { _drinkID = value; } }
         public string DrinkType { get; set; }
         public string Name { get; set; }
+        public User Owner { get; set; }
+        public double AlcoholContent { get; set; }
+        public int Calories { get; set; }
         public string MainIngredient { get; set; }
         public int Capacity { get; set; }
-        public string Ingredient1 { get; set; }
-        public string Ingredient2 { get; set; }
-        public string Ingredient3 { get; set; }
+        public List<string> Ingredients { get; set; }
+        public string Description { get; set; }
+        public List<string> Preparation { get; set; }
 
         public virtual void ShowIngredients()
         {
-            Console.WriteLine($"Oto moj {DrinkType} + {Name}");
-            Console.WriteLine("Składniki:");
-            Console.WriteLine($"Głowny składnik: {MainIngredient}");
-            Console.WriteLine($"Pojemnosc: {Capacity}");
-
-            ////// Below is checking that drink has optional igredients///////////
-            if (!string.IsNullOrEmpty(Ingredient1))
+            Console.WriteLine($"Oto mój {DrinkType}, {Name}\n" +
+                $"Twórca: {Owner.UserMail}\n" +
+                $"Zawartość alkoholu: {AlcoholContent}%\n" +
+                $"Kalorie: {Calories}\n" +
+                $"Pojemność: {Capacity}\n" +
+                $"Składnik główny: {MainIngredient}\n" +
+                $"Pozostałe składniki:");
+            foreach (string ingredient in Ingredients)
             {
-                Console.WriteLine($"Skladnik 1: {Ingredient1}");
+                Console.WriteLine($"{ingredient}");
             }
-            if (!string.IsNullOrEmpty(Ingredient2))
-            {
-                Console.WriteLine($"Skladnik 2: {Ingredient2}");
-            }
-            if (!string.IsNullOrEmpty(Ingredient3))
-            {
-                Console.WriteLine($"Skladnik 3: {Ingredient3}");
-            }
+            Console.WriteLine($"\nOpis Drinku:\n" +
+                $"{Description}\n");
         }
 
-        public virtual void ShowRecipe()
+        public virtual void ShowRecipe() /////Here will show recipe from user
         {
-            Console.WriteLine("Przygotowanie: ");
-            Console.WriteLine("Jakis przepis");         /////Here will show recipe from user
+            Console.WriteLine("Przyrządzenie:");
+            foreach (string step in Preparation)
+            {
+                Console.WriteLine($" - {step}");
+            }         
         }
 
         public virtual void ShowDrink()
