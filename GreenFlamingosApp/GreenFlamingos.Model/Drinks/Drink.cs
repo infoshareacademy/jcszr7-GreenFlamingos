@@ -18,7 +18,7 @@ namespace GreenFlamingos.Model.Drinks
 
         public virtual void ShowIngredients()
         {
-            Console.WriteLine($"Oto moj {DrinkType} + {Name}");
+            Console.WriteLine($"Oto moj {DrinkType} {Name}");
             Console.WriteLine("Składniki:");
             Console.WriteLine($"Głowny składnik: {MainIngredient}");
             Console.WriteLine($"Pojemnosc: {Capacity}");

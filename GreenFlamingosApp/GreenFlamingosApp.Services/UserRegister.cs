@@ -20,8 +20,8 @@ namespace GreenFlamingosApp.Services
             var userValidation = new UserDataValidation(_user);
             string userMail = userValidation.ValidateEmail();
             string password = userValidation.ValidatePassword();
-            var user = new User(password, userMail);
-            return user;
+            var userToAdd = new User(password, userMail);
+            return userToAdd;
         }
 
 

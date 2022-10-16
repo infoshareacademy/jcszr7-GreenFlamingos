@@ -17,7 +17,7 @@ namespace GreenFlamingosApp.Services
             var userRegister = new UserRegister(user);
             user = userRegister.RecordUser();
 
-            var userToAdd = users.FirstOrDefault(d => string.Equals(d.UserMail.ToLower(), user.UserMail.ToLower()));
+            var userToAdd = users.FirstOrDefault(u => string.Equals(u.UserMail.ToLower(), user.UserMail.ToLower()));
 
             if (userToAdd != null)
             {
@@ -27,9 +27,10 @@ namespace GreenFlamingosApp.Services
             else
             {
                 Console.WriteLine("Gratulacje, udalo ci sie zarejestrować konto");
-                Console.ReadKey();
                 users.Add(user);
                 user.UserID = users.Count + 100;
+                ShowAllUsers();
+                Console.ReadLine();
             }
         }
 
@@ -69,7 +70,6 @@ namespace GreenFlamingosApp.Services
             }
             return user;
         }
-
         public void LogOut(User user)
         {
             user.UserStatus = false;

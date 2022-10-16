@@ -7,11 +7,11 @@ namespace GreenFlamingosApp.Services
     public class MainMenuService
     {
         public UserBookService userBook = new UserBookService();
-        public User user = new User();
+        //public User user = new User();
         public DrinksMenu drinkMenu = new DrinksMenu();
         //DefaultMenu userInterface = new DefaultMenu();
 
-        public User MenuStatus(int userInput)
+        public void MenuStatus(ref User user, int userInput)
         {
             
             if (!user.UserStatus)
@@ -62,21 +62,19 @@ namespace GreenFlamingosApp.Services
                         break;
                 }
             }
-            return user;
         }
 
-        public User MenuService(int userInput)
+        public void MenuService(ref User user,int userInput)
         {
                 if (userInput > 0 && userInput <= 6)
                 {
-                    user = MenuStatus(userInput);
+                    MenuStatus(ref user,userInput);
                 }
                 else
                 {
                     Console.WriteLine("Podałes liczbe z poza zakresu 1-6");
                     Console.ReadKey();
                 }
-            return user;
         }
 
         public void Drinks()
