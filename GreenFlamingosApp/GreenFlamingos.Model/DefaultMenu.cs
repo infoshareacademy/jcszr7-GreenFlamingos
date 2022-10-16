@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GreenFlamingos.Model
 {
-    public class UserInterface
+    public class DefaultMenu
     {
         public static void Menu(User user)
         {
@@ -34,10 +34,11 @@ namespace GreenFlamingos.Model
             }
         }
 
+        //Niezalogowany uzytkownik nie moze dodac/usunac/edytowac drinka
         public static void DrinkOptions()
         {
             Console.Clear();
-            Console.WriteLine("UserInterface dla drinków i koktajli :");
+            Console.WriteLine("Menu dla drinków i koktajli :");
             Console.WriteLine();
             Console.WriteLine("1.Dodaj");
             Console.WriteLine("2.Pokaż wszystkie ");

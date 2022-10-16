@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GreenFlamingos.Model;
+﻿using GreenFlamingos.Model;
+using GreenFlamingos.Model.Drinks;
 
 namespace GreenFlamingosApp.Services
 {
@@ -16,7 +12,7 @@ namespace GreenFlamingosApp.Services
             int userInput;   
             do 
             {
-                UserInterface.DrinkOptions();
+                DefaultMenu.DrinkOptions();
                 if (int.TryParse(Console.ReadLine(), out userInput))
                 {
                     switch(userInput)

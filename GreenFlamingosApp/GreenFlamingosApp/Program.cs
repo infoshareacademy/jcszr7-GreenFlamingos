@@ -3,10 +3,11 @@ using GreenFlamingosApp.Services;
 
 int userInput;
 var mainMenu = new MainMenuService();
-var user = new User();
+var user = new User("Admin","admin");
+user.UserStatus = true;
 do
 {
-    UserInterface.Menu(user);
+    DefaultMenu.Menu(user);
 
     if (int.TryParse(Console.ReadLine(), out userInput))
     {

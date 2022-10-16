@@ -1,9 +1,4 @@
-﻿using GreenFlamingos.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GreenFlamingos.Model.Drinks;
 
 namespace GreenFlamingosApp.Services
 {
@@ -44,15 +39,40 @@ namespace GreenFlamingosApp.Services
 
             return ingredient;
         }
+        public int Capacity_Check()
+        {
+            int capacity;
+            bool capacityOk = false;
+            do
+            {
+                Console.WriteLine("Podaj Pojemność:");
 
+                if (int.TryParse(Console.ReadLine(), out capacity))
+                {
+                    if (capacity >= 100 && capacity <= 500)
+                    {
+                        capacityOk = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 100 - 500 ml");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Podana przez ciebie objetosc nie jest liczba.");
+                }
+            } while (!capacityOk);
+
+            return capacity;
+        }
         public void CreateAlcoDrink(AlcoDrink newAlcoDrink)
         {
             Console.WriteLine("Podaj nazwę drinka:");
             newAlcoDrink.Name = Console.ReadLine();
             Console.WriteLine("Podaj główny składnik drinka:");
             newAlcoDrink.MainIngredient = Console.ReadLine();
-            Console.WriteLine("Podaj objętość drinka:");
-            newAlcoDrink.Capacity = int.Parse(Console.ReadLine());
+            newAlcoDrink.Capacity = Capacity_Check();
 
             //////Extra Ingredients Service//////////
             newAlcoDrink.Ingredient1 = AdditionalIgredient();
@@ -66,13 +86,6 @@ namespace GreenFlamingosApp.Services
                 newAlcoDrink.Ingredient3 = AdditionalIgredient();
             return;
         }
-        //public void RemoveDrinksWithIngridient()
-        //{
-        //    Console.WriteLine("Podaj składnik a wszystkie drinki z tym składkiem zostaną usunięte z książki?");
-        //    string drinkIngridient = Console.ReadLine();
-        //    DrinkList.RemoveAll(DrinkList, drinkIngridient);
-        //    Console.WriteLine("Drink usunięty z książki.\n");
-        //}
 
         public void ClearDrinkBook()
         {

@@ -9,7 +9,7 @@ namespace GreenFlamingosApp.Services
         public UserBookService userBook = new UserBookService();
         public User user = new User();
         public DrinksMenu drinkMenu = new DrinksMenu();
-        //UserInterface userInterface = new UserInterface();
+        //DefaultMenu userInterface = new DefaultMenu();
 
         public User MenuStatus(int userInput)
         {
@@ -89,7 +89,7 @@ namespace GreenFlamingosApp.Services
         {
             Console.Clear();
             Console.WriteLine("Shots");
-            UserInterface.DrinkOptions();
+            DefaultMenu.DrinkOptions();
             Console.ReadKey();
         }
 
@@ -97,7 +97,7 @@ namespace GreenFlamingosApp.Services
         {
             Console.Clear();
             Console.WriteLine("Cocktails");
-            UserInterface.DrinkOptions();
+            DefaultMenu.DrinkOptions();
             Console.ReadKey();
         }
         public static void AccountService()
