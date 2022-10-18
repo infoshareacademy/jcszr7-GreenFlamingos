@@ -128,32 +128,48 @@ namespace GreenFlamingosApp.Services
             Console.WriteLine("Witaj w funkcji znajdz drinka, podaj składniki:");
             Console.WriteLine("Główny składnik:");
             var mainIngredient = Console.ReadLine();
-            Console.WriteLine("Podaj ilosc dodatkowych skladników jakie chcesz mieć w swoim drinku");
-            var ingredientsCount = 0;
-            var ingredientsList = new List<string>();
-            if (int.TryParse(Console.ReadLine(), out ingredientsCount))
+            var mainIngredientDrinks = DrinkList.Where(d => string.Equals(d.MainIngredient, mainIngredient, StringComparison.OrdinalIgnoreCase));
+            Console.WriteLine("Czy chcesz podać dodatkowe skladniki ? (y)");
+
+            if (string.Equals(Console.ReadLine().ToLower(), "y"))
             {
-                
-                for(int i = 0; i < ingredientsCount; i++)
+                Console.WriteLine("Podaj ilosc dodatkowych skladników jakie chcesz mieć w swoim drinku");
+                var ingredientsCount = 0;
+                var ingredientsList = new List<string>();
+                if (int.TryParse(Console.ReadLine(), out ingredientsCount))
                 {
-                    Console.WriteLine("Podaj skladnik: ");
-                    ingredientsList.Add(Console.ReadLine());
+
+                    for (int i = 0; i < ingredientsCount; i++)
+                    {
+                        Console.WriteLine("Podaj skladnik: ");
+                        ingredientsList.Add(Console.ReadLine());
+                    }
+                }
+                // returns list of object with mainIngredient set by User
+
+
+                if (mainIngredientDrinks != null)
+                {
+                    //Check list of ingredients contains ingredienst set by user.
+                    foreach (var mainIngredientDrink in mainIngredientDrinks)
+                        if (ingredientsList.All(ingredient => mainIngredientDrink.Ingredients.Contains(ingredient)))
+                        {
+                            mainIngredientDrink.ShowDrink();
+                            foundStatus = true;
+                        }
                 }
             }
-            // returns list of object with mainIngredient set by User
-            var mainIngredientDrinks = DrinkList.Where(d =>string.Equals(d.MainIngredient, mainIngredient, StringComparison.OrdinalIgnoreCase));
-
-            if (mainIngredientDrinks != null)
+            else
             {
-                //Check list of ingredients contains ingredienst set by user.
-                foreach (var mainIngredientDrink in mainIngredientDrinks)
-                    if (ingredientsList.All(ingredient => mainIngredientDrink.Ingredients.Contains(ingredient)))
+                if (mainIngredientDrinks != null)
+                    foreach(var mainIngredientDrink in mainIngredientDrinks)
                     {
                         mainIngredientDrink.ShowDrink();
                         foundStatus = true;
                     }
+
             }
-            if(!foundStatus)
+            if (!foundStatus)
             {
                 Console.WriteLine("Nie znaleziono drinka");
             }
