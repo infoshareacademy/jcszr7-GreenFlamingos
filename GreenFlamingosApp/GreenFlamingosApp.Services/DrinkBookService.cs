@@ -5,9 +5,8 @@ namespace GreenFlamingosApp.Services
     internal class DrinkBookService
     {
         public List<Drink> DrinkList = new List<Drink>();
-        //public List<string> IngredientsList = new List<string>();
         public List<string> PreparationStepsList = new List<string>();
-        AlcoDrink alcoDrink = new AlcoDrink();
+        public AlcoDrink alcoDrink = new AlcoDrink();
         public DrinkBookService() { }
         public void AddDrink(Drink drink)
         {
@@ -17,7 +16,7 @@ namespace GreenFlamingosApp.Services
 
         public void RemoveDrink()
         {
-
+            Console.Clear();
             ShowAllDrinks();
             Console.WriteLine("Podaj nazwe Drinka, którego chcesz usunąć?");
             var drinkName = Console.ReadLine();
@@ -36,27 +35,9 @@ namespace GreenFlamingosApp.Services
 
             
         }
-
-        //Function to add extra ingredients ( max cuantity of ingredients is 3 - can be more, but Drink class has to be changed)
-        public string AdditionalIgredient()
+        public int Capacity_Check(int MenuIndex)
         {
-            string ingredient;
-            Console.WriteLine("Czy chcesz podac dodatkowe skladniki ? (y)");
-            string userInput = Console.ReadLine();
-            if (string.Equals(userInput, "y"))
-            {
-                Console.WriteLine("Podaj dodatkowy skladnik:");
-                ingredient = Console.ReadLine();
-            }
-            else
-            {
-                ingredient = null;
-            }
-
-            return ingredient;
-        }
-        public int Capacity_Check()
-        {
+            Console.Clear();
             var capacity = 0;
             var capacityOk = false;
             do
@@ -65,13 +46,27 @@ namespace GreenFlamingosApp.Services
 
                 if (int.TryParse(Console.ReadLine(), out capacity))
                 {
-                    if (capacity >= 100 && capacity <= 500)
+                    if (MenuIndex == 1)
                     {
-                        capacityOk = true;
+                        if (capacity >= 100 && capacity <= 500)
+                        {
+                            capacityOk = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 100 - 500 ml");
+                        }
                     }
-                    else
+                    else if(MenuIndex == 2)
                     {
-                        Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 100 - 500 ml");
+                        if (capacity >= 25 && capacity <= 100)
+                        {
+                            capacityOk = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 25 - 100 ml");
+                        }
                     }
                 }
                 else
@@ -82,20 +77,21 @@ namespace GreenFlamingosApp.Services
 
             return capacity;
         }
-        public void CreateAlcoDrink(AlcoDrink newAlcoDrink,User user)
+        public void CreateDrink(Drink newDrink,User user, int MenuIndex)
         {
+            Console.Clear();
             Console.WriteLine("Podaj nazwę drinka:");
-            newAlcoDrink.Name = Console.ReadLine();
+            newDrink.Name = Console.ReadLine();
             Console.WriteLine("Podaj główny składnik drinka:");
-            newAlcoDrink.MainIngredient = Console.ReadLine();
-            newAlcoDrink.Capacity = Capacity_Check();
-            newAlcoDrink.Owner = user;
+            newDrink.MainIngredient = Console.ReadLine();
+            newDrink.Capacity = Capacity_Check(MenuIndex);
+            newDrink.Owner = user;
             Console.WriteLine("Podaj zawartość alkoholu w drinku w %: ");
-            newAlcoDrink.AlcoholContent = int.Parse(Console.ReadLine());  // Validation needed( int.TryParse)
+            newDrink.AlcoholContent = int.Parse(Console.ReadLine());  // Validation needed( int.TryParse)
             Console.WriteLine("Podaj ilość kalorii drinka: ");
-            newAlcoDrink.Calories = int.Parse(Console.ReadLine());  // Validation needed( int.TryParse)
+            newDrink.Calories = int.Parse(Console.ReadLine());  // Validation needed( int.TryParse)
             Console.WriteLine("Podaj opis: ");
-            newAlcoDrink.Description = Console.ReadLine();
+            newDrink.Description = Console.ReadLine();
             Console.WriteLine("Ile składników chcesz dodać?");
             var ingredientamount = int.Parse(Console.ReadLine()); // Validation needed(int.TryParse)
 
@@ -114,20 +110,19 @@ namespace GreenFlamingosApp.Services
                 var step = Console.ReadLine();
                 PreparationStepsList.Add(step);
             }
-            newAlcoDrink.Ingredients = IngredientsList;
-            newAlcoDrink.Preparation = PreparationStepsList;
+            newDrink.Ingredients = IngredientsList;
+            newDrink.Preparation = PreparationStepsList;
         }
 
-        public void SortBy(Drink drink)
-        {
-            DrinkList.Sort();
-        }
         public void DirnkMatch()
         {
+            Console.Clear();
             var foundStatus = false;
             Console.WriteLine("Witaj w funkcji znajdz drinka, podaj składniki:");
             Console.WriteLine("Główny składnik:");
             var mainIngredient = Console.ReadLine();
+
+            // returns list of object with mainIngredient set by User
             var mainIngredientDrinks = DrinkList.Where(d => string.Equals(d.MainIngredient, mainIngredient, StringComparison.OrdinalIgnoreCase));
             Console.WriteLine("Czy chcesz podać dodatkowe skladniki ? (y)");
 
@@ -145,11 +140,9 @@ namespace GreenFlamingosApp.Services
                         ingredientsList.Add(Console.ReadLine());
                     }
                 }
-                // returns list of object with mainIngredient set by User
-
-
                 if (mainIngredientDrinks != null)
                 {
+                    Console.Clear();
                     //Check list of ingredients contains ingredienst set by user.
                     foreach (var mainIngredientDrink in mainIngredientDrinks)
                         if (ingredientsList.All(ingredient => mainIngredientDrink.Ingredients.Contains(ingredient)))

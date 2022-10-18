@@ -8,6 +8,7 @@ namespace GreenFlamingos.Model.Drinks
 {
     public class Shot : Drink
     {
+        public Shot(){}
         public Shot(string name, User owner, string mainIgredient, int capacity, double alcoholContent, int calories, List<string> ingriedients, string description, List<string> preparation)
         {
             Random rnd = new Random();

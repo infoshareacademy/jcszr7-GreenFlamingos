@@ -1,34 +1,37 @@
 ﻿using GreenFlamingos.Model;
+using GreenFlamingos.Model.Drinks;
 using GreenFlamingosApp.DataBase;
 
 
-namespace GreenFlamingosApp.Services
+namespace GreenFlamingosApp.Services.MenuServices
 {
     public class MainMenuService
     {
         public UserBookService userBook = new UserBookService();
         public User user = new User();
         public DrinksMenu drinkMenu = new DrinksMenu();
+        public AlcoDrink alcoDrink = new AlcoDrink();
+        public Shot shot = new Shot();
         //DefaultMenu userInterface = new DefaultMenu();
 
         public void MenuStatus(ref User user, int userInput)
         {
-            
+
             if (!user.UserStatus)
             {
                 switch (userInput)
                 {
                     case 1:
-                        user  = userBook.LogIn();
+                        user = userBook.LogIn();
                         break;
                     case 2:
                         userBook.AddUser();
                         break;
                     case 3:
-                        drinkMenu.DrinkService(user);
+                        drinkMenu.DrinkService(alcoDrink, user, userInput);
                         break;
                     case 4:
-                        Shots();
+                        drinkMenu.DrinkService(shot, user, userInput);
                         break;
                     case 5:
                         Coctails();
@@ -43,10 +46,10 @@ namespace GreenFlamingosApp.Services
                 switch (userInput)
                 {
                     case 1:
-                        drinkMenu.DrinkService(user);
+                        drinkMenu.DrinkService(alcoDrink,user,userInput);
                         break;
                     case 2:
-                        Shots();
+                        drinkMenu.DrinkService(shot, user,userInput);
                         break;
                     case 3:
                         Coctails();
@@ -64,17 +67,17 @@ namespace GreenFlamingosApp.Services
             }
         }
 
-        public void MenuService(ref User user,int userInput)
+        public void MenuService(ref User user, int userInput)
         {
-                if (userInput > 0 && userInput <= 6)
-                {
-                    MenuStatus(ref user,userInput);
-                }
-                else
-                {
-                    Console.WriteLine("Podałes liczbe z poza zakresu 1-6");
-                    Console.ReadKey();
-                }
+            if (userInput > 0 && userInput <= 6)
+            {
+                MenuStatus(ref user, userInput);
+            }
+            else
+            {
+                Console.WriteLine("Podałes liczbe z poza zakresu 1-6");
+                Console.ReadKey();
+            }
         }
 
         public void Shots()

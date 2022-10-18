@@ -1,5 +1,5 @@
 ﻿using GreenFlamingos.Model;
-using GreenFlamingosApp.Services;
+using GreenFlamingosApp.Services.MenuServices;
 
 int userInput;
 var mainMenu = new MainMenuService();
