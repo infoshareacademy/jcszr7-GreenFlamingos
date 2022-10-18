@@ -6,10 +6,9 @@ namespace GreenFlamingosApp.Services
     public class DrinksMenu
     {
         DrinkBookService drinkBook = new DrinkBookService();
-
-        public void DrinkService()
+        public void DrinkService(User user)
         {
-            int userInput;   
+            var userInput = 0;  
             do 
             {
                 DefaultMenu.DrinkOptions();
@@ -19,7 +18,7 @@ namespace GreenFlamingosApp.Services
                     {
                         case 1:
                             var newAlcoDrink = new AlcoDrink();
-                            drinkBook.CreateAlcoDrink(newAlcoDrink);
+                            drinkBook.CreateAlcoDrink(newAlcoDrink,user);
 
                             //Validation of drink name - if in DrinkBookService exists drink with the same name as user set - do not add.
                             var drinkToAdd = drinkBook.DrinkList.Find(d => string.Equals(d.Name.ToUpper(), newAlcoDrink.Name.ToUpper()));
@@ -31,11 +30,14 @@ namespace GreenFlamingosApp.Services
                             else
                             {
                                 drinkToAdd = new AlcoDrink(newAlcoDrink.Name,
+                                                           newAlcoDrink.Owner,
                                                            newAlcoDrink.MainIngredient,
                                                            newAlcoDrink.Capacity,
-                                                           newAlcoDrink.Ingredient1,
-                                                           newAlcoDrink.Ingredient2,
-                                                           newAlcoDrink.Ingredient3);
+                                                           newAlcoDrink.AlcoholContent,
+                                                           newAlcoDrink.Calories,
+                                                           newAlcoDrink.Ingredients,
+                                                           newAlcoDrink.Description,
+                                                           newAlcoDrink.Preparation);
                                 drinkBook.AddDrink(drinkToAdd);
                                 Console.WriteLine("Brawo, Pomyslnie stworzyłeś drinka !");
                                 Console.ReadKey();
@@ -52,7 +54,7 @@ namespace GreenFlamingosApp.Services
                             Console.ReadKey();
                             break;
                         case 4:
-                            Console.WriteLine("Znajdz Drinka");
+                            drinkBook.DirnkMatch();
                             Console.ReadKey();
                             break;
                         case 5:

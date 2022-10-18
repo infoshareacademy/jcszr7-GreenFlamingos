@@ -7,7 +7,7 @@ namespace GreenFlamingosApp.Services
     public class MainMenuService
     {
         public UserBookService userBook = new UserBookService();
-        //public User user = new User();
+        public User user = new User();
         public DrinksMenu drinkMenu = new DrinksMenu();
         //DefaultMenu userInterface = new DefaultMenu();
 
@@ -25,7 +25,7 @@ namespace GreenFlamingosApp.Services
                         userBook.AddUser();
                         break;
                     case 3:
-                        Drinks();
+                        drinkMenu.DrinkService(user);
                         break;
                     case 4:
                         Shots();
@@ -43,7 +43,7 @@ namespace GreenFlamingosApp.Services
                 switch (userInput)
                 {
                     case 1:
-                        Drinks();
+                        drinkMenu.DrinkService(user);
                         break;
                     case 2:
                         Shots();
@@ -77,12 +77,6 @@ namespace GreenFlamingosApp.Services
                 }
         }
 
-        public void Drinks()
-        {
-            Console.Clear();
-            drinkMenu.DrinkService();
-            Console.ReadKey();
-        }
         public void Shots()
         {
             Console.Clear();

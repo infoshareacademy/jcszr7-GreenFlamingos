@@ -3,29 +3,26 @@
     public class AlcoDrink : Drink
     {
         public AlcoDrink() { }
-        public AlcoDrink(string name, string mainIgredient, int capacity)
+        public AlcoDrink(string name, User owner, string mainIgredient, int capacity, double alcoholContent, int calories, List<string> ingriedients, string description, List<string> preparation)
         {
+            Random rnd = new Random();
+            DrinkID = rnd.Next(100000, 299999);
+            //Here is needed a condition to check if created number is already used by other AlcoDrink
+
             DrinkType = "Drink";
             Name = name;
+            Owner = owner;
             MainIngredient = mainIgredient;
-
             if (capacity < 100 || capacity > 500)
                 throw new ArgumentOutOfRangeException();
             else
                 Capacity = capacity;
-        }
 
-        public AlcoDrink(string name, string mainIgredient, int capacity, string igredient1) : this(name, mainIgredient, capacity)
-        {
-            Ingredient1 = igredient1;
-        }
-        public AlcoDrink(string name, string mainIgredient, int capacity, string igredient1, string igredient2) : this(name, mainIgredient, capacity, igredient1)
-        {
-            Ingredient2 = igredient2;
-        }
-        public AlcoDrink(string name, string mainIgredient, int capacity, string igredient1, string igredient2, string igredient3) : this(name, mainIgredient, capacity, igredient1, igredient2)
-        {
-            Ingredient3 = igredient3;
+            AlcoholContent = alcoholContent;
+            Calories = calories;
+            Ingredients = ingriedients;
+            Description = description;
+            Preparation = preparation;
         }
     }
 }

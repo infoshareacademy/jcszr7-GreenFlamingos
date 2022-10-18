@@ -1,12 +1,14 @@
 ﻿using GreenFlamingos.Model.Drinks;
-
+using GreenFlamingos.Model;
 namespace GreenFlamingosApp.Services
 {
     internal class DrinkBookService
     {
         public List<Drink> DrinkList = new List<Drink>();
+        //public List<string> IngredientsList = new List<string>();
+        public List<string> PreparationStepsList = new List<string>();
         AlcoDrink alcoDrink = new AlcoDrink();
-        public DrinkBookService(){}
+        public DrinkBookService() { }
         public void AddDrink(Drink drink)
         {
             DrinkList.Add(drink);
@@ -15,10 +17,24 @@ namespace GreenFlamingosApp.Services
 
         public void RemoveDrink()
         {
-            Console.WriteLine("Który drink z listy chcesz usunąć?");
-            int drinkIndex = int.Parse(Console.ReadLine());
-            DrinkList.RemoveAt(drinkIndex - 1);
-            Console.WriteLine("Drink usunięty z książki.\n");
+
+            ShowAllDrinks();
+            Console.WriteLine("Podaj nazwe Drinka, którego chcesz usunąć?");
+            var drinkName = Console.ReadLine();
+            var drinkToRemove = DrinkList.FirstOrDefault(d => string.Equals(d.Name,drinkName,StringComparison.OrdinalIgnoreCase));
+
+            if(drinkToRemove != null)
+            {
+                DrinkList.Remove(drinkToRemove);
+                Console.WriteLine("Drink usunięty z książki.\n");
+                ShowAllDrinks();
+            }
+            else
+            {
+                Console.WriteLine("Nie ma drinka o podanej nazwie");
+            }
+
+            
         }
 
         //Function to add extra ingredients ( max cuantity of ingredients is 3 - can be more, but Drink class has to be changed)
@@ -41,8 +57,8 @@ namespace GreenFlamingosApp.Services
         }
         public int Capacity_Check()
         {
-            int capacity;
-            bool capacityOk = false;
+            var capacity = 0;
+            var capacityOk = false;
             do
             {
                 Console.WriteLine("Podaj Pojemność:");
@@ -66,36 +82,81 @@ namespace GreenFlamingosApp.Services
 
             return capacity;
         }
-        public void CreateAlcoDrink(AlcoDrink newAlcoDrink)
+        public void CreateAlcoDrink(AlcoDrink newAlcoDrink,User user)
         {
             Console.WriteLine("Podaj nazwę drinka:");
             newAlcoDrink.Name = Console.ReadLine();
             Console.WriteLine("Podaj główny składnik drinka:");
             newAlcoDrink.MainIngredient = Console.ReadLine();
             newAlcoDrink.Capacity = Capacity_Check();
+            newAlcoDrink.Owner = user;
+            Console.WriteLine("Podaj zawartość alkoholu w drinku w %: ");
+            newAlcoDrink.AlcoholContent = int.Parse(Console.ReadLine());  // Validation needed( int.TryParse)
+            Console.WriteLine("Podaj ilość kalorii drinka: ");
+            newAlcoDrink.Calories = int.Parse(Console.ReadLine());  // Validation needed( int.TryParse)
+            Console.WriteLine("Podaj opis: ");
+            newAlcoDrink.Description = Console.ReadLine();
+            Console.WriteLine("Ile składników chcesz dodać?");
+            var ingredientamount = int.Parse(Console.ReadLine()); // Validation needed(int.TryParse)
 
-            //////Extra Ingredients Service//////////
-            newAlcoDrink.Ingredient1 = AdditionalIgredient();
-            if (newAlcoDrink.Ingredient1 is null)
-                return;
-            else
-                newAlcoDrink.Ingredient2 = AdditionalIgredient();
-            if (newAlcoDrink.Ingredient2 is null)
-                return;
-            else
-                newAlcoDrink.Ingredient3 = AdditionalIgredient();
-            return;
-        }
-
-        public void ClearDrinkBook()
-        {
-            DrinkList.Clear();
-            Console.WriteLine("Wszystkie drinki z książki zostały usunięte.\n");
+            var IngredientsList = new List<string>();
+            for (int i = 0; i < ingredientamount; i++)
+            {
+                Console.WriteLine("Podaj składnik: ");
+                var ingredient = Console.ReadLine();
+                IngredientsList.Add(ingredient);
+            }
+            Console.WriteLine("Ile kroków potrzeba do przygotowania drinka?");
+            var stepsAmount = int.Parse(Console.ReadLine()); // Validation needed(int.TryParse)
+            for (int i = 0; i < stepsAmount; i++)
+            {
+                Console.WriteLine("Podaj krok: ");
+                var step = Console.ReadLine();
+                PreparationStepsList.Add(step);
+            }
+            newAlcoDrink.Ingredients = IngredientsList;
+            newAlcoDrink.Preparation = PreparationStepsList;
         }
 
         public void SortBy(Drink drink)
         {
             DrinkList.Sort();
+        }
+        public void DirnkMatch()
+        {
+            var foundStatus = false;
+            Console.WriteLine("Witaj w funkcji znajdz drinka, podaj składniki:");
+            Console.WriteLine("Główny składnik:");
+            var mainIngredient = Console.ReadLine();
+            Console.WriteLine("Podaj ilosc dodatkowych skladników jakie chcesz mieć w swoim drinku");
+            var ingredientsCount = 0;
+            var ingredientsList = new List<string>();
+            if (int.TryParse(Console.ReadLine(), out ingredientsCount))
+            {
+                
+                for(int i = 0; i < ingredientsCount; i++)
+                {
+                    Console.WriteLine("Podaj skladnik: ");
+                    ingredientsList.Add(Console.ReadLine());
+                }
+            }
+            // returns list of object with mainIngredient set by User
+            var mainIngredientDrinks = DrinkList.Where(d =>string.Equals(d.MainIngredient, mainIngredient, StringComparison.OrdinalIgnoreCase));
+
+            if (mainIngredientDrinks != null)
+            {
+                //Check list of ingredients contains ingredienst set by user.
+                foreach (var mainIngredientDrink in mainIngredientDrinks)
+                    if (ingredientsList.All(ingredient => mainIngredientDrink.Ingredients.Contains(ingredient)))
+                    {
+                        mainIngredientDrink.ShowDrink();
+                        foundStatus = true;
+                    }
+            }
+            if(!foundStatus)
+            {
+                Console.WriteLine("Nie znaleziono drinka");
+            }
         }
 
         public void ShowAllDrinks()
