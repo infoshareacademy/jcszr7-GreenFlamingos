@@ -12,7 +12,7 @@ namespace GreenFlamingosApp.Services
             int userInput;   
             do 
             {
-                DefaultMenu.DrinkOptions();
+                DefaultMenu.DrinkOptionsForAdmin();
                 if (int.TryParse(Console.ReadLine(), out userInput))
                 {
                     switch(userInput)

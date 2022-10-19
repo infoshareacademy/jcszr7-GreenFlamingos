@@ -87,7 +87,7 @@ namespace GreenFlamingosApp.Services
         {
             Console.Clear();
             Console.WriteLine("Shots");
-            DefaultMenu.DrinkOptions();
+            DefaultMenu.DrinkOptionsForAdmin();
             Console.ReadKey();
         }
 
@@ -95,7 +95,7 @@ namespace GreenFlamingosApp.Services
         {
             Console.Clear();
             Console.WriteLine("Cocktails");
-            DefaultMenu.DrinkOptions();
+            DefaultMenu.DrinkOptionsForAdmin();
             Console.ReadKey();
         }
         public static void AccountService()
