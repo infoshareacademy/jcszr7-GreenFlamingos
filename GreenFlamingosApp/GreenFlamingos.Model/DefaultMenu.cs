@@ -37,15 +37,16 @@ namespace GreenFlamingos.Model
         //Niezalogowany uzytkownik nie moze dodac/usunac/edytowac drinka
         public static void DrinkOptions()
         {
-            Console.Clear();
-            Console.WriteLine("Menu dla drinków i koktajli :");
-            Console.WriteLine();
-            Console.WriteLine("1.Dodaj");
-            Console.WriteLine("2.Pokaż wszystkie ");
-            Console.WriteLine("3.Usuń ");
-            Console.WriteLine("4.Znajdź ");
-            Console.WriteLine("5.Edycja ");
-            Console.WriteLine("6.Wyjście");
+                Console.Clear();
+                Console.WriteLine("Menu dla drinków i koktajli :");
+                Console.WriteLine();
+                Console.WriteLine("1.Dodaj");
+                Console.WriteLine("2.Pokaż wszystkie ");
+                Console.WriteLine("3.Usuń ");
+                Console.WriteLine("4.Znajdź ");
+                Console.WriteLine("5.Edycja ");
+                Console.WriteLine("6.Wyjście");
+
         }
     }
 }
