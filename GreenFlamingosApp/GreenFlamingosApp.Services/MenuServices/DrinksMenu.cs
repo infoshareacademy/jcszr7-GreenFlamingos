@@ -56,6 +56,19 @@ namespace GreenFlamingosApp.Services.MenuServices
                                                              newDrink.Preparation);
                                             break;
                                         }
+                                    case 3:
+                                        {
+                                            drinkToAdd = new NoAlcoDrink(newDrink.Name,
+                                                             newDrink.Owner,
+                                                             newDrink.MainIngredient,
+                                                             newDrink.Capacity,
+                                                             newDrink.AlcoholContent,
+                                                             newDrink.Calories,
+                                                             newDrink.Ingredients,
+                                                             newDrink.Description,
+                                                             newDrink.Preparation);
+                                            break;
+                                        }
                                 }   
                                 drinkBook.AddDrink(drinkToAdd);
                                 Console.WriteLine($"Brawo, Pomyslnie stworzyłeś {drinkToAdd.DrinkType} !");
@@ -65,11 +78,11 @@ namespace GreenFlamingosApp.Services.MenuServices
                             Console.ReadKey();
                             break;
                         case 2:
-                            drinkBook.ShowAllDrinks();
+                            drinkBook.ShowAllDrinks(MenuIndex);
                             Console.ReadKey();
                             break;
                         case 3:
-                            drinkBook.RemoveDrink();
+                            drinkBook.RemoveDrink(MenuIndex);
                             Console.ReadKey();
                             break;
                         case 4:

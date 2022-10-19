@@ -8,6 +8,7 @@ namespace GreenFlamingos.Model.Drinks
 {
     public class NoAlcoDrink : Drink
     {
+        public NoAlcoDrink() {}
         public NoAlcoDrink(string name, User owner, string mainIgredient, int capacity, double alcoholContent, int calories, List<string> ingriedients, string description, List<string> preparation)
         {
             Random rnd = new Random();
@@ -19,7 +20,7 @@ namespace GreenFlamingos.Model.Drinks
             Owner = owner;
             MainIngredient = mainIgredient;
 
-            if (capacity < 25 || capacity > 100)
+            if (capacity < 250 || capacity > 1000)
                 throw new ArgumentOutOfRangeException();
             else
                 Capacity = capacity;

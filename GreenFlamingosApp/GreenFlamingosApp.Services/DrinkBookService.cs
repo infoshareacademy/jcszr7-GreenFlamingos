@@ -1,5 +1,6 @@
 ﻿using GreenFlamingos.Model.Drinks;
 using GreenFlamingos.Model;
+using System.Linq;
 namespace GreenFlamingosApp.Services
 {
     internal class DrinkBookService
@@ -14,10 +15,10 @@ namespace GreenFlamingosApp.Services
             Console.WriteLine("Drink dodany do książki.\n");
         }
 
-        public void RemoveDrink()
+        public void RemoveDrink(int MenuIndex)
         {
             Console.Clear();
-            ShowAllDrinks();
+            ShowAllDrinks(MenuIndex);
             Console.WriteLine("Podaj nazwe Drinka, którego chcesz usunąć?");
             var drinkName = Console.ReadLine();
             var drinkToRemove = DrinkList.FirstOrDefault(d => string.Equals(d.Name,drinkName,StringComparison.OrdinalIgnoreCase));
@@ -26,7 +27,7 @@ namespace GreenFlamingosApp.Services
             {
                 DrinkList.Remove(drinkToRemove);
                 Console.WriteLine("Drink usunięty z książki.\n");
-                ShowAllDrinks();
+                ShowAllDrinks(MenuIndex);
             }
             else
             {
@@ -35,7 +36,7 @@ namespace GreenFlamingosApp.Services
 
             
         }
-        public int Capacity_Check(int MenuIndex)
+        private int Capacity_Check(int MenuIndex)
         {
             Console.Clear();
             var capacity = 0;
@@ -68,6 +69,17 @@ namespace GreenFlamingosApp.Services
                             Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 25 - 100 ml");
                         }
                     }
+                    else
+                    {
+                        if (capacity >= 250 && capacity <= 1000)
+                        {
+                            capacityOk = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 250 - 1000 ml");
+                        }
+                    }
                 }
                 else
                 {
@@ -86,8 +98,15 @@ namespace GreenFlamingosApp.Services
             newDrink.MainIngredient = Console.ReadLine();
             newDrink.Capacity = Capacity_Check(MenuIndex);
             newDrink.Owner = user;
-            Console.WriteLine("Podaj zawartość alkoholu w drinku w %: ");
-            newDrink.AlcoholContent = int.Parse(Console.ReadLine());  // Validation needed( int.TryParse)
+            if (MenuIndex != 3)
+            {
+                Console.WriteLine("Podaj zawartość alkoholu w drinku w %: ");
+                newDrink.AlcoholContent = int.Parse(Console.ReadLine());  // Validation needed( int.TryParse)
+            }
+            else
+            {
+                newDrink.AlcoholContent = 0;
+            }
             Console.WriteLine("Podaj ilość kalorii drinka: ");
             newDrink.Calories = int.Parse(Console.ReadLine());  // Validation needed( int.TryParse)
             Console.WriteLine("Podaj opis: ");
@@ -168,16 +187,48 @@ namespace GreenFlamingosApp.Services
             }
         }
 
-        public void ShowAllDrinks()
+        public void ShowAllDrinks(int MenuIndex)
         {
-            if (DrinkList.Count == 0)
+
+            switch(MenuIndex)
             {
-                Console.WriteLine("Książka jest pusta!");
-            }
-       
-            foreach (var drink in DrinkList)
-            {
-                drink.ShowDrink();
+                case 1:
+                    var drinks = DrinkList.Where(d => d.DrinkType == "Drink");
+                    if(drinks.Count() > 0)
+                    {
+                        foreach (var item in drinks)
+                            item.ShowDrink();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nie ma drinków w książce");
+                    }
+
+                    break;
+                case 2:
+                    var shots = DrinkList.Where(s => s.DrinkType == "Shot");
+                    if (shots.Count() > 0)
+                    {
+                        foreach (var item in shots)
+                            item.ShowDrink();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nie ma shotów w książce");
+                    }
+                    break;
+                case 3:
+                    var coctails = DrinkList.Where(c => c.DrinkType == "Drink bezalkoholowy");
+                    if(coctails.Count() > 0)
+                    {
+                        foreach (var item in coctails)
+                            item.ShowDrink();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Nie ma koktajli bezalkoholowych w książce");
+                    }
+                    break;
             }
         }
     }
