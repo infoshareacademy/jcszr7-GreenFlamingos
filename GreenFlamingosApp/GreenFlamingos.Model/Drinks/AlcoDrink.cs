@@ -1,4 +1,6 @@
-﻿namespace GreenFlamingos.Model.Drinks
+﻿using System.Drawing;
+
+namespace GreenFlamingos.Model.Drinks
 {
     public class AlcoDrink : Drink
     {

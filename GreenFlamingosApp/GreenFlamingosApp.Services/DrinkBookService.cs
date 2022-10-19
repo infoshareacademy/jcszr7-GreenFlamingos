@@ -109,9 +109,64 @@ namespace GreenFlamingosApp.Services
             Console.WriteLine("Wszystkie drinki z książki zostały usunięte.\n");
         }
 
-        public void SortBy(Drink drink)
+        public void ShowingDrinksWithIngredient()
         {
-            DrinkList.Sort();
+            Console.WriteLine("Wprowadź składnik: ");
+            var ingredient = Console.ReadLine();
+            var listWithIngredient = DrinkList.Where(x => x.Ingredients.Any(y => y == ingredient)).ToList();
+            if (listWithIngredient.Count == 0)
+            {
+                Console.WriteLine("żaden z drinków w książce nie zawiera podanego składnika");
+            }
+            else
+            {
+            Console.WriteLine("Lista drinków zawierająca podany składnik:");
+                foreach (var item in listWithIngredient)
+                {
+                    item.ShowDrinkWithIngredient();
+                }
+            }
+            Console.ReadKey();
+        }
+
+
+        public void ShowingDrinksWithBiggerCapacityThen()
+        {
+            Console.WriteLine("Podaj objętość a podam wszystkie większe");
+            var capacity = int.Parse(Console.ReadLine());
+            var listWithIBiggerCapacity = DrinkList.Where(x => x.Capacity > capacity).ToList();
+            if (listWithIBiggerCapacity.Count == 0)
+            {
+                Console.WriteLine("w książce nie ma takich drinków");
+            }
+            else
+            {
+                Console.WriteLine("Lista drinków z większą objętością niż podana:");
+                foreach (var item in listWithIBiggerCapacity)
+                {
+                    item.ShowDrinkWithIngredient();
+                }
+            }
+            Console.ReadKey();
+        }
+
+
+        public void SortByName()
+        {
+            var orderedDrinksByName = DrinkList.OrderBy(o => o.Name);
+            foreach (var item in orderedDrinksByName)
+            {
+                Console.WriteLine(item.Name);
+            }
+        }
+
+        public void SortByCapacity()
+        {
+            var orderedDrinksByName = DrinkList.OrderBy(o => o.Capacity);
+            foreach (var item in orderedDrinksByName)
+            {
+                Console.WriteLine(item.Name);
+            }
         }
 
         public void ShowAllDrinks()

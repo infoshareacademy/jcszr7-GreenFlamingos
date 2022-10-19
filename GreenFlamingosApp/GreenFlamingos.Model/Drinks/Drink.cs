@@ -42,6 +42,11 @@
             Console.WriteLine("\n");
         }
 
+        virtual public void ShowDrinkWithIngredient()
+        {
+            Console.WriteLine($"Nazwa drinka: {Name}, główny składnik: {MainIngredient}, objętość: {Capacity}ml\n");
+        }
+
         public virtual void ShowDrink()
         {
             ShowIngredients();

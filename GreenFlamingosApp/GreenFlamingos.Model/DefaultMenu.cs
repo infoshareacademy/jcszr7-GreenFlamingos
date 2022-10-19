@@ -46,6 +46,9 @@ namespace GreenFlamingos.Model
             Console.WriteLine("4.Znajdź ");
             Console.WriteLine("5.Edycja ");
             Console.WriteLine("6.Wyjście");
+            Console.WriteLine("7.Podaj składnik aby dostać listę drinków z tym składnikiem");
+            Console.WriteLine("8.Sortuj po nazwie");
+            Console.WriteLine("9.Pokaz drinki z wiekszą objętością niż podana");
         }
     }
 }

@@ -65,6 +65,18 @@ namespace GreenFlamingosApp.Services
                         case 6:
                             Console.WriteLine("Bye");
                             break;
+                        case 7:
+                            drinkBook.ShowingDrinksWithIngredient();
+                            Console.ReadKey();
+                            break;
+                        case 8:
+                            drinkBook.SortByName();
+                            Console.ReadKey();
+                            break;
+                        case 9:
+                            drinkBook.ShowingDrinksWithBiggerCapacityThen();
+                            Console.ReadKey();
+                            break;
                     }
                 }
                 }while (userInput!=6);
