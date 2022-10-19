@@ -113,7 +113,6 @@ namespace GreenFlamingosApp.Services
             newDrink.Description = Console.ReadLine();
             Console.WriteLine("Ile składników chcesz dodać?");
             var ingredientamount = int.Parse(Console.ReadLine()); // Validation needed(int.TryParse)
-
             var IngredientsList = new List<string>();
             for (int i = 0; i < ingredientamount; i++)
             {
