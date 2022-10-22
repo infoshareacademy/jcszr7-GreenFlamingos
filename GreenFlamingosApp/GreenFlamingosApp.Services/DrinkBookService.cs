@@ -1,5 +1,6 @@
 ﻿using GreenFlamingos.Model;
 using GreenFlamingos.Model.Drinks;
+using GreenFlamingosApp.DataBase;
 
 namespace GreenFlamingosApp.Services
 {
@@ -71,6 +72,7 @@ namespace GreenFlamingosApp.Services
         }
         public void CreateAlcoDrink(AlcoDrink newAlcoDrink)
         {
+            string ingredient;
             Console.WriteLine("Podaj nazwę drinka:");
             newAlcoDrink.Name = Console.ReadLine();
             Console.WriteLine("Podaj główny składnik drinka:");
@@ -85,10 +87,11 @@ namespace GreenFlamingosApp.Services
             newAlcoDrink.Description = Console.ReadLine();
             Console.WriteLine("Ile składników chcesz dodać?");
             var ingredientamount = int.Parse(Console.ReadLine());
+            Console.WriteLine($"składniki: {IngredientsListClass.IngredientList()}");
             for (int i = 0; i < ingredientamount; i++)
             {
-                Console.WriteLine("Podaj składnik: ");
-                var ingredient = Console.ReadLine();
+                Console.WriteLine($"Podaj składnik {i+1}:");
+                ingredient = AcquireIngredient();
                 IngredientsList.Add(ingredient);
             }
             Console.WriteLine("Ile kroków potrzeba do przygotowania drinka?");
@@ -181,5 +184,23 @@ namespace GreenFlamingosApp.Services
                 drink.ShowDrink();
             }
         }
+
+        string AcquireIngredient()
+        {
+            var ingredient = "";
+            ingredient = Console.ReadLine();
+            do
+            {
+                if (IngredientsListClass.AllIngredientsList.Contains(ingredient)) break;
+                else
+                {
+                    Console.WriteLine($"Wybierz drinka dostępnego z listy: {IngredientsListClass.IngredientList()}");
+                    ingredient = Console.ReadLine();
+                }
+            }
+            while (true);
+            return ingredient;
+        }
+
     }
 }
