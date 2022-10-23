@@ -12,7 +12,7 @@ namespace GreenFlamingos.Model
         {
             Console.Clear();
             Console.WriteLine("Witaj w aplikacji GreenFlamingos! Wybierz jedną z opcji");
-            if (!user.UserStatus)
+            if (user.UserLevel == UserLevel.unlogged)
             {
 
                 Console.WriteLine("1.Zaloguj sie");
@@ -34,9 +34,10 @@ namespace GreenFlamingos.Model
             }
         }
 
-        //Niezalogowany uzytkownik nie moze dodac/usunac/edytowac drinka
-        public static void DrinkOptions()
+        public static void DrinkOptions(User user)
         {
+            if (user.UserLevel == UserLevel.logged)
+            {
                 Console.Clear();
                 Console.WriteLine("Menu dla drinków i koktajli :");
                 Console.WriteLine();
@@ -46,6 +47,29 @@ namespace GreenFlamingos.Model
                 Console.WriteLine("4.Znajdź ");
                 Console.WriteLine("5.Edycja ");
                 Console.WriteLine("6.Wyjście");
+            }
+            else if(user.UserLevel == UserLevel.admin)
+            {
+                Console.Clear();
+                Console.WriteLine("Menu dla drinków i koktajli :");
+                Console.WriteLine();
+                Console.WriteLine("1.Dodaj");
+                Console.WriteLine("2.Pokaż wszystkie ");
+                Console.WriteLine("3.Usuń ");
+                Console.WriteLine("4.Znajdź ");
+                Console.WriteLine("5.Edycja ");
+                Console.WriteLine("6.Edycja bazy danych");
+                Console.WriteLine("7.Wyjście");
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Menu dla drinków i koktajli :");
+                Console.WriteLine();
+                Console.WriteLine("1.Pokaż wszystkie ");
+                Console.WriteLine("2.Znajdź ");
+                Console.WriteLine("3.Wyjście");
+            }
 
         }
     }

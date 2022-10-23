@@ -1,24 +1,120 @@
 ﻿using GreenFlamingos.Model.Drinks;
 using GreenFlamingos.Model;
-using System.Linq;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
+
 namespace GreenFlamingosApp.Services
 {
-    internal class DrinkBookService
+    public class DrinkBookService
     {
+
         public List<Drink> DrinkList = new List<Drink>();
-        public List<string> PreparationStepsList = new List<string>();
+        public List<AlcoDrink> DrinkList1 = new List<AlcoDrink>();
+        //public List<string> PreparationStepsList = new List<string>();
         public AlcoDrink alcoDrink = new AlcoDrink();
-        public DrinkBookService() { }
+        public DrinkBookService() 
+        {
+            var json = File.ReadAllText(@"..\..\..\..\DrinkBook.json");
+            JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+            DrinkList = JsonConvert.DeserializeObject<List<Drink>>(json,settings);
+        }
+        public void ChangeDrink(Drink drink, User user)
+        {
+            Console.Clear();
+            ShowAllDrinks(drink);
+            Console.WriteLine("Podaj nazwe drinka, jakiego chcesz zmienic: ");
+            var drinkName = Console.ReadLine();
+            Console.Clear();
+            var drinkToChange = DrinkList.FirstOrDefault(d=>string.Equals(d.Name,drinkName,StringComparison.OrdinalIgnoreCase));
+            if(drinkToChange != null)
+            {
+                drinkToChange.ShowDrink();
+                Console.WriteLine("Co chcialbyś zmienić w drinku ? Mozliwe opcje: ");
+                DrinkProperites.ShowAllDrinkProperites();
+                var userInput = Console.ReadLine();
+                Console.Clear();
+                if (userInput.ToLower() == nameof(DrinkProperites.DrinkProperties.nazwa).ToLower())
+                {
+                    Console.WriteLine("Podaj nową nazwe drinka: ");
+                    var newName = Console.ReadLine();
+                    drinkToChange.Name = newName;
+                    drinkToChange.Owner = user;
+                    Console.WriteLine("Pomyslnie zmieniles napoj !");
+                }
+                else if(userInput.ToLower() == nameof(DrinkProperites.DrinkProperties.glownySkladnik).ToLower())
+                {
+                    Console.WriteLine("Podaj nowy glowny skladnik");
+                    var newMainIngredient = Console.ReadLine();
+                    drinkToChange.MainIngredient = newMainIngredient;
+                    drinkToChange.Owner = user;
+                    Console.WriteLine("Pomyslnie zmieniles napoj !");
+                }
+                else if(userInput.ToLower() == nameof(DrinkProperites.DrinkProperties.pojemnosc).ToLower())
+                {
+                    Console.WriteLine("Podaj nową objetosc napoju: ");
+                    var newCapacity = ValidateCapacity(drink);
+                    drinkToChange.Capacity = newCapacity;
+                    drinkToChange.Owner = user;
+                    Console.WriteLine("Pomyslnie zmieniles napoj !");
+                }
+                else if(userInput.ToLower() == nameof(DrinkProperites.DrinkProperties.kalorie).ToLower())
+                {
+                    Console.WriteLine("Podaj ilosc kalori:");
+                    var newCalories = int.Parse(Console.ReadLine());
+                    drinkToChange.Calories = newCalories;
+                    drinkToChange.Owner = user;
+                    Console.WriteLine("Pomyslnie zmieniles napoj !");
+                }
+                else if(userInput.ToLower() == nameof(DrinkProperites.DrinkProperties.skladniki).ToLower())
+                {
+                    Console.WriteLine("Ile składników chcesz dodać?");
+                    var ingredientamount = int.Parse(Console.ReadLine()); // Validation needed(int.TryParse)
+                    var IngredientsList = new List<string>();
+                    for (int i = 0; i < ingredientamount; i++)
+                    {
+                        Console.WriteLine("Podaj składnik: ");
+                        var ingredient = Console.ReadLine();
+                        IngredientsList.Add(ingredient);
+                    }
+                    drinkToChange.Ingredients = IngredientsList;
+                    drinkToChange.Owner = user;
+                    Console.WriteLine("Pomyslnie zmieniles napoj !");
+                }
+                else if(userInput.ToLower() == nameof(DrinkProperites.DrinkProperties.przepis).ToLower())
+                {
+                    Console.WriteLine("Ile kroków potrzeba do przygotowania drinka?");
+                    var stepsAmount = int.Parse(Console.ReadLine()); // Validation needed(int.TryParse)
+                    var PreparationStepsList = new List<string>();
+                    for (int i = 0; i < stepsAmount; i++)
+                    {
+                        Console.WriteLine("Podaj krok: ");
+                        var step = Console.ReadLine();
+                        PreparationStepsList.Add(step);
+                    }
+                    drinkToChange.Preparation = PreparationStepsList;
+                    drinkToChange.Owner = user;
+                    Console.WriteLine("Pomyslnie zmieniles napoj !");
+                }
+                else
+                {
+                    Console.WriteLine("Podałes błędną informacje.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Nie znaleziono napoju o takiej nazwie");
+            }
+        }
         public void AddDrink(Drink drink)
         {
+
             DrinkList.Add(drink);
             Console.WriteLine("Drink dodany do książki.\n");
         }
-
-        public void RemoveDrink(int MenuIndex)
+        public void RemoveDrink(Drink drink)
         {
             Console.Clear();
-            ShowAllDrinks(MenuIndex);
+            ShowAllDrinks(drink);
             Console.WriteLine("Podaj nazwe Drinka, którego chcesz usunąć?");
             var drinkName = Console.ReadLine();
             var drinkToRemove = DrinkList.FirstOrDefault(d => string.Equals(d.Name,drinkName,StringComparison.OrdinalIgnoreCase));
@@ -27,18 +123,15 @@ namespace GreenFlamingosApp.Services
             {
                 DrinkList.Remove(drinkToRemove);
                 Console.WriteLine("Drink usunięty z książki.\n");
-                ShowAllDrinks(MenuIndex);
+                ShowAllDrinks(drink);
             }
             else
             {
                 Console.WriteLine("Nie ma drinka o podanej nazwie");
-            }
-
-            
+            }  
         }
-        private int Capacity_Check(int MenuIndex)
+        private int ValidateCapacity(Drink drink)
         {
-            Console.Clear();
             var capacity = 0;
             var capacityOk = false;
             do
@@ -47,7 +140,7 @@ namespace GreenFlamingosApp.Services
 
                 if (int.TryParse(Console.ReadLine(), out capacity))
                 {
-                    if (MenuIndex == 1)
+                    if (drink.DrinkType == "Drink")
                     {
                         if (capacity >= 100 && capacity <= 500)
                         {
@@ -58,7 +151,7 @@ namespace GreenFlamingosApp.Services
                             Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 100 - 500 ml");
                         }
                     }
-                    else if(MenuIndex == 2)
+                    else if(drink.DrinkType == "Shot")
                     {
                         if (capacity >= 25 && capacity <= 100)
                         {
@@ -96,7 +189,7 @@ namespace GreenFlamingosApp.Services
             newDrink.Name = Console.ReadLine();
             Console.WriteLine("Podaj główny składnik drinka:");
             newDrink.MainIngredient = Console.ReadLine();
-            newDrink.Capacity = Capacity_Check(MenuIndex);
+            newDrink.Capacity = ValidateCapacity(newDrink);
             newDrink.Owner = user;
             if (MenuIndex != 3)
             {
@@ -122,6 +215,7 @@ namespace GreenFlamingosApp.Services
             }
             Console.WriteLine("Ile kroków potrzeba do przygotowania drinka?");
             var stepsAmount = int.Parse(Console.ReadLine()); // Validation needed(int.TryParse)
+            var PreparationStepsList = new List<string>();
             for (int i = 0; i < stepsAmount; i++)
             {
                 Console.WriteLine("Podaj krok: ");
@@ -131,7 +225,6 @@ namespace GreenFlamingosApp.Services
             newDrink.Ingredients = IngredientsList;
             newDrink.Preparation = PreparationStepsList;
         }
-
         public void DirnkMatch()
         {
             Console.Clear();
@@ -185,49 +278,18 @@ namespace GreenFlamingosApp.Services
                 Console.WriteLine("Nie znaleziono drinka");
             }
         }
-
-        public void ShowAllDrinks(int MenuIndex)
+        public void ShowAllDrinks(Drink drink)
         {
+            var drinkList = DrinkList.Where(d => d.DrinkType == drink.DrinkType);
 
-            switch(MenuIndex)
+            if (drinkList.Count() > 0)
             {
-                case 1:
-                    var drinks = DrinkList.Where(d => d.DrinkType == "Drink");
-                    if(drinks.Count() > 0)
-                    {
-                        foreach (var item in drinks)
-                            item.ShowDrink();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Nie ma drinków w książce");
-                    }
-
-                    break;
-                case 2:
-                    var shots = DrinkList.Where(s => s.DrinkType == "Shot");
-                    if (shots.Count() > 0)
-                    {
-                        foreach (var item in shots)
-                            item.ShowDrink();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Nie ma shotów w książce");
-                    }
-                    break;
-                case 3:
-                    var coctails = DrinkList.Where(c => c.DrinkType == "Drink bezalkoholowy");
-                    if(coctails.Count() > 0)
-                    {
-                        foreach (var item in coctails)
-                            item.ShowDrink();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Nie ma koktajli bezalkoholowych w książce");
-                    }
-                    break;
+                foreach (var item in drinkList)
+                    item.ShowDrink();
+            }
+            else
+            {
+                Console.WriteLine($"W książce nie ma żadnego napoju typu: {drink.DrinkType}");
             }
         }
     }

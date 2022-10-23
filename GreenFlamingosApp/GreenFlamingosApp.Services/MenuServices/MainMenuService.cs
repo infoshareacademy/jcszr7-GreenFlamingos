@@ -17,8 +17,7 @@ namespace GreenFlamingosApp.Services.MenuServices
 
         public void MenuStatus(ref User user, int userInput)
         {
-
-            if (!user.UserStatus)
+            if (user.UserLevel == UserLevel.unlogged)
             {
                 switch (userInput)
                 {

@@ -56,14 +56,14 @@ namespace GreenFlamingosApp.Services
                     {
                         Console.WriteLine($"Witaj użytkowniku {unLoggedUser.UserMail}");
                         Console.ReadLine();
-                        unLoggedUser.UserStatus = true;
+                        unLoggedUser.UserLevel = UserLevel.logged;
                         user = unLoggedUser;
                         break;
                         
                     }
                     else
                     {
-                        user.UserStatus = false;
+                        user.UserLevel = UserLevel.unlogged;
                         Console.WriteLine("Błedne haslo");
                     }
                 }
@@ -72,7 +72,7 @@ namespace GreenFlamingosApp.Services
         }
         public void LogOut(User user)
         {
-            user.UserStatus = false;
+            user.UserLevel = UserLevel.unlogged;
         }
 
     }

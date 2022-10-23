@@ -18,11 +18,16 @@ namespace GreenFlamingos.Model
             Password = password;
             UserMail = userMail;
         }
-
-        public bool UserStatus { get; set; }
+        public UserLevel UserLevel { get; set; }
         public void ShowUser()
         {
             Console.WriteLine($"Login: {UserMail}, haslo: {Password}, ID = {UserID}");
         }
+    }
+    public enum UserLevel
+    {
+        unlogged,
+        logged,
+        admin,
     }
 }
