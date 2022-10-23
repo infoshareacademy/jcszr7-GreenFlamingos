@@ -2,6 +2,7 @@
 using GreenFlamingos.Model;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
+using GreenFlamingosApp.Services.Validation;
 
 namespace GreenFlamingosApp.Services
 {
@@ -52,7 +53,7 @@ namespace GreenFlamingosApp.Services
                 else if(userInput.ToLower() == nameof(DrinkProperites.DrinkProperties.pojemnosc).ToLower())
                 {
                     Console.WriteLine("Podaj nową objetosc napoju: ");
-                    var newCapacity = ValidateCapacity(drink);
+                    var newCapacity = ValidationClass.ValidateCapacity(drink);
                     drinkToChange.Capacity = newCapacity;
                     drinkToChange.Owner = user;
                     Console.WriteLine("Pomyslnie zmieniles napoj !");
@@ -130,58 +131,7 @@ namespace GreenFlamingosApp.Services
                 Console.WriteLine("Nie ma drinka o podanej nazwie");
             }  
         }
-        private int ValidateCapacity(Drink drink)
-        {
-            var capacity = 0;
-            var capacityOk = false;
-            do
-            {
-                Console.WriteLine("Podaj Pojemność:");
-
-                if (int.TryParse(Console.ReadLine(), out capacity))
-                {
-                    if (drink.DrinkType == "Drink")
-                    {
-                        if (capacity >= 100 && capacity <= 500)
-                        {
-                            capacityOk = true;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 100 - 500 ml");
-                        }
-                    }
-                    else if(drink.DrinkType == "Shot")
-                    {
-                        if (capacity >= 25 && capacity <= 100)
-                        {
-                            capacityOk = true;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 25 - 100 ml");
-                        }
-                    }
-                    else
-                    {
-                        if (capacity >= 250 && capacity <= 1000)
-                        {
-                            capacityOk = true;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 250 - 1000 ml");
-                        }
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Podana przez ciebie objetosc nie jest liczba.");
-                }
-            } while (!capacityOk);
-
-            return capacity;
-        }
+       
         public void CreateDrink(Drink newDrink,User user, int MenuIndex)
         {
             Console.Clear();
@@ -189,34 +139,28 @@ namespace GreenFlamingosApp.Services
             newDrink.Name = Console.ReadLine();
             Console.WriteLine("Podaj główny składnik drinka:");
             newDrink.MainIngredient = Console.ReadLine();
-            newDrink.Capacity = ValidateCapacity(newDrink);
+            newDrink.Capacity = ValidationClass.ValidateCapacity(newDrink);
             newDrink.Owner = user;
-            if (MenuIndex != 3)
-            {
-                Console.WriteLine("Podaj zawartość alkoholu w drinku w %: ");
-                newDrink.AlcoholContent = int.Parse(Console.ReadLine());  // Validation needed( int.TryParse)
-            }
-            else
-            {
-                newDrink.AlcoholContent = 0;
-            }
-            Console.WriteLine("Podaj ilość kalorii drinka: ");
-            newDrink.Calories = int.Parse(Console.ReadLine());  // Validation needed( int.TryParse)
+            
+            newDrink.AlcoholContent = ValidationClass.ValidateAlcoholContent(newDrink);
+            newDrink.Calories = ValidationClass.ValidateCalories();
+
             Console.WriteLine("Podaj opis: ");
             newDrink.Description = Console.ReadLine();
+
             Console.WriteLine("Ile składników chcesz dodać?");
-            var ingredientamount = int.Parse(Console.ReadLine()); // Validation needed(int.TryParse)
+            var ingredientamount = ValidationClass.ValidateSteps();
             var IngredientsList = new List<string>();
-            for (int i = 0; i < ingredientamount; i++)
+            for (int i = 0; i < ingredientamount; i++) //replace this by function
             {
                 Console.WriteLine("Podaj składnik: ");
                 var ingredient = Console.ReadLine();
                 IngredientsList.Add(ingredient);
             }
             Console.WriteLine("Ile kroków potrzeba do przygotowania drinka?");
-            var stepsAmount = int.Parse(Console.ReadLine()); // Validation needed(int.TryParse)
+            var stepsAmount = ValidationClass.ValidateSteps();
             var PreparationStepsList = new List<string>();
-            for (int i = 0; i < stepsAmount; i++)
+            for (int i = 0; i < stepsAmount; i++) //replace this by function
             {
                 Console.WriteLine("Podaj krok: ");
                 var step = Console.ReadLine();

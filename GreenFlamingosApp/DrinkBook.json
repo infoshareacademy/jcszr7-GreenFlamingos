@@ -143,6 +143,32 @@
           "podpalic"
         ]
       }
+    },
+    {
+      "$type": "GreenFlamingos.Model.Drinks.AlcoDrink, GreenFlamingos.Model",
+      "DrinkID": 247001,
+      "Owner": {
+        "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+        "Password": "admin",
+        "UserID": 0,
+        "UserMail": "admin",
+        "UserLevel": 1
+      },
+      "AlcoholContent": 10.0,
+      "Calories": 20,
+      "DrinkType": "Drink",
+      "Name": "polak",
+      "MainIngredient": "wodka",
+      "Capacity": 300,
+      "Ingredients": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Description": "opis",
+      "Preparation": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      }
     }
   ]
 }
