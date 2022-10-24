@@ -169,6 +169,64 @@
         "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
         "$values": []
       }
+    },
+    {
+      "$type": "GreenFlamingos.Model.Drinks.AlcoDrink, GreenFlamingos.Model",
+      "DrinkID": 292854,
+      "Owner": {
+        "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+        "Password": "admin",
+        "UserID": 0,
+        "UserMail": "admin",
+        "UserLevel": 1
+      },
+      "AlcoholContent": 10.0,
+      "Calories": 200,
+      "DrinkType": "Drink",
+      "Name": "Andrzej",
+      "MainIngredient": "wodka",
+      "Capacity": 300,
+      "Ingredients": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": [
+          "lod",
+          "woda"
+        ]
+      },
+      "Description": "opis",
+      "Preparation": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": [
+          "wlej",
+          "wypij"
+        ]
+      }
+    },
+    {
+      "$type": "GreenFlamingos.Model.Drinks.AlcoDrink, GreenFlamingos.Model",
+      "DrinkID": 118289,
+      "Owner": {
+        "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+        "Password": "admin",
+        "UserID": 0,
+        "UserMail": "admin",
+        "UserLevel": 2
+      },
+      "AlcoholContent": 20.0,
+      "Calories": 10,
+      "DrinkType": "Drink",
+      "Name": "plllll",
+      "MainIngredient": "oka",
+      "Capacity": 300,
+      "Ingredients": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Description": "0",
+      "Preparation": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      }
     }
   ]
 }

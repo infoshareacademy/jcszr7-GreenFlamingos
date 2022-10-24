@@ -1,10 +1,17 @@
-﻿namespace GreenFlamingosApp.DataBase
+﻿namespace GreenFlamingosApp.Services
 {
-    abstract class IngredientsListClass
+    public class IngredientsListClass
     {
-        public static List<string> AllIngredientsList { get; } = new List<string>() { "whisky", "cola", "lód", "rum", "cytryna", "pomarańcza", "limonka", "woda", "sprite",
-                                                                                      "bazylia", "sok pomarańczowy", "woda gazowana" };
-        public static string IngredientList()
+        //public static List<string> AllIngredientsList { get; } = new List<string>() { "whisky", "rum", "gin", "wódka", "szampan", "pomarańcza", "limonka", "woda", "sprite",
+        //                                                                            "bazylia", "sok pomarańczowy", "woda gazowana" };
+
+        public List<string> AllIngredientsList { get; }
+        public IngredientsListClass()
+        {
+            AllIngredientsList = new List<string> () { "whisky", "rum", "gin", "wódka", "szampan", "pomarańcza", "limonka", "woda", "sprite",
+                                   "bazylia", "sok pomarańczowy", "woda gazowana" };
+        }
+            public string IngredientList()
         {
             var listOfIngredients = "";
             foreach (var item in AllIngredientsList)
@@ -27,7 +34,7 @@
             var ingredient = Console.ReadLine();
             if (CheckingIfListContainsIngredient(ingredient) == true)
             {
-                AllIngredientsList.Add(ingredient);
+                AllIngredientsList.Remove(ingredient);
                 Console.WriteLine("Składnik dodany do ogólnej listy\n");
             }
             else

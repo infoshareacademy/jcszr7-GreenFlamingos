@@ -4,7 +4,7 @@ using GreenFlamingosApp.Services.MenuServices;
 int userInput;
 var mainMenu = new MainMenuService();
 var user = new User("admin","admin");
-user.UserLevel = UserLevel.logged;
+user.UserLevel = UserLevel.admin;
 
 do
 {

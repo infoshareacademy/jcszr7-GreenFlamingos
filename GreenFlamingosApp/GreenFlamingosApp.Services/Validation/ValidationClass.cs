@@ -84,7 +84,7 @@ namespace GreenFlamingosApp.Services.Validation
             return calories;
         }
 
-        public static int ValidateAlcoholContent(Drink drink)
+        public static double ValidateAlcoholContent(Drink drink)
         {
             var AlcoholContent = 0;
             var AlcoholContentOK = false;

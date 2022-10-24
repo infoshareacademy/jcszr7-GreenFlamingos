@@ -5,25 +5,24 @@ namespace GreenFlamingosApp.Services.MenuServices
 {
     public class DrinksMenu
     {
-        private DrinkBookService drinkBook = new DrinkBookService();
-        private UsersMenu unlogged = new UsersMenu();
-        private LoggedUserMenu logged = new LoggedUserMenu();
+        private DrinkBookService _drinkBook = new DrinkBookService();
+        private UnloggedMenu _unlogged = new UnloggedMenu();
+        private LoggedUserMenu _logged = new LoggedUserMenu();
+        private AdminMenu _admin = new AdminMenu();
         public void DrinkService(Drink newDrink,User user,int menuIndex)
         {
-            var userInput = 0;
-
-                    if(user.UserLevel == UserLevel.unlogged)
-                    {
-                        unlogged.UnloggedMenuService(menuIndex,user,newDrink,drinkBook);
-                    }
-                    else if(user.UserLevel == UserLevel.logged)
-                    {
-                        logged.UserMenuService(menuIndex, newDrink, user,drinkBook);
-                    }
-                    else
-                    {
-                        ////////TUTAJ MENU DLA ADMINA///////////////
-                    }
+            if(user.UserLevel == UserLevel.unlogged)
+            {
+                _unlogged.UnloggedMenuService(menuIndex,user,newDrink,_drinkBook);
+            }
+            else if(user.UserLevel == UserLevel.logged)
+            {
+                _logged.UserMenuService(menuIndex, newDrink, user,_drinkBook);
+            }
+            else
+            {
+                _admin.AdminMenuService(menuIndex, newDrink, user, _drinkBook);
+            }
         }
 
     }

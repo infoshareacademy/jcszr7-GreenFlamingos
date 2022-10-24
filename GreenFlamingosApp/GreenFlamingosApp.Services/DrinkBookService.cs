@@ -10,9 +10,9 @@ namespace GreenFlamingosApp.Services
     {
 
         public List<Drink> DrinkList = new List<Drink>();
-        public List<AlcoDrink> DrinkList1 = new List<AlcoDrink>();
-        //public List<string> PreparationStepsList = new List<string>();
-        public AlcoDrink alcoDrink = new AlcoDrink();
+        private IngredientsService _ingredientsService = new IngredientsService();
+        private PreparationService _preparationService = new PreparationService();
+        private IngredientsListClass _ingredientsListClass = new IngredientsListClass();
         public DrinkBookService() 
         {
             var json = File.ReadAllText(@"..\..\..\..\DrinkBook.json");
@@ -108,7 +108,6 @@ namespace GreenFlamingosApp.Services
         }
         public void AddDrink(Drink drink)
         {
-
             DrinkList.Add(drink);
             Console.WriteLine("Drink dodany do książki.\n");
         }
@@ -123,6 +122,7 @@ namespace GreenFlamingosApp.Services
             if(drinkToRemove != null)
             {
                 DrinkList.Remove(drinkToRemove);
+                Console.Clear();
                 Console.WriteLine("Drink usunięty z książki.\n");
                 ShowAllDrinks(drink);
             }
@@ -131,43 +131,36 @@ namespace GreenFlamingosApp.Services
                 Console.WriteLine("Nie ma drinka o podanej nazwie");
             }  
         }
-       
-        public void CreateDrink(Drink newDrink,User user, int MenuIndex)
+        public bool CreateDrink(Drink newDrink,User user, int MenuIndex)
         {
             Console.Clear();
             Console.WriteLine("Podaj nazwę drinka:");
             newDrink.Name = Console.ReadLine();
             Console.WriteLine("Podaj główny składnik drinka:");
-            newDrink.MainIngredient = Console.ReadLine();
+            string ingredient = Console.ReadLine();
+            if(_ingredientsListClass.CheckingIfListContainsIngredient(ingredient))
+            {
+                newDrink.MainIngredient = ingredient;
+            }
+            else
+            {
+                Console.WriteLine("Podany składnik nie znajduje się na liście dozwolonych składników.");
+                Console.ReadKey();
+                return false;
+            }
             newDrink.Capacity = ValidationClass.ValidateCapacity(newDrink);
-            newDrink.Owner = user;
-            
+            newDrink.Owner = user;     
             newDrink.AlcoholContent = ValidationClass.ValidateAlcoholContent(newDrink);
             newDrink.Calories = ValidationClass.ValidateCalories();
-
             Console.WriteLine("Podaj opis: ");
             newDrink.Description = Console.ReadLine();
-
             Console.WriteLine("Ile składników chcesz dodać?");
             var ingredientamount = ValidationClass.ValidateSteps();
-            var IngredientsList = new List<string>();
-            for (int i = 0; i < ingredientamount; i++) //replace this by function
-            {
-                Console.WriteLine("Podaj składnik: ");
-                var ingredient = Console.ReadLine();
-                IngredientsList.Add(ingredient);
-            }
+            newDrink.Ingredients = _ingredientsService.GetStringList(ingredientamount);
             Console.WriteLine("Ile kroków potrzeba do przygotowania drinka?");
             var stepsAmount = ValidationClass.ValidateSteps();
-            var PreparationStepsList = new List<string>();
-            for (int i = 0; i < stepsAmount; i++) //replace this by function
-            {
-                Console.WriteLine("Podaj krok: ");
-                var step = Console.ReadLine();
-                PreparationStepsList.Add(step);
-            }
-            newDrink.Ingredients = IngredientsList;
-            newDrink.Preparation = PreparationStepsList;
+            newDrink.Preparation = _preparationService.GetStringList(stepsAmount);
+            return true;
         }
         public void DirnkMatch()
         {
@@ -176,11 +169,8 @@ namespace GreenFlamingosApp.Services
             Console.WriteLine("Witaj w funkcji znajdz drinka, podaj składniki:");
             Console.WriteLine("Główny składnik:");
             var mainIngredient = Console.ReadLine();
-
-            // returns list of object with mainIngredient set by User
             var mainIngredientDrinks = DrinkList.Where(d => string.Equals(d.MainIngredient, mainIngredient, StringComparison.OrdinalIgnoreCase));
             Console.WriteLine("Czy chcesz podać dodatkowe skladniki ? (y)");
-
             if (string.Equals(Console.ReadLine().ToLower(), "y"))
             {
                 Console.WriteLine("Podaj ilosc dodatkowych skladników jakie chcesz mieć w swoim drinku");
@@ -200,11 +190,13 @@ namespace GreenFlamingosApp.Services
                     Console.Clear();
                     //Check list of ingredients contains ingredienst set by user.
                     foreach (var mainIngredientDrink in mainIngredientDrinks)
+                    {
                         if (ingredientsList.All(ingredient => mainIngredientDrink.Ingredients.Contains(ingredient)))
                         {
                             mainIngredientDrink.ShowDrink();
                             foundStatus = true;
                         }
+                    }
                 }
             }
             else
@@ -235,6 +227,35 @@ namespace GreenFlamingosApp.Services
             {
                 Console.WriteLine($"W książce nie ma żadnego napoju typu: {drink.DrinkType}");
             }
+        }
+
+        public void EditDataBase(List<string> ingredientsDataBase)
+        {
+            var userInput = 0;
+
+            do
+            {
+                DefaultMenu.AdminDataBaseOptions();
+                if (int.TryParse(Console.ReadLine(),out userInput))
+                {
+                    switch(userInput)
+                    {
+                        case 1:
+                            _ingredientsListClass.AddIngredientToListByAdmin();
+                            break;
+                        case 2:
+                            _ingredientsListClass.RemoveIngredientFromListByAdmin();
+                            break;
+                        case 3:
+                            Console.WriteLine($"{_ingredientsListClass.IngredientList()}");
+                            Console.ReadLine();
+                            break;
+                    }
+                }
+
+            } while (userInput != 4);
+
+
         }
     }
 }

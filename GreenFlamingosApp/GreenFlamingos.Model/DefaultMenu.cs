@@ -72,5 +72,15 @@ namespace GreenFlamingos.Model
             }
 
         }
+
+        public static void AdminDataBaseOptions()
+        {
+            Console.Clear();
+            Console.WriteLine("Co chcesz zrobić z bazą danych ? ");
+            Console.WriteLine("1.Dodaj składnik");
+            Console.WriteLine("2.Usun składnik");
+            Console.WriteLine("3.Wyswietl dostępne składniki");
+            Console.WriteLine("4.Wstecz");
+        }
     }
 }
