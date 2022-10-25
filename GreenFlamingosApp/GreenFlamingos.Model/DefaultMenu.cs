@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GreenFlamingos.Model
+﻿namespace GreenFlamingos.Model
 {
     public class DefaultMenu
     {
@@ -42,11 +36,13 @@ namespace GreenFlamingos.Model
                 Console.WriteLine("Menu dla drinków i koktajli :");
                 Console.WriteLine();
                 Console.WriteLine("1.Dodaj");
-                Console.WriteLine("2.Pokaż wszystkie ");
-                Console.WriteLine("3.Usuń ");
-                Console.WriteLine("4.Znajdź ");
-                Console.WriteLine("5.Edycja ");
-                Console.WriteLine("6.Wyjście");
+                Console.WriteLine("2.Pokaż wybranego");
+                Console.WriteLine("3.Pokaż wszystkie ");
+                Console.WriteLine("4.Usuń ");
+                Console.WriteLine("5.Dopasuj Drinka");
+                Console.WriteLine("6.Edycja ");
+                Console.WriteLine("7.Ulubione ");
+                Console.WriteLine("8.Wyjście");
             }
             else if(user.UserLevel == UserLevel.admin)
             {
@@ -81,6 +77,13 @@ namespace GreenFlamingos.Model
             Console.WriteLine("2.Usun składnik");
             Console.WriteLine("3.Wyswietl dostępne składniki");
             Console.WriteLine("4.Wstecz");
+        }
+
+        public static void UserAccountService()
+        {
+            Console.WriteLine("1.Zmiana loginu");
+            Console.WriteLine("2.Zmiana hasla");
+            Console.WriteLine("3.Wstecz");
         }
     }
 }

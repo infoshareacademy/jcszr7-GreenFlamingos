@@ -104,27 +104,35 @@ namespace GreenFlamingosApp.Services.MenuServices
                             Console.ReadKey();
                             break;
                         case 2:
-                            drinkBookService.ShowAllDrinks(newDrink);
+                            drinkBookService.ShowDrinkByName(user);
                             Console.ReadKey();
                             break;
                         case 3:
-                            drinkBookService.RemoveDrink(newDrink);
+                            drinkBookService.ShowAllDrinks(newDrink);
                             Console.ReadKey();
                             break;
                         case 4:
-                            drinkBookService.DirnkMatch();
+                            drinkBookService.RemoveDrink(newDrink);
                             Console.ReadKey();
                             break;
                         case 5:
-                            drinkBookService.ChangeDrink(newDrink, user);
+                            drinkBookService.DirnkMatch();
                             Console.ReadKey();
                             break;
                         case 6:
+                            drinkBookService.ChangeDrink(newDrink, user);
+                            Console.ReadKey();
+                            break;
+                        case 7:
+                            drinkBookService.ShowFavoriteDrinks(user);
+                            Console.ReadKey();
+                            break;
+                        case 8:
                             Console.WriteLine("Bye");
                             break;
                     }
                 }
-            } while (userInput != 6);
+            } while (userInput != 8);
         }
     }
     public class AdminMenu
@@ -142,7 +150,7 @@ namespace GreenFlamingosApp.Services.MenuServices
                     {
                         case 1:
                             if(drinkBookService.CreateDrink(newDrink, user, menuIndex))
-                                {
+                            {
                                 //Validation of drink name - if in DrinkBookService exists drink with the same name as user set - do not add.
                                 var drinkToAdd = drinkBookService.DrinkList.Find(d => string.Equals(d.Name.ToUpper(), newDrink.Name.ToUpper()));
                                 if (drinkToAdd != null)

@@ -3,12 +3,12 @@ using GreenFlamingos.Model;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using GreenFlamingosApp.Services.Validation;
+using System.Windows.Input;
 
 namespace GreenFlamingosApp.Services
 {
     public class DrinkBookService
     {
-
         public List<Drink> DrinkList = new List<Drink>();
         private IngredientsService _ingredientsService = new IngredientsService();
         private PreparationService _preparationService = new PreparationService();
@@ -18,6 +18,29 @@ namespace GreenFlamingosApp.Services
             var json = File.ReadAllText(@"..\..\..\..\DrinkBook.json");
             JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
             DrinkList = JsonConvert.DeserializeObject<List<Drink>>(json,settings);
+        }
+
+        public void ShowDrinkByName(User user)
+        {
+            Console.Clear();
+            Console.WriteLine("Podaj nazwe napoju, którego szukasz");
+            var userInput = Console.ReadLine();
+            var drinkToShow = DrinkList.FirstOrDefault(d=>d.Name == userInput);
+
+            if(drinkToShow != null)
+            {
+                drinkToShow.ShowDrink();
+                Console.WriteLine("Czy chcesz dodac ten napój do ulubionych ? (y)");
+                if(Console.ReadLine().ToLower() == "y".ToLower())
+                {
+                    user.FavoriteDrinks.Add(drinkToShow);
+                    Console.WriteLine("Napój dodano do ulubionych");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Nie ma takiego drinka w aplikacji");
+            }    
         }
         public void ChangeDrink(Drink drink, User user)
         {
@@ -46,6 +69,14 @@ namespace GreenFlamingosApp.Services
                 {
                     Console.WriteLine("Podaj nowy glowny skladnik");
                     var newMainIngredient = Console.ReadLine();
+                    if (_ingredientsListClass.CheckingIfListContainsIngredient(newMainIngredient))
+                    {
+                        drinkToChange.MainIngredient = newMainIngredient;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Podany składnik nie znajduje się na liście dozwolonych składników. Składnik nie został zmieniony");
+                    }
                     drinkToChange.MainIngredient = newMainIngredient;
                     drinkToChange.Owner = user;
                     Console.WriteLine("Pomyslnie zmieniles napoj !");
@@ -61,7 +92,7 @@ namespace GreenFlamingosApp.Services
                 else if(userInput.ToLower() == nameof(DrinkProperites.DrinkProperties.kalorie).ToLower())
                 {
                     Console.WriteLine("Podaj ilosc kalori:");
-                    var newCalories = int.Parse(Console.ReadLine());
+                    var newCalories = ValidationClass.ValidateCalories();
                     drinkToChange.Calories = newCalories;
                     drinkToChange.Owner = user;
                     Console.WriteLine("Pomyslnie zmieniles napoj !");
@@ -69,30 +100,16 @@ namespace GreenFlamingosApp.Services
                 else if(userInput.ToLower() == nameof(DrinkProperites.DrinkProperties.skladniki).ToLower())
                 {
                     Console.WriteLine("Ile składników chcesz dodać?");
-                    var ingredientamount = int.Parse(Console.ReadLine()); // Validation needed(int.TryParse)
-                    var IngredientsList = new List<string>();
-                    for (int i = 0; i < ingredientamount; i++)
-                    {
-                        Console.WriteLine("Podaj składnik: ");
-                        var ingredient = Console.ReadLine();
-                        IngredientsList.Add(ingredient);
-                    }
-                    drinkToChange.Ingredients = IngredientsList;
+                    var ingredientamount = ValidationClass.ValidateSteps(); // Validation needed(int.TryParse)
+                    drinkToChange.Ingredients = _ingredientsService.GetStringList(ingredientamount);
                     drinkToChange.Owner = user;
                     Console.WriteLine("Pomyslnie zmieniles napoj !");
                 }
                 else if(userInput.ToLower() == nameof(DrinkProperites.DrinkProperties.przepis).ToLower())
                 {
                     Console.WriteLine("Ile kroków potrzeba do przygotowania drinka?");
-                    var stepsAmount = int.Parse(Console.ReadLine()); // Validation needed(int.TryParse)
-                    var PreparationStepsList = new List<string>();
-                    for (int i = 0; i < stepsAmount; i++)
-                    {
-                        Console.WriteLine("Podaj krok: ");
-                        var step = Console.ReadLine();
-                        PreparationStepsList.Add(step);
-                    }
-                    drinkToChange.Preparation = PreparationStepsList;
+                    var stepsAmount = ValidationClass.ValidateSteps(); // Validation needed(int.TryParse)
+                    drinkToChange.Preparation = _preparationService.GetStringList(stepsAmount);
                     drinkToChange.Owner = user;
                     Console.WriteLine("Pomyslnie zmieniles napoj !");
                 }
@@ -144,7 +161,9 @@ namespace GreenFlamingosApp.Services
             }
             else
             {
-                Console.WriteLine("Podany składnik nie znajduje się na liście dozwolonych składników.");
+                Console.WriteLine("Podany składnik nie znajduje się na liście dozwolonych składników. Zostaniesz przeniesiony do menu głównego");
+                Console.WriteLine("Ponizej lista dostępnych składników: ");
+                Console.WriteLine(_ingredientsListClass.IngredientList());
                 Console.ReadKey();
                 return false;
             }
@@ -228,11 +247,25 @@ namespace GreenFlamingosApp.Services
                 Console.WriteLine($"W książce nie ma żadnego napoju typu: {drink.DrinkType}");
             }
         }
-
+        public void ShowFavoriteDrinks(User user)
+        {
+            Console.Clear();
+            if (user.FavoriteDrinks.Count() > 0)
+            {
+                foreach (var drink in user.FavoriteDrinks)
+                {
+                    Console.WriteLine("Moje ulubione napoje: ");
+                    drink.ShowDrink();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Nie dodałes żadnego napoju do ulubionych. Aby dodać napój do ulubionychprzed do sekcji 2.Pokaż wybranego");
+            }
+        }
         public void EditDataBase(List<string> ingredientsDataBase)
         {
             var userInput = 0;
-
             do
             {
                 DefaultMenu.AdminDataBaseOptions();

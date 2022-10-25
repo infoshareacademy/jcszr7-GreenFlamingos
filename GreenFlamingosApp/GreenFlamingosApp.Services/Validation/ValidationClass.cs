@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace GreenFlamingosApp.Services.Validation
 {
     public static class ValidationClass
@@ -61,7 +60,6 @@ namespace GreenFlamingosApp.Services.Validation
 
             return capacity;
         }
-
         public static int ValidateCalories()
         {
             var calories = 0;
@@ -75,6 +73,10 @@ namespace GreenFlamingosApp.Services.Validation
                         {
                             caloriesOK = true;
                         }
+                        else
+                        {
+                        Console.WriteLine("Podałes liczbe z poza zakresu 0 - 2000 kcal");
+                        }
                 }
                 else
                 {
@@ -83,7 +85,6 @@ namespace GreenFlamingosApp.Services.Validation
             } while (!caloriesOK);
             return calories;
         }
-
         public static double ValidateAlcoholContent(Drink drink)
         {
             var AlcoholContent = 0;
@@ -101,6 +102,10 @@ namespace GreenFlamingosApp.Services.Validation
                         {
                             AlcoholContentOK = true;
                         }
+                        else
+                        {
+                            Console.WriteLine("Podałes liczbe z poza zakresu 0 - 100%");
+                        }
                     }
                     else
                     {
@@ -110,7 +115,6 @@ namespace GreenFlamingosApp.Services.Validation
             }
             return AlcoholContent;
         }
-
         public static int ValidateSteps()
         {
             var stepsAmount = 0;

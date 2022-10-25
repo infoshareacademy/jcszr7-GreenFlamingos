@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using GreenFlamingos.Model.Drinks;
 namespace GreenFlamingos.Model
 {
     public class User
@@ -13,6 +8,8 @@ namespace GreenFlamingos.Model
         public int UserID { get { return _userID; } set { _userID = value; } }
         public string UserMail { get; set; }
         public User() { }
+
+        public List<Drink> FavoriteDrinks = new List<Drink>();
         public User(string password, string userMail)
         {
             Password = password;
