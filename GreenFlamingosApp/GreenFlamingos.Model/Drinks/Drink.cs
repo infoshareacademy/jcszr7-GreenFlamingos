@@ -34,7 +34,7 @@ namespace GreenFlamingos.Model.Drinks
             {
                 Console.WriteLine($"{ingredient}");
             }
-            Console.WriteLine($"\nOpis Drinku:\n" +
+            Console.WriteLine($"\nOpis Drinka:\n" +
                 $"{Description}\n");
         }
 
