@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GreenFlamingos.Model
+﻿namespace GreenFlamingos.Model
 {
     public class DefaultMenu
     {
@@ -12,7 +6,7 @@ namespace GreenFlamingos.Model
         {
             Console.Clear();
             Console.WriteLine("Witaj w aplikacji GreenFlamingos! Wybierz jedną z opcji");
-            if (!user.UserStatus)
+            if (user.UserLevel == UserLevel.unlogged)
             {
 
                 Console.WriteLine("1.Zaloguj sie");
@@ -34,9 +28,24 @@ namespace GreenFlamingos.Model
             }
         }
 
-        //Niezalogowany uzytkownik nie moze dodac/usunac/edytowac drinka
-        public static void DrinkOptions()
+        public static void DrinkOptions(User user)
         {
+            if (user.UserLevel == UserLevel.logged)
+            {
+                Console.Clear();
+                Console.WriteLine("Menu dla drinków i koktajli :");
+                Console.WriteLine();
+                Console.WriteLine("1.Dodaj");
+                Console.WriteLine("2.Pokaż wybranego");
+                Console.WriteLine("3.Pokaż wszystkie ");
+                Console.WriteLine("4.Usuń ");
+                Console.WriteLine("5.Dopasuj Drinka");
+                Console.WriteLine("6.Edycja ");
+                Console.WriteLine("7.Ulubione ");
+                Console.WriteLine("8.Wyjście");
+            }
+            else if(user.UserLevel == UserLevel.admin)
+            {
                 Console.Clear();
                 Console.WriteLine("Menu dla drinków i koktajli :");
                 Console.WriteLine();
@@ -45,8 +54,36 @@ namespace GreenFlamingos.Model
                 Console.WriteLine("3.Usuń ");
                 Console.WriteLine("4.Znajdź ");
                 Console.WriteLine("5.Edycja ");
-                Console.WriteLine("6.Wyjście");
+                Console.WriteLine("6.Edycja bazy danych");
+                Console.WriteLine("7.Wyjście");
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Menu dla drinków i koktajli :");
+                Console.WriteLine();
+                Console.WriteLine("1.Pokaż wszystkie ");
+                Console.WriteLine("2.Znajdź ");
+                Console.WriteLine("3.Wyjście");
+            }
 
+        }
+
+        public static void AdminDataBaseOptions()
+        {
+            Console.Clear();
+            Console.WriteLine("Co chcesz zrobić z bazą danych ? ");
+            Console.WriteLine("1.Dodaj składnik");
+            Console.WriteLine("2.Usun składnik");
+            Console.WriteLine("3.Wyswietl dostępne składniki");
+            Console.WriteLine("4.Wstecz");
+        }
+
+        public static void UserAccountService()
+        {
+            Console.WriteLine("1.Zmiana loginu");
+            Console.WriteLine("2.Zmiana hasla");
+            Console.WriteLine("3.Wstecz");
         }
     }
 }

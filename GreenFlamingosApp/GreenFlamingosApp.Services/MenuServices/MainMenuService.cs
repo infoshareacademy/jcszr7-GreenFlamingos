@@ -1,8 +1,5 @@
 ﻿using GreenFlamingos.Model;
 using GreenFlamingos.Model.Drinks;
-using GreenFlamingosApp.DataBase;
-
-
 namespace GreenFlamingosApp.Services.MenuServices
 {
     public class MainMenuService
@@ -13,12 +10,9 @@ namespace GreenFlamingosApp.Services.MenuServices
         public AlcoDrink alcoDrink = new AlcoDrink();
         public Shot shot = new Shot();
         public NoAlcoDrink noAlcoDrink = new NoAlcoDrink();
-        //DefaultMenu userInterface = new DefaultMenu();
-
         public void MenuStatus(ref User user, int userInput)
         {
-
-            if (!user.UserStatus)
+            if (user.UserLevel == UserLevel.unlogged)
             {
                 switch (userInput)
                 {
@@ -59,7 +53,7 @@ namespace GreenFlamingosApp.Services.MenuServices
                         userBook.LogOut(user);
                         break;
                     case 5:
-                        AccountService();
+                        userBook.AccountService(user);
                         break;
                     case 6:
                         Exit();
@@ -67,7 +61,6 @@ namespace GreenFlamingosApp.Services.MenuServices
                 }
             }
         }
-
         public void MenuService(ref User user, int userInput)
         {
             if (userInput > 0 && userInput <= 6)
@@ -80,13 +73,6 @@ namespace GreenFlamingosApp.Services.MenuServices
                 Console.ReadKey();
             }
         }
-        public static void AccountService()
-        {
-            Console.Clear();
-            Console.WriteLine("Dane Konta");
-            Console.ReadKey();
-        }
-
         public static void Exit()
         {
             Console.Clear();
