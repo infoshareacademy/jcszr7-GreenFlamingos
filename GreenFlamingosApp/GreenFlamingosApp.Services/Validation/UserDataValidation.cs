@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using GreenFlamingos.Model;
-
-namespace GreenFlamingosApp.Services
+namespace GreenFlamingosApp.Services.Validation
 {
     public class UserDataValidation
     {
@@ -36,7 +30,6 @@ namespace GreenFlamingosApp.Services
             } while (!emailCorrect);
             return userMail;
         }
-
         public string ValidatePassword()
         {
             bool passwordCorrect = false;

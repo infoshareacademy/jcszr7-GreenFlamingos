@@ -8,7 +8,10 @@ namespace GreenFlamingos.Model.Drinks
 {
     public class NoAlcoDrink : Drink
     {
-        public NoAlcoDrink() {}
+        public NoAlcoDrink() 
+        {
+            DrinkType = "Drink bezalkoholowy";
+        }
         public NoAlcoDrink(string name, User owner, string mainIgredient, int capacity, double alcoholContent, int calories, List<string> ingriedients, string description, List<string> preparation)
         {
             Random rnd = new Random();

@@ -1,17 +1,11 @@
 ﻿using GreenFlamingos.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using GreenFlamingosApp.Services.Validation;
 namespace GreenFlamingosApp.Services
 {
     public class UserBookService
     {
         List<User> users = new List<User>();
         User user = new User();
-
         public void AddUser()
         {
             var userRegister = new UserRegister(user);
@@ -29,21 +23,19 @@ namespace GreenFlamingosApp.Services
                 Console.WriteLine("Gratulacje, udalo ci sie zarejestrować konto");
                 users.Add(user);
                 user.UserID = users.Count + 100;
-                ShowAllUsers();
-                Console.ReadLine();
+                Console.ReadKey();
             }
         }
-
         public void ShowAllUsers()
         {
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 user.ShowUser();
             }
         }
-
         public User LogIn()
         {
+            Console.Clear();
             Console.WriteLine("Podaj Login");
             string login = Console.ReadLine();
             Console.WriteLine("Podaj haslo");
@@ -56,14 +48,14 @@ namespace GreenFlamingosApp.Services
                     {
                         Console.WriteLine($"Witaj użytkowniku {unLoggedUser.UserMail}");
                         Console.ReadLine();
-                        unLoggedUser.UserStatus = true;
+                        unLoggedUser.UserLevel = UserLevel.logged;
                         user = unLoggedUser;
                         break;
-                        
+
                     }
                     else
                     {
-                        user.UserStatus = false;
+                        user.UserLevel = UserLevel.unlogged;
                         Console.WriteLine("Błedne haslo");
                     }
                 }
@@ -72,8 +64,33 @@ namespace GreenFlamingosApp.Services
         }
         public void LogOut(User user)
         {
-            user.UserStatus = false;
+            user.UserLevel = UserLevel.unlogged;
         }
-
+        public void AccountService(User user)
+        {
+            var userValidation = new UserDataValidation(user);
+            Console.Clear();
+            Console.WriteLine($"Witaj użytkowniku {user.UserMail}. Co chciałbyś zmienić w swoim koncie ?");
+            var userInput = 0;
+            do
+            {
+                Console.Clear();
+                DefaultMenu.UserAccountService();
+                if (int.TryParse(Console.ReadLine(), out userInput))
+                {
+                    switch (userInput)
+                    {
+                        case 1:
+                            user.UserMail = userValidation.ValidateEmail();
+                            Console.WriteLine("Pomyslnie zmieniles login");
+                            break;
+                        case 2:
+                            user.Password = userValidation.ValidatePassword();
+                            Console.WriteLine("Pomyslnie zmieniles login");
+                            break;
+                    }
+                }
+            } while (userInput != 3);
+        }
     }
 }

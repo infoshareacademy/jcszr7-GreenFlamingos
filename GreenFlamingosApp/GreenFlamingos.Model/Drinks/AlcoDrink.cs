@@ -2,7 +2,10 @@
 {
     public class AlcoDrink : Drink
     {
-        public AlcoDrink() { }
+        public AlcoDrink() 
+        {
+          DrinkType = "Drink";
+        }
         public AlcoDrink(string name, User owner, string mainIgredient, int capacity, double alcoholContent, int calories, List<string> ingriedients, string description, List<string> preparation)
         {
             Random rnd = new Random();
