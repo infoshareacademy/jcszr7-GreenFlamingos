@@ -1,0 +1,33 @@
+{
+  "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+  "$values": [
+    {
+      "$type": "GreenFlamingos.Model.Drinks.AlcoDrink, GreenFlamingos.Model",
+      "DrinkID": 172049,
+      "Owner": {
+        "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+        "Password": "admin",
+        "UserID": 0,
+        "UserMail": "admin",
+        "UserStatus": true
+      },
+      "AlcoholContent": 20.0,
+      "Calories": 20,
+      "DrinkType": "Drink",
+      "Name": "whisky z cola",
+      "MainIngredient": "whisky",
+      "Capacity": 200,
+      "Ingredients": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Description": "opis",
+      "Preparation": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": [
+          "wlac"
+        ]
+      }
+    }
+  ]
+}
