@@ -1,5 +1,6 @@
 ﻿using GreenFlamingos.Model;
 using GreenFlamingos.Model.Drinks;
+using GreenFlamingosApp.DataBase;
 using Newtonsoft.Json;
 
 namespace GreenFlamingosApp.Services.MenuServices
@@ -96,9 +97,7 @@ namespace GreenFlamingosApp.Services.MenuServices
                                         }
                                 }
                                 drinkBookService.DrinkList.Add(drinkToAdd);
-                                JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
-                                var json = JsonConvert.SerializeObject(drinkBookService.DrinkList, Formatting.Indented, settings);
-                                File.WriteAllText(@"..\..\..\..\DrinkBook.json", json);
+                                DrinksDataBaseServices.WriteAll(drinkBookService.DrinkList);
                                 Console.WriteLine($"Brawo, Pomyslnie stworzyłeś {drinkToAdd.DrinkType} !");
                             }
                             Console.ReadKey();
@@ -203,9 +202,7 @@ namespace GreenFlamingosApp.Services.MenuServices
                                             }
                                     }
                                     drinkBookService.DrinkList.Add(drinkToAdd);
-                                    JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
-                                    var json = JsonConvert.SerializeObject(drinkBookService.DrinkList, Formatting.Indented, settings);
-                                    File.WriteAllText(@"..\..\..\..\DrinkBook.json", json);
+                                    DrinksDataBaseServices.WriteAll(drinkBookService.DrinkList);
                                     Console.WriteLine($"Brawo, Pomyslnie stworzyłeś {drinkToAdd.DrinkType} !");
                                 }
                                 Console.ReadKey();

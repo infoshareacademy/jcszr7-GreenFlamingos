@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using GreenFlamingosApp.Services.Validation;
 using System.Windows.Input;
+using GreenFlamingosApp.DataBase;
 
 namespace GreenFlamingosApp.Services
 {
@@ -15,9 +16,7 @@ namespace GreenFlamingosApp.Services
         private IngredientsListClass _ingredientsListClass = new IngredientsListClass();
         public DrinkBookService() 
         {
-            var json = File.ReadAllText(@"..\..\..\..\DrinkBook.json");
-            JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
-            DrinkList = JsonConvert.DeserializeObject<List<Drink>>(json,settings);
+            DrinkList = DrinksDataBaseServices.ReadAll();
         }
 
         public void ShowDrinkByName(User user)
