@@ -12,11 +12,17 @@ namespace GreenFlamingosApp.Services.Validation
         public static int ValidateCapacity(Drink drink)
         {
             var capacity = 0;
-            var capacityOk = false;  
+            var capacityOk = false;
+            var userInput = "";
             do
             {
                 Console.WriteLine("Podaj Pojemność:");
-                if (int.TryParse(Console.ReadLine(), out capacity))
+                userInput = Console.ReadLine();
+                if(string.Equals(userInput,"x",StringComparison.OrdinalIgnoreCase))
+                {
+                    break;
+                }
+                if (int.TryParse(userInput, out capacity))
                 {
                     if (drink.DrinkType == "Drink")
                     {
@@ -26,7 +32,7 @@ namespace GreenFlamingosApp.Services.Validation
                         }
                         else
                         {
-                            Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 100 - 500 ml");
+                            Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 100 - 500 ml. Spróbuj ponownie lub wcisnij 'x'");
                         }
                     }
                     else if (drink.DrinkType == "Shot")
@@ -37,7 +43,7 @@ namespace GreenFlamingosApp.Services.Validation
                         }
                         else
                         {
-                            Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 25 - 100 ml");
+                            Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 25 - 100 ml. Spróbuj ponownie lub wcisnij 'x'");
                         }
                     }
                     else
@@ -48,13 +54,13 @@ namespace GreenFlamingosApp.Services.Validation
                         }
                         else
                         {
-                            Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 250 - 1000 ml");
+                            Console.WriteLine("Podałes złą wartośc. Dozwolony przedzial to 250 - 1000 ml. Spróbuj ponownie lub wcisnij 'x'");
                         }
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Podana informacja nie jest liczba");
+                    Console.WriteLine("Podana informacja nie jest liczba. Spróbuj ponownie lub wcisnij 'x'");
                 }
             } while (!capacityOk);
 
@@ -64,10 +70,16 @@ namespace GreenFlamingosApp.Services.Validation
         {
             var calories = 0;
             var caloriesOK = false;
+            var userInput = "";
             do
             {
                 Console.WriteLine("Podaj ilość kalorii drinka: ");
-                if (int.TryParse(Console.ReadLine(), out calories))
+                userInput = Console.ReadLine();
+                if (string.Equals(userInput, "x", StringComparison.OrdinalIgnoreCase))
+                {
+                    break;
+                }
+                if (int.TryParse(userInput, out calories))
                 {
                         if (calories >= 0 && calories <= 2000)
                         {
@@ -75,41 +87,45 @@ namespace GreenFlamingosApp.Services.Validation
                         }
                         else
                         {
-                        Console.WriteLine("Podałes liczbe z poza zakresu 0 - 2000 kcal");
+                        Console.WriteLine("Podałes liczbe z poza zakresu 0 - 2000 kcal. Spróbuj ponownie lub wcisnij 'x'");
                         }
                 }
                 else
                 {
-                    Console.WriteLine("Podana informacja nie jest liczba");
+                    Console.WriteLine("Podana informacja nie jest liczba. Spróbuj ponownie lub wcisnij 'x'");
                 }
             } while (!caloriesOK);
             return calories;
         }
         public static double ValidateAlcoholContent(Drink drink)
         {
-            var AlcoholContent = 0;
+            var AlcoholContent = 0.0;
             var AlcoholContentOK = false;
-
-            
+            var userInput = "";
             if (drink.DrinkType != "Drink bezalkoholowy")
             {
                 do
                 {
                     Console.WriteLine("Podaj zawartość alkoholu w drinku w %: ");
-                    if (int.TryParse(Console.ReadLine(), out AlcoholContent))
+                    userInput = Console.ReadLine();
+                    if (string.Equals(userInput, "x", StringComparison.OrdinalIgnoreCase))
                     {
-                        if (AlcoholContent > 0 && AlcoholContent <= 100)
+                        break;
+                    }
+                    if (double.TryParse(userInput, out AlcoholContent))
+                    {
+                        if (AlcoholContent > 0 && AlcoholContent < 100)
                         {
                             AlcoholContentOK = true;
                         }
                         else
                         {
-                            Console.WriteLine("Podałes liczbe z poza zakresu 0 - 100%");
+                            Console.WriteLine("Podałes liczbe z poza zakresu 0 - 100%. Spróbuj ponownie lub wcisnij 'x'");
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Podana informacja nie jest liczba");
+                        Console.WriteLine("Podana informacja nie jest liczba. Spróbuj ponownie lub wcisnij 'x'");
                     }
                 } while (!AlcoholContentOK);
             }
@@ -119,15 +135,29 @@ namespace GreenFlamingosApp.Services.Validation
         {
             var stepsAmount = 0;
             var stepsAmountOK = false;
+            var userInput = "";
+            
             do
             {
-                if (int.TryParse(Console.ReadLine(), out stepsAmount))
+                userInput = Console.ReadLine();
+                if (string.Equals(userInput, "x", StringComparison.OrdinalIgnoreCase))
                 {
-                    stepsAmountOK = true;
+                    break;
+                }
+                if (int.TryParse(userInput, out stepsAmount))
+                {
+                    if(stepsAmount <= 5)
+                        stepsAmountOK = true;
+                    else
+                    {
+                        stepsAmount = 0;
+                        Console.WriteLine("Maksymalna ilosc to 5. Spróbuj ponownie lub wcisnij 'x'");
+                    }
+                        
                 }
                 else
                 {
-                    Console.WriteLine("Podales bledna informacje. Sprobuj jeszcze raz");
+                    Console.WriteLine("Podales bledna informacje. Spróbuj ponownie lub wcisnij 'x'");
                 }
             } while (!stepsAmountOK);
             return stepsAmount;

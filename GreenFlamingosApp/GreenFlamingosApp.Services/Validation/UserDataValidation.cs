@@ -18,6 +18,10 @@ namespace GreenFlamingosApp.Services.Validation
             do
             {
                 userMail = Console.ReadLine();
+                if(string.Equals(userMail,"admin",StringComparison.OrdinalIgnoreCase))
+                {
+                    return userMail;
+                }
                 if (emailCheck.IsMatch(userMail.ToLower()))
                 {
                     emailCorrect = true;
@@ -39,6 +43,10 @@ namespace GreenFlamingosApp.Services.Validation
             {
                 Console.WriteLine("Podaj haslo:");
                 password = Console.ReadLine();
+                if (string.Equals(password, "admin", StringComparison.OrdinalIgnoreCase))
+                {
+                    return password;
+                }
                 if (passwordCheck.IsMatch(password))
                 {
                     Console.WriteLine("Haslo nie spelnia zalozen - minimum 8 znaków, jedne znak specjalny, jedna liczba, jedna duża Litera. Sprobuj jeszcze raz.");

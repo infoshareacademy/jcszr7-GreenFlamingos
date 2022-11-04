@@ -10,6 +10,8 @@
             {
                 Console.WriteLine("Podaj składnik: ");
                 var ingredient = Console.ReadLine();
+                if (string.Equals(ingredient, "x", StringComparison.OrdinalIgnoreCase))
+                    break;
                 IngredientsList.Add(ingredient);
             }
             return IngredientsList;

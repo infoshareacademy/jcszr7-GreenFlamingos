@@ -1,12 +1,12 @@
-﻿namespace GreenFlamingosApp.Services
+﻿using GreenFlamingosApp.DataBase;
+namespace GreenFlamingosApp.Services
 {
     public class IngredientsListClass
     {
         public List<string> AllIngredientsList { get; }
         public IngredientsListClass()
         {
-            AllIngredientsList = new List<string> () { "whisky", "rum", "gin", "wódka", "szampan", "pomarańcza", "limonka", "woda", "sprite",
-                                   "bazylia", "sok pomarańczowy", "woda gazowana" };
+            AllIngredientsList = GreenFlamingosDataBaseService.ReadIngredientsDataBase();
         }
         public string IngredientList()
         {
@@ -23,7 +23,8 @@
             Console.WriteLine("Jaki składnik dodać do ogólnej listy?");
             var ingredient = Console.ReadLine();
             AllIngredientsList.Add(ingredient);
-            Console.WriteLine("Skłądnik dodany do ogólnej listy\n");
+            GreenFlamingosDataBaseService.WriteAllIngredients(AllIngredientsList);
+            Console.WriteLine("Składnik dodany do ogólnej listy\n");
         }
         public void RemoveIngredientFromListByAdmin()
         {
@@ -32,7 +33,8 @@
             if (CheckingIfListContainsIngredient(ingredient) == true)
             {
                 AllIngredientsList.Remove(ingredient);
-                Console.WriteLine("Składnik dodany do ogólnej listy\n");
+                GreenFlamingosDataBaseService.WriteAllIngredients(AllIngredientsList);
+                Console.WriteLine("Składnik usunięty z ogólnej listy\n");
             }
             else
                 Console.WriteLine("Nie ma takiego składnika na liście");

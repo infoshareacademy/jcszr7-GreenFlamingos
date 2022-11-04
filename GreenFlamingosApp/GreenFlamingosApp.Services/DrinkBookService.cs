@@ -16,7 +16,7 @@ namespace GreenFlamingosApp.Services
         private IngredientsListClass _ingredientsListClass = new IngredientsListClass();
         public DrinkBookService() 
         {
-            DrinkList = DrinksDataBaseServices.ReadAll();
+            DrinkList = GreenFlamingosDataBaseService.ReadAllDrinks();
         }
 
         public void ShowDrinkByName(User user)
@@ -60,9 +60,17 @@ namespace GreenFlamingosApp.Services
                 {
                     Console.WriteLine("Podaj nową nazwe drinka: ");
                     var newName = Console.ReadLine();
-                    drinkToChange.Name = newName;
-                    drinkToChange.Owner = user;
-                    Console.WriteLine("Pomyslnie zmieniles napoj !");
+                    var DrinkCheck = DrinkList.FirstOrDefault(d => string.Equals(d.Name, newName, StringComparison.OrdinalIgnoreCase));
+                    if(DrinkCheck != null)
+                    {
+                        Console.WriteLine("Drink o takiej nazwie już istnieję. Nie udało sie zmienić drinka.");
+                    }
+                    else
+                    {
+                        drinkToChange.Name = newName;
+                        drinkToChange.Owner = user;
+                        Console.WriteLine("Pomyslnie zmieniles napoj !");
+                    }  
                 }
                 else if(userInput.ToLower() == nameof(DrinkProperites.DrinkProperties.glownySkladnik).ToLower())
                 {
@@ -152,9 +160,13 @@ namespace GreenFlamingosApp.Services
             Console.Clear();
             Console.WriteLine("Podaj nazwę drinka:");
             newDrink.Name = Console.ReadLine();
+            if (string.Equals(newDrink.Name, "x", StringComparison.OrdinalIgnoreCase))
+                return false;
             Console.WriteLine("Podaj główny składnik drinka:");
             string ingredient = Console.ReadLine();
-            if(_ingredientsListClass.CheckingIfListContainsIngredient(ingredient))
+            if (string.Equals(ingredient, "x", StringComparison.OrdinalIgnoreCase))
+                return false;
+            if (_ingredientsListClass.CheckingIfListContainsIngredient(ingredient))
             {
                 newDrink.MainIngredient = ingredient;
             }
@@ -167,17 +179,25 @@ namespace GreenFlamingosApp.Services
                 return false;
             }
             newDrink.Capacity = ValidationClass.ValidateCapacity(newDrink);
-            newDrink.Owner = user;     
+            if (newDrink.Capacity == 0)
+                return false;
             newDrink.AlcoholContent = ValidationClass.ValidateAlcoholContent(newDrink);
+            if (newDrink.AlcoholContent == 0.0)
+                return false;
             newDrink.Calories = ValidationClass.ValidateCalories();
+            if (newDrink.Calories == 0)
+                return false;
             Console.WriteLine("Podaj opis: ");
             newDrink.Description = Console.ReadLine();
+            if (string.Equals(newDrink.Description, "x", StringComparison.OrdinalIgnoreCase))
+                return false;
             Console.WriteLine("Ile składników chcesz dodać?");
             var ingredientamount = ValidationClass.ValidateSteps();
             newDrink.Ingredients = _ingredientsService.GetStringList(ingredientamount);
             Console.WriteLine("Ile kroków potrzeba do przygotowania drinka?");
             var stepsAmount = ValidationClass.ValidateSteps();
             newDrink.Preparation = _preparationService.GetStringList(stepsAmount);
+            newDrink.Owner = user;
             return true;
         }
         public void DirnkMatch()

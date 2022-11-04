@@ -1,0 +1,38 @@
+{
+  "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.User, GreenFlamingos.Model]], System.Private.CoreLib",
+  "$values": [
+    {
+      "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+      "FavoriteDrinks": {
+        "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Password": "Firanka1!",
+      "UserID": 101,
+      "UserMail": "kuba@wp.pl",
+      "UserLevel": 0
+    },
+    {
+      "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+      "FavoriteDrinks": {
+        "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Password": "Firanka1!",
+      "UserID": 102,
+      "UserMail": "szymon@wp.pl",
+      "UserLevel": 0
+    },
+    {
+      "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+      "FavoriteDrinks": {
+        "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Password": "admin",
+      "UserID": 103,
+      "UserMail": "admin",
+      "UserLevel": 0
+    }
+  ]
+}

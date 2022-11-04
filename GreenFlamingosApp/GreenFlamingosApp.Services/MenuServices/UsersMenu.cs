@@ -97,7 +97,7 @@ namespace GreenFlamingosApp.Services.MenuServices
                                         }
                                 }
                                 drinkBookService.DrinkList.Add(drinkToAdd);
-                                DrinksDataBaseServices.WriteAll(drinkBookService.DrinkList);
+                                GreenFlamingosDataBaseService.WriteAllDrinks(drinkBookService.DrinkList);
                                 Console.WriteLine($"Brawo, Pomyslnie stworzyłeś {drinkToAdd.DrinkType} !");
                             }
                             Console.ReadKey();
@@ -112,7 +112,7 @@ namespace GreenFlamingosApp.Services.MenuServices
                             break;
                         case 4:
                             drinkBookService.RemoveDrink(newDrink);
-                            DrinksDataBaseServices.WriteAll(drinkBookService.DrinkList);
+                            GreenFlamingosDataBaseService.WriteAllDrinks(drinkBookService.DrinkList);
                             Console.ReadKey();
                             break;
                         case 5:
@@ -121,7 +121,7 @@ namespace GreenFlamingosApp.Services.MenuServices
                             break;
                         case 6:
                             drinkBookService.ChangeDrink(newDrink, user);
-                            DrinksDataBaseServices.WriteAll(drinkBookService.DrinkList);
+                            GreenFlamingosDataBaseService.WriteAllDrinks(drinkBookService.DrinkList);
                             Console.ReadKey();
                             break;
                         case 7:
@@ -204,7 +204,7 @@ namespace GreenFlamingosApp.Services.MenuServices
                                             }
                                     }
                                     drinkBookService.DrinkList.Add(drinkToAdd);
-                                    DrinksDataBaseServices.WriteAll(drinkBookService.DrinkList);
+                                    GreenFlamingosDataBaseService.WriteAllDrinks(drinkBookService.DrinkList);
                                     Console.WriteLine($"Brawo, Pomyslnie stworzyłeś {drinkToAdd.DrinkType} !");
                                 }
                                 Console.ReadKey();
@@ -216,7 +216,7 @@ namespace GreenFlamingosApp.Services.MenuServices
                             break;
                         case 3:
                             drinkBookService.RemoveDrink(newDrink);
-                            DrinksDataBaseServices.WriteAll(drinkBookService.DrinkList);
+                            GreenFlamingosDataBaseService.WriteAllDrinks(drinkBookService.DrinkList);
                             Console.ReadKey();
                             break;
                         case 4:
@@ -225,7 +225,7 @@ namespace GreenFlamingosApp.Services.MenuServices
                             break;
                         case 5:
                             drinkBookService.ChangeDrink(newDrink, user);
-                            DrinksDataBaseServices.WriteAll(drinkBookService.DrinkList);
+                            GreenFlamingosDataBaseService.WriteAllDrinks(drinkBookService.DrinkList);
                             Console.ReadKey();
                             break;
                         case 6:

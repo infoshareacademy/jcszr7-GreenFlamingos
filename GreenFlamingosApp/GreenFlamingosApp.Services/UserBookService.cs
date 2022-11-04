@@ -1,18 +1,25 @@
 ﻿using GreenFlamingos.Model;
 using GreenFlamingosApp.Services.Validation;
+using GreenFlamingosApp.DataBase;
+using System.Linq;
 namespace GreenFlamingosApp.Services
 {
     public class UserBookService
     {
         List<User> users = new List<User>();
+
+
         User user = new User();
+
+        public UserBookService()
+        {
+            users = GreenFlamingosDataBaseService.ReadAllUsers();
+        }
         public void AddUser()
         {
             var userRegister = new UserRegister(user);
             user = userRegister.RecordUser();
-
             var userToAdd = users.FirstOrDefault(u => string.Equals(u.UserMail.ToLower(), user.UserMail.ToLower()));
-
             if (userToAdd != null)
             {
                 Console.WriteLine("Uzytkownik z takim emailem już istnieje");
@@ -23,6 +30,7 @@ namespace GreenFlamingosApp.Services
                 Console.WriteLine("Gratulacje, udalo ci sie zarejestrować konto");
                 users.Add(user);
                 user.UserID = users.Count + 100;
+                GreenFlamingosDataBaseService.WriteAllUsers(users);
                 Console.ReadKey();
             }
         }
@@ -48,7 +56,10 @@ namespace GreenFlamingosApp.Services
                     {
                         Console.WriteLine($"Witaj użytkowniku {unLoggedUser.UserMail}");
                         Console.ReadLine();
-                        unLoggedUser.UserLevel = UserLevel.logged;
+                        if(unLoggedUser.UserMail == "admin")
+                            unLoggedUser.UserLevel = UserLevel.admin;
+                        else
+                            unLoggedUser.UserLevel = UserLevel.logged;
                         user = unLoggedUser;
                         break;
 
