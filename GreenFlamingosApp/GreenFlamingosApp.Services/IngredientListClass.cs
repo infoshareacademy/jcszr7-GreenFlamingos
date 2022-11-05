@@ -41,7 +41,7 @@ namespace GreenFlamingosApp.Services
         }
         public bool CheckingIfListContainsIngredient(string ingredient)
         {
-            if (AllIngredientsList.Contains(ingredient))
+            if (AllIngredientsList.Contains(ingredient,StringComparer.OrdinalIgnoreCase))
                 return true;
             else
                 return false;

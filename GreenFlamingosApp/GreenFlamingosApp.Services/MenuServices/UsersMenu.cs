@@ -18,11 +18,11 @@ namespace GreenFlamingosApp.Services.MenuServices
                     switch (userInput)
                     {
                         case 1:
-                            drinkBookService.ShowAllDrinks(drink);
+                            drinkBookService.ShowAllDrinks(drink,drinkBookService.DrinkList);
                             Console.ReadKey();
                             break;
                         case 2:
-                            drinkBookService.DirnkMatch();
+                            drinkBookService.DirnkMatch(drink);
                             Console.ReadKey();
                             break;
                     }
@@ -43,71 +43,73 @@ namespace GreenFlamingosApp.Services.MenuServices
                     switch (userInput)
                     {
                         case 1:
-                            drinkBookService.CreateDrink(newDrink, user, menuIndex);
-                            //Validation of drink name - if in DrinkBookService exists drink with the same name as user set - do not add.
-                            var drinkToAdd = drinkBookService.DrinkList.Find(d => string.Equals(d.Name.ToUpper(), newDrink.Name.ToUpper()));
-                            if (drinkToAdd != null)
+                            if (drinkBookService.CreateDrink(newDrink, user, menuIndex))
                             {
-                                Console.WriteLine("Drink o podanej nazwie istnieje");
+                                //Validation of drink name - if in DrinkBookService exists drink with the same name as user set - do not add.
+                                var drinkToAdd = drinkBookService.DrinkList.Find(d => string.Equals(d.Name.ToUpper(), newDrink.Name.ToUpper()));
+                                if (drinkToAdd != null)
+                                {
+                                    Console.WriteLine("Drink o podanej nazwie istnieje");
+                                    Console.ReadKey();
+                                }
+                                else
+                                {
+                                    switch (menuIndex)
+                                    {
+                                        case 1:
+                                            {
+                                                drinkToAdd = new AlcoDrink(newDrink.Name,
+                                                                 newDrink.Owner,
+                                                                 newDrink.MainIngredient,
+                                                                 newDrink.Capacity,
+                                                                 newDrink.AlcoholContent,
+                                                                 newDrink.Calories,
+                                                                 newDrink.Ingredients,
+                                                                 newDrink.Description,
+                                                                 newDrink.Preparation);
+
+                                                break;
+                                            }
+                                        case 2:
+                                            {
+                                                drinkToAdd = new Shot(newDrink.Name,
+                                                                 newDrink.Owner,
+                                                                 newDrink.MainIngredient,
+                                                                 newDrink.Capacity,
+                                                                 newDrink.AlcoholContent,
+                                                                 newDrink.Calories,
+                                                                 newDrink.Ingredients,
+                                                                 newDrink.Description,
+                                                                 newDrink.Preparation);
+                                                break;
+                                            }
+                                        case 3:
+                                            {
+                                                drinkToAdd = new NoAlcoDrink(newDrink.Name,
+                                                                 newDrink.Owner,
+                                                                 newDrink.MainIngredient,
+                                                                 newDrink.Capacity,
+                                                                 newDrink.AlcoholContent,
+                                                                 newDrink.Calories,
+                                                                 newDrink.Ingredients,
+                                                                 newDrink.Description,
+                                                                 newDrink.Preparation);
+                                                break;
+                                            }
+                                    }
+                                    drinkBookService.DrinkList.Add(drinkToAdd);
+                                    GreenFlamingosDataBaseService.WriteAllDrinks(drinkBookService.DrinkList);
+                                    Console.WriteLine($"Brawo, Pomyslnie stworzyłeś {drinkToAdd.DrinkType} !");
+                                }
                                 Console.ReadKey();
                             }
-                            else
-                            {
-                                switch (menuIndex)
-                                {
-                                    case 1:
-                                        {
-                                            drinkToAdd = new AlcoDrink(newDrink.Name,
-                                                             newDrink.Owner,
-                                                             newDrink.MainIngredient,
-                                                             newDrink.Capacity,
-                                                             newDrink.AlcoholContent,
-                                                             newDrink.Calories,
-                                                             newDrink.Ingredients,
-                                                             newDrink.Description,
-                                                             newDrink.Preparation);
-
-                                            break;
-                                        }
-                                    case 2:
-                                        {
-                                            drinkToAdd = new Shot(newDrink.Name,
-                                                             newDrink.Owner,
-                                                             newDrink.MainIngredient,
-                                                             newDrink.Capacity,
-                                                             newDrink.AlcoholContent,
-                                                             newDrink.Calories,
-                                                             newDrink.Ingredients,
-                                                             newDrink.Description,
-                                                             newDrink.Preparation);
-                                            break;
-                                        }
-                                    case 3:
-                                        {
-                                            drinkToAdd = new NoAlcoDrink(newDrink.Name,
-                                                             newDrink.Owner,
-                                                             newDrink.MainIngredient,
-                                                             newDrink.Capacity,
-                                                             newDrink.AlcoholContent,
-                                                             newDrink.Calories,
-                                                             newDrink.Ingredients,
-                                                             newDrink.Description,
-                                                             newDrink.Preparation);
-                                            break;
-                                        }
-                                }
-                                drinkBookService.DrinkList.Add(drinkToAdd);
-                                GreenFlamingosDataBaseService.WriteAllDrinks(drinkBookService.DrinkList);
-                                Console.WriteLine($"Brawo, Pomyslnie stworzyłeś {drinkToAdd.DrinkType} !");
-                            }
-                            Console.ReadKey();
                             break;
                         case 2:
                             drinkBookService.ShowDrinkByName(user);
                             Console.ReadKey();
                             break;
                         case 3:
-                            drinkBookService.ShowAllDrinks(newDrink);
+                            drinkBookService.ShowAllDrinks(newDrink, drinkBookService.DrinkList);
                             Console.ReadKey();
                             break;
                         case 4:
@@ -116,7 +118,7 @@ namespace GreenFlamingosApp.Services.MenuServices
                             Console.ReadKey();
                             break;
                         case 5:
-                            drinkBookService.DirnkMatch();
+                            drinkBookService.DirnkMatch(newDrink);
                             Console.ReadKey();
                             break;
                         case 6:
@@ -211,7 +213,7 @@ namespace GreenFlamingosApp.Services.MenuServices
                             }
                             break;
                         case 2:
-                            drinkBookService.ShowAllDrinks(newDrink);
+                            drinkBookService.ShowAllDrinks(newDrink, drinkBookService.DrinkList);
                             Console.ReadKey();
                             break;
                         case 3:
@@ -220,7 +222,7 @@ namespace GreenFlamingosApp.Services.MenuServices
                             Console.ReadKey();
                             break;
                         case 4:
-                            drinkBookService.DirnkMatch();
+                            drinkBookService.DirnkMatch(newDrink);
                             Console.ReadKey();
                             break;
                         case 5:

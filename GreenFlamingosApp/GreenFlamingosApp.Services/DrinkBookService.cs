@@ -44,7 +44,7 @@ namespace GreenFlamingosApp.Services
         public void ChangeDrink(Drink drink, User user)
         {
             Console.Clear();
-            ShowAllDrinks(drink);
+            ShowAllDrinks(drink, DrinkList);
             Console.WriteLine("Podaj nazwe drinka, jakiego chcesz zmienic: ");
             var drinkName = Console.ReadLine();
             Console.Clear();
@@ -138,7 +138,7 @@ namespace GreenFlamingosApp.Services
         public void RemoveDrink(Drink drink)
         {
             Console.Clear();
-            ShowAllDrinks(drink);
+            ShowAllDrinks(drink, DrinkList);
             Console.WriteLine("Podaj nazwe Drinka, którego chcesz usunąć?");
             var drinkName = Console.ReadLine();
             var drinkToRemove = DrinkList.FirstOrDefault(d => string.Equals(d.Name,drinkName,StringComparison.OrdinalIgnoreCase));
@@ -148,7 +148,9 @@ namespace GreenFlamingosApp.Services
                 DrinkList.Remove(drinkToRemove);
                 Console.Clear();
                 Console.WriteLine("Drink usunięty z książki.\n");
-                ShowAllDrinks(drink);
+                Console.ReadKey();
+                Console.Clear();
+                ShowAllDrinks(drink, DrinkList);
             }
             else
             {
@@ -175,6 +177,7 @@ namespace GreenFlamingosApp.Services
                 Console.WriteLine("Podany składnik nie znajduje się na liście dozwolonych składników. Zostaniesz przeniesiony do menu głównego");
                 Console.WriteLine("Ponizej lista dostępnych składników: ");
                 Console.WriteLine(_ingredientsListClass.IngredientList());
+                
                 Console.ReadKey();
                 return false;
             }
@@ -200,8 +203,9 @@ namespace GreenFlamingosApp.Services
             newDrink.Owner = user;
             return true;
         }
-        public void DirnkMatch()
+        public void DirnkMatch(Drink drink)
         {
+            List<Drink> listDrinkMatched = new List<Drink>();
             Console.Clear();
             var foundStatus = false;
             Console.WriteLine("Witaj w funkcji znajdz drinka, podaj składniki:");
@@ -215,7 +219,7 @@ namespace GreenFlamingosApp.Services
             }
             else
             {
-                var mainIngredientDrinks = DrinkList.Where(d => string.Equals(d.MainIngredient, mainIngredient, StringComparison.OrdinalIgnoreCase));
+                var mainIngredientDrinks = DrinkList.Where(d => string.Equals(d.MainIngredient, mainIngredient, StringComparison.OrdinalIgnoreCase)).ToList();
                 Console.WriteLine("Czy chcesz podać dodatkowe skladniki ? (y)");
                 if (string.Equals(Console.ReadLine().ToLower(), "y"))
                 {
@@ -238,7 +242,8 @@ namespace GreenFlamingosApp.Services
                         {
                             if (ingredientsList.All(ingredient => mainIngredientDrink.Ingredients.Contains(ingredient)))
                             {
-                                mainIngredientDrink.ShowDrink();
+                                //mainIngredientDrink.ShowDrink();
+                                listDrinkMatched.Add(mainIngredientDrink);
                                 foundStatus = true;
                             }
                         }
@@ -249,7 +254,8 @@ namespace GreenFlamingosApp.Services
                     if (mainIngredientDrinks != null)
                         foreach (var mainIngredientDrink in mainIngredientDrinks)
                         {
-                            mainIngredientDrink.ShowDrink();
+                            //mainIngredientDrink.ShowDrink();
+                            listDrinkMatched.Add(mainIngredientDrink);
                             foundStatus = true;
                         }
                 }
@@ -258,10 +264,12 @@ namespace GreenFlamingosApp.Services
             {
                 Console.WriteLine("Nie znaleziono drinka");
             }
+            ShowAllDrinks(drink, listDrinkMatched);
         }
-        public void ShowAllDrinks(Drink drink)
+        public void ShowAllDrinks(Drink drink, List<Drink> drinkListToShow)
         {
-            var drinkList = DrinkList.Where(d => d.DrinkType == drink.DrinkType);
+            Console.Clear();
+            var drinkList = drinkListToShow.Where(d => d.DrinkType == drink.DrinkType);
 
             if (drinkList.Count() > 0)
             {
