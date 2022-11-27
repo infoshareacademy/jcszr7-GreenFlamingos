@@ -18,7 +18,6 @@ namespace GreenFlamingosApp.Services
         {
             DrinkList = GreenFlamingosDataBaseService.ReadAllDrinks();
         }
-
         public void ShowDrinkByName(User user)
         {
             Console.Clear();

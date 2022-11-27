@@ -1,15 +1,18 @@
-﻿namespace GreenFlamingos.Model.Drinks
+﻿using GreenFlamingos.Model.Drinks;
+using GreenFlamingos.Model;
+
+namespace GreenFlamingosWebApp.Models
 {
     public class AlcoDrink : Drink
     {
-        public AlcoDrink() 
+        public AlcoDrink()
         {
-          DrinkType = "Drink";
+            DrinkType = "Drink";
         }
         public AlcoDrink(string name, User owner, string mainIgredient, int capacity, double alcoholContent, int calories, List<string> ingriedients, string description, List<string> preparation)
         {
             Random rnd = new Random();
-            DrinkID = rnd.Next(100000, 299999);
+            Id = rnd.Next(100000, 299999);
             //Here is needed a condition to check if created number is already used by other AlcoDrink
 
             DrinkType = "Drink";
