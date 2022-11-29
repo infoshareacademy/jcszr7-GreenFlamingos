@@ -7,7 +7,6 @@ namespace GreenFlamingosWebApp.Services
 {
     public class DrinkService : IDrinkService
     {
-        //public static List<Drink> drinkList = new List<Drink>();
         private static int _IdCounter = 0;
         public void AddDrink(Drink drink)
         {

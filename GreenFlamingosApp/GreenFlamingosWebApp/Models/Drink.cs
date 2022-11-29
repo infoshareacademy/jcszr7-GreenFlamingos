@@ -2,7 +2,7 @@
 
 namespace GreenFlamingosWebApp.Models
 {
-    public class Drink
+    public abstract class Drink
     {
         private int _drinkID;
         public int Id { get { return _drinkID; } set { _drinkID = value; } }
@@ -16,5 +16,9 @@ namespace GreenFlamingosWebApp.Models
         public List<string> Ingredients { get; set; }
         public string Description { get; set; }
         public List<string> Preparation { get; set; }
+        public Drink()
+        {
+            DrinkType = "Test";
+        }
     }
 }

@@ -1,12 +1,10 @@
-﻿@model GreenFlamingos.Model.Drinks.AlcoDrink
+﻿@model GreenFlamingosWebApp.Models.AlcoDrink
 
 @{
+    ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_LayoutOLD.cshtml";
 }
-@{
-    
-    ViewData["Title"] = "Create";
-}
+
 
 <h1>Create</h1>
 
@@ -25,16 +23,6 @@
                 <label asp-for="Calories" class="control-label"></label>
                 <input asp-for="Calories" class="form-control" />
                 <span asp-validation-for="Calories" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ingredients" class="control-label"></label>
-                <input asp-for="Ingredients" class="form-control" />
-                <span asp-validation-for="Ingredients" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DrinkType" class="control-label"></label>
-                <input asp-for="DrinkType" class="form-control" />
-                <span asp-validation-for="DrinkType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
