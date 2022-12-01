@@ -31,6 +31,7 @@ namespace GreenFlamingosWebApp.Controllers
         // GET: DrinkController/Create
         public ActionResult Create()
         {
+            ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
             return View();
         }
 
@@ -41,7 +42,9 @@ namespace GreenFlamingosWebApp.Controllers
         {
             try
             {
+                ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
                 _drinkService.AddDrink(drink);
+               // ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -49,7 +52,6 @@ namespace GreenFlamingosWebApp.Controllers
                 return View();
             }
         }
-
         // GET: DrinkController/Edit/5
         public ActionResult Edit(int id)
         {
