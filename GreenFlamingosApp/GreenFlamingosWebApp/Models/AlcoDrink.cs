@@ -9,7 +9,7 @@ namespace GreenFlamingosWebApp.Models
         {
             DrinkType = "Drink";
         }
-        public AlcoDrink(string name, User owner, string mainIgredient, int capacity, double alcoholContent, int calories, List<string> ingriedients, string description, List<string> preparation)
+        public AlcoDrink(string name, User owner, string mainIgredient, int capacity, int alcoholContent, int calories, List<string> ingriedients, string description, List<string> preparation, string imageUrl)
         {
 
             DrinkType = "Drink";
@@ -22,6 +22,7 @@ namespace GreenFlamingosWebApp.Models
             Ingredients = ingriedients;
             Description = description;
             Preparation = preparation;
+            ImageUrl = imageUrl;
         }
     }
 }

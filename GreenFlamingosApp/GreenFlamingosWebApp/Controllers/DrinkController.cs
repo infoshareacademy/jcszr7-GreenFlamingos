@@ -11,6 +11,7 @@ namespace GreenFlamingosWebApp.Controllers
         // GET: DrinkController
 
         private readonly IDrinkService _drinkService;
+        
         public DrinkController(IDrinkService drinkService)
         {
             _drinkService = drinkService;
@@ -38,13 +39,16 @@ namespace GreenFlamingosWebApp.Controllers
         // POST: DrinkController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Drink drink)
+        public  ActionResult Create(Drink drink, IFormCollection preparation, IFormCollection ingredients)
         {
             try
             {
+                string recipy = preparation["Preparation"];
+                string components = ingredients["Ingredients"];
+                drink.Ingredients = components.Split(",").ToList();
+                drink.Preparation = recipy.Split(",").ToList();
                 ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
                 _drinkService.AddDrink(drink);
-               // ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -57,7 +61,6 @@ namespace GreenFlamingosWebApp.Controllers
         {
             return View();
         }
-
         // POST: DrinkController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]

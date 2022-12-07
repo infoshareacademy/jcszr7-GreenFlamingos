@@ -13,7 +13,7 @@ namespace GreenFlamingosWebApp.Models
         {
             DrinkType = "Shot";
         }
-        public Shot(string name, User owner, string mainIgredient, int capacity, double alcoholContent, int calories, List<string> ingriedients, string description, List<string> preparation)
+        public Shot(string name, User owner, string mainIgredient, int capacity, int alcoholContent, int calories, List<string> ingriedients, string description, List<string> preparation, string imageUrl)
         {
             DrinkType = "Shot";
             Name = name;
@@ -25,6 +25,7 @@ namespace GreenFlamingosWebApp.Models
             Ingredients = ingriedients;
             Description = description;
             Preparation = preparation;
+            ImageUrl = imageUrl;
         }
     }
 }

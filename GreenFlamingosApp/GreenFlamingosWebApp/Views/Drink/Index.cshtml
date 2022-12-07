@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GreenFlamingosWebApp.Models.Drink>
+﻿@*@model IEnumerable<GreenFlamingosWebApp.Models.Drink>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,6 +14,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                <h1>Image</h1>
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.AlcoholContent)
             </th>
@@ -41,6 +44,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+             <td>
+                <asp:Image id="Label3" ImageUrl="<%#"/>
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AlcoholContent)
             </td>
@@ -71,3 +77,38 @@
 }
     </tbody>
 </table>
+*@
+
+@model IEnumerable<GreenFlamingosWebApp.Models.Drink>
+@{
+    Layout = "~/Views/Shared/_LayoutOLD.cshtml";
+}
+
+<div class="container">
+    <h3 class="display-4">Wszystkie Drinki</h3>
+    <div class="row">
+
+        @foreach(var drink in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                 <img src = "@drink.ImageUrl" class="img-thumbnail" width="100%" height="100%"/>
+                        <div class="card-body">
+                            <h3 class="card-title">@Html.DisplayFor(modelItem => drink.Name)</h3>
+                            <p class="card-text">@Html.DisplayFor(modelItem => drink.DrinkType)</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                                    </div>
+                                    <small class="text-muted">Autor Drinka</small>
+                                </div>
+                        </div>
+                </div>
+            </div>  
+        }
+
+    </div>
+
+
+
+</div>

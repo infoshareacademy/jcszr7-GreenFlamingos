@@ -40,4 +40,8 @@
     <ProjectReference Include="..\GreenFlamingosApp.DataBase\GreenFlamingosApp.DataBase.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Drinks\" />
+  </ItemGroup>
+
 </Project>
