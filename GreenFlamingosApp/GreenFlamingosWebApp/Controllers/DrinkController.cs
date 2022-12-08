@@ -26,12 +26,14 @@ namespace GreenFlamingosWebApp.Controllers
         // GET: DrinkController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var model = _drinkService.GetDrinkById(id);
+            return View(model);
         }
 
         // GET: DrinkController/Create
         public ActionResult Create()
         {
+            ViewBag.MainIngredients = new List<string> { "Rum", "Wódka", "Whisky" };
             ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
             return View();
         }
@@ -47,6 +49,7 @@ namespace GreenFlamingosWebApp.Controllers
                 string components = ingredients["Ingredients"];
                 drink.Ingredients = components.Split(",").ToList();
                 drink.Preparation = recipy.Split(",").ToList();
+                ViewBag.MainIngredients = new List<string> { "Rum", "Wódka", "Whisky" };
                 ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
                 _drinkService.AddDrink(drink);
                 return RedirectToAction(nameof(Index));

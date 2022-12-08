@@ -60,7 +60,13 @@ ol {
   ul li,
   ol li {
     list-style: none; }
-
+.center {
+    background-color:red;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
 img {
   height: auto;
   max-width: 100%; }

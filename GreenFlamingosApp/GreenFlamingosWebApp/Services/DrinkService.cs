@@ -79,9 +79,10 @@ namespace GreenFlamingosWebApp.Services
         {
             return DrinkRepository.drinkList;
         }
-        public void RemoveDrink(Drink drink)
+        public Drink GetDrinkById(int id)
         {
-            throw new NotImplementedException();
+            var drinks = GetAll();
+            return drinks.FirstOrDefault(d => d.Id == id);
         }
     }
 }

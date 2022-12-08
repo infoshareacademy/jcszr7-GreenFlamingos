@@ -1,93 +1,12 @@
-﻿@*@model IEnumerable<GreenFlamingosWebApp.Models.Drink>
-
-@{
-    ViewData["Title"] = "Index";
-}
+﻿@model IEnumerable<GreenFlamingosWebApp.Models.Drink>
 @{
     Layout = "~/Views/Shared/_LayoutOLD.cshtml";
-}
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <h1>Image</h1>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AlcoholContent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Calories)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DrinkType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MainIngredient)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Capacity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-             <td>
-                <asp:Image id="Label3" ImageUrl="<%#"/>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AlcoholContent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Calories)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DrinkType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MainIngredient)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Capacity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-*@
-
-@model IEnumerable<GreenFlamingosWebApp.Models.Drink>
-@{
-    Layout = "~/Views/Shared/_LayoutOLD.cshtml";
+    ViewData["Title"] = "Drinki";
 }
 
 <div class="container">
     <h3 class="display-4">Wszystkie Drinki</h3>
     <div class="row">
-
         @foreach(var drink in Model)
         {
             <div class="col-md-4">
@@ -98,7 +17,7 @@
                             <p class="card-text">@Html.DisplayFor(modelItem => drink.DrinkType)</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                                        @Html.ActionLink("Details", "Details", new {  id=drink.Id })
                                     </div>
                                     <small class="text-muted">Autor Drinka</small>
                                 </div>
@@ -106,9 +25,5 @@
                 </div>
             </div>  
         }
-
     </div>
-
-
-
 </div>

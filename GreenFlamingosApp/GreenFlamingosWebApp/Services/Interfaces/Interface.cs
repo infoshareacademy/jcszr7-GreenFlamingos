@@ -6,6 +6,7 @@ namespace GreenFlamingosWebApp.Services.Interfaces
     {
         List<Drink> GetAll();
         void AddDrink(Drink drink);
+        Drink GetDrinkById(int id);
         //void RemoveDrink(Drink drink);
     }
 }
