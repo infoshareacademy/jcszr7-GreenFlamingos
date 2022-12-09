@@ -12,7 +12,7 @@ namespace GreenFlamingosWebApp.Models
         [DisplayName("Zawartość Alkoholu")]
         [Required(ErrorMessage = "Zawartość alkoholu jest wymagana")]
         [Range(0,99,ErrorMessage ="Podaj Zawartość Alkoholu z przedziału 0 - 99%")]
-        public int AlcoholContent { get; set; }
+        public float AlcoholContent { get; set; }
         [DisplayName("Ilość Kalori")]
         [Required(ErrorMessage = "Kalorie są wymagane")]
         public int Calories { get; set; }

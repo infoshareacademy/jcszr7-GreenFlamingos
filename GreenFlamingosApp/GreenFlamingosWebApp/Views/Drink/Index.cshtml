@@ -4,26 +4,29 @@
     ViewData["Title"] = "Drinki";
 }
 
-<div class="container">
-    <h3 class="display-4">Wszystkie Drinki</h3>
+
+<div class="" style="justify-content:center;">
+    <header style="text-align:center"><h3 class="display-4">Wszystkie Drinki</h3></header>
     <div class="row">
-        @foreach(var drink in Model)
+        @foreach (var drink in Model)
         {
             <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
-                 <img src = "@drink.ImageUrl" class="img-thumbnail" width="100%" height="100%"/>
-                        <div class="card-body">
-                            <h3 class="card-title">@Html.DisplayFor(modelItem => drink.Name)</h3>
-                            <p class="card-text">@Html.DisplayFor(modelItem => drink.DrinkType)</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        @Html.ActionLink("Details", "Details", new {  id=drink.Id })
-                                    </div>
-                                    <small class="text-muted">Autor Drinka</small>
-                                </div>
+                    <img src="@drink.ImageUrl" class="img-thumbnail" width="100%" height="100%" />
+                    <div class="card-body">
+                        <h3 class="card-title">@Html.DisplayFor(modelItem => drink.Name)</h3>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn btn-outline-success">
+                                @Html.ActionLink("Przepis", "Details", new {  id=drink.Id })
+                            </div>
+                            <div class="btn btn-outline-danger" data-href="/delete.php?id=54" data-toggle="modal" data-target="#confirm-delete">
+                                @Html.ActionLink("Usuń Drinka", "Delete", new {  id=drink.Id })
+                            </div>
+                            <small class="text-muted">Autor Drinka</small>
                         </div>
+                    </div>
                 </div>
-            </div>  
+            </div>
         }
     </div>
 </div>

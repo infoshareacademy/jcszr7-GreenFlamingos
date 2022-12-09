@@ -82,16 +82,18 @@ namespace GreenFlamingosWebApp.Controllers
         // GET: DrinkController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var model = _drinkService.GetDrinkById(id);
+            return View(model);
         }
 
         // POST: DrinkController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(Drink drink)
         {
             try
             {
+                _drinkService.RemoveDrink(drink);
                 return RedirectToAction(nameof(Index));
             }
             catch

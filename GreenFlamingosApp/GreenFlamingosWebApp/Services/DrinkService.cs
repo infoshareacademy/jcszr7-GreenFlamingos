@@ -63,7 +63,6 @@ namespace GreenFlamingosWebApp.Services
                                           newDrink.Owner,
                                           newDrink.MainIngredient,
                                           newDrink.Capacity,
-                                          newDrink.AlcoholContent,
                                           newDrink.Calories,
                                           newDrink.Ingredients,
                                           newDrink.Description,
@@ -83,6 +82,12 @@ namespace GreenFlamingosWebApp.Services
         {
             var drinks = GetAll();
             return drinks.FirstOrDefault(d => d.Id == id);
+        }
+
+        public void RemoveDrink(Drink drink)
+        {
+            var DrinkToRemove= GetDrinkById(drink.Id);
+            DrinkRepository.drinkList.Remove(DrinkToRemove);
         }
     }
 }

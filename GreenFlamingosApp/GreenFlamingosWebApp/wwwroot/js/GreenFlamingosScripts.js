@@ -21,3 +21,7 @@ function AddTextBox1() {
 function RemoveTextBox1(div) {
     document.getElementById("divCont1").removeChild(div.parentNode.parentNode);
 }
+// Rating Initialization
+$(document).ready(function () {
+    $('#rateMe2').mdbRate();
+});
