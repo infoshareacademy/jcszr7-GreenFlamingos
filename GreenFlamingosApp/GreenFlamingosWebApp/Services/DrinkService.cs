@@ -2,6 +2,7 @@
 using GreenFlamingosWebApp.Models;
 using GreenFlamingosWebApp.Repository;
 using GreenFlamingosWebApp.Services.Interfaces;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GreenFlamingosWebApp.Services
 {
@@ -48,6 +49,12 @@ namespace GreenFlamingosWebApp.Services
         public void RemoveDrink(Drink drink)
         {
             throw new NotImplementedException();
+        }
+        public List<Drink> SearchDrink(string searchedWord)
+        {
+            if (searchedWord != null)
+                return DrinkRepository.drinkList.Where(d => d.Name.Contains(searchedWord)).ToList();
+            return DrinkRepository.drinkList;
         }
     }
 }

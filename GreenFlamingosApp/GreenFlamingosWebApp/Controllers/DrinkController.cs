@@ -3,6 +3,7 @@ using GreenFlamingosWebApp.Models;
 using GreenFlamingosWebApp.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace GreenFlamingosWebApp.Controllers
 {
@@ -92,6 +93,13 @@ namespace GreenFlamingosWebApp.Controllers
             {
                 return View();
             }
+        }
+
+        // GET: DrinkController/Search
+        public ActionResult Search(string searchedWord)
+        {
+            var model = _drinkService.SearchDrink(searchedWord);
+            return View(model);
         }
     }
 }
