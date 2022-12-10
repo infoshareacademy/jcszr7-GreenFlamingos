@@ -1,24 +1,25 @@
 ﻿using GreenFlamingos.Model;
-using System;
-using System.Collections.Generic;
+using GreenFlamingosApp.Services.Validation;
+using GreenFlamingosApp.DataBase;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace GreenFlamingosApp.Services
 {
     public class UserBookService
     {
         List<User> users = new List<User>();
+
+
         User user = new User();
 
+        public UserBookService()
+        {
+            users = GreenFlamingosDataBaseService.ReadAllUsers();
+        }
         public void AddUser()
         {
             var userRegister = new UserRegister(user);
             user = userRegister.RecordUser();
-
-            var userToAdd = users.FirstOrDefault(d => string.Equals(d.UserMail.ToLower(), user.UserMail.ToLower()));
-
+            var userToAdd = users.FirstOrDefault(u => string.Equals(u.UserMail.ToLower(), user.UserMail.ToLower()));
             if (userToAdd != null)
             {
                 Console.WriteLine("Uzytkownik z takim emailem już istnieje");
@@ -27,22 +28,22 @@ namespace GreenFlamingosApp.Services
             else
             {
                 Console.WriteLine("Gratulacje, udalo ci sie zarejestrować konto");
-                Console.ReadKey();
                 users.Add(user);
                 user.UserID = users.Count + 100;
+                GreenFlamingosDataBaseService.WriteAllUsers(users);
+                Console.ReadKey();
             }
         }
-
         public void ShowAllUsers()
         {
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 user.ShowUser();
             }
         }
-
         public User LogIn()
         {
+            Console.Clear();
             Console.WriteLine("Podaj Login");
             string login = Console.ReadLine();
             Console.WriteLine("Podaj haslo");
@@ -55,25 +56,52 @@ namespace GreenFlamingosApp.Services
                     {
                         Console.WriteLine($"Witaj użytkowniku {unLoggedUser.UserMail}");
                         Console.ReadLine();
-                        unLoggedUser.UserStatus = true;
+                        if(unLoggedUser.UserMail == "admin")
+                            unLoggedUser.UserLevel = UserLevel.admin;
+                        else
+                            unLoggedUser.UserLevel = UserLevel.logged;
                         user = unLoggedUser;
                         break;
-                        
+
                     }
                     else
                     {
-                        user.UserStatus = false;
+                        user.UserLevel = UserLevel.unlogged;
                         Console.WriteLine("Błedne haslo");
                     }
                 }
             }
             return user;
         }
-
         public void LogOut(User user)
         {
-            user.UserStatus = false;
+            user.UserLevel = UserLevel.unlogged;
         }
-
+        public void AccountService(User user)
+        {
+            var userValidation = new UserDataValidation(user);
+            Console.Clear();
+            Console.WriteLine($"Witaj użytkowniku {user.UserMail}. Co chciałbyś zmienić w swoim koncie ?");
+            var userInput = 0;
+            do
+            {
+                Console.Clear();
+                DefaultMenu.UserAccountService();
+                if (int.TryParse(Console.ReadLine(), out userInput))
+                {
+                    switch (userInput)
+                    {
+                        case 1:
+                            user.UserMail = userValidation.ValidateEmail();
+                            Console.WriteLine("Pomyslnie zmieniles login");
+                            break;
+                        case 2:
+                            user.Password = userValidation.ValidatePassword();
+                            Console.WriteLine("Pomyslnie zmieniles login");
+                            break;
+                    }
+                }
+            } while (userInput != 3);
+        }
     }
 }

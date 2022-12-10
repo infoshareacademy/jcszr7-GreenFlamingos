@@ -1,19 +1,21 @@
 ﻿using GreenFlamingos.Model;
-using GreenFlamingosApp.Services;
+using GreenFlamingosApp.Services.MenuServices;
 
 
 
 int userInput;
 var mainMenu = new MainMenuService();
-var user = new User("Admin","admin");
-user.UserStatus = true;
+//var user = new User("admin","admin");
+//user.UserLevel = UserLevel.admin;
+var user = new User();
+
 do
 {
     DefaultMenu.Menu(user);
 
     if (int.TryParse(Console.ReadLine(), out userInput))
     {
-        user = mainMenu.MenuService(userInput);
+        mainMenu.MenuService(ref user,userInput);
     }
     else
     {

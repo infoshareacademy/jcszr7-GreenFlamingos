@@ -1,0 +1,72 @@
+﻿@model GreenFlamingosWebApp.Models.Drink
+
+@{
+    Layout = "~/Views/Shared/_LayoutOLD.cshtml";
+    ViewData["Title"] = "Przepis";
+}
+<script src="~/js/GreenFlamingosScripts.js"></script>
+<div>
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="Kuba_Test2">
+        <img src="@Model.ImageUrl" class="center" />
+    </div>
+    <div class="receipe-content-area">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-12 col-md-8">
+                    <div class="receipe-headline my-5">
+                        <h2>@Model.Name</h2>
+                        <div class="receipe-duration">
+                            @Model.Description
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    @for (int i = 0; i < @Model.Preparation.Count(); i++)
+                    {
+                        <!-- Single Preparation Step -->
+                        <div class="single-preparation-step d-flex">
+                            <h4>@(i+1).</h4>
+                            <p>@Model.Preparation[i]</p>
+                        </div>
+                    }
+                </div>
+
+                <!-- Ingredients -->
+                <div>
+                    <div class="ingredients">
+                        <h4>Ingredients</h4>
+
+                        @for (int i = 0; i < @Model.Ingredients.Count(); i++)
+                        {
+                            <!-- Custom Checkbox -->
+                            <div>
+                                <input type="checkbox" style="width:25px; height:25px; margin-bottom:20px;" id="cb1">
+                                <label class="custom-control-label" for="customCheck1">@Model.Ingredients[i]</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="center">
+                <header style="text-align:center; font-size:30px;">Oceń Przepis</header>
+                <div class="Kuba_Test1">
+                    <span id="rateMe2" class="fa fa-star"></span>
+                    <span id="rateMe2" class="fa fa-star"></span>
+                    <span id="rateMe2" class="fa fa-star"></span>
+                    <span id="rateMe2" class="fa fa-star"></span>
+                    <span id="rateMe2" class="fa fa-star"></span>
+                </div>
+
+            </div>
+            <div class="Kuba_Test">
+                <button class="btn delicious-btn mt-30" type="submit">Dodaj Do ulubionych</button>
+            </div>
+        </div>
+    </div>
+</div>

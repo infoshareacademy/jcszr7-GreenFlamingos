@@ -2,6 +2,14 @@
 {
     public class Shot : Drink
     {
+        public Shot()
+        {
+            Random rnd = new Random();
+            DrinkID = rnd.Next(600000, 999999);
+            //Here is needed a condition to check if created number is already used by other NoAlcoDrink
+
+            DrinkType = "Shot";
+        }
         public Shot(string name, User owner, string mainIgredient, int capacity, double alcoholContent, int calories, List<string> ingriedients, string description, List<string> preparation)
         {
             Random rnd = new Random();

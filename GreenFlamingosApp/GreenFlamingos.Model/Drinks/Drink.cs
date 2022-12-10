@@ -4,6 +4,9 @@
     {
         private int _drinkID;
         public int DrinkID { get { return _drinkID; } set { _drinkID = value; } }
+        public User Owner { get; set; }
+        public double AlcoholContent { get; set; }
+        public int Calories { get; set; }
         public string DrinkType { get; set; }
         public string Name { get; set; }
         public User Owner { get; set; }
@@ -17,37 +20,33 @@
 
         public virtual void ShowIngredients()
         {
-            Console.WriteLine($"Oto mój {DrinkType}, {Name}\n" +
-                $"Twórca: {Owner.UserMail}\n" +
-                $"Zawartość alkoholu: {AlcoholContent}%\n" +
-                $"Kalorie: {Calories}\n" +
-                $"Pojemność: {Capacity}\n" +
-                $"Składnik główny: {MainIngredient}\n" +
-                $"Pozostałe składniki:");
-            foreach (string ingredient in Ingredients)
-            {
-                Console.WriteLine($"{ingredient}");
-            }
-            Console.WriteLine($"\nOpis Drinku:\n" +
-                $"{Description}\n");
-        }
+            Console.WriteLine($"Oto moj {DrinkType} + {Name}");
+            Console.WriteLine("Składniki:");
+            Console.WriteLine($"Głowny składnik: {MainIngredient}");
+            Console.WriteLine($"Pojemnosc: {Capacity}");
 
-        public virtual void ShowRecipe() /////Here will show recipe from user
-        {
-            Console.WriteLine("Przyrządzenie:");
-            foreach (string step in Preparation)
+            ////// Below is checking that drink has optional igredients///////////
+            if (!string.IsNullOrEmpty(Ingredient1))
             {
-                Console.WriteLine($" - {step}");
+                Console.WriteLine($"Skladnik 1: {Ingredient1}");
             }
-            Console.WriteLine("\n");
+            if (!string.IsNullOrEmpty(Ingredient2))
+            {
+                Console.WriteLine($"Skladnik 2: {Ingredient2}");
+            }
+            if (!string.IsNullOrEmpty(Ingredient3))
+            {
+                Console.WriteLine($"Skladnik 3: {Ingredient3}");
+            }
         }
 
         virtual public void ShowDrinkWithIngredient()
         {
-            Console.WriteLine($"Nazwa drinka: {Name}, główny składnik: {MainIngredient}, objętość: {Capacity}ml\n");
+            Console.WriteLine("Przygotowanie: ");
+            Console.WriteLine("Jakis przepis");         /////Here will show recipe from user
         }
 
-        public virtual void ShowDrink()
+        public void ShowDrink()
         {
             ShowIngredients();
             ShowRecipe();

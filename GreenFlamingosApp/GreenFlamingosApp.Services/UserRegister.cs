@@ -1,10 +1,5 @@
 ﻿using GreenFlamingos.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using GreenFlamingosApp.Services.Validation;
 namespace GreenFlamingosApp.Services
 {
     public class UserRegister
@@ -20,8 +15,8 @@ namespace GreenFlamingosApp.Services
             var userValidation = new UserDataValidation(_user);
             string userMail = userValidation.ValidateEmail();
             string password = userValidation.ValidatePassword();
-            var user = new User(password, userMail);
-            return user;
+            var userToAdd = new User(password, userMail);
+            return userToAdd;
         }
 
 

@@ -1,0 +1,259 @@
+{
+  "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+  "$values": [
+    {
+      "$type": "GreenFlamingos.Model.Drinks.AlcoDrink, GreenFlamingos.Model",
+      "DrinkID": 172049,
+      "Owner": {
+        "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+        "FavoriteDrinks": {
+          "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+          "$values": []
+        },
+        "Password": "admin",
+        "UserID": 0,
+        "UserMail": "admin",
+        "UserLevel": 0
+      },
+      "AlcoholContent": 20.0,
+      "Calories": 20,
+      "DrinkType": "Drink",
+      "Name": "whisky z cola",
+      "MainIngredient": "whisky",
+      "Capacity": 200,
+      "Ingredients": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Description": "opis",
+      "Preparation": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": [
+          "wlac"
+        ]
+      }
+    },
+    {
+      "$type": "GreenFlamingos.Model.Drinks.AlcoDrink, GreenFlamingos.Model",
+      "DrinkID": 157154,
+      "Owner": {
+        "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+        "FavoriteDrinks": {
+          "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+          "$values": []
+        },
+        "Password": "admin",
+        "UserID": 0,
+        "UserMail": "admin",
+        "UserLevel": 2
+      },
+      "AlcoholContent": 30.0,
+      "Calories": 100,
+      "DrinkType": "Drink",
+      "Name": "Mochito",
+      "MainIngredient": "rum",
+      "Capacity": 200,
+      "Ingredients": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": [
+          "pół limonki",
+          "2 łyżeczki cukru trzcinowego",
+          "listy mięty",
+          "woda gazowana",
+          "lód",
+          "wódka (opcjonalnie)"
+        ]
+      },
+      "Description": "Słynny drink na bazie białego rumu.",
+      "Preparation": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": [
+          "wymieszać wszystkie składniki ze sobą."
+        ]
+      }
+    },
+    {
+      "$type": "GreenFlamingos.Model.Drinks.AlcoDrink, GreenFlamingos.Model",
+      "DrinkID": 249459,
+      "Owner": {
+        "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+        "FavoriteDrinks": {
+          "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+          "$values": [
+            {
+              "$type": "GreenFlamingos.Model.Drinks.AlcoDrink, GreenFlamingos.Model",
+              "DrinkID": 157154,
+              "Owner": {
+                "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+                "FavoriteDrinks": {
+                  "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "Password": "admin",
+                "UserID": 0,
+                "UserMail": "admin",
+                "UserLevel": 2
+              },
+              "AlcoholContent": 30.0,
+              "Calories": 100,
+              "DrinkType": "Drink",
+              "Name": "Mochito",
+              "MainIngredient": "rum",
+              "Capacity": 200,
+              "Ingredients": {
+                "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+                "$values": [
+                  "pół limonki",
+                  "2 łyżeczki cukru trzcinowego",
+                  "listy mięty",
+                  "woda gazowana",
+                  "lód",
+                  "wódka (opcjonalnie)"
+                ]
+              },
+              "Description": "Słynny drink na bazie białego rumu.",
+              "Preparation": {
+                "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+                "$values": [
+                  "wymieszać wszystkie składniki ze sobą."
+                ]
+              }
+            }
+          ]
+        },
+        "Password": "Firanka1!",
+        "UserID": 101,
+        "UserMail": "kuba@wp.pl",
+        "UserLevel": 1
+      },
+      "AlcoholContent": 10.0,
+      "Calories": 100,
+      "DrinkType": "Drink",
+      "Name": "Polak potrafi",
+      "MainIngredient": "rum",
+      "Capacity": 200,
+      "Ingredients": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Description": "opis",
+      "Preparation": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": []
+      }
+    },
+    {
+      "$type": "GreenFlamingos.Model.Drinks.Shot, GreenFlamingos.Model",
+      "DrinkID": 656101,
+      "Owner": {
+        "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+        "FavoriteDrinks": {
+          "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+          "$values": []
+        },
+        "Password": "Firanka1!",
+        "UserID": 101,
+        "UserMail": "kuba@wp.pl",
+        "UserLevel": 1
+      },
+      "AlcoholContent": 29.0,
+      "Calories": 90,
+      "DrinkType": "Shot",
+      "Name": "Jack Sparrow",
+      "MainIngredient": "rum",
+      "Capacity": 50,
+      "Ingredients": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": [
+          "biały rum - 20ml",
+          "malibu rum - 10ml",
+          "Blue Curacao - klika korpel",
+          "kostki lodu"
+        ]
+      },
+      "Description": "Rum, kokos, błękitna tafla wody karaibów - czyli to co Jack Sparrow lubi najbardziej. ",
+      "Preparation": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": [
+          "Wszystkie składniki wraz z kostkami lodu wrzucamy do shakera i dobrze wstrząsamy.",
+          "Zawartość shakera przelewamy do kieliszka"
+        ]
+      }
+    },
+    {
+      "$type": "GreenFlamingos.Model.Drinks.AlcoDrink, GreenFlamingos.Model",
+      "DrinkID": 108377,
+      "Owner": {
+        "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+        "FavoriteDrinks": {
+          "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+          "$values": [
+            {
+              "$type": "GreenFlamingos.Model.Drinks.AlcoDrink, GreenFlamingos.Model",
+              "DrinkID": 157154,
+              "Owner": {
+                "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+                "FavoriteDrinks": {
+                  "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+                  "$values": []
+                },
+                "Password": "admin",
+                "UserID": 0,
+                "UserMail": "admin",
+                "UserLevel": 2
+              },
+              "AlcoholContent": 30.0,
+              "Calories": 100,
+              "DrinkType": "Drink",
+              "Name": "Mochito",
+              "MainIngredient": "rum",
+              "Capacity": 200,
+              "Ingredients": {
+                "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+                "$values": [
+                  "pół limonki",
+                  "2 łyżeczki cukru trzcinowego",
+                  "listy mięty",
+                  "woda gazowana",
+                  "lód",
+                  "wódka (opcjonalnie)"
+                ]
+              },
+              "Description": "Słynny drink na bazie białego rumu.",
+              "Preparation": {
+                "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+                "$values": [
+                  "wymieszać wszystkie składniki ze sobą."
+                ]
+              }
+            }
+          ]
+        },
+        "Password": "Firanka1!",
+        "UserID": 101,
+        "UserMail": "kuba@wp.pl",
+        "UserLevel": 1
+      },
+      "AlcoholContent": 15.0,
+      "Calories": 100,
+      "DrinkType": "Drink",
+      "Name": "wodka z cola ",
+      "MainIngredient": "wódka",
+      "Capacity": 200,
+      "Ingredients": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": [
+          "cola",
+          "kostki lodu"
+        ]
+      },
+      "Description": "Tradycyjny drink studencki",
+      "Preparation": {
+        "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+        "$values": [
+          "wlac wszystko do szklanki i wymieszac"
+        ]
+      }
+    }
+  ]
+}
