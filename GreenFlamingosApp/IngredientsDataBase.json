@@ -1,0 +1,18 @@
+{
+  "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+  "$values": [
+    "whisky",
+    "rum",
+    "gin",
+    "szampan",
+    "pomarańcza",
+    "limonka",
+    "woda",
+    "sprite",
+    "bazylia",
+    "sok pomarańczowy",
+    "woda gazowana",
+    "mięta",
+    "Blucuracao"
+  ]
+}

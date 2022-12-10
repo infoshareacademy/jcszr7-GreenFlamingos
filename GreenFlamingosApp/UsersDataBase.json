@@ -1,0 +1,89 @@
+{
+  "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.User, GreenFlamingos.Model]], System.Private.CoreLib",
+  "$values": [
+    {
+      "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+      "FavoriteDrinks": {
+        "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+        "$values": [
+          {
+            "$type": "GreenFlamingos.Model.Drinks.AlcoDrink, GreenFlamingos.Model",
+            "DrinkID": 157154,
+            "Owner": {
+              "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+              "FavoriteDrinks": {
+                "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+                "$values": []
+              },
+              "Password": "admin",
+              "UserID": 0,
+              "UserMail": "admin",
+              "UserLevel": 2
+            },
+            "AlcoholContent": 30.0,
+            "Calories": 100,
+            "DrinkType": "Drink",
+            "Name": "Mochito",
+            "MainIngredient": "rum",
+            "Capacity": 200,
+            "Ingredients": {
+              "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+              "$values": [
+                "pół limonki",
+                "2 łyżeczki cukru trzcinowego",
+                "listy mięty",
+                "woda gazowana",
+                "lód",
+                "wódka (opcjonalnie)"
+              ]
+            },
+            "Description": "Słynny drink na bazie białego rumu.",
+            "Preparation": {
+              "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+              "$values": [
+                "wymieszać wszystkie składniki ze sobą."
+              ]
+            }
+          }
+        ]
+      },
+      "Password": "Firanka1!",
+      "UserID": 101,
+      "UserMail": "kuba@wp.pl",
+      "UserLevel": 0
+    },
+    {
+      "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+      "FavoriteDrinks": {
+        "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Password": "Firanka1!",
+      "UserID": 102,
+      "UserMail": "szymon@wp.pl",
+      "UserLevel": 0
+    },
+    {
+      "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+      "FavoriteDrinks": {
+        "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Password": "admin",
+      "UserID": 103,
+      "UserMail": "admin",
+      "UserLevel": 0
+    },
+    {
+      "$type": "GreenFlamingos.Model.User, GreenFlamingos.Model",
+      "FavoriteDrinks": {
+        "$type": "System.Collections.Generic.List`1[[GreenFlamingos.Model.Drinks.Drink, GreenFlamingos.Model]], System.Private.CoreLib",
+        "$values": []
+      },
+      "Password": "Infoshare1!",
+      "UserID": 104,
+      "UserMail": "grzegorz@onet.pl",
+      "UserLevel": 0
+    }
+  ]
+}

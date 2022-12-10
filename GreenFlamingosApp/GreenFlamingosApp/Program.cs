@@ -1,20 +1,23 @@
-﻿using GreenFlamingosApp.Services;
+﻿using GreenFlamingos.Model;
+using GreenFlamingosApp.Services.MenuServices;
 
 int userInput;
-bool userStatus = true;  // false - not logged, true - logged in 
+var mainMenu = new MainMenuService();
+//var user = new User("admin","admin");
+//user.UserLevel = UserLevel.admin;
+var user = new User();
+
 do
 {
-    GreenFlamingosLibrary.Menu(userStatus);
+    DefaultMenu.Menu(user);
 
     if (int.TryParse(Console.ReadLine(), out userInput))
     {
-       GreenFlamingosLibrary.MenuService(userStatus,userInput);
+        mainMenu.MenuService(ref user,userInput);
     }
     else
     {
         Console.WriteLine("Twoj wybor nie jest liczbą, Wybierz opcję z przedziału 1-6");
         Console.ReadKey();
     }
-
-    Console.WriteLine("Test");
 } while (userInput != 6);
