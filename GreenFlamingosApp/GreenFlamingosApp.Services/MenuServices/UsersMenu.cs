@@ -66,7 +66,8 @@ namespace GreenFlamingosApp.Services.MenuServices
                                                                  newDrink.Calories,
                                                                  newDrink.Ingredients,
                                                                  newDrink.Description,
-                                                                 newDrink.Preparation);
+                                                                 newDrink.Preparation,
+                                                                 newDrink.ImageUrl);
 
                                                 break;
                                             }
@@ -80,7 +81,8 @@ namespace GreenFlamingosApp.Services.MenuServices
                                                                  newDrink.Calories,
                                                                  newDrink.Ingredients,
                                                                  newDrink.Description,
-                                                                 newDrink.Preparation);
+                                                                 newDrink.Preparation,
+                                                                 newDrink.ImageUrl);
                                                 break;
                                             }
                                         case 3:
@@ -89,11 +91,11 @@ namespace GreenFlamingosApp.Services.MenuServices
                                                                  newDrink.Owner,
                                                                  newDrink.MainIngredient,
                                                                  newDrink.Capacity,
-                                                                 newDrink.AlcoholContent,
                                                                  newDrink.Calories,
                                                                  newDrink.Ingredients,
                                                                  newDrink.Description,
-                                                                 newDrink.Preparation);
+                                                                 newDrink.Preparation,
+                                                                 newDrink.ImageUrl);
                                                 break;
                                             }
                                     }
@@ -175,7 +177,8 @@ namespace GreenFlamingosApp.Services.MenuServices
                                                                  newDrink.Calories,
                                                                  newDrink.Ingredients,
                                                                  newDrink.Description,
-                                                                 newDrink.Preparation);
+                                                                 newDrink.Preparation,
+                                                                 newDrink.ImageUrl);
                                                 break;
                                             }
                                         case 2:
@@ -188,7 +191,8 @@ namespace GreenFlamingosApp.Services.MenuServices
                                                                  newDrink.Calories,
                                                                  newDrink.Ingredients,
                                                                  newDrink.Description,
-                                                                 newDrink.Preparation);
+                                                                 newDrink.Preparation,
+                                                                 newDrink.ImageUrl);
                                                 break;
                                             }
                                         case 3:
@@ -197,11 +201,11 @@ namespace GreenFlamingosApp.Services.MenuServices
                                                                  newDrink.Owner,
                                                                  newDrink.MainIngredient,
                                                                  newDrink.Capacity,
-                                                                 newDrink.AlcoholContent,
                                                                  newDrink.Calories,
                                                                  newDrink.Ingredients,
                                                                  newDrink.Description,
-                                                                 newDrink.Preparation);
+                                                                 newDrink.Preparation,
+                                                                 newDrink.ImageUrl);
                                                 break;
                                             }
                                     }

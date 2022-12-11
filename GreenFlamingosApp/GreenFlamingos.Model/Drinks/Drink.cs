@@ -1,57 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace GreenFlamingos.Model.Drinks
 {
-    public abstract class Drink
+    public class Drink : ValidationAttribute
     {
         private int _drinkID;
-        public int DrinkID { get { return _drinkID; } set { _drinkID = value; } }
-        public User Owner { get; set; }
-        public double AlcoholContent { get; set; }
+        public int Id { get { return _drinkID; } set { _drinkID = value; } }
+        public User Owner {get; set; }
+        [DisplayName("Zawartość Alkoholu")]
+        [Required(ErrorMessage = "Zawartość alkoholu jest wymagana")]
+        [Range(0,99,ErrorMessage ="Podaj Zawartość Alkoholu z przedziału 0 - 99%")]
+        public float AlcoholContent { get; set; }
+        [DisplayName("Ilość Kalori")]
+        [Required(ErrorMessage = "Kalorie są wymagane")]
         public int Calories { get; set; }
+        [DisplayName("Rodzaj Drinka")]
         public string DrinkType { get; set; }
+        [DisplayName("Nazwa")]
+        [Required(ErrorMessage = "Nazwa jest wymagana")]
         public string Name { get; set; }
+        [DisplayName("Główny Składnik")]
+        [Required(ErrorMessage = "Główny składnik jest wymagany")]
         public string MainIngredient { get; set; }
+        [DisplayName("Pojemność")]
+        [Required(ErrorMessage = "Pojemność jest wymagana")]
         public int Capacity { get; set; }
         public List<string> Ingredients { get; set; }
+        [DisplayName("Opis Napoju")]
         public string Description { get; set; }
+        //public List<string> Preparation { get; set; }
         public List<string> Preparation { get; set; }
-
-        public virtual void ShowIngredients()
-        {
-            Console.WriteLine($"Oto mój {DrinkType}, {Name}\n" +
-                $"Twórca: {Owner.UserMail}\n" +
-                $"Zawartość alkoholu: {AlcoholContent}%\n" +
-                $"Kalorie: {Calories}\n" +
-                $"Pojemność: {Capacity}\n" +
-                $"Składnik główny: {MainIngredient}\n" +
-                $"Pozostałe składniki:");
-            foreach (string ingredient in Ingredients)
-            {
-                Console.WriteLine($"{ingredient}");
-            }
-            Console.WriteLine($"\nOpis Drinka:\n" +
-                $"{Description}\n");
-        }
-
-        public virtual void ShowRecipe()
-        {
-            Console.WriteLine("Przyrządzenie:");
-            foreach (string step in Preparation)
-            {
-                Console.WriteLine($" - {step}");
-            }
-        }
-
-        public void ShowDrink()
-        {
-            ShowIngredients();
-            ShowRecipe();
-        }
-
+        [DisplayName("Zdjęcie")]
+        [Required(ErrorMessage = "Zdjęcie jest wymagane")]
+        public IFormFile Photo { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

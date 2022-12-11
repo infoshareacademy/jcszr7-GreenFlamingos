@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using GreenFlamingos.Model.Drinks;
+using GreenFlamingos.Model;
 namespace GreenFlamingos.Model.Drinks
 {
     public class NoAlcoDrink : Drink
@@ -12,26 +8,19 @@ namespace GreenFlamingos.Model.Drinks
         {
             DrinkType = "Drink bezalkoholowy";
         }
-        public NoAlcoDrink(string name, User owner, string mainIgredient, int capacity, double alcoholContent, int calories, List<string> ingriedients, string description, List<string> preparation)
+        public NoAlcoDrink(string name, User owner, string mainIgredient, int capacity, int calories, List<string> ingriedients, string description, List<string> preparation, string imageUrl)
         {
-            Random rnd = new Random();
-            DrinkID = rnd.Next(300000, 599999);
-            //Here is needed a condition to check if created number is already used by other NoAlcoDrink
-
             DrinkType = "Drink bezalkoholowy";
             Name = name;
             Owner = owner;
             MainIngredient = mainIgredient;
-
-            if (capacity < 250 || capacity > 1000)
-                throw new ArgumentOutOfRangeException();
-            else
-                Capacity = capacity;
-            AlcoholContent = alcoholContent;
+            Capacity = capacity;
+            AlcoholContent = 0;
             Calories = calories;
             Ingredients = ingriedients;
             Description = description;
             Preparation = preparation;
+            ImageUrl = imageUrl;
         }
     }
 }

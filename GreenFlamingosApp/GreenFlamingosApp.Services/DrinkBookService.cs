@@ -1,9 +1,6 @@
 ﻿using GreenFlamingos.Model.Drinks;
 using GreenFlamingos.Model;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc;
 using GreenFlamingosApp.Services.Validation;
-using System.Windows.Input;
 using GreenFlamingosApp.DataBase;
 
 namespace GreenFlamingosApp.Services
@@ -27,7 +24,7 @@ namespace GreenFlamingosApp.Services
 
             if(drinkToShow != null)
             {
-                drinkToShow.ShowDrink();
+               // drinkToShow.ShowDrink();
                 Console.WriteLine("Czy chcesz dodac ten napój do ulubionych ? (y)");
                 if(Console.ReadLine().ToLower() == "y".ToLower())
                 {
@@ -50,7 +47,7 @@ namespace GreenFlamingosApp.Services
             var drinkToChange = DrinkList.FirstOrDefault(d=>string.Equals(d.Name,drinkName,StringComparison.OrdinalIgnoreCase));
             if(drinkToChange != null)
             {
-                drinkToChange.ShowDrink();
+                //drinkToChange.ShowDrink();
                 Console.WriteLine("Co chcialbyś zmienić w drinku ? Mozliwe opcje: ");
                 DrinkProperites.ShowAllDrinkProperites();
                 var userInput = Console.ReadLine();
@@ -183,7 +180,7 @@ namespace GreenFlamingosApp.Services
             newDrink.Capacity = ValidationClass.ValidateCapacity(newDrink);
             if (newDrink.Capacity == 0)
                 return false;
-            newDrink.AlcoholContent = ValidationClass.ValidateAlcoholContent(newDrink);
+            //newDrink.AlcoholContent = ValidationClass.ValidateAlcoholContent(newDrink);
             if (newDrink.AlcoholContent == 0.0)
                 return false;
             newDrink.Calories = ValidationClass.ValidateCalories();
@@ -272,8 +269,8 @@ namespace GreenFlamingosApp.Services
 
             if (drinkList.Count() > 0)
             {
-                foreach (var item in drinkList)
-                    item.ShowDrink();
+                //foreach (var item in drinkList)
+                  //  item.ShowDrink();
             }
             else
             {
@@ -288,7 +285,7 @@ namespace GreenFlamingosApp.Services
                 foreach (var drink in user.FavoriteDrinks)
                 {
                     Console.WriteLine("Moje ulubione napoje: ");
-                    drink.ShowDrink();
+                 //  drink.ShowDrink();
                 }
             }
             else
