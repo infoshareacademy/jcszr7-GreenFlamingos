@@ -1,12 +1,13 @@
 ﻿using GreenFlamingos.Model.Drinks;
 using GreenFlamingos.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
 namespace GreenFlamingosWebApp.Controllers
 {
     public class DrinkController : Controller
     {
         // GET: DrinkController
+
+       
 
         private readonly IDrinkService _drinkService;
         
@@ -53,22 +54,25 @@ namespace GreenFlamingosWebApp.Controllers
                 return View();
             }
         }
-        public ActionResult Test()
-        {
-            return View();
-        }
+
         // GET: DrinkController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ViewBag.MainIngredients = new List<string> { "Rum", "Wódka", "Whisky" };
+            ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
+            var model = _drinkService.GetDrinkById(id);
+            return View(model);
         }
         // POST: DrinkController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Drink drink)
         {
             try
             {
+                ViewBag.MainIngredients = new List<string> { "Rum", "Wódka", "Whisky" };
+                ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
+                _drinkService.EditDrink(drink);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -105,6 +109,19 @@ namespace GreenFlamingosWebApp.Controllers
         {
             var model = _drinkService.SearchDrink(searchedWord);
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AddRating(IFormCollection rating)
+        {
+            var stars = rating["rating"].ToString();
+            var formValues = stars.Split(',');
+            var rateToAdd = float.Parse(formValues[0]);
+            var drinkId = int.Parse(formValues[1]);
+            var drink = _drinkService.GetDrinkById(drinkId);
+            drink.Ratings.Add(rateToAdd);
+            drink.AverageRating = drink.Ratings.Average();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

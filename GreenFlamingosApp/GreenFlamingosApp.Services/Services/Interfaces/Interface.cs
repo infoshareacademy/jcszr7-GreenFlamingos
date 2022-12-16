@@ -8,5 +8,6 @@ namespace GreenFlamingos.Services.Interfaces
         Drink GetDrinkById(int id);
         void RemoveDrink(Drink drink);
         List<Drink> SearchDrink(string searchedWord);
+        void EditDrink(Drink drink);
     }
 }

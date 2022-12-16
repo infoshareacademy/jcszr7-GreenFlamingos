@@ -3,6 +3,8 @@
     Layout = "~/Views/Shared/_LayoutOLD.cshtml";
     ViewData["Title"] = "Przepis";
 }
+<script src="https://kit.fontawesome.com/71a3607229.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="~/js/GreenFlamingosScripts.js"></script>
 <div>
     <!-- ##### Breadcumb Area Start ##### -->
@@ -21,16 +23,27 @@
                         </div>
                     </div>
                 </div>
+                <div class="Information">
+                    <div class="additionalInfo">
+                        <h6 style="color:black;">Alkohol</h6>
+                        <h6 style="color:black;">@Model.AlcoholContent %</h6>
+                    </div>
+                    <div style="color:black;" class="additionalInfo">
+                        <h6 style="color:black;">Kalorie</h6>
+                        <h6 style="color:black;">@Model.Calories</h6>
+                    </div>
+                </div>
             </div>
 
             <div class="row">
                 <div class="col-12 col-lg-8">
+                    <h4 style="color:#474747; margin-bottom:30px;">Przygotowanie:</h4>
                     @for (int i = 0; i < @Model.Preparation.Count(); i++)
                     {
                         <!-- Single Preparation Step -->
                         <div class="single-preparation-step d-flex">
                             <h4>@(i+1).</h4>
-                            <p>@Model.Preparation[i]</p>
+                            <h5>@Model.Preparation[i]</h5>
                         </div>
                     }
                 </div>
@@ -38,34 +51,38 @@
                 <!-- Ingredients -->
                 <div>
                     <div class="ingredients">
-                        <h4>Ingredients</h4>
+                        <h4>Składniki</h4>
 
                         @for (int i = 0; i < @Model.Ingredients.Count(); i++)
                         {
                             <!-- Custom Checkbox -->
-                            <div>
-                                <input type="checkbox" style="width:25px; height:25px; margin-bottom:20px;" id="cb1">
+                            <div class="ingredient">
+                                <input type="checkbox" style="width:25px; height:25px; margin-bottom:20px; margin-right:20px;" id="cb1">
                                 <label class="custom-control-label" for="customCheck1">@Model.Ingredients[i]</label>
                             </div>
                         }
                     </div>
                 </div>
             </div>
-
-            <div class="center">
-                <header style="text-align:center; font-size:30px;">Oceń Przepis</header>
-                <div class="Kuba_Test1">
-                    <span id="rateMe2" class="fa fa-star"></span>
-                    <span id="rateMe2" class="fa fa-star"></span>
-                    <span id="rateMe2" class="fa fa-star"></span>
-                    <span id="rateMe2" class="fa fa-star"></span>
-                    <span id="rateMe2" class="fa fa-star"></span>
-                </div>
-
-            </div>
-            <div class="Kuba_Test">
-                <button class="btn delicious-btn mt-30" type="submit">Dodaj Do ulubionych</button>
-            </div>
+            <form id="Rating" method="post" style="text-align:center;" asp-action="AddRating" asp-controller="Drink">
+                    <h2 style="margin-right:25px;">Oceń przepis</h2>   
+                    <div class="text-warning" onmouseout="CRateSelected()">
+                        <span id="span1" onmouseout="CRateOut(1)" onmouseover="CRateOver(1)" onclick="CRateClick(1)" class="glyphicon glyphicon-star-empty" style="margin-right:30px;"></span>
+                        <span id="span2" onmouseout="CRateOut(2)" onmouseover="CRateOver(2)" onclick="CRateClick(2)" class="glyphicon glyphicon-star-empty" style="margin-right:30px;"></span>
+                        <span id="span3" onmouseout="CRateOut(3)" onmouseover="CRateOver(3)" onclick="CRateClick(3)" class="glyphicon glyphicon-star-empty" style="margin-right:30px;"></span>
+                        <span id="span4" onmouseout="CRateOut(4)" onmouseover="CRateOver(4)" onclick="CRateClick(4)" class="glyphicon glyphicon-star-empty" style="margin-right:30px;"></span>
+                        <span id="span5" onmouseout="CRateOut(5)" onmouseover="CRateOver(5)" onclick="CRateClick(5)" class="glyphicon glyphicon-star-empty" style="margin-right:30px;"></span>
+                    </div>
+                    <div>
+                        <input type="hidden" id="lblRating" name="rating" value="0"  />
+                    </div>
+                    <div>
+                        <input type="hidden" name="rating" value="@Model.Id" />
+                    </div>
+            </form>
+        </div>
+        <div class="Kuba_Test">
+            <button class="btn delicious-btn mt-30" type="submit">Dodaj Do ulubionych</button>
         </div>
     </div>
 </div>

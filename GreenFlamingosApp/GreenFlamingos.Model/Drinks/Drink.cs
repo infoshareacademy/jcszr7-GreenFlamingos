@@ -32,9 +32,12 @@ namespace GreenFlamingos.Model.Drinks
         public string Description { get; set; }
         //public List<string> Preparation { get; set; }
         public List<string> Preparation { get; set; }
-        [DisplayName("Zdjęcie")]
+        [DisplayName("Zdjęcie")] 
         [Required(ErrorMessage = "Zdjęcie jest wymagane")]
         public IFormFile Photo { get; set; }
         public string ImageUrl { get; set; }
+
+        public List<float> Ratings { get; set; }
+        public float AverageRating { get; set; }
     }
 }

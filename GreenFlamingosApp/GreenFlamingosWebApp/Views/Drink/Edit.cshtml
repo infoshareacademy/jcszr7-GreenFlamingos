@@ -1,17 +1,21 @@
 ﻿@model GreenFlamingos.Model.Drinks.Drink
 
 @{
-    ViewData["Title"] = "Stwórz Drinka";
+    ViewData["Title"] = "Edycja Drinka";
     Layout = "~/Views/Shared/_LayoutOLD.cshtml";
 }
 
-<h4>Stwórz Drinka</h4>
-<head margin-bottom:30px;>
-<script src="~/js/GreenFlamingosScripts.js"></script>
+<h4>Edytuj Drinka</h4>
+<head>
+    <script src="~/js/GreenFlamingosScripts.js"></script>
+
+    <div class="form-group">
+    </div>
+
 </head>
 <div class="row">
     <div class="col-md-4">
-        <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Drink">
+        <form method="post" enctype="multipart/form-data" asp-action="Edit" asp-controller="Drink">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group1">
                 <label asp-for="DrinkType" class="control-label"></label>
@@ -46,13 +50,13 @@
             <div class="form-group">
                 <label asp-for="Preparation" class="control-label"></label>
                 <div id="divCont">
-                    <div><input type="text" name="Preparation"/><input type="button" style="width:10%; background-color:green; height:38px; margin-left:3px; border: 1px solid #ced4da; border-radius: 0.25rem;"  onclick="AddTextBox()" value="+" /></div> 
+                    <div><input type="text" name="Preparation" /><input type="button" style="width:10%; background-color:green; height:38px; margin-left:3px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="AddTextBox()" value="+" /></div>
                 </div>
             </div>
-             <div class="form-group">
+            <div class="form-group">
                 <label asp-for="Ingredients" class="control-label"></label>
                 <div id="divCont1">
-                    <div><input type="text" name="Ingredients"/><input type="button" style="width:10%; background-color:green; height:38px; margin-left:3px; border: 1px solid #ced4da; border-radius: 0.25rem;"  onclick="AddTextBox1()" value="+" /></div> 
+                    <div><input type="text" name="Ingredients" /><input type="button" style="width:10%; background-color:green; height:38px; margin-left:3px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="AddTextBox1()" value="+" /></div>
                 </div>
             </div>
             <div class="form-group">
@@ -63,17 +67,23 @@
             <div class="form-group">
                 <label asp-for="Photo" class="control-label"></label>
                 <div class="mb-3">
-                 <input class="form-control" asp-for="Photo" id="formFile" height="100" width="250">
-                 </div>
-                 <span asp-validation-for="Photo" class="text-danger"></span>
+                    <input class="form-control" asp-for="Photo" id="formFile" height="100" width="250">
+                </div>
+                <span asp-validation-for="Photo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Dodaj Napój" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

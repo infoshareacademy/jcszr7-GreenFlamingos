@@ -21,6 +21,8 @@ namespace GreenFlamingos.Model.Drinks
             Description = description;
             Preparation = preparation;
             ImageUrl = imageUrl;
+            Ratings = new List<float>();
+            AverageRating = 0;
         }
     }
 }

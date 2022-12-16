@@ -21,7 +21,31 @@ function AddTextBox1() {
 function RemoveTextBox1(div) {
     document.getElementById("divCont1").removeChild(div.parentNode.parentNode);
 }
-// Rating Initialization
-$(document).ready(function () {
-    $('#rateMe2').mdbRate();
-});
+function CRateOut(rating) {
+    for (var i = 1; i <= rating; i++) {
+        $("#span" + i).attr('class', 'glyphicon glyphicon-star-empty')
+    }
+}
+function CRateOver(rating) {
+    for (var i = 1; i <= rating; i++) {
+        $("#span" + i).attr('class', 'glyphicon glyphicon-star')
+    }
+
+}
+function CRateClick(rating) {
+    $("#lblRating").val(rating);
+
+    for (var i = 1; i <= rating; i++) {
+        $("#span" + i).attr('class', 'glyphicon glyphicon-star')
+    }
+    for (var i = rating + 1; i <= 5; i++) {
+        $("#span" + i).attr('class', 'glyphicon glyphicon-star-empty')
+    }
+    $('#Rating').submit();
+}
+function CRateSelected() {
+    var rating = $("#lblRating").val();
+    for (var i = 0; i <= rating; i++) {
+        $("#span" + i).attr('class', 'glyphicon glyphicon-star')
+    }
+}

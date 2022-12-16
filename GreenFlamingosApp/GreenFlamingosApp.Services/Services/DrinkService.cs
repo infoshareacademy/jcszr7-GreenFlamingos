@@ -41,7 +41,7 @@ namespace GreenFlamingos.Services
                 drinktoAdd.Id = _IdCounter;
                 DrinkRepository.drinkList.Add(drinktoAdd);
             }
-            else if(newDrink.DrinkType == "Shot")
+            else if (newDrink.DrinkType == "Shot")
             {
                 var drinkToAdd = new Shot(newDrink.Name,
                                           newDrink.Owner,
@@ -57,7 +57,7 @@ namespace GreenFlamingos.Services
                 drinkToAdd.Id = _IdCounter;
                 DrinkRepository.drinkList.Add(drinkToAdd);
             }
-            else if(newDrink.DrinkType == "Koktajl")
+            else if (newDrink.DrinkType == "Koktajl")
             {
                 var drinkToAdd = new NoAlcoDrink(newDrink.Name,
                                           newDrink.Owner,
@@ -74,6 +74,25 @@ namespace GreenFlamingos.Services
 
             }
         }
+
+        public void EditDrink(Drink drink)
+        {
+            var drinkToEdit = GetDrinkById(drink.Id);
+            var folder = "Drinks/";
+            folder += Guid.NewGuid().ToString() + "_" + drink.Photo.FileName;
+            var serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+            drink.ImageUrl = "/" + folder;
+            drink.Photo.CopyTo(new FileStream(serverFolder, FileMode.Create));
+            drinkToEdit.Name = drink.Name;
+            drinkToEdit.Calories = drink.Calories;
+            drinkToEdit.AlcoholContent = drink.AlcoholContent;
+            drinkToEdit.MainIngredient = drink.MainIngredient;
+            drinkToEdit.Ingredients = drink.Ingredients;
+            drinkToEdit.Preparation = drink.Preparation;
+            drinkToEdit.Description = drinkToEdit.Description;
+            drinkToEdit.ImageUrl = drink.ImageUrl;
+        }
+
         public List<Drink> GetAll()
         {
             return DrinkRepository.drinkList;
@@ -86,7 +105,7 @@ namespace GreenFlamingos.Services
 
         public void RemoveDrink(Drink drink)
         {
-            var DrinkToRemove= GetDrinkById(drink.Id);
+            var DrinkToRemove = GetDrinkById(drink.Id);
             DrinkRepository.drinkList.Remove(DrinkToRemove);
         }
         public List<Drink> SearchDrink(string searchedWord)
@@ -95,5 +114,6 @@ namespace GreenFlamingos.Services
                 return DrinkRepository.drinkList.Where(d => d.Name.Contains(searchedWord)).ToList();
             return DrinkRepository.drinkList;
         }
+
     }
 }
