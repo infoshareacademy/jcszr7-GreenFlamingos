@@ -1377,4 +1377,30 @@ textarea:focus {
     margin-bottom: 0;
     padding-left: 30px; }
 
+@media (min-width: 800px) {
+    .navbar-expand-custom {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+
+        .navbar-expand-custom .navbar-nav {
+            flex-direction: row;
+        }
+
+            .navbar-expand-custom .navbar-nav .nav-link {
+                padding-right: .5rem;
+                padding-left: .5rem;
+            }
+
+        .navbar-expand-custom .navbar-collapse {
+            display: flex !important;
+        }
+
+        .navbar-expand-custom .navbar-toggler {
+            display: none;
+        }
+}
+
+
 /*# sourceMappingURL=style.css.map */
