@@ -56,5 +56,6 @@ namespace GreenFlamingosApp.DataBase
             var json = JsonConvert.SerializeObject(ingredientsList, Formatting.Indented, settings);
             File.WriteAllText(@"..\..\..\..\IngredientsDataBase.json", json);
         }
+
     }
 }

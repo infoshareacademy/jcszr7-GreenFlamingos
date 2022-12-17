@@ -1,5 +1,5 @@
-using GreenFlamingosWebApp.Services;
-using GreenFlamingosWebApp.Services.Interfaces;
+using GreenFlamingos.Services;
+using GreenFlamingos.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

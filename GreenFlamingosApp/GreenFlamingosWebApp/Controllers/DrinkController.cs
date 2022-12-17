@@ -1,9 +1,6 @@
-﻿
-using GreenFlamingosWebApp.Models;
-using GreenFlamingosWebApp.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using GreenFlamingos.Model.Drinks;
+using GreenFlamingos.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
 
 namespace GreenFlamingosWebApp.Controllers
 {
@@ -42,14 +39,10 @@ namespace GreenFlamingosWebApp.Controllers
         // POST: DrinkController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  ActionResult Create(Drink drink, IFormCollection preparation, IFormCollection ingredients)
+        public  ActionResult Create(Drink drink)
         {
             try
             {
-                string recipy = preparation["Preparation"];
-                string components = ingredients["Ingredients"];
-                drink.Ingredients = components.Split(",").ToList();
-                drink.Preparation = recipy.Split(",").ToList();
                 ViewBag.MainIngredients = new List<string> { "Rum", "Wódka", "Whisky" };
                 ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
                 _drinkService.AddDrink(drink);
@@ -59,6 +52,10 @@ namespace GreenFlamingosWebApp.Controllers
             {
                 return View();
             }
+        }
+        public ActionResult Test()
+        {
+            return View();
         }
         // GET: DrinkController/Edit/5
         public ActionResult Edit(int id)

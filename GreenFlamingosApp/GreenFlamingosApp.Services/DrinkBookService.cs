@@ -1,10 +1,6 @@
-﻿using GreenFlamingos.Model;
-using GreenFlamingos.Model.Drinks;
+﻿using GreenFlamingos.Model.Drinks;
 using GreenFlamingos.Model;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc;
 using GreenFlamingosApp.Services.Validation;
-using System.Windows.Input;
 using GreenFlamingosApp.DataBase;
 
 namespace GreenFlamingosApp.Services
@@ -28,7 +24,7 @@ namespace GreenFlamingosApp.Services
 
             if(drinkToShow != null)
             {
-                drinkToShow.ShowDrink();
+               // drinkToShow.ShowDrink();
                 Console.WriteLine("Czy chcesz dodac ten napój do ulubionych ? (y)");
                 if(Console.ReadLine().ToLower() == "y".ToLower())
                 {
@@ -51,7 +47,7 @@ namespace GreenFlamingosApp.Services
             var drinkToChange = DrinkList.FirstOrDefault(d=>string.Equals(d.Name,drinkName,StringComparison.OrdinalIgnoreCase));
             if(drinkToChange != null)
             {
-                drinkToChange.ShowDrink();
+                //drinkToChange.ShowDrink();
                 Console.WriteLine("Co chcialbyś zmienić w drinku ? Mozliwe opcje: ");
                 DrinkProperites.ShowAllDrinkProperites();
                 var userInput = Console.ReadLine();
@@ -165,31 +161,106 @@ namespace GreenFlamingosApp.Services
             if (string.Equals(newDrink.Name, "x", StringComparison.OrdinalIgnoreCase))
                 return false;
             Console.WriteLine("Podaj główny składnik drinka:");
-            newAlcoDrink.MainIngredient = Console.ReadLine();
-            newAlcoDrink.Capacity = Capacity_Check();
-
-            //////Extra Ingredients Service//////////
-            newAlcoDrink.Ingredient1 = AdditionalIgredient();
-            if (newAlcoDrink.Ingredient1 is null)
-                return;
+            string ingredient = Console.ReadLine();
+            if (string.Equals(ingredient, "x", StringComparison.OrdinalIgnoreCase))
+                return false;
+            if (_ingredientsListClass.CheckingIfListContainsIngredient(ingredient))
+            {
+                newDrink.MainIngredient = ingredient;
+            }
             else
-                newAlcoDrink.Ingredient2 = AdditionalIgredient();
-            if (newAlcoDrink.Ingredient2 is null)
-                return;
+            {
+                Console.WriteLine("Podany składnik nie znajduje się na liście dozwolonych składników. Zostaniesz przeniesiony do menu głównego");
+                Console.WriteLine("Ponizej lista dostępnych składników: ");
+                Console.WriteLine(_ingredientsListClass.IngredientList());
+                
+                Console.ReadKey();
+                return false;
+            }
+            newDrink.Capacity = ValidationClass.ValidateCapacity(newDrink);
+            if (newDrink.Capacity == 0)
+                return false;
+            //newDrink.AlcoholContent = ValidationClass.ValidateAlcoholContent(newDrink);
+            if (newDrink.AlcoholContent == 0.0)
+                return false;
+            newDrink.Calories = ValidationClass.ValidateCalories();
+            if (newDrink.Calories == 0)
+                return false;
+            Console.WriteLine("Podaj opis: ");
+            newDrink.Description = Console.ReadLine();
+            if (string.Equals(newDrink.Description, "x", StringComparison.OrdinalIgnoreCase))
+                return false;
+            Console.WriteLine("Ile składników chcesz dodać?");
+            var ingredientamount = ValidationClass.ValidateSteps();
+            newDrink.Ingredients = _ingredientsService.GetStringList(ingredientamount);
+            Console.WriteLine("Ile kroków potrzeba do przygotowania drinka?");
+            var stepsAmount = ValidationClass.ValidateSteps();
+            newDrink.Preparation = _preparationService.GetStringList(stepsAmount);
+            newDrink.Owner = user;
+            return true;
+        }
+        public void DirnkMatch(Drink drink)
+        {
+            List<Drink> listDrinkMatched = new List<Drink>();
+            Console.Clear();
+            var foundStatus = false;
+            Console.WriteLine("Witaj w funkcji znajdz drinka, podaj składniki:");
+            Console.WriteLine("Główny składnik:");
+            var mainIngredient = Console.ReadLine();
+            if (!_ingredientsListClass.CheckingIfListContainsIngredient(mainIngredient))
+            {
+                Console.WriteLine("Podany składnik nie znajduje się na liście dozwolonych składników.");
+                Console.WriteLine("Ponizej lista dostępnych składników: ");
+                Console.WriteLine(_ingredientsListClass.IngredientList());
+            }
             else
-                newAlcoDrink.Ingredient3 = AdditionalIgredient();
-            return;
-        }
-
-        public void ClearDrinkBook()
-        {
-            DrinkList.Clear();
-            Console.WriteLine("Wszystkie drinki z książki zostały usunięte.\n");
-        }
-
-        public void SortBy(Drink drink)
-        {
-            DrinkList.Sort();
+            {
+                var mainIngredientDrinks = DrinkList.Where(d => string.Equals(d.MainIngredient, mainIngredient, StringComparison.OrdinalIgnoreCase)).ToList();
+                Console.WriteLine("Czy chcesz podać dodatkowe skladniki ? (y)");
+                if (string.Equals(Console.ReadLine().ToLower(), "y"))
+                {
+                    Console.WriteLine("Podaj ilosc dodatkowych skladników jakie chcesz mieć w swoim drinku");
+                    var ingredientsCount = 0;
+                    var ingredientsList = new List<string>();
+                    if (int.TryParse(Console.ReadLine(), out ingredientsCount))
+                    {
+                        for (int i = 0; i < ingredientsCount; i++)
+                        {
+                            Console.WriteLine("Podaj skladnik: ");
+                            ingredientsList.Add(Console.ReadLine());
+                        }
+                    }
+                    if (mainIngredientDrinks != null)
+                    {
+                        Console.Clear();
+                        //Check list of ingredients contains ingredienst set by user.
+                        foreach (var mainIngredientDrink in mainIngredientDrinks)
+                        {
+                            if (ingredientsList.All(ingredient => mainIngredientDrink.Ingredients.Contains(ingredient)))
+                            {
+                                //mainIngredientDrink.ShowDrink();
+                                listDrinkMatched.Add(mainIngredientDrink);
+                                foundStatus = true;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (mainIngredientDrinks != null)
+                        foreach (var mainIngredientDrink in mainIngredientDrinks)
+                        {
+                            //mainIngredientDrink.ShowDrink();
+                            listDrinkMatched.Add(mainIngredientDrink);
+                            foundStatus = true;
+                        }
+                }
+            }
+            if (!foundStatus)
+            {
+                Console.WriteLine("Nie znaleziono drinka");
+            }
+            ShowAllDrinks(drink, listDrinkMatched);
         }
         public void ShowAllDrinks(Drink drink, List<Drink> drinkListToShow)
         {
@@ -198,8 +269,8 @@ namespace GreenFlamingosApp.Services
 
             if (drinkList.Count() > 0)
             {
-                foreach (var item in drinkList)
-                    item.ShowDrink();
+                //foreach (var item in drinkList)
+                  //  item.ShowDrink();
             }
             else
             {
@@ -214,7 +285,7 @@ namespace GreenFlamingosApp.Services
                 foreach (var drink in user.FavoriteDrinks)
                 {
                     Console.WriteLine("Moje ulubione napoje: ");
-                    drink.ShowDrink();
+                 //  drink.ShowDrink();
                 }
             }
             else

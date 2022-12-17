@@ -1,4 +1,5 @@
 ﻿using GreenFlamingos.Model.Drinks;
+using GreenFlamingos.Model;
 namespace GreenFlamingos.Model
 {
     public class User
