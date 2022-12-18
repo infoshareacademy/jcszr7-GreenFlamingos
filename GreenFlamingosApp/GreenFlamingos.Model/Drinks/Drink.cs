@@ -11,8 +11,7 @@ namespace GreenFlamingos.Model.Drinks
         public User Owner {get; set; }
         public int OwnerId { get;set; }
 
-
-      //  [DisplayName("Zawartość Alkoholu")]
+        [DisplayName("Zawartość Alkoholu")]
        // [Required(ErrorMessage = "Zawartość alkoholu jest wymagana")]
       //  [Range(0,99,ErrorMessage ="Podaj Zawartość Alkoholu z przedziału 0 - 99%")]
         public float AlcoholContent { get; set; }
@@ -24,7 +23,7 @@ namespace GreenFlamingos.Model.Drinks
       //  [DisplayName("Rodzaj Drinka")]
         public string DrinkType { get; set; }
 
-    //    [DisplayName("Nazwa")]
+       [DisplayName("Nazwa")]
       //  [Required(ErrorMessage = "Nazwa jest wymagana")]
         public string Name { get; set; }
 
