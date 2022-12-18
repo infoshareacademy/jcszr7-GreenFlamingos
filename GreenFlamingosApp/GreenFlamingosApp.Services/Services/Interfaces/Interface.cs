@@ -1,4 +1,6 @@
 ﻿using GreenFlamingos.Model.Drinks;
+using GreenFlamingosApp.DataBase.DbModels;
+
 namespace GreenFlamingos.Services.Interfaces
 {
     public interface IDrinkService
@@ -9,5 +11,6 @@ namespace GreenFlamingos.Services.Interfaces
         void RemoveDrink(Drink drink);
         List<Drink> SearchDrink(string searchedWord);
         void EditDrink(Drink drink);
+        List<MainIngredient> GetAllMainIngredient();
     }
 }

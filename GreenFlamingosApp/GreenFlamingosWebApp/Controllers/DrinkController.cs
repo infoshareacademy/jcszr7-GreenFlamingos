@@ -32,7 +32,8 @@ namespace GreenFlamingosWebApp.Controllers
         // GET: DrinkController/Create
         public ActionResult Create()
         {
-            ViewBag.MainIngredients = new List<string> { "Rum", "Wódka", "Whisky" };
+            var test = _drinkService.GetAllMainIngredient();
+            ViewBag.MainIngredients = test.Select(m=>m.Name).ToList();
             ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
             return View();
         }

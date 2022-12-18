@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using GreenFlamingosApp.DataBase.DbModels;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,8 +7,7 @@ namespace GreenFlamingos.Model.Drinks
 {
     public class Drink : ValidationAttribute
     {
-        private int _drinkID;
-        public int Id { get { return _drinkID; } set { _drinkID = value; } }
+        public int Id { get; set; }
         public User Owner {get; set; }
         [DisplayName("Zawartość Alkoholu")]
         [Required(ErrorMessage = "Zawartość alkoholu jest wymagana")]
@@ -36,7 +36,6 @@ namespace GreenFlamingos.Model.Drinks
         [Required(ErrorMessage = "Zdjęcie jest wymagane")]
         public IFormFile Photo { get; set; }
         public string ImageUrl { get; set; }
-
         public List<float> Ratings { get; set; }
         public float AverageRating { get; set; }
     }

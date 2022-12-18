@@ -2,6 +2,7 @@
 using GreenFlamingos.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using GreenFlamingos.Repository;
+using GreenFlamingosApp.DataBase.DbModels;
 
 namespace GreenFlamingos.Services
 {
@@ -9,11 +10,16 @@ namespace GreenFlamingos.Services
     {
         private static int _IdCounter = 0;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public DrinkService(IWebHostEnvironment webHostEnvironment)
+        private readonly DrinkRepository _drinkRepository;
+        public DrinkService(IWebHostEnvironment webHostEnvironment, DrinkRepository drinkRepository)
         {
             _webHostEnvironment = webHostEnvironment;
+            _drinkRepository = drinkRepository;
         }
-
+        public List<MainIngredient> GetAllMainIngredient()
+        {
+            return _drinkRepository.GetAllMainIngredients();
+        }
         public void AddDrink(Drink newDrink)
         {
 
