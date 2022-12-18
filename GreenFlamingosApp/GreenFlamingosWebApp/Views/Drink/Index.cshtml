@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h3 class="card-title">@Html.DisplayFor(modelItem => drink.Name)</h3>
                     <div class="text-warning" style="height:20px; margin-bottom:20px;">
-                        @for (var i = 1; i < @drink.AverageRating; i++)
+                        @for (var i = 1; i <= @drink.AverageRating; i++)
                         {
                             <span class="glyphicon glyphicon-star" style="margin-right:10px;"></span>
                             solidStars++;

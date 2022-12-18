@@ -8,19 +8,19 @@ namespace GreenFlamingos.Model.Drinks
         {
             DrinkType = "Drink";
         }
-        public AlcoDrink(string name, User owner, string mainIgredient, int capacity, float alcoholContent, int calories, List<string> ingriedients, string description, List<string> preparation, string imageUrl)
+        public AlcoDrink(string name, User owner, string mainIgredient, int capacity, float alcoholContent, int calories, List<string> ingriedients, string description, List<string> preparations, string imageUrl)
         {
 
             DrinkType = "Drink";
             Name = name;
             Owner = owner;
-            MainIngredient = mainIgredient;
+            MainIngredient = new MainIngredinet { DrinkMainIngredient = mainIgredient };
             Capacity = capacity;
             AlcoholContent = alcoholContent;
             Calories = calories;
-            Ingredients = ingriedients;
+            Ingredients = ingriedients.Select(i => new Ingredient { DrinkIngredient = i }).ToList();
             Description = description;
-            Preparation = preparation;
+            Preparations = preparations.Select(p => new Preparation { DrinkPreparations = p }).ToList();
             ImageUrl = imageUrl;
             Ratings = new List<float>();
             AverageRating = 0;

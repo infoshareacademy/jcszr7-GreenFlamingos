@@ -40,13 +40,19 @@ namespace GreenFlamingosWebApp.Controllers
         // POST: DrinkController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  ActionResult Create(Drink drink)
+        public  ActionResult Create(Drink drink, IFormCollection preparation, IFormCollection ingredients)
         {
             try
             {
+                var drinkPreparation = preparation["Preparation"];
+                var drinkIngredients = ingredients["Ingredients"];
+
+                var test = drinkPreparation.ToList<string>();
+                var test1 = drinkIngredients.ToList<string>();
+
                 ViewBag.MainIngredients = new List<string> { "Rum", "Wódka", "Whisky" };
                 ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
-                _drinkService.AddDrink(drink);
+                _drinkService.AddDrink(drink,test,test1);
                 return RedirectToAction(nameof(Index));
             }
             catch

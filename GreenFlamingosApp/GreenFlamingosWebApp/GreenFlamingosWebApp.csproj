@@ -32,12 +32,16 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" Version="4.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GreenFlamingos.Model\GreenFlamingos.Model.csproj" />
+    <ProjectReference Include="..\GreenFlamingosApp.DataBase\GreenFlamingosApp.DataBase.csproj" />
     <ProjectReference Include="..\GreenFlamingosApp.Services\GreenFlamingosApp.Services.csproj" />
   </ItemGroup>
 

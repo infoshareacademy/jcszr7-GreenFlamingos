@@ -1,5 +1,7 @@
 using GreenFlamingos.Services;
 using GreenFlamingos.Services.Interfaces;
+using GreenFlamingosApp.DataBase;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,9 @@ builder.Services
     .AddControllersWithViews()
     .AddRazorRuntimeCompilation();
 builder.Services.AddScoped<IDrinkService, DrinkService>();
+
+builder.Services.AddDbContext<GreenFlamingosDbContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("GreenFlamingos")));
 
 var app = builder.Build();
 

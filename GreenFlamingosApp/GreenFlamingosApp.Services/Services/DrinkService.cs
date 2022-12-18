@@ -14,7 +14,7 @@ namespace GreenFlamingos.Services
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public void AddDrink(Drink newDrink)
+        public void AddDrink(Drink newDrink, List<string> preparations, List<string> ingredients)
         {
 
             if (newDrink.Photo != null)
@@ -29,13 +29,13 @@ namespace GreenFlamingos.Services
             {
                 var drinktoAdd = new AlcoDrink(newDrink.Name,
                                                newDrink.Owner,
-                                               newDrink.MainIngredient,
+                                               newDrink.MainIngredient.DrinkMainIngredient,
                                                newDrink.Capacity,
                                                newDrink.AlcoholContent,
                                                newDrink.Calories,
-                                               newDrink.Ingredients,
+                                               ingredients,
                                                newDrink.Description,
-                                               newDrink.Preparation,
+                                               preparations,
                                                newDrink.ImageUrl);
                 _IdCounter++;
                 drinktoAdd.Id = _IdCounter;
@@ -45,13 +45,13 @@ namespace GreenFlamingos.Services
             {
                 var drinkToAdd = new Shot(newDrink.Name,
                                           newDrink.Owner,
-                                          newDrink.MainIngredient,
+                                          newDrink.MainIngredient.DrinkMainIngredient,
                                           newDrink.Capacity,
                                           newDrink.AlcoholContent,
                                           newDrink.Calories,
-                                          newDrink.Ingredients,
+                                          newDrink.Ingredients.Select(i => i.DrinkIngredient).ToList(),
                                           newDrink.Description,
-                                          newDrink.Preparation,
+                                          newDrink.Preparations.Select(p => p.DrinkPreparations).ToList(),
                                           newDrink.ImageUrl);
                 _IdCounter++;
                 drinkToAdd.Id = _IdCounter;
@@ -61,12 +61,12 @@ namespace GreenFlamingos.Services
             {
                 var drinkToAdd = new NoAlcoDrink(newDrink.Name,
                                           newDrink.Owner,
-                                          newDrink.MainIngredient,
+                                          newDrink.MainIngredient.DrinkMainIngredient,
                                           newDrink.Capacity,
                                           newDrink.Calories,
-                                          newDrink.Ingredients,
+                                          newDrink.Ingredients.Select(i => i.DrinkIngredient).ToList(),
                                           newDrink.Description,
-                                          newDrink.Preparation,
+                                          newDrink.Preparations.Select(p => p.DrinkPreparations).ToList(),
                                           newDrink.ImageUrl);
                 _IdCounter++;
                 drinkToAdd.Id = _IdCounter;
@@ -88,7 +88,7 @@ namespace GreenFlamingos.Services
             drinkToEdit.AlcoholContent = drink.AlcoholContent;
             drinkToEdit.MainIngredient = drink.MainIngredient;
             drinkToEdit.Ingredients = drink.Ingredients;
-            drinkToEdit.Preparation = drink.Preparation;
+            drinkToEdit.Preparations = drink.Preparations;
             drinkToEdit.Description = drinkToEdit.Description;
             drinkToEdit.ImageUrl = drink.ImageUrl;
         }
