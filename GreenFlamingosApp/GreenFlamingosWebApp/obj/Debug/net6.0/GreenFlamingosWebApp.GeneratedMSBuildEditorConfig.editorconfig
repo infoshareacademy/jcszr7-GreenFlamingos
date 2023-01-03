@@ -1,0 +1,72 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = GreenFlamingosWebApp
+build_property.RootNamespace = GreenFlamingosWebApp
+build_property.ProjectDir = C:\Users\48668\Desktop\projektWebApp\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingosWebApp\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
+build_property.MSBuildProjectDirectory = C:\Users\48668\Desktop\projektWebApp\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingosWebApp
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/48668/Desktop/projektWebApp/jcszr7-GreenFlamingos/GreenFlamingosApp/GreenFlamingosWebApp/Views/Drink/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/48668/Desktop/projektWebApp/jcszr7-GreenFlamingos/GreenFlamingosApp/GreenFlamingosWebApp/Views/Drink/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/48668/Desktop/projektWebApp/jcszr7-GreenFlamingos/GreenFlamingosApp/GreenFlamingosWebApp/Views/Drink/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/48668/Desktop/projektWebApp/jcszr7-GreenFlamingos/GreenFlamingosApp/GreenFlamingosWebApp/Views/Drink/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/48668/Desktop/projektWebApp/jcszr7-GreenFlamingos/GreenFlamingosApp/GreenFlamingosWebApp/Views/Drink/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/48668/Desktop/projektWebApp/jcszr7-GreenFlamingos/GreenFlamingosApp/GreenFlamingosWebApp/Views/Drink/Search.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcU2VhcmNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/48668/Desktop/projektWebApp/jcszr7-GreenFlamingos/GreenFlamingosApp/GreenFlamingosWebApp/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/48668/Desktop/projektWebApp/jcszr7-GreenFlamingos/GreenFlamingosApp/GreenFlamingosWebApp/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/48668/Desktop/projektWebApp/jcszr7-GreenFlamingos/GreenFlamingosApp/GreenFlamingosWebApp/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/48668/Desktop/projektWebApp/jcszr7-GreenFlamingos/GreenFlamingosApp/GreenFlamingosWebApp/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/48668/Desktop/projektWebApp/jcszr7-GreenFlamingos/GreenFlamingosApp/GreenFlamingosWebApp/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/48668/Desktop/projektWebApp/jcszr7-GreenFlamingos/GreenFlamingosApp/GreenFlamingosWebApp/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/48668/Desktop/projektWebApp/jcszr7-GreenFlamingos/GreenFlamingosApp/GreenFlamingosWebApp/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-auc8j8qo3c
+
+[C:/Users/48668/Desktop/projektWebApp/jcszr7-GreenFlamingos/GreenFlamingosApp/GreenFlamingosWebApp/Views/Shared/_LayoutOLD.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRPTEQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-8eaunuh9he

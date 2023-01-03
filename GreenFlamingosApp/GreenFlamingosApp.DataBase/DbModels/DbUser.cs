@@ -11,6 +11,7 @@ namespace GreenFlamingosApp.DataBase.DbModels
         public int Id { get; set; }
         public string Password { get; set; }
         public string UserMail { get; set; }
+        public List<DbDrink> Drinks { get; set; } = new List<DbDrink>();
 
 
     }

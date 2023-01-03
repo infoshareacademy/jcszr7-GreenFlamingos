@@ -1,0 +1,12 @@
+C:\Users\48668\Desktop\projektWebApp\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingos.Model\obj\Debug\net6.0\GreenFlamingos.Model.csproj.AssemblyReference.cache
+C:\Users\48668\Desktop\projektWebApp\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingos.Model\obj\Debug\net6.0\GreenFlamingos.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\48668\Desktop\projektWebApp\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingos.Model\obj\Debug\net6.0\GreenFlamingos.Model.AssemblyInfoInputs.cache
+C:\Users\48668\Desktop\projektWebApp\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingos.Model\obj\Debug\net6.0\GreenFlamingos.Model.AssemblyInfo.cs
+C:\Users\48668\Desktop\projektWebApp\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingos.Model\obj\Debug\net6.0\GreenFlamingos.Model.csproj.CoreCompileInputs.cache
+C:\Users\48668\Desktop\projektWebApp\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingos.Model\bin\Debug\net6.0\GreenFlamingos.Model.deps.json
+C:\Users\48668\Desktop\projektWebApp\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingos.Model\bin\Debug\net6.0\GreenFlamingos.Model.dll
+C:\Users\48668\Desktop\projektWebApp\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingos.Model\bin\Debug\net6.0\GreenFlamingos.Model.pdb
+C:\Users\48668\Desktop\projektWebApp\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingos.Model\obj\Debug\net6.0\GreenFlamingos.Model.dll
+C:\Users\48668\Desktop\projektWebApp\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingos.Model\obj\Debug\net6.0\refint\GreenFlamingos.Model.dll
+C:\Users\48668\Desktop\projektWebApp\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingos.Model\obj\Debug\net6.0\GreenFlamingos.Model.pdb
+C:\Users\48668\Desktop\projektWebApp\jcszr7-GreenFlamingos\GreenFlamingosApp\GreenFlamingos.Model\obj\Debug\net6.0\ref\GreenFlamingos.Model.dll
