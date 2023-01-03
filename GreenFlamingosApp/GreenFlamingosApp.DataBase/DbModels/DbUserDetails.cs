@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace GreenFlamingosApp.DataBase.DbModels
 {
-    public class DbRating
+    internal class DbUserDetails
     {
-        public int Id { get; set; }
-        public int Value { get; set; }
-
     }
 }

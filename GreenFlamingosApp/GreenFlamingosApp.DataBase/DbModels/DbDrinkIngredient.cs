@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GreenFlamingosApp.DataBase.DbModels
 {
-    internal class DbIngredient
+    internal class DbDrinkIngredient
     {
     }
 }
