@@ -15,17 +15,11 @@ namespace GreenFlamingosApp.DataBase.DbModels
         public DbMainIngredient MainIngredient { get; set; }
         public int MainIngredientId { get; set; }
         public int Capacity { get; set; }
-        public List<string> Ingredients { get; set; }
-        public List<string> Preparations { get; set; }
+
+        public ICollection<DbDrinkIngredient> DrinkIngredients { get; set; }
+        public List<DbIngredient> Ingredients { get; set; }
+        public string Preparations { get; set; }
         public string Description { get; set; }
-       // //public IFormFile Photo { get; set; }
         public string ImageUrl { get; set; }
-
-
-       // public DbRating Rating { get; set; }
-        //public int RatingId { get; set; }
-
-        // //public List<float> Ratings { get; set; }
-        // public float AverageRating { get; set; }
     }
 }

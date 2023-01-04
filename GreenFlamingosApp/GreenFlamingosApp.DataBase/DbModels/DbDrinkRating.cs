@@ -11,8 +11,9 @@ namespace GreenFlamingosApp.DataBase.DbModels
     {
         public DbDrink Drink { get; set; }
         public int DrinkId { get; set; }
-        public DbRating Rating { get; set; }
-        public int RatingId { get; set; }
+        public DbUser User { get; set; }
+        public int UserId { get; set; }
+        public int Rating { get; set; }
 
 
     }

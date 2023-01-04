@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace GreenFlamingosApp.DataBase.DbModels
 {
-    internal class DbDrinkIngredient
+    public class DbDrinkIngredient
     {
+        public DbDrink Drink { get; set; }
+        public int DrinkId { get; set; }
+        public DbIngredient Ingredient { get; set; }
+        public int IngredientId { get; set; }
+        public int IngredientCapacity { get; set; }
+
     }
 }
