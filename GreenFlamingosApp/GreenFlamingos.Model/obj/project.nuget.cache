@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "xnDef7qsC/0kV9K3SkCvezfDxhc7kAlaMvcTpqCVESNrqcATV6YSbHT4ehJvrQGg6Z/wnA+89J0TT270XZg2uw==",
+  "dgSpecHash": "vUZqL8mRK9cKxpyRgk5TP9Z7/1nzz41+4mIh1+66EvR7byW7gEdVxmgW2FmyRl/fKJwY/FU7ipOwLF4B1F7xjg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\48668\\Desktop\\projektWebApp\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingos.Model\\GreenFlamingos.Model.csproj",
+  "projectFilePath": "C:\\Users\\AutomationPC3\\Desktop\\JG_Project\\jcszr7-GreenFlamingos\\GreenFlamingosApp\\GreenFlamingos.Model\\GreenFlamingos.Model.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\48668\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
-    "C:\\Users\\48668\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
-    "C:\\Users\\48668\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512"
+    "C:\\Users\\AutomationPC3\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
+    "C:\\Users\\AutomationPC3\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
+    "C:\\Users\\AutomationPC3\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512"
   ],
   "logs": []
 }

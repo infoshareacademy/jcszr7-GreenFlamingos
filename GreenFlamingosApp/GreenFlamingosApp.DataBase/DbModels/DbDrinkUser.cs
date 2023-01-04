@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GreenFlamingosApp.DataBase.DbModels
 {
-    public class DbDrinkRating
+    public class DbDrinkUser
     {
         public DbDrink Drink { get; set; }
         public int DrinkId { get; set; }

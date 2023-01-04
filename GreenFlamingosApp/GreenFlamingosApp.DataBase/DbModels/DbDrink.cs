@@ -15,9 +15,9 @@ namespace GreenFlamingosApp.DataBase.DbModels
         public DbMainIngredient MainIngredient { get; set; }
         public int MainIngredientId { get; set; }
         public int Capacity { get; set; }
-
         public ICollection<DbDrinkIngredient> DrinkIngredients { get; set; }
-        public List<DbIngredient> Ingredients { get; set; }
+        public ICollection<DbIngredient> Ingredients { get; set; }
+        public ICollection<DbDrinkUser> DrinsUsers { get; set; }
         public string Preparations { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }

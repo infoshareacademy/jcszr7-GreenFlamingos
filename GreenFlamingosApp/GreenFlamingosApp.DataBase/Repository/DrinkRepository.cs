@@ -17,7 +17,7 @@ namespace GreenFlamingos.Repository
         public List<MainIngredient> GetAllMainIngredients()
         {
             var dbMainIngredients = _greenFlamingosDbContext.DbMainIngredients.ToList();
-            return dbMainIngredients.Select(d => new MainIngredient { Id = d.Id, Name = d.DrinkMainIngredient }).ToList();
+            return dbMainIngredients.Select(d => new MainIngredient { Id = d.Id, Name = d.Name }).ToList();
         }
         public static List<Drink> drinkList = new List<Drink>();
     }
