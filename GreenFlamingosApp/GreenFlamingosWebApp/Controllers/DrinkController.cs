@@ -1,5 +1,6 @@
 ﻿using GreenFlamingos.Model.Drinks;
 using GreenFlamingos.Services.Interfaces;
+using GreenFlamingosApp.DataBase.DbModels;
 using Microsoft.AspNetCore.Mvc;
 namespace GreenFlamingosWebApp.Controllers
 {
@@ -16,38 +17,41 @@ namespace GreenFlamingosWebApp.Controllers
             _drinkService = drinkService;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var model = _drinkService.GetAll();
+            var model = await _drinkService.GetAllDrinks();
             return View(model);
         }
 
         // GET: DrinkController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            var model = _drinkService.GetDrinkById(id);
+            var model = await _drinkService.GetDrinkById(id);
             return View(model);
         }
 
         // GET: DrinkController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            var test = _drinkService.GetAllMainIngredient();
-            ViewBag.MainIngredients = test.Select(m=>m.Name).ToList();
-            ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
+            var mainIngredients = await _drinkService.GetAllMainIngredients();
+            ViewBag.MainIngredients = mainIngredients.Select(m=>m.Name).ToList();
+            var drinkTypes = await _drinkService.GetAllDrinkTypes();
+            ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
             return View();
         }
 
         // POST: DrinkController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  ActionResult Create(Drink drink)
+        public  async Task<ActionResult> Create(Drink drink)
         {
             try
             {
-                ViewBag.MainIngredients = new List<string> { "Rum", "Wódka", "Whisky" };
-                ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
-                _drinkService.AddDrink(drink);
+                var mainIngredients = await _drinkService.GetAllMainIngredients();
+                ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();
+                var drinkTypes = await _drinkService.GetAllDrinkTypes();
+                ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
+                await _drinkService.AddDrink(drink);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -120,8 +124,8 @@ namespace GreenFlamingosWebApp.Controllers
             var rateToAdd = float.Parse(formValues[0]);
             var drinkId = int.Parse(formValues[1]);
             var drink = _drinkService.GetDrinkById(drinkId);
-            drink.Ratings.Add(rateToAdd);
-            drink.AverageRating = drink.Ratings.Average();
+            //drink.Ratings.Add(rateToAdd);
+            //drink.AverageRating = drink.Ratings.Average();
             return RedirectToAction(nameof(Index));
         }
     }

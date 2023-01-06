@@ -27,11 +27,12 @@ namespace GreenFlamingos.Model.Drinks
         [DisplayName("Pojemność")]
         [Required(ErrorMessage = "Pojemność jest wymagana")]
         public int Capacity { get; set; }
-        public List<string> Ingredients { get; set; }
+        [DisplayName("Składniki")]
+        public ICollection<Ingredient> Ingredients { get; set; }
         [DisplayName("Opis Napoju")]
         public string Description { get; set; }
-        //public List<string> Preparation { get; set; }
-        public List<string> Preparation { get; set; }
+        [DisplayName("Przygotowanie")]
+        public string Preparation { get; set; }
         [DisplayName("Zdjęcie")] 
         [Required(ErrorMessage = "Zdjęcie jest wymagane")]
         public IFormFile Photo { get; set; }

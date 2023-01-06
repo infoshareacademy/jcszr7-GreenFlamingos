@@ -5,12 +5,13 @@ namespace GreenFlamingos.Services.Interfaces
 {
     public interface IDrinkService
     {
-        List<Drink> GetAll();
-        void AddDrink(Drink drink);
-        Drink GetDrinkById(int id);
-        void RemoveDrink(Drink drink);
-        List<Drink> SearchDrink(string searchedWord);
-        void EditDrink(Drink drink);
-        List<MainIngredient> GetAllMainIngredient();
+        public Task<List<Drink>> GetAllDrinks();
+        public Task AddDrink(Drink drink);
+        public Task<Drink> GetDrinkById(int id);
+        public void RemoveDrink(Drink drink);
+        public List<Drink> SearchDrink(string searchedWord);
+        public void EditDrink(Drink drink);
+        public Task<List<MainIngredient>> GetAllMainIngredients();
+        public Task<List<DrinkType>> GetAllDrinkTypes();
     }
 }

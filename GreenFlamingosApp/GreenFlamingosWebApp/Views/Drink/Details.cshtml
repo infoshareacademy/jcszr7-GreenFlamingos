@@ -38,14 +38,14 @@
             <div class="row">
                 <div class="col-12 col-lg-8">
                     <h4 style="color:#474747; margin-bottom:30px;">Przygotowanie:</h4>
-                    @for (int i = 0; i < @Model.Preparation.Count(); i++)
+@*                    @for (int i = 0; i < @Model.Preparation.Count(); i++)
                     {
                         <!-- Single Preparation Step -->
                         <div class="single-preparation-step d-flex">
                             <h4>@(i+1).</h4>
                             <h5>@Model.Preparation[i]</h5>
                         </div>
-                    }
+                    }*@
                 </div>
 
                 <!-- Ingredients -->
@@ -53,14 +53,14 @@
                     <div class="ingredients">
                         <h4>Składniki</h4>
 
-                        @for (int i = 0; i < @Model.Ingredients.Count(); i++)
+@*                       @for (int i = 0; i < @Model.Ingredients.Count(); i++)
                         {
                             <!-- Custom Checkbox -->
                             <div class="ingredient">
                                 <input type="checkbox" style="width:25px; height:25px; margin-bottom:20px; margin-right:20px;" id="cb1">
                                 <label class="custom-control-label" for="customCheck1">@Model.Ingredients[i]</label>
                             </div>
-                        }
+                        }*@
                     </div>
                 </div>
             </div>
