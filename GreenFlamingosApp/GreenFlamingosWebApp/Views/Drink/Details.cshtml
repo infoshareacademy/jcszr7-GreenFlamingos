@@ -53,6 +53,14 @@
                     <div class="ingredients">
                         <h4>Składniki</h4>
 
+                        @foreach(var ingredient in Model.Ingredients)
+                        {
+                            <!-- Custom Checkbox -->
+                            <div class="ingredient">
+                                <input type="checkbox" style="width:25px; height:25px; margin-bottom:20px; margin-right:20px;" id="cb1">
+                                <label class="custom-control-label" for="customCheck1">@ingredient.Name</label>
+                            </div>
+                        }
 @*                       @for (int i = 0; i < @Model.Ingredients.Count(); i++)
                         {
                             <!-- Custom Checkbox -->

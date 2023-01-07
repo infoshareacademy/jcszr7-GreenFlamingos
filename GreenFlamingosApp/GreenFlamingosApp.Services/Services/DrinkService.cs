@@ -23,7 +23,35 @@ namespace GreenFlamingos.Services
         {
             return await _drinkRepository.GetAllDrinkTypes();
         }
-        
+        public async Task<bool> AreDrinkIngredientsInDb(Drink drink)
+        {
+            var ingredientCounter = 0;
+            foreach (var ingredient in drink.Ingredients)
+            {
+                var ingredientInDb = await _drinkRepository.CheckIngredientByName(ingredient.Name);
+                if (ingredientInDb)
+                    ingredientCounter++;
+            }
+
+            if (ingredientCounter == drink.Ingredients.Count())
+            {
+                return true;
+            }
+
+            return false;
+
+        }
+        public async Task<List<DbIngredient>> CreateIngredientsList(Drink drink)
+        {
+            var dbIngredients = new List<DbIngredient>();
+            foreach (var ingredient in drink.Ingredients)
+            {
+                var dbIngredient = await _drinkRepository.GetIngredientByName(ingredient.Name);
+                dbIngredients.Add(dbIngredient);
+            }
+
+            return dbIngredients;
+        }
         public async Task AddDrink(Drink newDrink)
         {
             if (newDrink.Photo != null)
@@ -36,7 +64,17 @@ namespace GreenFlamingos.Services
             }
             var mainIngredient = await _drinkRepository.GetMainIngredientByName(newDrink.MainIngredient);
             var drinkType = await _drinkRepository.GetDrinkTypeByName(newDrink.DrinkType);
-            //var ingredients = newDrink.Ingredients.Select(i => new DbIngredient { Name = i.Name }).ToList();
+            var dbIngredients = new List<DbIngredient>();
+
+            if (await AreDrinkIngredientsInDb(newDrink))
+            {
+                dbIngredients = await CreateIngredientsList(newDrink);
+            }
+
+            //delete when user services will be added
+            Random rand = new Random();
+            var randuserId = rand.Next(1, 2);
+            var drinkAuthor = await _drinkRepository.GetUserById(randuserId);
             var drinkToAdd = new DbDrink { 
                 Name = newDrink.Name,
                 Capacity = newDrink.Capacity,
@@ -46,58 +84,11 @@ namespace GreenFlamingos.Services
                 MainIngredient = mainIngredient,
                 Preparations = newDrink.Preparation,
                 Description = newDrink.Description,
-                ImageUrl = newDrink.ImageUrl
+                ImageUrl = newDrink.ImageUrl,
+                Author = drinkAuthor,
             };
-            await _drinkRepository.AddDrinkToDb(drinkToAdd);
 
-            //if (newDrink.DrinkType == "Drink")
-            //{
-            //    var drinktoAdd = new AlcoDrink(newDrink.Name,
-            //                                   newDrink.Owner,
-            //                                   newDrink.MainIngredient,
-            //                                   newDrink.Capacity,
-            //                                   newDrink.AlcoholContent,
-            //                                   newDrink.Calories,
-            //                                   newDrink.Ingredients,
-            //                                   newDrink.Description,
-            //                                   newDrink.Preparation,
-            //                                   newDrink.ImageUrl);
-            //    _IdCounter++;
-            //    drinktoAdd.Id = _IdCounter;
-            //    DrinkRepository.drinkList.Add(drinktoAdd);
-            //}
-            //else if (newDrink.DrinkType == "Shot")
-            //{
-            //    var drinkToAdd = new Shot(newDrink.Name,
-            //                              newDrink.Owner,
-            //                              newDrink.MainIngredient,
-            //                              newDrink.Capacity,
-            //                              newDrink.AlcoholContent,
-            //                              newDrink.Calories,
-            //                              newDrink.Ingredients,
-            //                              newDrink.Description,
-            //                              newDrink.Preparation,
-            //                              newDrink.ImageUrl);
-            //    _IdCounter++;
-            //    drinkToAdd.Id = _IdCounter;
-            //    DrinkRepository.drinkList.Add(drinkToAdd);
-            //}
-            //else if (newDrink.DrinkType == "Koktajl")
-            //{
-            //    var drinkToAdd = new NoAlcoDrink(newDrink.Name,
-            //                              newDrink.Owner,
-            //                              newDrink.MainIngredient,
-            //                              newDrink.Capacity,
-            //                              newDrink.Calories,
-            //                              newDrink.Ingredients,
-            //                              newDrink.Description,
-            //                              newDrink.Preparation,
-            //                              newDrink.ImageUrl);
-            //    _IdCounter++;
-            //    drinkToAdd.Id = _IdCounter;
-            //    DrinkRepository.drinkList.Add(drinkToAdd);
-
-            //}
+            await _drinkRepository.AddDrinkToDb(drinkToAdd,dbIngredients);
         }
 
         public void EditDrink(Drink drink)
@@ -120,14 +111,14 @@ namespace GreenFlamingos.Services
 
         public async Task<List<Drink>> GetAllDrinks()
         {
-            return await _drinkRepository.GetAllDrinks();
+            var drinks = await _drinkRepository.GetAllDrinks();
+            return drinks;
         }
         public async Task<Drink> GetDrinkById(int id)
         {
             var drinks = await GetAllDrinks();
             return drinks.FirstOrDefault(d => d.Id == id);
         }
-
         public void RemoveDrink(Drink drink)
         {
             var DrinkToRemove = GetDrinkById(drink.Id);

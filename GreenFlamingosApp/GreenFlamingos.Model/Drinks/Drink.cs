@@ -28,7 +28,7 @@ namespace GreenFlamingos.Model.Drinks
         [Required(ErrorMessage = "Pojemność jest wymagana")]
         public int Capacity { get; set; }
         [DisplayName("Składniki")]
-        public ICollection<Ingredient> Ingredients { get; set; }
+        public List<Ingredient> Ingredients { get; set; }
         [DisplayName("Opis Napoju")]
         public string Description { get; set; }
         [DisplayName("Przygotowanie")]

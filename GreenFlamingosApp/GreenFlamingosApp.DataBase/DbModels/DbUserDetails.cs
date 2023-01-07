@@ -12,7 +12,7 @@ namespace GreenFlamingosApp.DataBase.DbModels
         public string City { get; set; }
         public string Street { get; set; }
         public string PhoneNumber { get; set; }
-        //public DbUser User { get; set; }
-        //public int UserId { get; set; }
+        public DbUser User { get; set; }
+        public int UserId { get; set; }
     }
 }

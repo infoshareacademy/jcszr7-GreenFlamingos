@@ -10,7 +10,8 @@ namespace GreenFlamingosApp.DataBase.DbModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        //public ICollection<DbDrinkIngredient> DrinkIngredients { get; set; }
+       // public List<DbDrink> Drinks { get; set; }
+        public List<DbDrinkIngredient> DrinkIngredients { get; set; }
 
 
     }

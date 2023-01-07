@@ -43,10 +43,16 @@ namespace GreenFlamingosWebApp.Controllers
         // POST: DrinkController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  async Task<ActionResult> Create(Drink drink)
+        public  async Task<ActionResult> Create(Drink drink, IFormCollection ingredients)
         {
             try
             {
+                var userIngredients = ingredients["Ingredients"].ToList();
+                foreach(var ingredient in userIngredients)
+                {
+                    var ingredientToAdd = new Ingredient { Id = userIngredients.IndexOf(ingredient)+1, Name = ingredient };
+                    drink.Ingredients.Add(ingredientToAdd);
+                }
                 var mainIngredients = await _drinkService.GetAllMainIngredients();
                 ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();
                 var drinkTypes = await _drinkService.GetAllDrinkTypes();
@@ -61,22 +67,26 @@ namespace GreenFlamingosWebApp.Controllers
         }
 
         // GET: DrinkController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            ViewBag.MainIngredients = new List<string> { "Rum", "Wódka", "Whisky" };
-            ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
+            var mainIngredients = await _drinkService.GetAllMainIngredients();
+            ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();
+            var drinkTypes = await _drinkService.GetAllDrinkTypes();
+            ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
             var model = _drinkService.GetDrinkById(id);
             return View(model);
         }
         // POST: DrinkController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Drink drink)
+        public async Task<ActionResult> Edit(Drink drink)
         {
             try
             {
-                ViewBag.MainIngredients = new List<string> { "Rum", "Wódka", "Whisky" };
-                ViewBag.DrinkType = new List<string> { "Drink", "Shot", "Koktajl" };
+                var mainIngredients = await _drinkService.GetAllMainIngredients();
+                ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();
+                var drinkTypes = await _drinkService.GetAllDrinkTypes();
+                ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
                 _drinkService.EditDrink(drink);
                 return RedirectToAction(nameof(Index));
             }
@@ -124,8 +134,6 @@ namespace GreenFlamingosWebApp.Controllers
             var rateToAdd = float.Parse(formValues[0]);
             var drinkId = int.Parse(formValues[1]);
             var drink = _drinkService.GetDrinkById(drinkId);
-            //drink.Ratings.Add(rateToAdd);
-            //drink.AverageRating = drink.Ratings.Average();
             return RedirectToAction(nameof(Index));
         }
     }
