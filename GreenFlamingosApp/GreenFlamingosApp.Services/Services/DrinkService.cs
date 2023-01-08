@@ -3,6 +3,7 @@ using GreenFlamingos.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using GreenFlamingos.Repository;
 using GreenFlamingosApp.DataBase.DbModels;
+using System.Security.Cryptography.X509Certificates;
 
 namespace GreenFlamingos.Services
 {
@@ -64,6 +65,9 @@ namespace GreenFlamingos.Services
             }
             var mainIngredient = await _drinkRepository.GetMainIngredientByName(newDrink.MainIngredient);
             var drinkType = await _drinkRepository.GetDrinkTypeByName(newDrink.DrinkType);
+
+            var ingredientsCapacity = newDrink.Ingredients.Select(i => i.Capacity).ToList();
+
             var dbIngredients = new List<DbIngredient>();
 
             if (await AreDrinkIngredientsInDb(newDrink))
@@ -88,7 +92,7 @@ namespace GreenFlamingos.Services
                 Author = drinkAuthor,
             };
 
-            await _drinkRepository.AddDrinkToDb(drinkToAdd,dbIngredients);
+            await _drinkRepository.AddDrinkToDb(drinkToAdd,dbIngredients, ingredientsCapacity);
         }
 
         public void EditDrink(Drink drink)
@@ -108,7 +112,6 @@ namespace GreenFlamingos.Services
             //drinkToEdit.Description = drinkToEdit.Description;
             //drinkToEdit.ImageUrl = drink.ImageUrl;
         }
-
         public async Task<List<Drink>> GetAllDrinks()
         {
             var drinks = await _drinkRepository.GetAllDrinks();
@@ -119,10 +122,9 @@ namespace GreenFlamingos.Services
             var drinks = await GetAllDrinks();
             return drinks.FirstOrDefault(d => d.Id == id);
         }
-        public void RemoveDrink(Drink drink)
+        public async Task RemoveDrink(Drink drink)
         {
-            var DrinkToRemove = GetDrinkById(drink.Id);
-            //DrinkRepository.drinkList.Remove(DrinkToRemove);
+            await _drinkRepository.RemoveDrinkFromDB(drink.Id);
         }
         public List<Drink> SearchDrink(string searchedWord)
         {

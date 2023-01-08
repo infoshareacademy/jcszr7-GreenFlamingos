@@ -1,6 +1,6 @@
 
 function GetDynamicTextbox1(value) {
-    return '<div><input type="text" name="Ingredients"/> <input type="button" style="width:10%; background-color:red; height:38px; margin-left:0px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="RemoveTextBox1(this)" value="-" /></div>';
+    return '<div><input type="text" name="Ingredients"/><input type="text" name="IngredientCapacity" style="width:27%" /><input type="button" style="width:8%; background-color:red; height:38px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="RemoveTextBox1(this)" value="-" /></div>';
 }
 function AddTextBox1() {
     var div = document.createElement('DIV');

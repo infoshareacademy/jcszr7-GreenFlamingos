@@ -12,7 +12,7 @@ namespace GreenFlamingosApp.DataBase.DbModels
         public int DrinkId { get; set; }
         public DbIngredient Ingredient { get; set; }
         public int IngredientId { get; set; }
-        public int IngredientCapacity { get; set; }
+        public string IngredientCapacity { get; set; }
 
     }
 }

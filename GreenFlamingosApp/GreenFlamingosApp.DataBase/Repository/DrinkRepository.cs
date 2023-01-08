@@ -35,12 +35,12 @@ namespace GreenFlamingos.Repository
             return await _greenFlamingosDbContext.Users.Include(ud => ud.UserDetails)
                                                        .FirstOrDefaultAsync(u => u.Id == id);
         }
-        public async Task AddDrinkToDb(DbDrink drinkToAdd, List<DbIngredient> ingredients)
+        public async Task AddDrinkToDb(DbDrink drinkToAdd, List<DbIngredient> ingredients, List<string>ingredientsCapacity)
         {
             await _greenFlamingosDbContext.DbDrinks.AddAsync(drinkToAdd);
             foreach (var ingredient in ingredients)
             {
-                var dbDrinkIngredient = new DbDrinkIngredient { Drink = drinkToAdd, Ingredient = ingredient };
+                var dbDrinkIngredient = new DbDrinkIngredient { Drink = drinkToAdd, Ingredient = ingredient,IngredientCapacity = ingredientsCapacity[ingredients.IndexOf(ingredient)] };
                 await _greenFlamingosDbContext.DrinksIngredients.AddAsync(dbDrinkIngredient);
             }
             await _greenFlamingosDbContext.SaveChangesAsync();
@@ -53,6 +53,7 @@ namespace GreenFlamingos.Repository
                                                                   .Include(d=>d.DrinkIngredients)
                                                                   .ThenInclude(x=>x.Ingredient)
                                                                   .ToListAsync();
+
             return dbDrinks.Select(dbDrinks => new Drink {
                 Id = dbDrinks.Id,
                 Name = dbDrinks.Name,
@@ -64,7 +65,16 @@ namespace GreenFlamingos.Repository
                 Calories = dbDrinks.Calories,
                 Description = dbDrinks.Description,
                 ImageUrl = dbDrinks.ImageUrl,
-                Ingredients = dbDrinks.DrinkIngredients.Select(i=>i.Ingredient).Select(x => new Ingredient { Id = x.Id,Name = x.Name}).ToList()
+                Ingredients = dbDrinks.DrinkIngredients.Select(i=> new 
+                                                        {
+                                                            SimplyIngredient = i.Ingredient, 
+                                                            SimplyIngredientCapacity = i.IngredientCapacity
+                                                        })
+                                                       .Select(x => new Ingredient 
+                                                        {
+                                                           Name = x.SimplyIngredient.Name, 
+                                                           Capacity = x.SimplyIngredientCapacity
+                                                       }).ToList()
             }).ToList();
         }
         public async Task<bool> CheckIngredientByName(string name)
@@ -76,5 +86,11 @@ namespace GreenFlamingos.Repository
             return await _greenFlamingosDbContext.Ingredients.FirstOrDefaultAsync(i => i.Name == name);
         }
         public static List<Drink> drinkList { get; set; }
+        public async Task RemoveDrinkFromDB(int id)
+        {
+            var drinkToRemove = await _greenFlamingosDbContext.DbDrinks.FirstOrDefaultAsync(d => d.Id == id);
+            _greenFlamingosDbContext.DbDrinks.Remove(drinkToRemove);
+            await _greenFlamingosDbContext.SaveChangesAsync();
+        }
     }
 }

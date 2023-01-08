@@ -43,14 +43,15 @@ namespace GreenFlamingosWebApp.Controllers
         // POST: DrinkController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  async Task<ActionResult> Create(Drink drink, IFormCollection ingredients)
+        public  async Task<ActionResult> Create(Drink drink, IFormCollection ingredients, IFormCollection ingredientsCapacity)
         {
             try
             {
                 var userIngredients = ingredients["Ingredients"].ToList();
+                var userIngredientsCapacity = ingredientsCapacity["IngredientCapacity"].ToList();
                 foreach(var ingredient in userIngredients)
                 {
-                    var ingredientToAdd = new Ingredient { Id = userIngredients.IndexOf(ingredient)+1, Name = ingredient };
+                    var ingredientToAdd = new Ingredient { Id = userIngredients.IndexOf(ingredient)+1, Name = ingredient,Capacity = userIngredientsCapacity[userIngredients.IndexOf(ingredient)] };
                     drink.Ingredients.Add(ingredientToAdd);
                 }
                 var mainIngredients = await _drinkService.GetAllMainIngredients();
@@ -97,20 +98,20 @@ namespace GreenFlamingosWebApp.Controllers
         }
 
         // GET: DrinkController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var model = _drinkService.GetDrinkById(id);
+            var model = await _drinkService.GetDrinkById(id);
             return View(model);
         }
 
         // POST: DrinkController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(Drink drink)
+        public async Task<ActionResult> Delete(Drink drink)
         {
             try
             {
-                _drinkService.RemoveDrink(drink);
+                await _drinkService.RemoveDrink(drink);
                 return RedirectToAction(nameof(Index));
             }
             catch

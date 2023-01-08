@@ -78,8 +78,8 @@ namespace GreenFlamingosApp.DataBase.Migrations
                     b.Property<int>("IngredientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("IngredientCapacity")
-                        .HasColumnType("int");
+                    b.Property<string>("IngredientCapacity")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DrinkId", "IngredientId");
 
