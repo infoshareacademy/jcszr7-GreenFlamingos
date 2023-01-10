@@ -5,21 +5,19 @@
     Layout = "~/Views/Shared/_LayoutOLD.cshtml";
 }
 
-<h4>Edytuj Drinka</h4>
+<div style="text-align:center">
+    <h4>Edytuj Drinka</h4>
+</div>
 <head>
     <script src="~/js/GreenFlamingosScripts.js"></script>
-
-    <div class="form-group">
-    </div>
-
 </head>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <form method="post" enctype="multipart/form-data" asp-action="Edit" asp-controller="Drink">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group1">
-                <label asp-for="DrinkType" class="control-label"></label>
-                <select asp-for="DrinkType" class="form-control" asp-items="new SelectList(ViewBag.DrinkType)"></select>
+            <div class="jakubSelect">
+                <label asp-for="DrinkType" class="jakubSelect"></label>
+                <select asp-for="DrinkType" class="jakubSelect" asp-items="new SelectList(ViewBag.DrinkType)"></select>
                 <span asp-validation-for="DrinkType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -37,9 +35,9 @@
                 <input asp-for="Name" style="width:100%;" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group1">
-                <label asp-for="MainIngredient" class="control-label"></label>
-                <select asp-for="MainIngredient" style="text-align:center;" class="form-control" asp-items="new SelectList(ViewBag.MainIngredients)"></select>
+            <div class="jakubSelect">
+                <label asp-for="MainIngredient" class="jakubSelect"></label>
+                <select asp-for="MainIngredient" class="jakubSelect" asp-items="new SelectList(ViewBag.MainIngredients)"></select>
                 <span asp-validation-for="MainIngredient" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,14 +47,20 @@
             </div>
             <div class="form-group">
                 <label asp-for="Preparation" class="control-label"></label>
-                <div id="divCont">
-                    <div><input type="text" name="Preparation" /><input type="button" style="width:10%; background-color:green; height:38px; margin-left:3px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="AddTextBox()" value="+" /></div>
+                <div class="PreparationTextArea">
+                    <textarea asp-for="Preparation" class="PreparationGreenFlamingos"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="Ingredients" class="control-label"></label>
+                <label class="control-label" style="margin-left:48%">Ilość</label>
+                    @foreach (var ingredient in Model.Ingredients)
+                    {
+                        <input type="text" name="Ingredients" value="@ingredient.Name" class="control-label" /><input type="text" value="@ingredient.Capacity" name="IngredientCapacity" style="width:27%"/>
+                    }
+
                 <div id="divCont1">
-                    <div><input type="text" name="Ingredients" /><input type="button" style="width:10%; background-color:green; height:38px; margin-left:3px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="AddTextBox1()" value="+" /></div>
+                    <div><input type="text" name="Ingredients" /><input type="text" name="IngredientCapacity" style="width:27%" /><input type="button" style="width:8%; background-color:green; height:38px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="AddTextBox1()" value="+" /></div>
                 </div>
             </div>
             <div class="form-group">

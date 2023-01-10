@@ -10,7 +10,7 @@ namespace GreenFlamingos.Services.Interfaces
         public Task<Drink> GetDrinkById(int id);
         public  Task RemoveDrink(Drink drink);
         public List<Drink> SearchDrink(string searchedWord);
-        public void EditDrink(Drink drink);
+        public Task EditDrink(Drink drink);
         public Task<List<MainIngredient>> GetAllMainIngredients();
         public Task<List<DrinkType>> GetAllDrinkTypes();
     }

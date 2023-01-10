@@ -34,7 +34,6 @@ namespace GreenFlamingos.Model.Drinks
         [DisplayName("Przygotowanie")]
         public string Preparation { get; set; }
         [DisplayName("Zdjęcie")] 
-        [Required(ErrorMessage = "Zdjęcie jest wymagane")]
         public IFormFile Photo { get; set; }
         public string ImageUrl { get; set; }
         public List<float> Ratings { get; set; }

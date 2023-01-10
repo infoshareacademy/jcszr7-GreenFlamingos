@@ -7,9 +7,6 @@ namespace GreenFlamingosWebApp.Controllers
     public class DrinkController : Controller
     {
         // GET: DrinkController
-
-       
-
         private readonly IDrinkService _drinkService;
         
         public DrinkController(IDrinkService drinkService)
@@ -74,21 +71,28 @@ namespace GreenFlamingosWebApp.Controllers
             ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();
             var drinkTypes = await _drinkService.GetAllDrinkTypes();
             ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
-            var model = _drinkService.GetDrinkById(id);
+            var model = await _drinkService.GetDrinkById(id);
             return View(model);
         }
         // POST: DrinkController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Drink drink)
+        public async Task<ActionResult> Edit(Drink drink ,IFormCollection ingredients, IFormCollection ingredientsCapacity)
         {
             try
             {
+                var userIngredients = ingredients["Ingredients"].ToList();
+                var userIngredientsCapacity = ingredientsCapacity["IngredientCapacity"].ToList();
+                foreach (var ingredient in userIngredients)
+                {
+                    var ingredientToAdd = new Ingredient { Id = userIngredients.IndexOf(ingredient) + 1, Name = ingredient, Capacity = userIngredientsCapacity[userIngredients.IndexOf(ingredient)] };
+                    drink.Ingredients.Add(ingredientToAdd);
+                }
                 var mainIngredients = await _drinkService.GetAllMainIngredients();
                 ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();
                 var drinkTypes = await _drinkService.GetAllDrinkTypes();
                 ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
-                _drinkService.EditDrink(drink);
+                await _drinkService.EditDrink(drink);
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -94,23 +94,44 @@ namespace GreenFlamingos.Services
 
             await _drinkRepository.AddDrinkToDb(drinkToAdd,dbIngredients, ingredientsCapacity);
         }
-
-        public void EditDrink(Drink drink)
+        public async Task EditDrink(Drink drink)
         {
-            var drinkToEdit = GetDrinkById(drink.Id);
-            //var folder = "Drinks/";
-            //folder += Guid.NewGuid().ToString() + "_" + drink.Photo.FileName;
-            //var serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
-            //drink.ImageUrl = "/" + folder;
-            //drink.Photo.CopyTo(new FileStream(serverFolder, FileMode.Create));
-            //drinkToEdit.Name = drink.Name;
-            //drinkToEdit.Calories = drink.Calories;
-            //drinkToEdit.AlcoholContent = drink.AlcoholContent;
-            //drinkToEdit.MainIngredient = drink.MainIngredient;
-            //drinkToEdit.Ingredients = drink.Ingredients;
-            //drinkToEdit.Preparation = drink.Preparation;
-            //drinkToEdit.Description = drinkToEdit.Description;
-            //drinkToEdit.ImageUrl = drink.ImageUrl;
+            var folder = "Drinks/";
+            folder += Guid.NewGuid().ToString() + "_" + drink.Photo.FileName;
+            var serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+            drink.ImageUrl = "/" + folder;
+            drink.Photo.CopyTo(new FileStream(serverFolder, FileMode.Create));
+            var drinkToEdit = await _drinkRepository.GetDrinkById(drink.Id);
+
+            var mainIngredient = await _drinkRepository.GetMainIngredientByName(drink.MainIngredient);
+            var drinkType = await _drinkRepository.GetDrinkTypeByName(drink.DrinkType);
+
+            var ingredientsCapacity = drink.Ingredients.Select(i => i.Capacity).ToList();
+
+            var dbIngredients = new List<DbIngredient>();
+
+            if (await AreDrinkIngredientsInDb(drink))
+            {
+                dbIngredients = await CreateIngredientsList(drink);
+            }
+
+            //Delete this after user func.
+            Random rand = new Random();
+            var randuserId = rand.Next(1, 2);
+            var drinkAuthor = await _drinkRepository.GetUserById(randuserId);
+
+            drinkToEdit.Name = drink.Name;
+            drinkToEdit.Calories = drink.Calories;
+            drinkToEdit.Description = drink.Description;
+            drinkToEdit.Preparations = drink.Preparation;
+            drinkToEdit.AlcoholContent = drink.AlcoholContent;
+            drinkToEdit.DrinkType = drinkType;
+            drinkToEdit.MainIngredient = mainIngredient;
+            drinkToEdit.Author = drinkAuthor;
+            drinkToEdit.ImageUrl = drink.ImageUrl;
+
+           await _drinkRepository.EditDrinkinDB(drinkToEdit, dbIngredients, ingredientsCapacity);
+
         }
         public async Task<List<Drink>> GetAllDrinks()
         {
