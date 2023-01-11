@@ -18,11 +18,19 @@ namespace GreenFlamingos.Services
         }
         public async Task<List<MainIngredient>> GetAllMainIngredients()
         {
-            return await _drinkRepository.GetAllMainIngredients();
+            var dbMainIngredients =  await _drinkRepository.GetAllDbMainIngredients();
+            return dbMainIngredients.Select(m => new MainIngredient { Id = m.Id, Name = m.Name }).ToList();
         }
+        public async Task<List<Ingredient>> GetAllIngredients()
+        {
+            var dbIngredients =  await _drinkRepository.GetAllDbIngredients();
+            return dbIngredients.Select(i=>new Ingredient { Id = i.Id, Name = i.Name }).ToList();
+        }
+
         public async Task<List<DrinkType>> GetAllDrinkTypes()
         {
-            return await _drinkRepository.GetAllDrinkTypes();
+            var dbDrinkTypes =  await _drinkRepository.GetAllDbDrinkTypes();
+            return dbDrinkTypes.Select(dt => new DrinkType { Id = dt.Id, Name = dt.Name }).ToList();
         }
         public async Task<bool> AreDrinkIngredientsInDb(Drink drink)
         {

@@ -2,10 +2,19 @@
 function GetDynamicTextbox1(value) {
     return '<div><input type="text" name="Ingredients"/><input type="text" name="IngredientCapacity" style="width:27%" /><input type="button" style="width:8%; background-color:red; height:38px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="RemoveTextBox1(this)" value="-" /></div>';
 }
+
+function GetDynamicTextbox(value) {
+    return '<div><input type="text" style="width:90%" name="Preparations"/><input type="button" style="width:8%; background-color:red; height:38px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="RemoveTextBox2(this)" value="-" /></div>';
+}
 function AddTextBox1() {
     var div = document.createElement('DIV');
     div.innerHTML = GetDynamicTextbox1("");
     document.getElementById("divCont1").appendChild(div);
+}
+function AddTextBox() {
+    var div = document.createElement('DIV');
+    div.innerHTML = GetDynamicTextbox("");
+    document.getElementById("divCont2").appendChild(div);
 }
 
 Element.prototype.remove = function () {
@@ -24,6 +33,11 @@ function RemoveTextBox1(div) {
 function RemoveTextBox(div) {
     document.getElementById("divCont").remove();
 }
+function RemoveTextBox2(div) {
+    document.getElementById("divCont2").removeChild(div.parentNode.parentNode);
+}
+
+
 function CRateOut(rating) {
     for (var i = 1; i <= rating; i++) {
         $("#span" + i).attr('class', 'glyphicon glyphicon-star-empty')

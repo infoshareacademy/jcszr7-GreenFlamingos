@@ -34,6 +34,8 @@ namespace GreenFlamingosWebApp.Controllers
             ViewBag.MainIngredients = mainIngredients.Select(m=>m.Name).ToList();
             var drinkTypes = await _drinkService.GetAllDrinkTypes();
             ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
+            var ingredients = await _drinkService.GetAllIngredients();
+            ViewBag.Ingredients = ingredients.Select(i => i.Name).ToList();
             return View();
         }
 
@@ -55,6 +57,8 @@ namespace GreenFlamingosWebApp.Controllers
                 ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();
                 var drinkTypes = await _drinkService.GetAllDrinkTypes();
                 ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
+                var selectIngredients = await _drinkService.GetAllIngredients();
+                ViewBag.Ingredients = selectIngredients.Select(i => i.Name).ToList();
                 await _drinkService.AddDrink(drink);
                 return RedirectToAction(nameof(Index));
             }

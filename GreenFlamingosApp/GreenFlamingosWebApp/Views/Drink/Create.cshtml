@@ -15,25 +15,15 @@
     <div class="col-md-5">
         <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Drink">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="jakubSelect">
-                <label asp-for="DrinkType" class="jakubSelect"></label>
-                <select asp-for="DrinkType" class="jakubSelect" asp-items="new SelectList(ViewBag.DrinkType)"></select>
-                <span asp-validation-for="DrinkType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AlcoholContent" class="control-label"></label>
-                <input asp-for="AlcoholContent" style="width:100%;" class="form-control" />
-                <span asp-validation-for="AlcoholContent" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Calories" class="control-label"></label>
-                <input asp-for="Calories" class="form-control" />
-                <span asp-validation-for="Calories" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" style="width:100%;" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="jakubSelect">
+                <label asp-for="DrinkType" class="jakubSelect"></label>
+                <select asp-for="DrinkType" class="jakubSelect" asp-items="new SelectList(ViewBag.DrinkType)"></select>
+                <span asp-validation-for="DrinkType" class="text-danger"></span>
             </div>
             <div class="form-group1">
                 <label asp-for="MainIngredient" class="jakubSelect"></label>
@@ -46,9 +36,19 @@
                 <span asp-validation-for="Capacity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Preparation" class="control-label"></label>
-                <div class="PreparationTextArea">
-                    <textarea asp-for="Preparation" class="PreparationGreenFlamingos"></textarea>
+                <label asp-for="AlcoholContent" class="control-label"></label>
+                <input asp-for="AlcoholContent" style="width:100%;" class="form-control" />
+                <span asp-validation-for="AlcoholContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Calories" class="control-label"></label>
+                <input asp-for="Calories" class="form-control" />
+                <span asp-validation-for="Calories" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <div class="DescriptionTextArea">
+                    <textarea asp-for="Description" class="DescriptionGreenFlamingos"></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -59,9 +59,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" style="width:100%;" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <label asp-for="Preparation" class="control-label"></label>
+                <div id="divCont2">
+                    <div><input type="text" style="width:90%" name="Preparations" /><input type="button" style="width:8%; background-color:green; height:38px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="AddTextBox()" value="+" /></div>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Photo" class="control-label"></label>

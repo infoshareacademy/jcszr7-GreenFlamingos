@@ -20,15 +20,17 @@ namespace GreenFlamingos.Repository
         {
             return await _greenFlamingosDbContext.DrinkTypes.FirstOrDefaultAsync(dm => dm.Name == name);
         }
-        public async Task<List<MainIngredient>> GetAllMainIngredients()
+        public async Task<List<DbMainIngredient>> GetAllDbMainIngredients()
         {
-            var dbMainIngredients = await _greenFlamingosDbContext.DbMainIngredients.ToListAsync();
-            return dbMainIngredients.Select(d => new MainIngredient { Id = d.Id, Name = d.Name }).ToList();
+            return await _greenFlamingosDbContext.DbMainIngredients.ToListAsync();
         }
-        public async Task<List<DrinkType>> GetAllDrinkTypes()
+        public async Task<List<DbIngredient>> GetAllDbIngredients()
         {
-            var dbDrinkTypes = await _greenFlamingosDbContext.DrinkTypes.ToListAsync();
-            return dbDrinkTypes.Select(dt=> new DrinkType { Id=dt.Id, Name = dt.Name }).ToList();
+            return await _greenFlamingosDbContext.Ingredients.ToListAsync();
+        }
+        public async Task<List<DbDrinkType>> GetAllDbDrinkTypes()
+        {
+            return  await _greenFlamingosDbContext.DrinkTypes.ToListAsync();
         }
         public async Task<DbUser> GetUserById(int id)
         {
@@ -130,77 +132,6 @@ namespace GreenFlamingos.Repository
                     await _greenFlamingosDbContext.SaveChangesAsync();
                 }
             }
-            //foreach(var drinkIngredient in drinkIngredientsToEdit)
-            //{
-            //    if(drinkIngredient.IngredientId != ingredients[drinkIngredientsToEdit.IndexOf(drinkIngredient)].Id)
-            //    {
-            //        _greenFlamingosDbContext.Remove(drinkIngredient);
-            //        await _greenFlamingosDbContext.SaveChangesAsync();
-            //        var newDrinkIngredient = new DbDrinkIngredient
-            //        {
-            //            Drink = drink, 
-            //            Ingredient = ingredients[drinkIngredientsToEdit.IndexOf(drinkIngredient)], 
-            //            IngredientCapacity = ingredientsCapacity[drinkIngredientsToEdit.IndexOf(drinkIngredient)]
-            //        };
-            //            await _greenFlamingosDbContext.DrinksIngredients.AddAsync(newDrinkIngredient);
-            //            await _greenFlamingosDbContext.SaveChangesAsync();
-            //        }
-            //    else
-            //    {
-            //        drinkIngredient.Drink = drink;
-            //        drinkIngredient.Ingredient = ingredients[drinkIngredientsToEdit.IndexOf(drinkIngredient)];
-            //        drinkIngredient.IngredientCapacity = ingredientsCapacity[drinkIngredientsToEdit.IndexOf(drinkIngredient)];
-            //    }
-            //}
-
-            //if(ingredients.Count()>drinkIngredientsToEdit.Count())
-            //    for(int i = ingredients.Count()-1; i > drinkIngredientsToEdit.Count()-1; i--)
-            //    {
-            //        var newDrinkIngredient = new DbDrinkIngredient
-            //        {
-            //            Drink = drink,
-            //            Ingredient = ingredients[i],
-            //            IngredientCapacity = ingredientsCapacity[i]
-            //        };
-            //        await _greenFlamingosDbContext.DrinksIngredients.AddAsync(newDrinkIngredient);
-            //        await _greenFlamingosDbContext.SaveChangesAsync();
-            //    }
-
-            //if(drinkIngredientToEdit.Count() == ingredients.Count())
-            // {
-            //     foreach(var drinkIngredient in drinkIngredientToEdit)
-            //     {
-            //         drinkIngredient.Drink = drink;
-            //         drinkIngredient.Ingredient = ingredients[drinkIngredientToEdit.IndexOf(drinkIngredient)];
-            //         drinkIngredient.IngredientCapacity = ingredientsCapacity[drinkIngredientToEdit.IndexOf(drinkIngredient)];
-            //     }
-            // }
-            //else
-            // {
-            //     for(int i = 0; i < ingredients.Count; i++)
-            //     {
-
-            //         if (drinkIngredientToEdit.Count > i)
-            //         {
-            //             drinkIngredientToEdit[i].Drink = drink;
-            //             drinkIngredientToEdit[i].Ingredient = ingredients[i];
-            //             drinkIngredientToEdit[i].IngredientCapacity = ingredientsCapacity[i];
-            //             await _greenFlamingosDbContext.SaveChangesAsync();
-
-            //         }
-            //         else
-            //         {
-
-            //             var newDrinkIngredient = new DbDrinkIngredient { 
-            //                                                              Drink = drink, 
-            //                                                              Ingredient = ingredients[i], 
-            //                                                              IngredientCapacity = ingredientsCapacity[i] 
-            //                                                             };
-            //             await _greenFlamingosDbContext.DrinksIngredients.AddAsync(newDrinkIngredient);
-            //             await _greenFlamingosDbContext.SaveChangesAsync();
-            //         }
-            //     }
-            // }
             drinkToEdit = drink;
            await _greenFlamingosDbContext.SaveChangesAsync(); 
         }
