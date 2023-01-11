@@ -85,8 +85,11 @@ namespace GreenFlamingosWebApp.Controllers
                 var userIngredientsCapacity = ingredientsCapacity["IngredientCapacity"].ToList();
                 foreach (var ingredient in userIngredients)
                 {
-                    var ingredientToAdd = new Ingredient { Id = userIngredients.IndexOf(ingredient) + 1, Name = ingredient, Capacity = userIngredientsCapacity[userIngredients.IndexOf(ingredient)] };
-                    drink.Ingredients.Add(ingredientToAdd);
+                    if (!ingredient.Equals("",StringComparison.OrdinalIgnoreCase))
+                    {
+                        var ingredientToAdd = new Ingredient { Id = userIngredients.IndexOf(ingredient) + 1, Name = ingredient, Capacity = userIngredientsCapacity[userIngredients.IndexOf(ingredient)] };
+                        drink.Ingredients.Add(ingredientToAdd);
+                    }
                 }
                 var mainIngredients = await _drinkService.GetAllMainIngredients();
                 ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();

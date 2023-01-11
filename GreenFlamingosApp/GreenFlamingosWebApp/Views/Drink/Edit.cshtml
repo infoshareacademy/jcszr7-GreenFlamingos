@@ -54,11 +54,14 @@
             <div class="form-group">
                 <label asp-for="Ingredients" class="control-label"></label>
                 <label class="control-label" style="margin-left:48%">Ilość</label>
-                    @foreach (var ingredient in Model.Ingredients)
-                    {
-                        <input type="text" name="Ingredients" value="@ingredient.Name" class="control-label" /><input type="text" value="@ingredient.Capacity" name="IngredientCapacity" style="width:27%"/>
-                    }
 
+
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                    <div id="divCont">
+                        <div><input type="text" name="Ingredients" value="@ingredient.Name" class="control-label" /><input type="text" value="@ingredient.Capacity" name="IngredientCapacity" style="width:27%" /><input type="button" style="width:8%; background-color:red; height:38px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="RemoveTextBox(this)" value="-" /></div>
+                    </div>
+                }
                 <div id="divCont1">
                     <div><input type="text" name="Ingredients" /><input type="text" name="IngredientCapacity" style="width:27%" /><input type="button" style="width:8%; background-color:green; height:38px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="AddTextBox1()" value="+" /></div>
                 </div>

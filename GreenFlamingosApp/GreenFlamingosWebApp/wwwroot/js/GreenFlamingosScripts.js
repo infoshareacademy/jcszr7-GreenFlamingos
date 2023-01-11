@@ -7,8 +7,22 @@ function AddTextBox1() {
     div.innerHTML = GetDynamicTextbox1("");
     document.getElementById("divCont1").appendChild(div);
 }
+
+Element.prototype.remove = function () {
+    this.parentElement.removeChild(this);
+}
+NodeList.prototype.remove = HTMLCollection.prototype.remove = function () {
+    for (var i = this.length - 1; i >= 0; i--) {
+        if (this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+}
 function RemoveTextBox1(div) {
     document.getElementById("divCont1").removeChild(div.parentNode.parentNode);
+}
+function RemoveTextBox(div) {
+    document.getElementById("divCont").remove();
 }
 function CRateOut(rating) {
     for (var i = 1; i <= rating; i++) {
