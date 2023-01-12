@@ -1,10 +1,10 @@
 
 function GetDynamicTextbox1(value) {
-    return '<div><input type="text" name="Ingredients"/><input type="text" name="IngredientCapacity" style="width:27%" /><input type="button" style="width:8%; background-color:red; height:38px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="RemoveTextBox1(this)" value="-" /></div>';
+    return '<div><input type="text" name="Ingredients"/><input type="text" name="IngredientCapacity" style="width:28%" /><input type="button" style="width:8.5%; background-color:red; height:38px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="RemoveTextBox1(this)" value="-" /></div>';
 }
 
 function GetDynamicTextbox(value) {
-    return '<div><input type="text" style="width:90%" name="Preparations"/><input type="button" style="width:8%; background-color:red; height:38px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="RemoveTextBox2(this)" value="-" /></div>';
+    return '<div><input type="text" style="width:90%" name="Preparations"/><input type="button" style="width:8.5%; background-color:red; height:38px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="RemoveTextBox2(this)" value="-" /></div>';
 }
 function AddTextBox1() {
     var div = document.createElement('DIV');
@@ -36,7 +36,9 @@ function RemoveTextBox(div) {
 function RemoveTextBox2(div) {
     document.getElementById("divCont2").removeChild(div.parentNode.parentNode);
 }
-
+function RemoveTextBox3(div) {
+    document.getElementById("divCont3").remove();
+}
 
 function CRateOut(rating) {
     for (var i = 1; i <= rating; i++) {

@@ -42,13 +42,16 @@ namespace GreenFlamingosWebApp.Controllers
         // POST: DrinkController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  async Task<ActionResult> Create(Drink drink, IFormCollection ingredients, IFormCollection ingredientsCapacity)
+        public  async Task<ActionResult> Create(Drink drink, IFormCollection userFormValues)
         {
             try
             {
-                var userIngredients = ingredients["Ingredients"].ToList();
-                var userIngredientsCapacity = ingredientsCapacity["IngredientCapacity"].ToList();
-                foreach(var ingredient in userIngredients)
+                var userIngredients = userFormValues["Ingredients"].ToList();
+                var userIngredientsCapacity = userFormValues["IngredientCapacity"].ToList();
+                var userPreparations = userFormValues["Preparations"].ToList();
+                drink.Preparation = string.Join("\r\n", userPreparations);
+
+                foreach (var ingredient in userIngredients)
                 {
                     var ingredientToAdd = new Ingredient { Id = userIngredients.IndexOf(ingredient)+1, Name = ingredient,Capacity = userIngredientsCapacity[userIngredients.IndexOf(ingredient)] };
                     drink.Ingredients.Add(ingredientToAdd);
@@ -57,8 +60,7 @@ namespace GreenFlamingosWebApp.Controllers
                 ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();
                 var drinkTypes = await _drinkService.GetAllDrinkTypes();
                 ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
-                var selectIngredients = await _drinkService.GetAllIngredients();
-                ViewBag.Ingredients = selectIngredients.Select(i => i.Name).ToList();
+                
                 await _drinkService.AddDrink(drink);
                 return RedirectToAction(nameof(Index));
             }
@@ -81,12 +83,15 @@ namespace GreenFlamingosWebApp.Controllers
         // POST: DrinkController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Drink drink ,IFormCollection ingredients, IFormCollection ingredientsCapacity)
+        public async Task<ActionResult> Edit(Drink drink ,IFormCollection userFormValues)
         {
             try
             {
-                var userIngredients = ingredients["Ingredients"].ToList();
-                var userIngredientsCapacity = ingredientsCapacity["IngredientCapacity"].ToList();
+                var userIngredients = userFormValues["Ingredients"].ToList();
+                var userIngredientsCapacity = userFormValues["IngredientCapacity"].ToList();
+                var userPreparations = userFormValues["Preparations"].ToList();
+                drink.Preparation = string.Join("\r\n", userPreparations);
+
                 foreach (var ingredient in userIngredients)
                 {
                     if (!ingredient.Equals("",StringComparison.OrdinalIgnoreCase))

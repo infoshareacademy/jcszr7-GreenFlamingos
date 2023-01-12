@@ -109,6 +109,8 @@ namespace GreenFlamingos.Services
             var serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
             drink.ImageUrl = "/" + folder;
             drink.Photo.CopyTo(new FileStream(serverFolder, FileMode.Create));
+
+
             var drinkToEdit = await _drinkRepository.GetDrinkById(drink.Id);
 
             var mainIngredient = await _drinkRepository.GetMainIngredientByName(drink.MainIngredient);
