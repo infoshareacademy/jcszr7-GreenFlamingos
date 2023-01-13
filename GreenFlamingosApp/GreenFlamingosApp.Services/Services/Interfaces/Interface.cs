@@ -14,5 +14,6 @@ namespace GreenFlamingos.Services.Interfaces
         public Task<List<MainIngredient>> GetAllMainIngredients();
         public Task<List<DrinkType>> GetAllDrinkTypes();
         public Task<List<Ingredient>> GetAllIngredients();
+        public Task<List<Drink>> GetDrinksByMainIngredient(string mainIngredient);
     }
 }

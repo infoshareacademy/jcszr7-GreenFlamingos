@@ -1,14 +1,26 @@
 ﻿@model IEnumerable<GreenFlamingos.Model.Drinks.Drink>
 @{
     Layout = "~/Views/Shared/_LayoutOLD.cshtml";
-    ViewData["Title"] = "Drinki";
+    var mainIngredient = Model.Select(d => d.MainIngredient).FirstOrDefault();
+    var pageTitle = "";
+    if(mainIngredient == "Wódka")
+    {
+        pageTitle = "Drinki z Wódką";
+        ViewData["Title"] = pageTitle;
+    }
+        if(mainIngredient == "Rum")
+    {
+        pageTitle = "Drinki z Rumem";
+        ViewData["Title"] = pageTitle;
+    }
+    
     var solidStars = 0;
 }
 
 <script src="~/js/GreenFlamingosScripts.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <div class="" style="justify-content:center;">
-    <header style="text-align:center"><h3 class="display-4">Wszystkie Drinki</h3></header>
+    <header style="text-align:center"><h3 class="display-4">@pageTitle</h3></header>
     <div class="row" ">
         @foreach (var drink in Model)
         {

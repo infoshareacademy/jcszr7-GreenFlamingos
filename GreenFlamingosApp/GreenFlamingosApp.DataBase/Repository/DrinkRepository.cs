@@ -32,6 +32,16 @@ namespace GreenFlamingos.Repository
         {
             return  await _greenFlamingosDbContext.DrinkTypes.ToListAsync();
         }
+        public async Task<List<DbDrink>> GetDbDrinksByMainIngredient(string mainIngredient)
+        {
+            return await _greenFlamingosDbContext.DbDrinks.Include(m => m.MainIngredient)
+                                                          .Include(dt => dt.DrinkType)
+                                                          .Include(a => a.Author)
+                                                          .Include(d => d.DrinkIngredients)
+                                                          .ThenInclude(x => x.Ingredient)
+                                                          .Where(db => db.MainIngredient.Name == mainIngredient)
+                                                          .ToListAsync();
+        }
         public async Task<DbUser> GetUserById(int id)
         {
             return await _greenFlamingosDbContext.Users.Include(ud => ud.UserDetails)

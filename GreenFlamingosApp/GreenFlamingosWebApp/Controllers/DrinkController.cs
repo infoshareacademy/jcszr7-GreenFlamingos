@@ -13,13 +13,11 @@ namespace GreenFlamingosWebApp.Controllers
         {
             _drinkService = drinkService;
         }
-
         public async Task<ActionResult> Index()
         {
             var model = await _drinkService.GetAllDrinks();
             return View(model);
         }
-
         // GET: DrinkController/Details/5
         public async Task<ActionResult> Details(int id)
         {
