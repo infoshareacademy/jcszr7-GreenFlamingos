@@ -9,80 +9,47 @@
     <hr />
     <dl class="row">
 
-        <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
-                    </div>
-
-                    <div class="modal-body">
-                        <p>You are about to delete @Model.Name, this procedure is irreversible.</p>
-                        <p>Do you want to proceed?</p>
-                        <p class="debug-url"></p>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <form asp-action="Delete">
-                            <input type="submit" value="Delete" class="btn btn-danger" />
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <button class="btn btn-default" data-href="/delete.php?id=54" data-toggle="modal" data-target="#confirm-delete">
-            Delete record #54
-        </button>
-
-        @*<dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.AlcoholContent)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.AlcoholContent)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.Calories)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AlcoholContent)
         </dt>
-        <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.Calories)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AlcoholContent)
         </dd>
-        <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.Name)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Calories)
         </dt>
-        <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.Name)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Calories)
         </dd>
-        <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.MainIngredient)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MainIngredient)
         </dt>
-        <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.MainIngredient)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MainIngredient)
         </dd>
-        <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.Capacity)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Capacity)
         </dt>
-        <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.Capacity)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Capacity)
         </dd>
-        <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.Description)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
         </dt>
-        <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.Description)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
-        @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-        @Html.DisplayFor(model => model.ImageUrl)
-        </dd>*@
-
+        <form asp-action="Delete">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </form>
         <script>
-            $('#confirm-delete').on('show.bs.modal', function(e) {
+            $('#confirm-delete').on('show.bs.modal', function (e) {
                 $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
 
                 $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
