@@ -45,13 +45,13 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-success-jg">
-                            @Html.ActionLink("Przepis", "Details", new {  id=drink.Id })
+                            @Html.ActionLink("Przepis", "Details","Drink", new {  id=drink.Id })
                         </div>
                         <div class="btn-danger-jg" role="button" data-href="/delete.php?id=54" data-toggle="modal" data-target="#confirm-delete">
-                            @Html.ActionLink("Usuń Drinka", "Delete", new {  id=drink.Id })
+                            @Html.ActionLink("Usuń Drinka", "Delete","Drink", new {  id=drink.Id })
                         </div>
                         <div class="btn-secondary-jg">
-                            @Html.ActionLink("Edytuj", "Edit", new {  id=drink.Id })
+                            @Html.ActionLink("Edytuj", "Edit","Drink", new {  id=drink.Id })
                         </div>
                     </div>
                 </div>

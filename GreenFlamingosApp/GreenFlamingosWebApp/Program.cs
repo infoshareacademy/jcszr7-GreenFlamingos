@@ -12,8 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddControllersWithViews()
     .AddRazorRuntimeCompilation();
-builder.Services.AddScoped<IDrinkService, DrinkService>();
-builder.Services.AddScoped<DrinkRepository>();
+builder.Services.AddScoped<IDrinkService, GreenFlamingos.Services.DrinkService>();
+builder.Services.AddScoped<GreenFlamingos.Repository.DataBaseDrinkService>();
 
 builder.Services.AddDbContext<GreenFlamingosDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("GreenFlamingos")));

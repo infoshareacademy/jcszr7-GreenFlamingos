@@ -47,6 +47,11 @@ namespace GreenFlamingosWebApp.Controllers
                 var userIngredients = userFormValues["Ingredients"].ToList();
                 var userIngredientsCapacity = userFormValues["IngredientCapacity"].ToList();
                 var userPreparations = userFormValues["Preparations"].ToList();
+                if (userPreparations.Contains(""))
+                {
+                    userPreparations.Remove("");
+                }
+
                 drink.Preparation = string.Join("\r\n", userPreparations);
 
                 foreach (var ingredient in userIngredients)
@@ -88,6 +93,12 @@ namespace GreenFlamingosWebApp.Controllers
                 var userIngredients = userFormValues["Ingredients"].ToList();
                 var userIngredientsCapacity = userFormValues["IngredientCapacity"].ToList();
                 var userPreparations = userFormValues["Preparations"].ToList();
+
+                    if(userPreparations.Contains(""))
+                    {
+                        userPreparations.Remove("");
+                    }
+
                 drink.Preparation = string.Join("\r\n", userPreparations);
 
                 foreach (var ingredient in userIngredients)

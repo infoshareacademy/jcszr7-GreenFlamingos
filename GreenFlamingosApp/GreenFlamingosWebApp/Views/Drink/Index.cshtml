@@ -12,7 +12,7 @@
     <div class="row" ">
         @foreach (var drink in Model)
         {
-        <div class="col-md-5" style="width:500px;height:700px" onload="CRateClick(@drink.AverageRating);">
+        <div class="col-md-5" style="width:500px;height:450px; margin-bottom:20px;" onload="CRateClick(@drink.AverageRating);">
             <div class="card mb-5 shadow-sm">
                 <img src="@drink.ImageUrl" class="img-thumbnail" style="width:500px;height:300px; justify-content:center"/>
                 <div class="card-body">

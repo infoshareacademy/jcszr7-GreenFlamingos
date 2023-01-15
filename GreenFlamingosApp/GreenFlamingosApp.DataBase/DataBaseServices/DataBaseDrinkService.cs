@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GreenFlamingos.Repository
 {
-    public class DrinkRepository
+    public class DataBaseDrinkService
     {
         private readonly GreenFlamingosDbContext _greenFlamingosDbContext;
-        public DrinkRepository(GreenFlamingosDbContext greenFlamingosDbContext)
+        public DataBaseDrinkService(GreenFlamingosDbContext greenFlamingosDbContext)
         {
             _greenFlamingosDbContext = greenFlamingosDbContext;
         }
@@ -34,12 +34,13 @@ namespace GreenFlamingos.Repository
         }
         public async Task<List<DbDrink>> GetDbDrinksByMainIngredient(string mainIngredient)
         {
+            var drinkType = await GetDrinkTypeByName("Drink z alkoholem");
             return await _greenFlamingosDbContext.DbDrinks.Include(m => m.MainIngredient)
                                                           .Include(dt => dt.DrinkType)
                                                           .Include(a => a.Author)
                                                           .Include(d => d.DrinkIngredients)
                                                           .ThenInclude(x => x.Ingredient)
-                                                          .Where(db => db.MainIngredient.Name == mainIngredient)
+                                                          .Where(db => db.MainIngredient.Name == mainIngredient && db.DrinkType.Name == drinkType.Name)
                                                           .ToListAsync();
         }
         public async Task<DbUser> GetUserById(int id)

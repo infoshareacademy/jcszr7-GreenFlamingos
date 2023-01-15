@@ -10,8 +10,8 @@ namespace GreenFlamingos.Services
     public class DrinkService : IDrinkService
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly DrinkRepository _drinkRepository;
-        public DrinkService(IWebHostEnvironment webHostEnvironment, DrinkRepository drinkRepository)
+        private readonly DataBaseDrinkService _drinkRepository;
+        public DrinkService(IWebHostEnvironment webHostEnvironment, DataBaseDrinkService drinkRepository)
         {
             _webHostEnvironment = webHostEnvironment;
             _drinkRepository = drinkRepository;
@@ -159,10 +159,9 @@ namespace GreenFlamingos.Services
         public List<Drink> SearchDrink(string searchedWord)
         {
             if (searchedWord != null)
-                return DrinkRepository.drinkList.Where(d => d.Name.Contains(searchedWord)).ToList();
-            return DrinkRepository.drinkList;
+                return DataBaseDrinkService.drinkList.Where(d => d.Name.Contains(searchedWord)).ToList();
+            return Repository.DataBaseDrinkService.drinkList;
         }
-
         public async Task<List<Drink>> GetDrinksByMainIngredient(string mainIngredient)
         {
             var dbDrinks = await _drinkRepository.GetDbDrinksByMainIngredient(mainIngredient); 
