@@ -2,31 +2,49 @@
 @{
     Layout = "~/Views/Shared/_LayoutOLD.cshtml";
     ViewData["Title"] = "Drinki";
+    var solidStars = 0;
 }
 
-
+<script src="~/js/GreenFlamingosScripts.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <div class="" style="justify-content:center;">
     <header style="text-align:center"><h3 class="display-4">Wszystkie Drinki</h3></header>
-    <div class="row">
+    <div class="row" ">
         @foreach (var drink in Model)
         {
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <img src="@drink.ImageUrl" class="img-thumbnail" width="100%" height="100%" />
-                    <div class="card-body">
-                        <h3 class="card-title">@Html.DisplayFor(modelItem => drink.Name)</h3>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn btn-outline-success">
-                                @Html.ActionLink("Przepis", "Details", new {  id=drink.Id })
-                            </div>
-                            <div class="btn btn-outline-danger" data-href="/delete.php?id=54" data-toggle="modal" data-target="#confirm-delete">
-                                @Html.ActionLink("Usuń Drinka", "Delete", new {  id=drink.Id })
-                            </div>
-                            <small class="text-muted">Autor Drinka</small>
+        <div class="col-md-5" style="width:500px;height:450px; margin-bottom:20px;" onload="CRateClick(@drink.AverageRating);">
+            <div class="card mb-5 shadow-sm">
+                <img src="@drink.ImageUrl" class="img-thumbnail" style="width:500px;height:300px; justify-content:center"/>
+                <div class="card-body">
+                    <h3 class="card-title">@Html.DisplayFor(modelItem => drink.Name)</h3>
+                    <div class="text-warning" style="height:20px; margin-bottom:20px;">
+                        @for (var i = 1; i < @drink.AverageRating; i++)
+                        {
+                            <span class="glyphicon glyphicon-star" style="margin-right:10px;"></span>
+                            solidStars++;
+                        }
+                        @for (var i = 0; i < (5-solidStars); i++)
+                        {
+                            <span class="glyphicon glyphicon-star-empty" style="margin-right:10px;"></span>
+                        }
+                    </div>
+                    <div style="color:black; margin-bottom:20px; text-align:center;">
+                      @*  <h7>Średnia ocena: @Math.Round(@drink.AverageRating,1)/5 z @drink.Ratings.Count() opinii</h7>*@
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-success-jg">
+                            @Html.ActionLink("Przepis", "Details", new {  id=drink.Id })
+                        </div>
+                        <div class="btn-danger-jg" role="button" data-href="/delete.php?id=54" data-toggle="modal" data-target="#confirm-delete">
+                            @Html.ActionLink("Usuń Drinka", "Delete", new {  id=drink.Id })
+                        </div>
+                        <div class="btn-secondary-jg">
+                            @Html.ActionLink("Edytuj", "Edit", new {  id=drink.Id })
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         }
     </div>
 </div>

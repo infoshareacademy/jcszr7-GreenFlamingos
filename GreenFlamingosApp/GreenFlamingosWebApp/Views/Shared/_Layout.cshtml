@@ -101,11 +101,8 @@
                                     <li>
                                         <a href="#">Drinki</a>
                                         <ul class="dropdown">
-                                            <li><a class="nav-link" asp-area="" asp-controller="Drink" asp-action="Index">Drinki z Aperolem</a></li>
-                                            <li><a class="nav-link" asp-area="" asp-controller="Drink" asp-action="Index">Drinki z Wódką</a></li>
-                                            <li><a class="nav-link" asp-area="" asp-controller="Drink" asp-action="Index">Drinki z Whisky</a></li>
-                                            <li><a class="nav-link" asp-area="" asp-controller="Drink" asp-action="Index">Drinki z Rumem</a></li>
-                                            <li><a class="nav-link" asp-area="" asp-controller="Drink" asp-action="Index">Drinki z Szampanem</a></li>
+                                            <li> @Html.ActionLink("Drinki z Wódką","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Wódka"})</li>
+                                            <li> @Html.ActionLink("Drinki z Rumem","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Rum"})</li>
                                         </ul>
                                     </li>
                                     <li>
