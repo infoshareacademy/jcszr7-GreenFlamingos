@@ -1,34 +1,33 @@
 ﻿using GreenFlamingos.Model.Drinks;
-using GreenFlamingos.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
-using GreenFlamingos.Repository;
 using GreenFlamingosApp.DataBase.DbModels;
-using System.Security.Cryptography.X509Certificates;
+using GreenFlamingos.Services.Services.Interfaces;
+using GreenFlamingosApp.DataBase.GreenFlamingosRepository;
 
-namespace GreenFlamingos.Services
+namespace GreenFlamingosApp.Services.Services.ServiceClass
 {
     public class DrinkService : IDrinkService
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly DataBaseDrinkService _drinkRepository;
-        public DrinkService(IWebHostEnvironment webHostEnvironment, DataBaseDrinkService drinkRepository)
+        private readonly DrinkRepository _drinkRepository;
+        public DrinkService(IWebHostEnvironment webHostEnvironment, DrinkRepository drinkRepository)
         {
             _webHostEnvironment = webHostEnvironment;
             _drinkRepository = drinkRepository;
         }
         public async Task<List<MainIngredient>> GetAllMainIngredients()
         {
-            var dbMainIngredients =  await _drinkRepository.GetAllDbMainIngredients();
+            var dbMainIngredients = await _drinkRepository.GetAllDbMainIngredients();
             return dbMainIngredients.Select(m => new MainIngredient { Id = m.Id, Name = m.Name }).ToList();
         }
         public async Task<List<Ingredient>> GetAllIngredients()
         {
-            var dbIngredients =  await _drinkRepository.GetAllDbIngredients();
-            return dbIngredients.Select(i=>new Ingredient { Id = i.Id, Name = i.Name }).ToList();
+            var dbIngredients = await _drinkRepository.GetAllDbIngredients();
+            return dbIngredients.Select(i => new Ingredient { Id = i.Id, Name = i.Name }).ToList();
         }
         public async Task<List<DrinkType>> GetAllDrinkTypes()
         {
-            var dbDrinkTypes =  await _drinkRepository.GetAllDbDrinkTypes();
+            var dbDrinkTypes = await _drinkRepository.GetAllDbDrinkTypes();
             return dbDrinkTypes.Select(dt => new DrinkType { Id = dt.Id, Name = dt.Name }).ToList();
         }
         public async Task<bool> AreDrinkIngredientsInDb(Drink drink)
@@ -86,7 +85,8 @@ namespace GreenFlamingos.Services
             Random rand = new Random();
             var randuserId = rand.Next(1, 2);
             var drinkAuthor = await _drinkRepository.GetUserById(randuserId);
-            var drinkToAdd = new DbDrink { 
+            var drinkToAdd = new DbDrink
+            {
                 Name = newDrink.Name,
                 Capacity = newDrink.Capacity,
                 AlcoholContent = newDrink.AlcoholContent,
@@ -99,7 +99,7 @@ namespace GreenFlamingos.Services
                 Author = drinkAuthor,
             };
 
-            await _drinkRepository.AddDrinkToDb(drinkToAdd,dbIngredients, ingredientsCapacity);
+            await _drinkRepository.AddDrinkToDb(drinkToAdd, dbIngredients, ingredientsCapacity);
         }
         public async Task EditDrink(Drink drink)
         {
@@ -139,7 +139,7 @@ namespace GreenFlamingos.Services
             drinkToEdit.Author = drinkAuthor;
             drinkToEdit.ImageUrl = drink.ImageUrl;
 
-           await _drinkRepository.EditDrinkinDB(drinkToEdit, dbIngredients, ingredientsCapacity);
+            await _drinkRepository.EditDrinkinDB(drinkToEdit, dbIngredients, ingredientsCapacity);
 
         }
         public async Task<List<Drink>> GetAllDrinks()
@@ -156,15 +156,15 @@ namespace GreenFlamingos.Services
         {
             await _drinkRepository.RemoveDrinkFromDB(drink.Id);
         }
-        public List<Drink> SearchDrink(string searchedWord)
-        {
-            if (searchedWord != null)
-                return DataBaseDrinkService.drinkList.Where(d => d.Name.Contains(searchedWord)).ToList();
-            return Repository.DataBaseDrinkService.drinkList;
-        }
+        //public List<Drink> SearchDrink(string searchedWord)
+        //{
+        //    if (searchedWord != null)
+        //        return DataBaseDrinkService.drinkList.Where(d => d.Name.Contains(searchedWord)).ToList();
+        //    return Repository.DataBaseDrinkService.drinkList;
+        //}
         public async Task<List<Drink>> GetDrinksByMainIngredient(string mainIngredient)
         {
-            var dbDrinks = await _drinkRepository.GetDbDrinksByMainIngredient(mainIngredient); 
+            var dbDrinks = await _drinkRepository.GetDbDrinksByMainIngredient(mainIngredient);
 
             return dbDrinks.Select(dbDrinks => new Drink
             {
@@ -179,10 +179,10 @@ namespace GreenFlamingos.Services
                 Description = dbDrinks.Description,
                 ImageUrl = dbDrinks.ImageUrl,
                 Ingredients = dbDrinks.DrinkIngredients.Select(i => new
-                                                       {
-                                                           SimplyIngredient = i.Ingredient,
-                                                           SimplyIngredientCapacity = i.IngredientCapacity
-                                                       })
+                {
+                    SimplyIngredient = i.Ingredient,
+                    SimplyIngredientCapacity = i.IngredientCapacity
+                })
                                                        .Select(x => new Ingredient
                                                        {
                                                            Name = x.SimplyIngredient.Name,

@@ -1,4 +1,4 @@
-﻿using GreenFlamingos.Services.Interfaces;
+﻿using GreenFlamingos.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GreenFlamingosWebApp.Controllers

@@ -1,9 +1,14 @@
-using GreenFlamingos.Repository;
-using GreenFlamingos.Services;
-using GreenFlamingos.Services.Interfaces;
+using GreenFlamingos.Services.Services.Interfaces;
 using GreenFlamingosApp.DataBase;
 using GreenFlamingosApp.DataBase.DbModels;
+using GreenFlamingosApp.Services.Services.Interfaces;
+using GreenFlamingosApp.Services.Services.ServiceClass;
+using GreenFlamingosApp.Services.Services.ServiceClasses;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation.AspNetCore;
+using GreenFlamingos.Model;
+using FluentValidation;
+using GreenFlamingos.Model.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +17,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddControllersWithViews()
     .AddRazorRuntimeCompilation();
-builder.Services.AddScoped<IDrinkService, GreenFlamingos.Services.DrinkService>();
-builder.Services.AddScoped<GreenFlamingos.Repository.DataBaseDrinkService>();
-
+builder.Services.AddScoped<IDrinkService, DrinkService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<GreenFlamingosApp.DataBase.GreenFlamingosRepository.DrinkRepository>();
+builder.Services.AddScoped<GreenFlamingosApp.DataBase.GreenFlamingosRepository.UserRepository>();
+builder.Services.AddScoped<IValidator<User>, UserValidator>();
+//Add AutoMapper
+builder.Services.AddAutoMapper(typeof(Program));
+//Add DbContext
 builder.Services.AddDbContext<GreenFlamingosDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("GreenFlamingos")));
 

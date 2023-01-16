@@ -1,4 +1,4 @@
-﻿using GreenFlamingosApp.DataBase.DbModels;
+﻿using GreenFlamingos.Model.Users;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
