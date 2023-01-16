@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation.AspNetCore;
 using FluentValidation.Results;
 using GreenFlamingos.Model;
 using GreenFlamingos.Model.Users;
@@ -7,6 +8,7 @@ using GreenFlamingosApp.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace GreenFlamingosWebApp.Controllers
 {
@@ -47,12 +49,13 @@ namespace GreenFlamingosWebApp.Controllers
                 //var createdUser = _mapper.Map<DbUser>(user);
                 //_userService.RegisterUser(createdUser);
                 UserValidator validator = new UserValidator();
-                ValidationResult result = validator.Validate(user);
-                if(result.IsValid)
+                var result = validator.Validate(user);
+                foreach(ValidationFailure fail in result.Errors)
                 {
-                    return RedirectToAction(nameof(RegisterUser));
+                    ModelState.AddModelError("RepeatedPassword", fail.ErrorMessage);
                 }
-                return RedirectToAction(nameof(DrinkController.Index));
+                
+                return View();
             }
             catch
             {

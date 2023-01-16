@@ -7,9 +7,9 @@ namespace GreenFlamingos.Model
     {
         public UserValidator()
         {
-             RuleFor(u => u.Password)
-            .NotEqual(u => u.RepeatedPassword)
-            .WithMessage("Hasła muszą być takie same");
+            RuleFor(u => u)
+               .Must(u => u.Password == u.RepeatedPassword)
+               .WithMessage("CHUUUUUUUUUUUUJ CI W DUPE BOLEK");
         }
 
     }
