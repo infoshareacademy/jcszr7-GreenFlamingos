@@ -54,7 +54,6 @@ namespace GreenFlamingosWebApp.Controllers
                 {
                     ModelState.AddModelError("RepeatedPassword", fail.ErrorMessage);
                 }
-                
                 return View();
             }
             catch
