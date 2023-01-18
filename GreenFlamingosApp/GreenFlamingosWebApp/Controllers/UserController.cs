@@ -46,8 +46,8 @@ namespace GreenFlamingosWebApp.Controllers
         {
             try
             {
-                //var createdUser = _mapper.Map<DbUser>(user);
-                //_userService.RegisterUser(createdUser);
+                var createdUser = _mapper.Map<DbUser>(user);
+                _userService.RegisterUser(createdUser);
                 UserValidator validator = new UserValidator();
                 var result = validator.Validate(user);
                 foreach(ValidationFailure fail in result.Errors)

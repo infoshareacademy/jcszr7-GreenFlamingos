@@ -9,8 +9,20 @@ namespace GreenFlamingosApp.Services.Services.ServiceClasses
     {
         public UserProfile()
         {
-            CreateMap<User, DbUser>();
+            CreateMap<User, DbUser>()
+                .ForMember(dest => dest.UserMail,
+                           opt => opt.MapFrom(src => src.UserMail))
+                .ForMember(dest => dest.Password,
+                            opt => opt.MapFrom(src => src.Password));
+                //.ForMember(dest => dest.UserDetails.City,
+                //            opt => opt.MapFrom(src => src.UserDetails.City))
+                //.ForMember(dest => dest.UserDetails.Street,
+                //            opt => opt.MapFrom(src => src.UserDetails.Street))
+                //.ForMember(dest => dest.UserDetails.PhoneNumber,
+                //            opt => opt.MapFrom(src => src.UserDetails.PhoneNumber));
+
+
         }
-       
+
     }
 }
