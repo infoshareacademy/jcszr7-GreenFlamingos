@@ -5,7 +5,6 @@ using GreenFlamingosApp.Services.Services.Interfaces;
 using GreenFlamingosApp.Services.Services.ServiceClass;
 using GreenFlamingosApp.Services.Services.ServiceClasses;
 using Microsoft.EntityFrameworkCore;
-using FluentValidation.AspNetCore;
 using GreenFlamingos.Model;
 using FluentValidation;
 using GreenFlamingos.Model.Users;
@@ -23,8 +22,8 @@ builder.Services.AddScoped<GreenFlamingosApp.DataBase.GreenFlamingosRepository.D
 builder.Services.AddScoped<GreenFlamingosApp.DataBase.GreenFlamingosRepository.UserRepository>();
 builder.Services.AddScoped<IValidator<User>, UserValidator>();
 //Add AutoMapper
-//builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(Program));
+//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //Add DbContext
 builder.Services.AddDbContext<GreenFlamingosDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("GreenFlamingos")));
