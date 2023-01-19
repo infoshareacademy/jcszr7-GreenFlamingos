@@ -73,23 +73,6 @@ namespace GreenFlamingosWebApp.Controllers
                 EnableSsl = true
             };
             smtpClient.Send(message);
-
-            //using (MailMessage message = new MailMessage("GreenFlamingosApp@gmail.com","GreenFlamingos1!"))
-            //{
-            //    message.Subject = "Chujjjj";
-            //    message.Body = "ciiiii[aaaa";
-            //    message.IsBodyHtml = false;
-
-            //    using(SmtpClient smpt = new SmtpClient())
-            //    {
-            //        smpt.UseDefaultCredentials = false;
-            //        smpt.Credentials = new NetworkCredential("j.gruszczyk96@gmail.com", "Poczta189913!");
-            //        smpt.EnableSsl = true;
-
-            //        smpt.Send(message);
-            //    }
-
-            //}
         }
 
         // GET: UserController/Details/5
