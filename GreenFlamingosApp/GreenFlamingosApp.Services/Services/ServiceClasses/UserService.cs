@@ -13,6 +13,11 @@ namespace GreenFlamingosApp.Services.Services.ServiceClasses
             _userRepository = userRepository;
         }
 
+        public Task<DbUser> LoginUser(DbUser user)
+        {
+           return _userRepository.GetUserByLoginForm(user);
+        }
+
         public async Task RegisterUser(DbUser user)
         {
             await _userRepository.AddUserToDB(user);

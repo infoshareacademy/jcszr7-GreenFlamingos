@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
-using FluentValidation.AspNetCore;
 using FluentValidation.Results;
 using GreenFlamingos.Model;
 using GreenFlamingos.Model.Users;
 using GreenFlamingosApp.DataBase.DbModels;
 using GreenFlamingosApp.Services.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Net;
+using System.Net.Mail;
 
 namespace GreenFlamingosWebApp.Controllers
 {
@@ -16,7 +14,6 @@ namespace GreenFlamingosWebApp.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-
         public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
@@ -27,19 +24,85 @@ namespace GreenFlamingosWebApp.Controllers
         {
             return View();
         }
+        // GET: UserController/Login
+        public ActionResult Login()
+        {
+            return View();
+        }
+        public ActionResult LogOut(User user)
+        {
+            user = null;
+            return RedirectToAction("Index", "Home", user);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Login(User user)
+        {
+            try
+            {
+                var userToLog = _mapper.Map<DbUser>(user);
+                var loggedUser = await _userService.LoginUser(userToLog);
+                if(loggedUser != null)
+                {
+                    var mappedLoggedUser = _mapper.Map<User>(loggedUser);
+                    return View("../Home/Index", mappedLoggedUser);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+            return View();
+        }
+        public void SendEmail(string receiver)
+        {
+            var fromMail = "GreenFlamingosApp@gmail.com";
+            var fromPassword = "pldmwbffjatkkvmy";
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(fromMail);
+            message.Subject = "Green Flamingos Potwierdzenie Rejestracji ";
+            message.To.Add(new MailAddress(receiver));
+            message.Body = "<html><body> Gratulacje! Pomyślnie zalożyłeś konto w serwisie GreeenFlamingos :)</body></html>";
+            message.IsBodyHtml = true;
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(fromMail, fromPassword),
+                EnableSsl = true
+            };
+            smtpClient.Send(message);
+
+            //using (MailMessage message = new MailMessage("GreenFlamingosApp@gmail.com","GreenFlamingos1!"))
+            //{
+            //    message.Subject = "Chujjjj";
+            //    message.Body = "ciiiii[aaaa";
+            //    message.IsBodyHtml = false;
+
+            //    using(SmtpClient smpt = new SmtpClient())
+            //    {
+            //        smpt.UseDefaultCredentials = false;
+            //        smpt.Credentials = new NetworkCredential("j.gruszczyk96@gmail.com", "Poczta189913!");
+            //        smpt.EnableSsl = true;
+
+            //        smpt.Send(message);
+            //    }
+
+            //}
+        }
 
         // GET: UserController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
-
         // GET: UserController/RegisterUser
         public ActionResult RegisterUser()
         {
             return View();
         }
-        // POST: UserController/Create
+        // POST: UserController/RegisterUser
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult RegisterUser(User user)
@@ -47,14 +110,24 @@ namespace GreenFlamingosWebApp.Controllers
             try
             {
                 var createdUser = _mapper.Map<DbUser>(user);
-                _userService.RegisterUser(createdUser);
                 UserValidator validator = new UserValidator();
                 var result = validator.Validate(user);
                 foreach(ValidationFailure fail in result.Errors)
                 {
                     ModelState.AddModelError("RepeatedPassword", fail.ErrorMessage);
                 }
-                return View();
+                if(result.IsValid)
+                {
+                    _userService.RegisterUser(createdUser);
+                    SendEmail(createdUser.UserMail);
+                    //var HomeController = new HomeController();
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return View();
+                }
+                
             }
             catch
             {

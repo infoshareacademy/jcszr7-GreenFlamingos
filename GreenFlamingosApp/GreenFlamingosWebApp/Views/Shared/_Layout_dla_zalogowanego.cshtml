@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -63,12 +65,10 @@
                     <!-- Top Social Info -->
                     <div class="col-12 col-sm-10">
                         <div class="top-social-info text-right">
-                            <a href="#">Witaj (user)</a>
-                            <a href="#">Wyloguj się</a>
+                            <a href="#">Witaj @Model.UserMail</a>
+                            <a asp-action="LogOut" asp-controller="User">Wyloguj się</a>
                             <a href="#">Dane konta</a>
-                            <a asp-action="Index" asp-controller="Drink"><button class="btn btn-success">Dane konta</button> </a>
                             </div>
-
                         </div>
                     </div>
                 </div>

@@ -22,7 +22,7 @@ builder.Services.AddScoped<GreenFlamingosApp.DataBase.GreenFlamingosRepository.D
 builder.Services.AddScoped<GreenFlamingosApp.DataBase.GreenFlamingosRepository.UserRepository>();
 builder.Services.AddScoped<IValidator<User>, UserValidator>();
 //Add AutoMapper
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(Program),typeof(UserService));
 //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //Add DbContext
 builder.Services.AddDbContext<GreenFlamingosDbContext>(

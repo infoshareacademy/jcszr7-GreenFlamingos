@@ -1,9 +1,5 @@
 ﻿using GreenFlamingosApp.DataBase.DbModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
 {
@@ -17,7 +13,19 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
 
         public async Task AddUserToDB(DbUser user)
         {
-            await _greenFlamingosDbContext.Users.AddAsync(user); 
+            await _greenFlamingosDbContext.Users.AddAsync(user);
+            await _greenFlamingosDbContext.SaveChangesAsync();
+        }
+        public async Task<DbUser> GetUserById(int id)
+        {
+            return await _greenFlamingosDbContext.Users.Include(ud => ud.UserDetails)
+                                                       .FirstOrDefaultAsync(u => u.Id == id);
+        }
+        public async Task<DbUser> GetUserByLoginForm(DbUser user)
+        {
+            return await _greenFlamingosDbContext
+                                  .Users
+                                  .FirstOrDefaultAsync(u => u.UserMail == user.UserMail && u.Password == user.Password);
         }
     }
 }
