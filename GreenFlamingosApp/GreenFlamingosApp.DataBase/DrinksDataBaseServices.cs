@@ -1,9 +1,9 @@
 ﻿using GreenFlamingos.Model.Drinks;
-using GreenFlamingos.Model;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
-
+using GreenFlamingos.Model.Users;
+using GreenFlamingos.Model;
 
 namespace GreenFlamingosApp.DataBase
 {

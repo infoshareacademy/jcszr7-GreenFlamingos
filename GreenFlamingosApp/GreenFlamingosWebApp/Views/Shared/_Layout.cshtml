@@ -65,8 +65,8 @@
                     <!-- Top Social Info -->
                     <div class="col-12 col-sm-6">
                         <div class="top-social-info text-right">
-                            <a href="#">Zarejestruj się</a>
-                            <a href="#">Zaloguj się</a>
+                            <a asp-action="RegisterUser" asp-controller="User">Zarejestruj się</a>
+                            <a asp-action="Login" asp-controller="User">Zaloguj się</a>
                             <a asp-action="Create" asp-controller="Drink"><button class="btn btn-success">Stwórz Drinka</button></a>
                             <a asp-action="Index" asp-controller="Drink"><button class="btn btn-success">Lista Drinków</button> </a>
                         </div>
@@ -82,7 +82,7 @@
                     <!-- Menu -->
                     <nav class="classy-navbar justify-content-center" id="deliciousNav">
                         <!-- Logo -->
-                        <img src="~/img/core-img/logo_GreenFlamingos.png" alt="">
+                        <img src="~/img/core-img/logo_GreenFlamingos.png">
                         <!-- Navbar Toggler -->
                         <div class="classy-navbar-toggler">
                             <span class="navbarToggler">

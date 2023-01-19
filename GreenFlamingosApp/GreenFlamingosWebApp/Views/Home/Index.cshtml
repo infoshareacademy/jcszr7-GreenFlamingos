@@ -1,3 +1,14 @@
-﻿@{
+﻿@model GreenFlamingos.Model.Users.User
+
+@{
+    if(@Model.UserMail!= null)
+    {
+        Layout = "~/Views/Shared/_Layout_dla_zalogowanego.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    
     ViewData["Title"] = "Green Flamingos";
 }

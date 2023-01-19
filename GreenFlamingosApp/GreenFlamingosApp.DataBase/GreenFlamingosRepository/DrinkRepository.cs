@@ -3,12 +3,12 @@ using GreenFlamingosApp.DataBase;
 using GreenFlamingosApp.DataBase.DbModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace GreenFlamingos.Repository
+namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
 {
-    public class DataBaseDrinkService
+    public class DrinkRepository
     {
         private readonly GreenFlamingosDbContext _greenFlamingosDbContext;
-        public DataBaseDrinkService(GreenFlamingosDbContext greenFlamingosDbContext)
+        public DrinkRepository(GreenFlamingosDbContext greenFlamingosDbContext)
         {
             _greenFlamingosDbContext = greenFlamingosDbContext;
         }
