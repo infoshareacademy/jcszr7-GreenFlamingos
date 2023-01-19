@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GreenFlamingosApp.DataBase.DbModels
 {
@@ -12,7 +8,6 @@ namespace GreenFlamingosApp.DataBase.DbModels
         public string Password { get; set; }
         public string UserMail { get; set; }
         public List<DbDrink> Drinks { get; set; } = new List<DbDrink>();
-        //public ICollection<DbDrinkUser> DrinksUsers { get; set; }
         public DbUserDetails UserDetails { get; set; }
     }
 }

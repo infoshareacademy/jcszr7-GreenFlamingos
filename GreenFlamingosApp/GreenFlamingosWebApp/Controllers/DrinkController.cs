@@ -1,6 +1,5 @@
 ﻿using GreenFlamingos.Model.Drinks;
-using GreenFlamingos.Services.Interfaces;
-using GreenFlamingosApp.DataBase.DbModels;
+using GreenFlamingos.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 namespace GreenFlamingosWebApp.Controllers
 {
@@ -146,11 +145,11 @@ namespace GreenFlamingosWebApp.Controllers
         }
 
         // GET: DrinkController/Search
-        public ActionResult Search(string searchedWord)
-        {
-            var model = _drinkService.SearchDrink(searchedWord);
-            return View(model);
-        }
+        //public ActionResult Search(string searchedWord)
+        //{
+        //    var model = _drinkService.SearchDrink(searchedWord);
+        //    return View(model);
+        //}
 
         [HttpPost]
         public ActionResult AddRating(IFormCollection rating)
