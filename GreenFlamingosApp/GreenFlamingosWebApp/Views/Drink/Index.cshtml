@@ -1,6 +1,17 @@
-﻿@model IEnumerable<GreenFlamingos.Model.Drinks.Drink>
+﻿@using GreenFlamingos.Model.Drinks
+@using GreenFlamingosWebApp;
+@model dynamic
+@*@model IEnumerable<GreenFlamingos.Model.Drinks.Drink>*@
 @{
-    Layout = "~/Views/Shared/_LayoutOLD.cshtml";
+    if(Model.user is null )
+    {
+        Layout = "~/Views/Shared/_LayoutOLD.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout_dla_zalogowanego.cshtml";
+    }
+
     ViewData["Title"] = "Drinki";
     var solidStars = 0;
 }
@@ -10,7 +21,7 @@
 <div class="" style="justify-content:center;">
     <header style="text-align:center"><h3 class="display-4">Wszystkie Drinki</h3></header>
     <div class="row" ">
-        @foreach (var drink in Model)
+        @foreach (Drink drink in Model.drinks)
         {
         <div class="col-md-5" style="width:500px;height:450px; margin-bottom:20px;" onload="CRateClick(@drink.AverageRating);">
             <div class="card mb-5 shadow-sm">

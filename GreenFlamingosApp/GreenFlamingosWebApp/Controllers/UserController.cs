@@ -14,13 +14,15 @@ namespace GreenFlamingosWebApp.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public UserController(IUserService userService, IMapper mapper)
+        private readonly IConfiguration _config;
+        public UserController(IUserService userService, IMapper mapper, IConfiguration config)
         {
             _userService = userService;
             _mapper = mapper;
+            _config = config;
         }
         // GET: UserController
-        public ActionResult Index()
+        public ActionResult Index(User user)
         {
             return View();
         }
@@ -54,42 +56,25 @@ namespace GreenFlamingosWebApp.Controllers
             }
             return View();
         }
-        public void SendEmail(string receiver)
+        public void SendEmail(string receiver, string userName)
         {
-            var fromMail = "GreenFlamingosApp@gmail.com";
-            var fromPassword = "pldmwbffjatkkvmy";
+            var fromMail = _config.GetSection("EmailUserName").Value;
+            var fromPassword = _config.GetSection("EmailPassword").Value;
 
             MailMessage message = new MailMessage();
             message.From = new MailAddress(fromMail);
             message.Subject = "Green Flamingos Potwierdzenie Rejestracji ";
             message.To.Add(new MailAddress(receiver));
-            message.Body = "<html><body> Gratulacje! Pomyślnie zalożyłeś konto w serwisie GreeenFlamingos :)</body></html>";
+            message.Body = $"<html><body> <div>Witaj użytkowniku {userName} !</div>  <div>Pomyślnie zalożyłeś konto w serwisie GreeenFlamingos :)</div></body></html>";
             message.IsBodyHtml = true;
 
-            var smtpClient = new SmtpClient("smtp.gmail.com")
+            var smtpClient = new SmtpClient(_config.GetSection("EmailHost").Value)
             {
                 Port = 587,
                 Credentials = new NetworkCredential(fromMail, fromPassword),
                 EnableSsl = true
             };
             smtpClient.Send(message);
-
-            //using (MailMessage message = new MailMessage("GreenFlamingosApp@gmail.com","GreenFlamingos1!"))
-            //{
-            //    message.Subject = "Chujjjj";
-            //    message.Body = "ciiiii[aaaa";
-            //    message.IsBodyHtml = false;
-
-            //    using(SmtpClient smpt = new SmtpClient())
-            //    {
-            //        smpt.UseDefaultCredentials = false;
-            //        smpt.Credentials = new NetworkCredential("j.gruszczyk96@gmail.com", "Poczta189913!");
-            //        smpt.EnableSsl = true;
-
-            //        smpt.Send(message);
-            //    }
-
-            //}
         }
 
         // GET: UserController/Details/5
@@ -119,8 +104,7 @@ namespace GreenFlamingosWebApp.Controllers
                 if(result.IsValid)
                 {
                     _userService.RegisterUser(createdUser);
-                    SendEmail(createdUser.UserMail);
-                    //var HomeController = new HomeController();
+                    SendEmail(createdUser.UserMail,createdUser.UserMail);
                     return RedirectToAction("Index", "Home");
                 }
                 else

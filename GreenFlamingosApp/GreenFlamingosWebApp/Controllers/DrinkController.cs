@@ -1,6 +1,9 @@
 ﻿using GreenFlamingos.Model.Drinks;
+using GreenFlamingos.Model.Users;
 using GreenFlamingos.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Dynamic;
+
 namespace GreenFlamingosWebApp.Controllers
 {
     public class DrinkController : Controller
@@ -14,7 +17,7 @@ namespace GreenFlamingosWebApp.Controllers
         }
         public async Task<ActionResult> Index()
         {
-            var model = await _drinkService.GetAllDrinks();
+           var model = await _drinkService.GetAllDrinks();
             return View(model);
         }
         // GET: DrinkController/Details/5
