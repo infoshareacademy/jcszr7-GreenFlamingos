@@ -1,7 +1,6 @@
-﻿using GreenFlamingos.Model.Users;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore;
-using FluentValidation;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
+
 namespace GreenFlamingos.Model.Users
 {
     public class User

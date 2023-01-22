@@ -1,22 +1,29 @@
-﻿using GreenFlamingos.Model.Users;
+﻿using GreenFlamingosApp.DataBase.DbModels;
 using GreenFlamingosWebApp.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Dynamic;
 
 namespace GreenFlamingosWebApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly SignInManager<DbUser> _signInManager;
+        private readonly UserManager<DbUser> _userManager;
 
-        public HomeController()
+        public HomeController(SignInManager<DbUser> signInManager, UserManager<DbUser> userManager)
         {
-            
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
-        public ActionResult Index(User user)
+        public async Task<IActionResult> Index()
         {
-            return View(user);
+            if (_signInManager.IsSignedIn(User))
+            {
+                var user = await _userManager.FindByIdAsync(_userManager.GetUserId(User));
+            }
+            return View();
         }
 
         public ActionResult Privacy()

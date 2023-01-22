@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using GreenFlamingos.Model;
 using FluentValidation;
 using GreenFlamingos.Model.Users;
+using Microsoft.AspNetCore.Identity;
+using GreenFlamingosWebApp.Controllers;
+using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Identity.Interfaces;
+using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +25,13 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<GreenFlamingosApp.DataBase.GreenFlamingosRepository.DrinkRepository>();
 builder.Services.AddScoped<GreenFlamingosApp.DataBase.GreenFlamingosRepository.UserRepository>();
 builder.Services.AddScoped<IValidator<User>, UserValidator>();
+builder.Services.AddScoped<IUserAutentication, UserAuthentication>();
+
+//Identity
+builder.Services.AddIdentity<DbUser, IdentityRole>()
+                .AddEntityFrameworkStores<GreenFlamingosDbContext>()
+                .AddDefaultTokenProviders();
+builder.Services.ConfigureApplicationCookie(opt => opt.LoginPath = "/UserAutentication/Login");
 //Add AutoMapper
 builder.Services.AddAutoMapper(typeof(Program),typeof(UserService));
 //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -43,6 +54,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -53,34 +65,34 @@ app.MapControllerRoute(
 using var scope = app.Services.CreateScope();
 var dbGreenFlamingos = scope.ServiceProvider.GetService<GreenFlamingosDbContext>();
 
-var users = await dbGreenFlamingos.Users.ToListAsync();
+//var users = await dbGreenFlamingos.Users.ToListAsync();
 
-if(!users.Any())
-{
-    var user1 = new DbUser()
-    {
-        UserMail = "Jakub.Gruszczyk@test.com",
-        Password = "Firanka111!",
-        UserDetails = new DbUserDetails()
-        {
-            City = "Rumia",
-            Street = "Szeroka 8",
-            PhoneNumber = "777555888"
-        }
-    };
-    var user2 = new DbUser()
-    {
-        UserMail = "ewa.rabenda18@test.com",
-        Password = "Slonik223!",
-        UserDetails = new DbUserDetails()
-        {
-            City = "Gdañsk",
-            Street = "D³uga 9",
-            PhoneNumber = "111222333"
-        }
-    };
-    await dbGreenFlamingos.Users.AddRangeAsync(user1,user2);
-    await dbGreenFlamingos.SaveChangesAsync();
-}
+//if(!users.Any())
+//{
+//    var user1 = new DbUser()
+//    {
+//        UserMail = "Jakub.Gruszczyk@test.com",
+//        Password = "Firanka111!",
+//        UserDetails = new DbUserDetails()
+//        {
+//            City = "Rumia",
+//            Street = "Szeroka 8",
+//            PhoneNumber = "777555888"
+//        }
+//    };
+//    var user2 = new DbUser()
+//    {
+//        UserMail = "ewa.rabenda18@test.com",
+//        Password = "Slonik223!",
+//        UserDetails = new DbUserDetails()
+//        {
+//            City = "Gdañsk",
+//            Street = "D³uga 9",
+//            PhoneNumber = "111222333"
+//        }
+//    };
+//    await dbGreenFlamingos.Users.AddRangeAsync(user1,user2);
+//    await dbGreenFlamingos.SaveChangesAsync();
+//}
 
 app.Run();

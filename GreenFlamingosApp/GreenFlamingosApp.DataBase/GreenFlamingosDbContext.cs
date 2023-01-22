@@ -1,9 +1,11 @@
-﻿using GreenFlamingosApp.DataBase.DbModels;
+﻿using GreenFlamingos.Model.Users;
+using GreenFlamingosApp.DataBase.DbModels;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GreenFlamingosApp.DataBase
 {
-    public class GreenFlamingosDbContext : DbContext
+    public class GreenFlamingosDbContext : IdentityDbContext<DbUser>
     {
         public DbSet<DbDrink> DbDrinks { get; set; }
         public DbSet<DbMainIngredient> DbMainIngredients { get; set; }
@@ -12,9 +14,11 @@ namespace GreenFlamingosApp.DataBase
         public DbSet<DbUserDetails> UsersDetails { get; set; }
         public DbSet<DbIngredient> Ingredients { get; set; }
         public DbSet<DbDrinkIngredient> DrinksIngredients { get; set; }
-        public GreenFlamingosDbContext(DbContextOptions options) : base(options) {}
+        public GreenFlamingosDbContext(DbContextOptions<GreenFlamingosDbContext> options) : base(options) {}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             //Relation one to one
             modelBuilder.Entity<DbUser>()
                 .HasOne(u => u.UserDetails)

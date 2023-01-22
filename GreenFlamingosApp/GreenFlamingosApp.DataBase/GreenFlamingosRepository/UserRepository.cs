@@ -18,8 +18,10 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
         }
         public async Task<DbUser> GetUserById(int id)
         {
-            return await _greenFlamingosDbContext.Users.Include(ud => ud.UserDetails)
-                                                       .FirstOrDefaultAsync(u => u.Id == id);
+            var user = new DbUser();
+            return user;
+            //return await _greenFlamingosDbContext.Users.Include(ud => ud.UserDetails)
+            //                                           .FirstOrDefaultAsync(u => u.Id == id);
         }
         public async Task<DbUser> GetUserByLoginForm(DbUser user)
         {
