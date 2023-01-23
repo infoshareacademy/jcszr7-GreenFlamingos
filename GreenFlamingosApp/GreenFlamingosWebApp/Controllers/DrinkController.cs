@@ -164,5 +164,11 @@ namespace GreenFlamingosWebApp.Controllers
             var drink = _drinkService.GetDrinkById(drinkId);
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public async Task<ActionResult> AddDrinkToFavourites(int drinkId, string userName)
+        {
+            await _drinkService.AddDrinkToFavourites(drinkId, userName);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -33,14 +33,14 @@
                       @*  <h7>Średnia ocena: @Math.Round(@drink.AverageRating,1)/5 z @drink.Ratings.Count() opinii</h7>*@
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-success-jg">
-                            @Html.ActionLink("Przepis", "Details", new {  id=drink.Id })
+                        <div >
+                            @Html.ActionLink("Przepis", "Details", new {  id=drink.Id }, new{ @class="btn btn-success"})
                         </div>
-                        <div class="btn-danger-jg" role="button" data-href="/delete.php?id=54" data-toggle="modal" data-target="#confirm-delete">
-                            @Html.ActionLink("Usuń Drinka", "Delete", new {  id=drink.Id })
+                        <div>
+                            @Html.ActionLink("Usuń Drinka", "Delete", new {  id=drink.Id }, new{ @class="btn btn-danger"})
                         </div>
-                        <div class="btn-secondary-jg">
-                            @Html.ActionLink("Edytuj", "Edit", new {  id=drink.Id })
+                        <div>
+                            @Html.ActionLink("Edytuj", "Edit", new {  id=drink.Id },new{ @class="btn btn-secondary"})
                         </div>
                     </div>
                 </div>

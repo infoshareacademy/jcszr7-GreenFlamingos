@@ -2,18 +2,21 @@
 using Microsoft.AspNetCore.Hosting;
 using GreenFlamingosApp.DataBase.DbModels;
 using GreenFlamingos.Services.Services.Interfaces;
-using GreenFlamingosApp.DataBase.GreenFlamingosRepository;
+using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces;
+using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Identity.Interfaces;
 
 namespace GreenFlamingosApp.Services.Services.ServiceClass
 {
     public class DrinkService : IDrinkService
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly DrinkRepository _drinkRepository;
-        public DrinkService(IWebHostEnvironment webHostEnvironment, DrinkRepository drinkRepository)
+        private readonly IDrinkRepository _drinkRepository;
+        private readonly IUserAutentication _userAutentication;
+        public DrinkService(IWebHostEnvironment webHostEnvironment, IDrinkRepository drinkRepository, IUserAutentication userAutentication)
         {
             _webHostEnvironment = webHostEnvironment;
             _drinkRepository = drinkRepository;
+            _userAutentication = userAutentication;
         }
         public async Task<List<MainIngredient>> GetAllMainIngredients()
         {
@@ -81,10 +84,7 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
                 dbIngredients = await CreateIngredientsList(newDrink);
             }
 
-            //delete when user services will be added
-            Random rand = new Random();
-            var randuserId = rand.Next(1, 2);
-            var drinkAuthor = await _drinkRepository.GetUserById(randuserId);
+            //var drinkAuthor = await _drinkRepository.GetUserById(randuserId);
             var drinkToAdd = new DbDrink
             {
                 Name = newDrink.Name,
@@ -96,7 +96,7 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
                 Preparations = newDrink.Preparation,
                 Description = newDrink.Description,
                 ImageUrl = newDrink.ImageUrl,
-                Author = drinkAuthor,
+                Author = null,
             };
 
             await _drinkRepository.AddDrinkToDb(drinkToAdd, dbIngredients, ingredientsCapacity);
@@ -123,12 +123,6 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
             {
                 dbIngredients = await CreateIngredientsList(drink);
             }
-
-            //Delete this after user func.
-            Random rand = new Random();
-            var randuserId = rand.Next(1, 2);
-            var drinkAuthor = await _drinkRepository.GetUserById(randuserId);
-
             drinkToEdit.Name = drink.Name;
             drinkToEdit.Calories = drink.Calories;
             drinkToEdit.Description = drink.Description;
@@ -136,7 +130,7 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
             drinkToEdit.AlcoholContent = drink.AlcoholContent;
             drinkToEdit.DrinkType = drinkType;
             drinkToEdit.MainIngredient = mainIngredient;
-            drinkToEdit.Author = drinkAuthor;
+            drinkToEdit.Author = null;
             drinkToEdit.ImageUrl = drink.ImageUrl;
 
             await _drinkRepository.EditDrinkinDB(drinkToEdit, dbIngredients, ingredientsCapacity);
@@ -189,6 +183,13 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
                                                            Capacity = x.SimplyIngredientCapacity
                                                        }).ToList()
             }).ToList();
+        }
+
+        public async Task AddDrinkToFavourites(int drinkId, string userName)
+        {
+            var drinkToFvourites = await _drinkRepository.GetDrinkById(drinkId);
+            var user = await _userAutentication.GetUserByName(userName);
+            await _drinkRepository.AddDrinkToFavourites(user, drinkToFvourites);
         }
     }
 }

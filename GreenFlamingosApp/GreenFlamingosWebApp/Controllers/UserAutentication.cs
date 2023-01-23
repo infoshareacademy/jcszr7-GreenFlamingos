@@ -1,22 +1,22 @@
-﻿using GreenFlamingos.Model.Users;
-using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Identity.Interfaces;
+﻿using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Identity.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static Org.BouncyCastle.Math.EC.ECCurve;
-using System.Net.Mail;
-using System.Net;
+using GreenFlamingosApp.DataBase.DbModels.Identity;
+using GreenFlamingosApp.Services.Services.Interfaces;
 
 namespace GreenFlamingosWebApp.Controllers
 {
     public class UserAutentication : Controller
     {
-        private readonly IUserAutentication _userService;
+        private readonly IUserAutentication _userAutenticationService;
         private readonly IConfiguration _config;
+        private readonly IUserService _userService;
 
-        public UserAutentication(IUserAutentication userService, IConfiguration config)
+        public UserAutentication(IUserAutentication userAutenticationService, IConfiguration config, IUserService userService)
         {
-            _userService = userService;
+            _userAutenticationService = userAutenticationService;
             _config = config;
+            _userService = userService;
         }
         public IActionResult RegisterUser()
         {
@@ -29,28 +29,8 @@ namespace GreenFlamingosWebApp.Controllers
         [Authorize]
         public async Task<IActionResult> LogOut()
         {
-            await _userService.LogOutAsync();
+            await _userAutenticationService.LogOutAsync();
             return RedirectToAction("Index", "Home");
-        }
-        public void SendEmail(string receiver, string userName)
-        {
-            var fromMail = _config.GetSection("EmailUserName").Value;
-            var fromPassword = _config.GetSection("EmailPassword").Value;
-
-            MailMessage message = new MailMessage();
-            message.From = new MailAddress(fromMail);
-            message.Subject = "Green Flamingos Potwierdzenie Rejestracji ";
-            message.To.Add(new MailAddress(receiver));
-            message.Body = $"<html><body> <div>Witaj użytkowniku {userName} !</div>  <div>Pomyślnie zalożyłeś konto w serwisie GreeenFlamingos :)</div></body></html>";
-            message.IsBodyHtml = true;
-
-            var smtpClient = new SmtpClient(_config.GetSection("EmailHost").Value)
-            {
-                Port = 587,
-                Credentials = new NetworkCredential(fromMail, fromPassword),
-                EnableSsl = true
-            };
-            smtpClient.Send(message);
         }
         [HttpPost]
         public async Task<ActionResult> Login(LoginModel loginModel)
@@ -59,7 +39,7 @@ namespace GreenFlamingosWebApp.Controllers
             {
                 return View(loginModel);
             }
-            var result = await _userService.LoginAsync(loginModel);
+            var result = await _userAutenticationService.LoginAsync(loginModel);
             if (result.StatusCode == 1)
             {
 
@@ -79,10 +59,10 @@ namespace GreenFlamingosWebApp.Controllers
                 return View(model);
             }
             model.Role = "user";
-            var result = await _userService.RegistrationAsync(model);
+            var result = await _userAutenticationService.RegistrationAsync(model);
             if(result.StatusCode == 1)
             {
-                SendEmail(model.Email,model.Name);
+                _userService.SendEmail(model.Email,model.Name);
                 return RedirectToAction("Index", "Home");
             }
             return RedirectToAction(nameof(RegisterUser));

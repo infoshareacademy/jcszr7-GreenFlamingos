@@ -1,11 +1,11 @@
 ﻿using GreenFlamingos.Model.Drinks;
-using GreenFlamingosApp.DataBase;
 using GreenFlamingosApp.DataBase.DbModels;
+using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
+namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
 {
-    public class DrinkRepository
+    public class DrinkRepository : IDrinkRepository
     {
         private readonly GreenFlamingosDbContext _greenFlamingosDbContext;
         public DrinkRepository(GreenFlamingosDbContext greenFlamingosDbContext)
@@ -42,13 +42,6 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
                                                           .ThenInclude(x => x.Ingredient)
                                                           .Where(db => db.MainIngredient.Name == mainIngredient && db.DrinkType.Name == drinkType.Name)
                                                           .ToListAsync();
-        }
-        public async Task<DbUser> GetUserById(int id)
-        {
-            var USER = new DbUser();
-            return USER;
-            //return await _greenFlamingosDbContext.Users.Include(ud => ud.UserDetails)
-            //                                           //.FirstOrDefaultAsync(u => u.Id == id);
         }
         public async Task AddDrinkToDb(DbDrink drinkToAdd, List<DbIngredient> ingredients, List<string> ingredientsCapacity)
         {
@@ -147,6 +140,12 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
                 }
             }
             drinkToEdit = drink;
+            await _greenFlamingosDbContext.SaveChangesAsync();
+        }
+        public async Task AddDrinkToFavourites(DbUser user, DbDrink drink)
+        {
+            var userFavouriteDrink = new DbDrinkUser { Drink = drink, User = user };
+            await _greenFlamingosDbContext.DrinkUsers.AddAsync(userFavouriteDrink);
             await _greenFlamingosDbContext.SaveChangesAsync();
         }
     }

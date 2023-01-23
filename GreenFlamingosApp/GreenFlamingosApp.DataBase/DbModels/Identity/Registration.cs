@@ -1,7 +1,7 @@
 ﻿using GreenFlamingosApp.DataBase.DbModels;
 using System.ComponentModel.DataAnnotations;
 
-namespace GreenFlamingos.Model.Users
+namespace GreenFlamingosApp.DataBase.DbModels.Identity
 {
     public class Registration
     {

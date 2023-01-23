@@ -1,18 +1,11 @@
-﻿using GreenFlamingos.Model.Users;
-using GreenFlamingosApp.DataBase.DbModels;
+﻿using GreenFlamingosApp.DataBase.DbModels;
+using GreenFlamingosApp.DataBase.DbModels.Identity;
 using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Identity.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Net;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Identity
+namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
 {
     public class UserAuthentication : IUserAutentication
     {
@@ -27,7 +20,12 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Identity
             _userManager = userManager;
             _roleManager = roleManager;
         }
-        
+
+        public async Task<DbUser> GetUserByName(string userName)
+        {
+            return await _userManager.FindByNameAsync(userName);
+        }
+
         public async Task<Status> LoginAsync(LoginModel loginModel)
         {
             var status = new Status();

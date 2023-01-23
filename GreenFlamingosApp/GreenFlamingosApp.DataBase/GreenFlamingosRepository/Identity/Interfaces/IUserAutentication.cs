@@ -1,4 +1,6 @@
 ﻿using GreenFlamingos.Model.Users;
+using GreenFlamingosApp.DataBase.DbModels;
+using GreenFlamingosApp.DataBase.DbModels.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +14,6 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Identity.Interface
         public Task<Status> LoginAsync(LoginModel loginModel);
         public Task<Status> RegistrationAsync(Registration registration);
         public Task LogOutAsync();
+        public Task<DbUser> GetUserByName(string userName);
     }
 }

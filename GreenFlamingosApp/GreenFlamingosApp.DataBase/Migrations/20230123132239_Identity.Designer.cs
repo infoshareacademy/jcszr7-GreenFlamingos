@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GreenFlamingosApp.DataBase.Migrations
 {
     [DbContext(typeof(GreenFlamingosDbContext))]
-    [Migration("20230122142548_Identityuserdb")]
-    partial class Identityuserdb
+    [Migration("20230123132239_Identity")]
+    partial class Identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

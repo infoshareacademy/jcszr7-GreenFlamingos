@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GreenFlamingos.Model.Users
+namespace GreenFlamingosApp.DataBase.DbModels.Identity
 {
     public class Status
     {

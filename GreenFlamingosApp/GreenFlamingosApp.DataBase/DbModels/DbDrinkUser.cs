@@ -9,11 +9,11 @@ namespace GreenFlamingosApp.DataBase.DbModels
 {
     public class DbDrinkUser
     {
-        //public DbDrink Drink { get; set; }
-        //public int DrinkId { get; set; }
-        //public DbUser User { get; set; }
-        //public int UserId { get; set; }
-        public int Rating { get; set; }
+        public DbDrink Drink { get; set; }
+        public int DrinkId { get; set; }
+        public DbUser User { get; set; }
+        public string UserId { get; set; }
+        //public int Rating { get; set; }
 
 
     }

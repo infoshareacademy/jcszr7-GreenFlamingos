@@ -1,9 +1,10 @@
 ﻿using GreenFlamingosApp.DataBase.DbModels;
+using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
+namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly GreenFlamingosDbContext _greenFlamingosDbContext;
         public UserRepository(GreenFlamingosDbContext greenFlamingosDbContext)
