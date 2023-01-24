@@ -9,7 +9,6 @@ using GreenFlamingos.Model;
 using FluentValidation;
 using GreenFlamingos.Model.Users;
 using Microsoft.AspNetCore.Identity;
-using GreenFlamingosWebApp.Controllers;
 using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Identity.Interfaces;
 using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository;
 using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces;

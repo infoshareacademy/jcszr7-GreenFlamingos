@@ -144,8 +144,16 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
         }
         public async Task AddDrinkToFavourites(DbUser user, DbDrink drink)
         {
-            var userFavouriteDrink = new DbDrinkUser { Drink = drink, User = user };
-            await _greenFlamingosDbContext.DrinkUsers.AddAsync(userFavouriteDrink);
+            var drinkUser = _greenFlamingosDbContext.DrinkUsers.FirstOrDefault(du => du.DrinkId == drink.Id && du.UserId == user.Id);
+            if(drinkUser == null)
+            {
+                var userFavouriteDrink = new DbDrinkUser { Drink = drink, User = user,Rating = 0, IsFavourite = true };
+                await _greenFlamingosDbContext.DrinkUsers.AddAsync(userFavouriteDrink);
+            }
+            else
+            {
+                drinkUser.IsFavourite = true;
+            }
             await _greenFlamingosDbContext.SaveChangesAsync();
         }
     }

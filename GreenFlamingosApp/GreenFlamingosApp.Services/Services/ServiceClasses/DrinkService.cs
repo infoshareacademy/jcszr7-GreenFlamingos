@@ -4,6 +4,7 @@ using GreenFlamingosApp.DataBase.DbModels;
 using GreenFlamingos.Services.Services.Interfaces;
 using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces;
 using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Identity.Interfaces;
+using System.Security.Claims;
 
 namespace GreenFlamingosApp.Services.Services.ServiceClass
 {
@@ -185,10 +186,10 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
             }).ToList();
         }
 
-        public async Task AddDrinkToFavourites(int drinkId, string userName)
+        public async Task AddDrinkToFavourites(int drinkId, Claim userId)
         {
             var drinkToFvourites = await _drinkRepository.GetDrinkById(drinkId);
-            var user = await _userAutentication.GetUserByName(userName);
+            var user = await _userAutentication.GetUserById(userId);
             await _drinkRepository.AddDrinkToFavourites(user, drinkToFvourites);
         }
     }

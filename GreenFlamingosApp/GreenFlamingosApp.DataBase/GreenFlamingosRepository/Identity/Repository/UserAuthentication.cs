@@ -21,9 +21,9 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             _roleManager = roleManager;
         }
 
-        public async Task<DbUser> GetUserByName(string userName)
+        public async Task<DbUser> GetUserById(Claim userId)
         {
-            return await _userManager.FindByNameAsync(userName);
+            return await _userManager.FindByIdAsync(userId.Value);
         }
 
         public async Task<Status> LoginAsync(LoginModel loginModel)

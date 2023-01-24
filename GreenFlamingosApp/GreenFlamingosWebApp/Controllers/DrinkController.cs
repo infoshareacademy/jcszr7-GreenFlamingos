@@ -1,8 +1,11 @@
 ﻿using GreenFlamingos.Model.Drinks;
 using GreenFlamingos.Model.Users;
 using GreenFlamingos.Services.Services.Interfaces;
+using GreenFlamingosApp.DataBase.DbModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
+using System.Security.Claims;
 
 namespace GreenFlamingosWebApp.Controllers
 {
@@ -10,10 +13,11 @@ namespace GreenFlamingosWebApp.Controllers
     {
         // GET: DrinkController
         private readonly IDrinkService _drinkService;
-        
-        public DrinkController(IDrinkService drinkService)
+        private readonly UserManager<DbUser> _userManager;
+        public DrinkController(IDrinkService drinkService, UserManager<DbUser> userManager)
         {
             _drinkService = drinkService;
+            _userManager = userManager;
         }
         public async Task<ActionResult> Index()
         {
@@ -165,9 +169,10 @@ namespace GreenFlamingosWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
-        public async Task<ActionResult> AddDrinkToFavourites(int drinkId, string userName)
+        public async Task<ActionResult> AddDrinkToFavourites(int drinkId)
         {
-            await _drinkService.AddDrinkToFavourites(drinkId, userName);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+            await _drinkService.AddDrinkToFavourites(drinkId, userId);
             return RedirectToAction("Index", "Home");
         }
     }
