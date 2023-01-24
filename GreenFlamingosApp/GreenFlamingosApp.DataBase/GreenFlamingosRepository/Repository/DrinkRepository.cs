@@ -1,7 +1,10 @@
 ﻿using GreenFlamingos.Model.Drinks;
+using GreenFlamingos.Model.Users;
 using GreenFlamingosApp.DataBase.DbModels;
 using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
+using System.Linq;
 
 namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
 {
@@ -145,9 +148,9 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
         public async Task AddDrinkToFavourites(DbUser user, DbDrink drink)
         {
             var drinkUser = _greenFlamingosDbContext.DrinkUsers.FirstOrDefault(du => du.DrinkId == drink.Id && du.UserId == user.Id);
-            if(drinkUser == null)
+            if (drinkUser == null)
             {
-                var userFavouriteDrink = new DbDrinkUser { Drink = drink, User = user,Rating = 0, IsFavourite = true };
+                var userFavouriteDrink = new DbDrinkUser { Drink = drink, User = user, Rating = 0, IsFavourite = true };
                 await _greenFlamingosDbContext.DrinkUsers.AddAsync(userFavouriteDrink);
             }
             else
@@ -155,6 +158,28 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
                 drinkUser.IsFavourite = true;
             }
             await _greenFlamingosDbContext.SaveChangesAsync();
+        }
+
+        public async Task AddRateToDrink(DbUser user, DbDrink drink, int rating)
+        {
+            var drinkUser = _greenFlamingosDbContext.DrinkUsers.FirstOrDefault(du => du.DrinkId == drink.Id && du.UserId == user.Id);
+            if (drinkUser == null)
+            {
+                var userFavouriteDrink = new DbDrinkUser { Drink = drink, User = user, Rating = rating, IsFavourite = false };
+                await _greenFlamingosDbContext.DrinkUsers.AddAsync(userFavouriteDrink);
+            }
+            else
+            {
+                drinkUser.Rating = rating;
+            }
+            await _greenFlamingosDbContext.SaveChangesAsync();
+        }
+
+        public async Task<Dictionary<DbDrink, int>> GetTopRatedDrinks()
+        {
+            return await _greenFlamingosDbContext.DrinkUsers.GroupBy(u => u.Drink)
+                .Select(r => new KeyValuePair<DbDrink, int>(r.Key, (int)r.Average(x => x.Rating)))
+                .ToDictionaryAsync(x => x.Key, y => y.Value);
         }
     }
 }

@@ -5,6 +5,8 @@ using GreenFlamingos.Services.Services.Interfaces;
 using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces;
 using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Identity.Interfaces;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GreenFlamingosApp.Services.Services.ServiceClass
 {
@@ -191,6 +193,18 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
             var drinkToFvourites = await _drinkRepository.GetDrinkById(drinkId);
             var user = await _userAutentication.GetUserById(userId);
             await _drinkRepository.AddDrinkToFavourites(user, drinkToFvourites);
+        }
+
+        public async Task AddRateToDrink(int drinkId, Claim userId, int rateToAdd)
+        {
+            var drinkToRate = await _drinkRepository.GetDrinkById(drinkId);
+            var user = await _userAutentication.GetUserById(userId);
+            await _drinkRepository.AddRateToDrink(user, drinkToRate, rateToAdd);
+        }
+
+        public async Task<Dictionary<DbDrink, int>> GetTopRatedDrinks()
+        {
+            return await _drinkRepository.GetTopRatedDrinks();
         }
     }
 }

@@ -55,6 +55,7 @@ namespace GreenFlamingosWebApp.Controllers
                 return RedirectToAction(nameof(Login));
             }
         }
+
         [HttpPost]
         public async Task<IActionResult> RegisterUser(Registration model)
         {

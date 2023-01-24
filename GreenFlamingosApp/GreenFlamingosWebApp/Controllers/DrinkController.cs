@@ -159,13 +159,15 @@ namespace GreenFlamingosWebApp.Controllers
         //}
 
         [HttpPost]
-        public ActionResult AddRating(IFormCollection rating)
+        public async Task<ActionResult> AddRating(IFormCollection rating)
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier);
             var stars = rating["rating"].ToString();
             var formValues = stars.Split(',');
-            var rateToAdd = float.Parse(formValues[0]);
+            var rateToAdd = int.Parse(formValues[0]);
             var drinkId = int.Parse(formValues[1]);
             var drink = _drinkService.GetDrinkById(drinkId);
+            await _drinkService.AddRateToDrink(drinkId, userId, rateToAdd);
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
@@ -175,5 +177,12 @@ namespace GreenFlamingosWebApp.Controllers
             await _drinkService.AddDrinkToFavourites(drinkId, userId);
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public async Task<ActionResult> GetTopRatedDrinks()
+        {
+            return View(await _drinkService.GetTopRatedDrinks());
+        }
+
     }
 }
