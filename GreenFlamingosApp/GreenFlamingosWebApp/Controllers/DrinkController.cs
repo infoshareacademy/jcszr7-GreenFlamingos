@@ -166,7 +166,7 @@ namespace GreenFlamingosWebApp.Controllers
             var formValues = stars.Split(',');
             var rateToAdd = int.Parse(formValues[0]);
             var drinkId = int.Parse(formValues[1]);
-            var drink = _drinkService.GetDrinkById(drinkId);
+            await _drinkService.GetDrinkById(drinkId);
             await _drinkService.AddRateToDrink(drinkId, userId, rateToAdd);
             return RedirectToAction(nameof(Index));
         }

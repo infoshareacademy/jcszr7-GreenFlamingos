@@ -1,4 +1,6 @@
-﻿namespace GreenFlamingosApp.DataBase.DbModels
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace GreenFlamingosApp.DataBase.DbModels
 {
     public class DbDrinkUser
     {
