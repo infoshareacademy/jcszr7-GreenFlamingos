@@ -81,7 +81,7 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
         public async Task<Status> RegistrationAsync(Registration registration)
         {
             var status = new Status();
-            var userExists = await _userManager.FindByNameAsync(registration.login);
+            var userExists = await _userManager.FindByNameAsync(registration.Login);
             if (userExists != null)
             {
                 status.StatusCode = 0;
@@ -91,7 +91,7 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             DbUser dbUser = new DbUser
             {
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = registration.login,
+                UserName = registration.Login,
                 UserMail = registration.Email,
                 UserDetails = registration.UserDetails,
                 EmailConfirmed = true,
@@ -106,7 +106,10 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
 
             //role managmetn
             if (!await _roleManager.RoleExistsAsync(registration.Role))
+            {
                 await _roleManager.CreateAsync(new IdentityRole(registration.Role));
+            }
+                
 
             if (await _roleManager.RoleExistsAsync(registration.Role))
             {

@@ -7,7 +7,7 @@ namespace GreenFlamingosApp.DataBase.DbModels.Identity
     {
         [Required]
         public string Name { get; set; }
-        public string login { get; set; }
+        public string Login { get; set; }
         public string Email { get; set; }
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Błędne hasło")]
         public string Password { get; set; }

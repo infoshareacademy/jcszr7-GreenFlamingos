@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using GreenFlamingosApp.DataBase.DbModels.Identity;
 using GreenFlamingosApp.Services.Services.Interfaces;
+using GreenFlamingosApp.DataBase.DbModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace GreenFlamingosWebApp.Controllers
 {
@@ -11,12 +13,14 @@ namespace GreenFlamingosWebApp.Controllers
         private readonly IUserAutentication _userAutenticationService;
         private readonly IConfiguration _config;
         private readonly IUserService _userService;
+        private readonly UserManager<DbUser> _userManager;
 
-        public UserAutentication(IUserAutentication userAutenticationService, IConfiguration config, IUserService userService)
+        public UserAutentication(IUserAutentication userAutenticationService, IConfiguration config, IUserService userService, UserManager<DbUser> userManager)
         {
             _userAutenticationService = userAutenticationService;
             _config = config;
             _userService = userService;
+            _userManager = userManager;
         }
         public IActionResult RegisterUser()
         {
@@ -66,6 +70,23 @@ namespace GreenFlamingosWebApp.Controllers
                 return RedirectToAction("Index", "Home");
             }
             return RedirectToAction(nameof(RegisterUser));
+        }
+
+        public async Task<IActionResult> RegAdmin()
+        {
+            var model = new Registration
+            {
+                Name = "Administrator",
+                Login = "Admin",
+                Email = "GreenFlamingosApp@gmail.com",
+                Password = "Admin12345!",
+                ConfirmPassword = "Admin12345!",
+                Role = "Administrator",
+                UserDetails = null
+            };
+            var result = await _userAutenticationService.RegistrationAsync(model);
+           // await _userManager.AddToRoleAsync(model.Role);
+            return RedirectToAction("Index", "Home");
         }
     }
 }
