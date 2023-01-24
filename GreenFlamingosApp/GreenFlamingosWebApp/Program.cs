@@ -35,7 +35,7 @@ builder.Services.ConfigureApplicationCookie(opt => opt.LoginPath = "/UserAutenti
 builder.Services.AddAutoMapper(typeof(Program),typeof(UserService));
 //Add DbContext
 builder.Services.AddDbContext<GreenFlamingosDbContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("GreenFlamingos")), ServiceLifetime.Transient);
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("GreenFlamingos")));
 
 var app = builder.Build();
 
