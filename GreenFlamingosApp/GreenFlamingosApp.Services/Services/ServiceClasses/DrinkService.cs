@@ -187,24 +187,50 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
                                                        }).ToList()
             }).ToList();
         }
-
         public async Task AddDrinkToFavourites(int drinkId, Claim userId)
         {
             var drinkToFvourites = await _drinkRepository.GetDrinkById(drinkId);
             var user = await _userAutentication.GetUserById(userId);
             await _drinkRepository.AddDrinkToFavourites(user, drinkToFvourites);
         }
-
         public async Task AddRateToDrink(int drinkId, Claim userId, int rateToAdd)
         {
             var drinkToRate = await _drinkRepository.GetDrinkById(drinkId);
             var user = await _userAutentication.GetUserById(userId);
             await _drinkRepository.AddRateToDrink(user, drinkToRate, rateToAdd);
         }
-
         public async Task<Dictionary<DbDrink, int>> GetTopRatedDrinks()
         {
             return await _drinkRepository.GetTopRatedDrinks();
+        }
+        public async Task<List<Drink>> GetFavouriteDrinks(Claim userId)
+        {
+            var user = await _userAutentication.GetUserById(userId);
+            var model = await _drinkRepository.GetFavouriteDrinks(user);
+
+            return model.Select(dbDrinks => new Drink
+            {
+                Id = dbDrinks.Id,
+                Name = dbDrinks.Name,
+                DrinkType = dbDrinks.DrinkType.Name,
+                MainIngredient = dbDrinks.MainIngredient.Name,
+                Capacity = dbDrinks.Capacity,
+                AlcoholContent = dbDrinks.AlcoholContent,
+                Preparation = dbDrinks.Preparations,
+                Calories = dbDrinks.Calories,
+                Description = dbDrinks.Description,
+                ImageUrl = dbDrinks.ImageUrl,
+                Ingredients = dbDrinks.DrinkIngredients.Select(i => new
+                {
+                    SimplyIngredient = i.Ingredient,
+                    SimplyIngredientCapacity = i.IngredientCapacity
+                })
+                                                       .Select(x => new Ingredient
+                                                       {
+                                                           Name = x.SimplyIngredient.Name,
+                                                           Capacity = x.SimplyIngredientCapacity
+                                                       }).ToList()
+            }).ToList();
         }
     }
 }

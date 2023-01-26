@@ -181,5 +181,16 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
                 .Select(r => new KeyValuePair<DbDrink, int>(r.Key, (int)r.Average(x => x.Rating)))
                 .ToDictionaryAsync(x => x.Key, y => y.Value);
         }
+
+        public async Task<List<DbDrink>> GetFavouriteDrinks(DbUser dbUser)
+        {
+            return await _greenFlamingosDbContext.DrinkUsers.Include(du => du.Drink).ThenInclude(d => d.MainIngredient)
+                                                                 .Include(du => du.Drink).ThenInclude(d => d.DrinkType)
+                                                                 .Include(du => du.Drink).ThenInclude(d => d.Author)
+                                                                 .Include(du => du.Drink).ThenInclude(d => d.DrinkIngredients).ThenInclude(i => i.Ingredient)
+                                                                 .Where(du => du.UserId == dbUser.Id && du.IsFavourite == true)
+                                                                 .Select(du=>du.Drink)
+                                                                 .ToListAsync();
+        }
     }
 }
