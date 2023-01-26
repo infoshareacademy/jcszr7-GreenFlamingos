@@ -1,19 +1,26 @@
 ﻿@model Dictionary<GreenFlamingosApp.DataBase.DbModels.DbDrink, int>
 
 @{
-    ViewData["Title"] = "GetTopRatedDrinks";
+    ViewData["Title"] = "Najlepiej ocenione drinki";
     Layout = "~/Views/Shared/_LayoutOLD.cshtml";
 }
+
+<div style="text-align:center">
+    <h4>Najlepiej ocenione drinki</h4>
+</div>
+
+<br>
+<br>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                name
+                Nazwa drinka
             </th>
 
             <th>
-                rating
+                Ocena
             </th>
 
             <th></th>
@@ -29,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.Value)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Przepis", "Details","Drink", new {  id=item.Key.Id }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
