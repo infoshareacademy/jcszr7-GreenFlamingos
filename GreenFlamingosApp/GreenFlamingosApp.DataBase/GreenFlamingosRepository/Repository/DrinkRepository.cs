@@ -188,7 +188,7 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             {
                 resultDictionary[_greenFlamingosDbContext.DbDrinks.FirstOrDefault(x => x.Id == drinkRate.Key)] = drinkRate.Value;
             }
-            return resultDictionary.OrderByDescending(d => d.Value).ToDictionary(x => x.Key, y => y.Value);
+            return resultDictionary.Where(d => d.Value > 0).OrderByDescending(d => d.Value).ToDictionary(x => x.Key, y => y.Value);
 
         }
 
