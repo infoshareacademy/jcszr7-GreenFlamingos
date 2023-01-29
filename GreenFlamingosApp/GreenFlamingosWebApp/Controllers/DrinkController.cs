@@ -2,6 +2,7 @@
 using GreenFlamingos.Model.Users;
 using GreenFlamingos.Services.Services.Interfaces;
 using GreenFlamingosApp.DataBase.DbModels;
+using GreenFlamingosApp.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
@@ -13,11 +14,13 @@ namespace GreenFlamingosWebApp.Controllers
     {
         // GET: DrinkController
         private readonly IDrinkService _drinkService;
+        private readonly IValidationService _validationService;
         private readonly UserManager<DbUser> _userManager;
-        public DrinkController(IDrinkService drinkService, UserManager<DbUser> userManager)
+        public DrinkController(IDrinkService drinkService, UserManager<DbUser> userManager, IValidationService validationService)
         {
             _drinkService = drinkService;
             _userManager = userManager;
+            _validationService = validationService;
         }
         public async Task<ActionResult> Index()
         {
@@ -50,28 +53,33 @@ namespace GreenFlamingosWebApp.Controllers
         {
             try
             {
-                var userIngredients = userFormValues["Ingredients"].ToList();
-                var userIngredientsCapacity = userFormValues["IngredientCapacity"].ToList();
-                var userPreparations = userFormValues["Preparations"].ToList();
-                if (userPreparations.Contains(""))
-                {
-                    userPreparations.Remove("");
-                }
-
-                drink.Preparation = string.Join("\r\n", userPreparations);
-
-                foreach (var ingredient in userIngredients)
-                {
-                    var ingredientToAdd = new Ingredient { Id = userIngredients.IndexOf(ingredient)+1, Name = ingredient,Capacity = userIngredientsCapacity[userIngredients.IndexOf(ingredient)] };
-                    drink.Ingredients.Add(ingredientToAdd);
-                }
                 var mainIngredients = await _drinkService.GetAllMainIngredients();
                 ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();
                 var drinkTypes = await _drinkService.GetAllDrinkTypes();
                 ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
-                
-                await _drinkService.AddDrink(drink);
-                return RedirectToAction(nameof(Index));
+                if (! await _validationService.IsDrinkExistInDB(drink.Name))
+                {
+                    var userIngredients = userFormValues["Ingredients"].ToList();
+                    var userIngredientsCapacity = userFormValues["IngredientCapacity"].ToList();
+                    var userPreparations = userFormValues["Preparations"].ToList();
+                    if (userPreparations.Contains(""))
+                    {
+                        userPreparations.Remove("");
+                    }
+
+                    drink.Preparation = string.Join("\r\n", userPreparations);
+
+                    foreach (var ingredient in userIngredients)
+                    {
+                        var ingredientToAdd = new Ingredient { Id = userIngredients.IndexOf(ingredient) + 1, Name = ingredient, Capacity = userIngredientsCapacity[userIngredients.IndexOf(ingredient)] };
+                        drink.Ingredients.Add(ingredientToAdd);
+                    }
+
+                    await _drinkService.AddDrink(drink);
+                    return RedirectToAction(nameof(Index));
+                }
+                ModelState.AddModelError("Name", "Drink o podanej nazwie już istnieje");
+                return View();
             }
             catch
             {

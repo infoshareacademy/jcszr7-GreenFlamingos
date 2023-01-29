@@ -72,7 +72,10 @@
                             {
                                 <a>Witaj @userName!</a>
                                 <a asp-action="LogOut" asp-controller="UserAutentication">Wyloguj się</a>
-                                <a asp-action="LogOut" asp-controller="UserAutentication">Dane konta</a>
+                                @if (userName != "Admin")
+                                {
+                                    <a asp-action="LogOut" asp-controller="UserAutentication">Dane konta</a>
+                                }
                             }
                             else
                             {

@@ -22,8 +22,10 @@ builder.Services
     .AddRazorRuntimeCompilation();
 builder.Services.AddScoped<IDrinkService, DrinkService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IValidationService, ValidationService>();
 builder.Services.AddScoped<IDrinkRepository,DrinkRepository>();
 builder.Services.AddScoped<IUserRepository,UserRepository>();
+builder.Services.AddScoped<IValidationRepository, ValidationRepository>();
 builder.Services.AddScoped<IValidator<User>, UserValidator>();
 builder.Services.AddScoped<IUserAutentication, UserAuthentication>();
 //Identity
