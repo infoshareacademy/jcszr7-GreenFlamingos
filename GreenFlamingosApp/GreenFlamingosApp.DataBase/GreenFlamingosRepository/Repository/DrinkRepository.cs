@@ -182,11 +182,23 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
                 .Select(r => new KeyValuePair<int, int>(r.Key, (int)r.Average(x => x.Rating)))
                 .ToDictionaryAsync(x => x.Key, y => y.Value);
 
+            //var drinkRates = await _greenFlamingosDbContext.DrinkUsers.Include(du => du.Drink).ThenInclude(d => d.MainIngredient)
+            //                                                        .Include(du => du.Drink).ThenInclude(d => d.DrinkType)
+            //                                                        .Include(du => du.Drink).ThenInclude(d => d.Author)
+            //                                                        .Include(du => du.Drink).ThenInclude(d => d.DrinkIngredients).ThenInclude(i => i.Ingredient)
+            //                                                        .GroupBy(u => u.DrinkId)
+            //                                                        .Select(r => new KeyValuePair<int, int>(r.Key, (int)r.Average(x => x.Rating)))
+            //                                                        .ToDictionaryAsync(x => x.Key, y => y.Value);
+
             Dictionary<DbDrink, int> resultDictionary = new Dictionary<DbDrink, int>();
 
             foreach (var drinkRate in drinkRates)
             {
-                resultDictionary[_greenFlamingosDbContext.DbDrinks.FirstOrDefault(x => x.Id == drinkRate.Key)] = drinkRate.Value;
+                resultDictionary[await _greenFlamingosDbContext.DbDrinks.Include(m => m.MainIngredient)
+                                                                  .Include(dt => dt.DrinkType)
+                                                                  .Include(a => a.Author)
+                                                                  .Include(d => d.DrinkIngredients).ThenInclude(x => x.Ingredient)
+                                                                  .FirstOrDefaultAsync(x => x.Id == drinkRate.Key)] = drinkRate.Value;
             }
             return resultDictionary.OrderByDescending(d => d.Value).ToDictionary(x => x.Key, y => y.Value);
 

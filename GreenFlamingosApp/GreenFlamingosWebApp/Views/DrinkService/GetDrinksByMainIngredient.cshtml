@@ -30,19 +30,19 @@
                 <img src="@drink.ImageUrl" class="img-thumbnail" style="width:500px;height:300px; justify-content:center" />
                 <div class="card-body">
                    <h3 class="card-title" style="margin-top:0px;text-align:center;">@Html.ActionLink(drink.Name, "Details","Drink", new {  id=drink.Id },new {@style="font-size:25px; color:green; text-decoration:none;"})</h3>
-                    <div class="text-warning" style="height:20px; margin-bottom:20px;">
+                    <div class="text-warning" style="height:20px; margin-bottom:20px; justify-content:center">
                         @for (var i = 1; i < @drink.AverageRating; i++)
                         {
-                        <span class="glyphicon glyphicon-star" style="margin-right:10px;"></span>
+                        <span class="glyphicon glyphicon-star" style="margin:10px; justify-content:center"></span>
                         solidStars++;
                         }
                         @for (var i = 0; i < (5-solidStars); i++)
                         {
-                        <span class="glyphicon glyphicon-star-empty" style="margin-right:10px;"></span>
+                        <span class="glyphicon glyphicon-star-empty" style="margin:10px; justify-content:center"></span>
                         }
                     </div>
                     <div style="color:black; margin-bottom:20px; text-align:center;">
-                        @*  <h7>Średnia ocena: @Math.Round(@drink.AverageRating,1)/5 z @drink.Ratings.Count() opinii</h7>*@
+                    @*<h7>Średnia ocena: @Math.Round(@drink.AverageRating,1)/5 z @drink.Ratings.Count() opinii</h7>*@
                     </div>
                     @if(userName == "Admin")
                     {

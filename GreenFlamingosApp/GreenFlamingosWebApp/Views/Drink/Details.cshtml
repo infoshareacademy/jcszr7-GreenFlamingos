@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/_LayoutOLD.cshtml";
     ViewData["Title"] = "Przepis";
+    var userName = User.Identity.Name;
     var preparationSteps = Model.Preparation.Split("\r\n").ToList();
 }
 <script src="https://kit.fontawesome.com/71a3607229.js" crossorigin="anonymous"></script>
@@ -39,8 +40,8 @@
             <div class="row">
                 <div class="col-12 col-lg-8">
                     <h4 style="color:#474747; margin-bottom:30px;">Przygotowanie:</h4>
-                    
-                    @foreach(var preparation in preparationSteps )
+
+                    @foreach (var preparation in preparationSteps)
                     {
                         <!-- Single Preparation Step -->
                         <div class="single-preparation-step d-flex">
@@ -55,7 +56,7 @@
                     <div class="ingredients">
                         <h4>Składniki</h4>
 
-                        @foreach(var ingredient in Model.Ingredients)
+                        @foreach (var ingredient in Model.Ingredients)
                         {
                             <!-- Custom Checkbox -->
                             <div class="ingredient">
@@ -66,8 +67,10 @@
                     </div>
                 </div>
             </div>
-            <form id="Rating" method="post" style="text-align:center;" asp-action="AddRating" asp-controller="Drink">
-                    <h2 style="margin-right:25px;">Oceń przepis</h2>   
+            @if (userName != null)
+            {
+                <form id="Rating" method="post" style="text-align:center;" asp-action="AddRating" asp-controller="Drink">
+                    <h2 style="margin-right:25px;">Oceń przepis</h2>
                     <div class="text-warning" onmouseout="CRateSelected()">
                         <span id="span1" onmouseout="CRateOut(1)" onmouseover="CRateOver(1)" onclick="CRateClick(1)" class="glyphicon glyphicon-star-empty" style="margin-right:30px;"></span>
                         <span id="span2" onmouseout="CRateOut(2)" onmouseover="CRateOver(2)" onclick="CRateClick(2)" class="glyphicon glyphicon-star-empty" style="margin-right:30px;"></span>
@@ -76,15 +79,19 @@
                         <span id="span5" onmouseout="CRateOut(5)" onmouseover="CRateOver(5)" onclick="CRateClick(5)" class="glyphicon glyphicon-star-empty" style="margin-right:30px;"></span>
                     </div>
                     <div>
-                        <input type="hidden" id="lblRating" name="rating" value="0"  />
+                        <input type="hidden" id="lblRating" name="rating" value="0" />
                     </div>
                     <div>
                         <input type="hidden" name="rating" value="@Model.Id" />
                     </div>
-            </form>
+                </form>
+            }
         </div>
-        <div class="Kuba_Test">
-            @Html.ActionLink("Dodaj Do Ulubionych", "AddDrinkToFavourites", new {  drinkId=Model.Id},new{@class="btn btn-lg btn-success"})
-         </div>
+        @if (userName != null)
+        {
+            <div class="Kuba_Test">
+                @Html.ActionLink("Dodaj Do Ulubionych", "AddDrinkToFavourites", new {  drinkId=Model.Id},new{@class="btn btn-lg btn-success"})
+        </div>
+        }
     </div>
 </div>

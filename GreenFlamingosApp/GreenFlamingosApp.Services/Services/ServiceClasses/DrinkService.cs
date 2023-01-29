@@ -199,9 +199,40 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
             var user = await _userAutentication.GetUserById(userId);
             await _drinkRepository.AddRateToDrink(user, drinkToRate, rateToAdd);
         }
-        public async Task<Dictionary<DbDrink, int>> GetTopRatedDrinks()
+        public async Task<List<Drink>> GetTopRatedDrinks()
         {
-            return await _drinkRepository.GetTopRatedDrinks();
+            var dbDictonary =  await _drinkRepository.GetTopRatedDrinks();
+            var drinks = new List<Drink>();
+            foreach(var dbDrink in dbDictonary)
+            {
+                var drinkToAdd = new Drink
+                {
+                    Id = dbDrink.Key.Id,
+                    Name = dbDrink.Key.Name,
+                    DrinkType = dbDrink.Key.DrinkType.Name,
+                    MainIngredient = dbDrink.Key.MainIngredient.Name,
+                    Capacity = dbDrink.Key.Capacity,
+                    AlcoholContent = dbDrink.Key.AlcoholContent,
+                    Preparation = dbDrink.Key.Preparations,
+                    Calories = dbDrink.Key.Calories,
+                    Description = dbDrink.Key.Description,
+                    ImageUrl = dbDrink.Key.ImageUrl,
+                    AverageRating = dbDrink.Value,
+                    Ingredients = dbDrink.Key.DrinkIngredients.Select(i => new
+                    {
+                        SimplyIngredient = i.Ingredient,
+                        SimplyIngredientCapacity = i.IngredientCapacity
+                    })
+                                                       .Select(x => new Ingredient
+                                                       {
+                                                           Name = x.SimplyIngredient.Name,
+                                                           Capacity = x.SimplyIngredientCapacity
+                                                       }).ToList()
+                };
+                drinks.Add(drinkToAdd);
+            }
+
+            return drinks;
         }
         public async Task<List<Drink>> GetFavouriteDrinks(Claim userId)
         {
