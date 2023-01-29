@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var userName = User.Identity.Name;
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -65,10 +68,19 @@
                     <!-- Top Social Info -->
                     <div class="col-12 col-sm-6">
                         <div class="top-social-info text-right">
-                            <a asp-action="RegisterUser" asp-controller="User">Zarejestruj się</a>
-                            <a asp-action="Login" asp-controller="User">Zaloguj się</a>
-                            <a asp-action="Create" asp-controller="Drink"><button class="btn btn-success">Stwórz Drinka</button></a>
-                            <a asp-action="Index" asp-controller="Drink"><button class="btn btn-success">Lista Drinków</button> </a>
+                            @if(userName!= null)
+                            {
+                                <a>Witaj @userName!</a>
+                                <a asp-action="LogOut" asp-controller="UserAutentication">Wyloguj się</a>
+                                <a asp-action="Create" asp-controller="Drink"><button class="btn btn-success">Stwórz Drinka</button></a>
+                                <a asp-action="Index" asp-controller="Drink"><button class="btn btn-success">Lista Drinków</button> </a>
+                            }
+                            else
+                            {
+                                <a asp-action="RegisterUser" asp-controller="UserAutentication">Zarejestruj się</a>
+                                <a asp-action="Login" asp-controller="UserAutentication">Zaloguj się</a>
+                                <a asp-action="Index" asp-controller="Drink"><button class="btn btn-success">Lista Drinków</button> </a>
+                            }
                         </div>
                     </div>
                 </div>

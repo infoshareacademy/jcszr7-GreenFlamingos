@@ -1,5 +1,6 @@
 ﻿using GreenFlamingos.Model.Drinks;
 using GreenFlamingosApp.DataBase.DbModels;
+using System.Security.Claims;
 
 namespace GreenFlamingos.Services.Services.Interfaces
 {
@@ -15,5 +16,10 @@ namespace GreenFlamingos.Services.Services.Interfaces
         public Task<List<DrinkType>> GetAllDrinkTypes();
         public Task<List<Ingredient>> GetAllIngredients();
         public Task<List<Drink>> GetDrinksByMainIngredient(string mainIngredient);
+        public Task AddDrinkToFavourites(int drinkId, Claim userId);
+
+        public Task AddRateToDrink(int drinkId, Claim userId, int rateToAdd);
+
+        public Task<Dictionary<DbDrink, int>> GetTopRatedDrinks();
     }
 }

@@ -1,10 +1,4 @@
-﻿using GreenFlamingos.Model;
-using GreenFlamingosApp.DataBase.DbModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GreenFlamingosApp.DataBase.DbModels;
 
 namespace GreenFlamingosApp.Services.Services.Interfaces
 {
@@ -12,6 +6,7 @@ namespace GreenFlamingosApp.Services.Services.Interfaces
     {
         public Task RegisterUser(DbUser user);
         public Task<DbUser> LoginUser(DbUser user);
+        public void SendEmail(string receiver, string userName);
 
     }
 }

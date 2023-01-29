@@ -1,9 +1,11 @@
-﻿using GreenFlamingosApp.DataBase.DbModels;
+﻿using GreenFlamingos.Model.Users;
+using GreenFlamingosApp.DataBase.DbModels;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GreenFlamingosApp.DataBase
 {
-    public class GreenFlamingosDbContext : DbContext
+    public class GreenFlamingosDbContext : IdentityDbContext<DbUser>
     {
         public DbSet<DbDrink> DbDrinks { get; set; }
         public DbSet<DbMainIngredient> DbMainIngredients { get; set; }
@@ -12,9 +14,12 @@ namespace GreenFlamingosApp.DataBase
         public DbSet<DbUserDetails> UsersDetails { get; set; }
         public DbSet<DbIngredient> Ingredients { get; set; }
         public DbSet<DbDrinkIngredient> DrinksIngredients { get; set; }
-        public GreenFlamingosDbContext(DbContextOptions options) : base(options) {}
+        public DbSet<DbDrinkUser> DrinkUsers { get; set; }
+        public GreenFlamingosDbContext(DbContextOptions<GreenFlamingosDbContext> options) : base(options) {}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             //Relation one to one
             modelBuilder.Entity<DbUser>()
                 .HasOne(u => u.UserDetails)
@@ -43,6 +48,19 @@ namespace GreenFlamingosApp.DataBase
                 .HasOne(x => x.Ingredient)
                 .WithMany(x=>x.DrinkIngredients)
                 .HasForeignKey(x => x.IngredientId);
+
+            //Relation many to many drinks < - > users
+            modelBuilder.Entity<DbDrinkUser>()
+                .HasKey(x => new { x.DrinkId, x.UserId });
+
+            modelBuilder.Entity<DbDrinkUser>()
+                .HasOne(x => x.Drink)
+                .WithMany(x => x.DrinkUsers)
+                .HasForeignKey(x => x.DrinkId);
+            modelBuilder.Entity<DbDrinkUser>()
+                 .HasOne(x => x.User)
+                 .WithMany(x => x.DrinkUsers)
+                 .HasForeignKey(x => x.UserId);
 
             // SEEDING
             modelBuilder.Entity<DbIngredient>()

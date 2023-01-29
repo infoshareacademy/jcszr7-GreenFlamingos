@@ -22,5 +22,11 @@ namespace GreenFlamingosWebApp.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public async Task<ActionResult> GetTopRatedDrinks()
+        {
+            return View(await _drinkService.GetTopRatedDrinks());
+        }
     }
 }

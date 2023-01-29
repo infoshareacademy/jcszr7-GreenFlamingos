@@ -1,20 +1,27 @@
 ﻿using GreenFlamingos.Model.Drinks;
+using GreenFlamingos.Model.Users;
 using GreenFlamingos.Services.Services.Interfaces;
+using GreenFlamingosApp.DataBase.DbModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Dynamic;
+using System.Security.Claims;
+
 namespace GreenFlamingosWebApp.Controllers
 {
     public class DrinkController : Controller
     {
         // GET: DrinkController
         private readonly IDrinkService _drinkService;
-        
-        public DrinkController(IDrinkService drinkService)
+        private readonly UserManager<DbUser> _userManager;
+        public DrinkController(IDrinkService drinkService, UserManager<DbUser> userManager)
         {
             _drinkService = drinkService;
+            _userManager = userManager;
         }
         public async Task<ActionResult> Index()
         {
-            var model = await _drinkService.GetAllDrinks();
+           var model = await _drinkService.GetAllDrinks();
             return View(model);
         }
         // GET: DrinkController/Details/5
@@ -152,14 +159,30 @@ namespace GreenFlamingosWebApp.Controllers
         //}
 
         [HttpPost]
-        public ActionResult AddRating(IFormCollection rating)
+        public async Task<ActionResult> AddRating(IFormCollection rating)
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier);
             var stars = rating["rating"].ToString();
             var formValues = stars.Split(',');
-            var rateToAdd = float.Parse(formValues[0]);
+            var rateToAdd = int.Parse(formValues[0]);
             var drinkId = int.Parse(formValues[1]);
-            var drink = _drinkService.GetDrinkById(drinkId);
+            await _drinkService.GetDrinkById(drinkId);
+            await _drinkService.AddRateToDrink(drinkId, userId, rateToAdd);
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public async Task<ActionResult> AddDrinkToFavourites(int drinkId)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+            await _drinkService.AddDrinkToFavourites(drinkId, userId);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetTopRatedDrinks()
+        {
+            return View(await _drinkService.GetTopRatedDrinks());
+        }
+
     }
 }

@@ -1,11 +1,14 @@
 ﻿using GreenFlamingos.Model.Drinks;
-using GreenFlamingosApp.DataBase;
+using GreenFlamingos.Model.Users;
 using GreenFlamingosApp.DataBase.DbModels;
+using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
+using System.Linq;
 
-namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
+namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
 {
-    public class DrinkRepository
+    public class DrinkRepository : IDrinkRepository
     {
         private readonly GreenFlamingosDbContext _greenFlamingosDbContext;
         public DrinkRepository(GreenFlamingosDbContext greenFlamingosDbContext)
@@ -30,7 +33,7 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
         }
         public async Task<List<DbDrinkType>> GetAllDbDrinkTypes()
         {
-            return  await _greenFlamingosDbContext.DrinkTypes.ToListAsync();
+            return await _greenFlamingosDbContext.DrinkTypes.ToListAsync();
         }
         public async Task<List<DbDrink>> GetDbDrinksByMainIngredient(string mainIngredient)
         {
@@ -43,31 +46,27 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
                                                           .Where(db => db.MainIngredient.Name == mainIngredient && db.DrinkType.Name == drinkType.Name)
                                                           .ToListAsync();
         }
-        public async Task<DbUser> GetUserById(int id)
-        {
-            return await _greenFlamingosDbContext.Users.Include(ud => ud.UserDetails)
-                                                       .FirstOrDefaultAsync(u => u.Id == id);
-        }
-        public async Task AddDrinkToDb(DbDrink drinkToAdd, List<DbIngredient> ingredients, List<string>ingredientsCapacity)
+        public async Task AddDrinkToDb(DbDrink drinkToAdd, List<DbIngredient> ingredients, List<string> ingredientsCapacity)
         {
             await _greenFlamingosDbContext.DbDrinks.AddAsync(drinkToAdd);
             foreach (var ingredient in ingredients)
             {
-                var dbDrinkIngredient = new DbDrinkIngredient { Drink = drinkToAdd, Ingredient = ingredient,IngredientCapacity = ingredientsCapacity[ingredients.IndexOf(ingredient)] };
+                var dbDrinkIngredient = new DbDrinkIngredient { Drink = drinkToAdd, Ingredient = ingredient, IngredientCapacity = ingredientsCapacity[ingredients.IndexOf(ingredient)] };
                 await _greenFlamingosDbContext.DrinksIngredients.AddAsync(dbDrinkIngredient);
             }
             await _greenFlamingosDbContext.SaveChangesAsync();
         }
         public async Task<List<Drink>> GetAllDrinks()
         {
-            var dbDrinks = await _greenFlamingosDbContext.DbDrinks.Include(m=>m.MainIngredient)
-                                                                  .Include(dt=>dt.DrinkType)
-                                                                  .Include(a=>a.Author)
-                                                                  .Include(d=>d.DrinkIngredients)
-                                                                  .ThenInclude(x=>x.Ingredient)
+            var dbDrinks = await _greenFlamingosDbContext.DbDrinks.Include(m => m.MainIngredient)
+                                                                  .Include(dt => dt.DrinkType)
+                                                                  .Include(a => a.Author)
+                                                                  .Include(d => d.DrinkIngredients)
+                                                                  .ThenInclude(x => x.Ingredient)
                                                                   .ToListAsync();
 
-            return dbDrinks.Select(dbDrinks => new Drink {
+            return dbDrinks.Select(dbDrinks => new Drink
+            {
                 Id = dbDrinks.Id,
                 Name = dbDrinks.Name,
                 DrinkType = dbDrinks.DrinkType.Name,
@@ -78,14 +77,14 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
                 Calories = dbDrinks.Calories,
                 Description = dbDrinks.Description,
                 ImageUrl = dbDrinks.ImageUrl,
-                Ingredients = dbDrinks.DrinkIngredients.Select(i=> new 
-                                                        {
-                                                            SimplyIngredient = i.Ingredient, 
-                                                            SimplyIngredientCapacity = i.IngredientCapacity
-                                                        })
-                                                       .Select(x => new Ingredient 
-                                                        {
-                                                           Name = x.SimplyIngredient.Name, 
+                Ingredients = dbDrinks.DrinkIngredients.Select(i => new
+                {
+                    SimplyIngredient = i.Ingredient,
+                    SimplyIngredientCapacity = i.IngredientCapacity
+                })
+                                                       .Select(x => new Ingredient
+                                                       {
+                                                           Name = x.SimplyIngredient.Name,
                                                            Capacity = x.SimplyIngredientCapacity
                                                        }).ToList()
             }).ToList();
@@ -111,10 +110,10 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
         }
         public async Task EditDrinkinDB(DbDrink drink, List<DbIngredient> ingredients, List<string> ingredientsCapacity)
         {
-           var drinkToEdit =  await GetDrinkById(drink.Id);
-            foreach(var ingredient in ingredients)
+            var drinkToEdit = await GetDrinkById(drink.Id);
+            foreach (var ingredient in ingredients)
             {
-                if(await _greenFlamingosDbContext.DrinksIngredients.AnyAsync(di=>di.IngredientId == ingredient.Id && di.DrinkId == drink.Id))
+                if (await _greenFlamingosDbContext.DrinksIngredients.AnyAsync(di => di.IngredientId == ingredient.Id && di.DrinkId == drink.Id))
                 {
                     var drinkIngredientToEdit = await _greenFlamingosDbContext.DrinksIngredients.FirstOrDefaultAsync(di => di.IngredientId == ingredient.Id && di.DrinkId == drink.Id);
                     drinkIngredientToEdit.Drink = drink;
@@ -125,8 +124,8 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
                 {
                     var newDrinkIngredient = new DbDrinkIngredient
                     {
-                        Drink = drink, 
-                        Ingredient = ingredients[ingredients.IndexOf(ingredient)], 
+                        Drink = drink,
+                        Ingredient = ingredients[ingredients.IndexOf(ingredient)],
                         IngredientCapacity = ingredientsCapacity[ingredients.IndexOf(ingredient)]
                     };
                     await _greenFlamingosDbContext.DrinksIngredients.AddAsync(newDrinkIngredient);
@@ -135,16 +134,62 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository
             await _greenFlamingosDbContext.SaveChangesAsync();
             var drinkIngredientsToEdit = await _greenFlamingosDbContext.DrinksIngredients.Where(di => di.DrinkId == drink.Id).ToListAsync();
 
-            foreach(var drinkIngredient in drinkIngredientsToEdit)
+            foreach (var drinkIngredient in drinkIngredientsToEdit)
             {
-                if(!ingredients.Any(i=>i.Id == drinkIngredient.IngredientId))
+                if (!ingredients.Any(i => i.Id == drinkIngredient.IngredientId))
                 {
                     _greenFlamingosDbContext.Remove(drinkIngredient);
                     await _greenFlamingosDbContext.SaveChangesAsync();
                 }
             }
             drinkToEdit = drink;
-           await _greenFlamingosDbContext.SaveChangesAsync(); 
+            await _greenFlamingosDbContext.SaveChangesAsync();
+        }
+        public async Task AddDrinkToFavourites(DbUser user, DbDrink drink)
+        {
+            var drinkUser = _greenFlamingosDbContext.DrinkUsers.FirstOrDefault(du => du.DrinkId == drink.Id && du.UserId == user.Id);
+            if (drinkUser == null)
+            {
+                var userFavouriteDrink = new DbDrinkUser { Drink = drink, User = user, Rating = 0, IsFavourite = true };
+                await _greenFlamingosDbContext.DrinkUsers.AddAsync(userFavouriteDrink);
+            }
+            else
+            {
+                drinkUser.IsFavourite = true;
+            }
+            await _greenFlamingosDbContext.SaveChangesAsync();
+        }
+
+        public async Task AddRateToDrink(DbUser user, DbDrink drink, int rating)
+        {
+            var drinkUser = _greenFlamingosDbContext.DrinkUsers.FirstOrDefault(du => du.DrinkId == drink.Id && du.UserId == user.Id);
+            if (drinkUser == null)
+            {
+                var userFavouriteDrink = new DbDrinkUser { Drink = drink, User = user, Rating = rating, IsFavourite = false };
+                await _greenFlamingosDbContext.DrinkUsers.AddAsync(userFavouriteDrink);
+            }
+            else
+            {
+                drinkUser.Rating = rating;
+            }
+            await _greenFlamingosDbContext.SaveChangesAsync();
+        }
+
+        public async Task<Dictionary<DbDrink, int>> GetTopRatedDrinks()
+
+        {
+            var drinkRates = await _greenFlamingosDbContext.DrinkUsers.GroupBy(u => u.DrinkId)
+                .Select(r => new KeyValuePair<int, int>(r.Key, (int)r.Average(x => x.Rating)))
+                .ToDictionaryAsync(x => x.Key, y => y.Value);
+
+            Dictionary<DbDrink, int> resultDictionary = new Dictionary<DbDrink, int>();
+
+            foreach (var drinkRate in drinkRates)
+            {
+                resultDictionary[_greenFlamingosDbContext.DbDrinks.FirstOrDefault(x => x.Id == drinkRate.Key)] = drinkRate.Value;
+            }
+            return resultDictionary.OrderByDescending(d => d.Value).ToDictionary(x => x.Key, y => y.Value);
+
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var userName = User.Identity.Name;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,8 +40,19 @@
                     <!-- Top Social Info -->
                     <div class="col-12 col-sm-6">
                         <div class="top-social-info text-right">
-                            <a href="#">Zarejestruj się</a>
-                            <a href="#">Zaloguj się</a>
+                            @if (userName != null)
+                            {
+                                <a>Witaj @userName!</a>
+                                <a asp-action="LogOut" asp-controller="UserAutentication">Wyloguj się</a>
+                                <a asp-action="Create" asp-controller="Drink"><button class="btn btn-success">Stwórz Drinka</button></a>
+                                <a asp-action="Index" asp-controller="Drink"><button class="btn btn-success">Lista Drinków</button> </a>
+                            }
+                            else
+                            {
+                                <a asp-action="RegisterUser" asp-controller="UserAutentication">Zarejestruj się</a>
+                                <a asp-action="Login" asp-controller="UserAutentication">Zaloguj się</a>
+                                <a asp-action="Index" asp-controller="Drink"><button class="btn btn-success">Lista Drinków</button> </a>
+                            }
                         </div>
                     </div>
                 </div>
@@ -96,6 +110,22 @@
                                             </ul>
                                         </div>
                                     </li>
+                                    <li>
+                                        <a href="#">TOP RATED</a>
+                                        <div class="megamenu">
+                                            <ul class="dropdown">
+                                                <li> @Html.ActionLink("top rated","GetTopRatedDrinks","DrinkService")</li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a href="#">ULUBIONE</a>
+                                        <div class="megamenu">
+                                            <ul class="dropdown">
+                                                <li><a href="index.html">Koktajle Warzywne</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
                                 </ul>
                                 <!-- Newsletter Form -->
                                 <div class="search-btn">
@@ -115,7 +145,7 @@
             @RenderBody()
         </main>
     </div>
-   <footer class="footer-area">
+    <footer class="footer-area">
         <div class="container h-100">
             <div class="row h-100">
                 <div class="col-12 h-100 d-flex flex-wrap align-items-center justify-content-between">
@@ -143,11 +173,11 @@
         </div>
 
     </footer>
-        <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
     <!-- ##### Footer Area Start ##### -->
     <!-- ##### All Javascript Files ##### -->
     <!-- jQuery-2.2.4 js -->
