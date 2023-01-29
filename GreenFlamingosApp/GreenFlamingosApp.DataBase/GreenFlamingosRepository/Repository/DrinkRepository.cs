@@ -191,5 +191,16 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             return resultDictionary.OrderByDescending(d => d.Value).ToDictionary(x => x.Key, y => y.Value);
 
         }
+
+        public async Task<List<DbDrink>> GetFavouriteDrinks(DbUser dbUser)
+        {
+            return await _greenFlamingosDbContext.DrinkUsers.Include(du => du.Drink).ThenInclude(d => d.MainIngredient)
+                                                                 .Include(du => du.Drink).ThenInclude(d => d.DrinkType)
+                                                                 .Include(du => du.Drink).ThenInclude(d => d.Author)
+                                                                 .Include(du => du.Drink).ThenInclude(d => d.DrinkIngredients).ThenInclude(i => i.Ingredient)
+                                                                 .Where(du => du.UserId == dbUser.Id && du.IsFavourite == true)
+                                                                 .Select(du=>du.Drink)
+                                                                 .ToListAsync();
+        }
     }
 }

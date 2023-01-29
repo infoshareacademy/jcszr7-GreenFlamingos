@@ -1,48 +1,36 @@
 ﻿@model IEnumerable<GreenFlamingos.Model.Drinks.Drink>
+
 @{
     Layout = "~/Views/Shared/_LayoutOLD.cshtml";
-    var mainIngredient = Model.Select(d => d.MainIngredient).FirstOrDefault();
-    var pageTitle = "";
-    var userName = User.Identity.Name;
-    if (mainIngredient == "Wódka")
-    {
-        pageTitle = "Drinki z Wódką";
-        ViewData["Title"] = pageTitle;
-    }
-    if (mainIngredient == "Rum")
-    {
-        pageTitle = "Drinki z Rumem";
-        ViewData["Title"] = pageTitle;
-    }
-
+    ViewData["Title"] = "GetFavouriteDrinks";
     var solidStars = 0;
+    var userName = User.Identity.Name;
 }
-
 <script src="~/js/GreenFlamingosScripts.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <div class="" style="justify-content:center;">
-    <header style="text-align:center"><h3 class="display-4">@pageTitle</h3></header>
+    <header style="text-align:center"><h3 class="display-4">Moje Ulubione Drinki</h3></header>
     <div class="row" ">
         @foreach (var drink in Model)
         {
-        <div class="col-md-5" style="width:500px;height:700px" onload="CRateClick(@drink.AverageRating);">
+        <div class="col-md-5" style="width:500px;height:450px; margin-bottom:20px;" onload="CRateClick(@drink.AverageRating);">
             <div class="card mb-5 shadow-sm">
-                <img src="@drink.ImageUrl" class="img-thumbnail" style="width:500px;height:300px; justify-content:center" />
+                <img src="@drink.ImageUrl" class="img-thumbnail" style="width:500px;height:300px; justify-content:center"/>
                 <div class="card-body">
-                   <h3 class="card-title" style="margin-top:0px;text-align:center;">@Html.ActionLink(drink.Name, "Details","Drink", new {  id=drink.Id },new {@style="font-size:25px; color:green; text-decoration:none;"})</h3>
+                 <h3 class="card-title" style="margin-top:0px;text-align:center;">@Html.ActionLink(drink.Name, "Details","Drink", new {  id=drink.Id },new {@style="font-size:25px; color:green; text-decoration:none;"})</h3>
                     <div class="text-warning" style="height:20px; margin-bottom:20px;">
                         @for (var i = 1; i < @drink.AverageRating; i++)
                         {
-                        <span class="glyphicon glyphicon-star" style="margin-right:10px;"></span>
-                        solidStars++;
+                            <span class="glyphicon glyphicon-star" style="margin-right:10px;"></span>
+                            solidStars++;
                         }
                         @for (var i = 0; i < (5-solidStars); i++)
                         {
-                        <span class="glyphicon glyphicon-star-empty" style="margin-right:10px;"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="margin-right:10px;"></span>
                         }
                     </div>
                     <div style="color:black; margin-bottom:20px; text-align:center;">
-                        @*  <h7>Średnia ocena: @Math.Round(@drink.AverageRating,1)/5 z @drink.Ratings.Count() opinii</h7>*@
+                      @*  <h7>Średnia ocena: @Math.Round(@drink.AverageRating,1)/5 z @drink.Ratings.Count() opinii</h7>*@
                     </div>
                     @if(userName == "Admin")
                     {

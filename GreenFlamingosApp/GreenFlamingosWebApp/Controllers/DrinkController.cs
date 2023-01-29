@@ -177,6 +177,13 @@ namespace GreenFlamingosWebApp.Controllers
             await _drinkService.AddDrinkToFavourites(drinkId, userId);
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
+        public async Task<ActionResult> GetFavouriteDrinks()
+        {
+           var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+           var model = await _drinkService.GetFavouriteDrinks(userId);
+           return View(model);
+        }
 
         [HttpGet]
         public async Task<ActionResult> GetTopRatedDrinks()

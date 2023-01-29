@@ -22,7 +22,7 @@
         <!-- Top Header Area -->
         <div class="top-header-area">
             <div class="container h-100">
-                <div class="row h-100 align-items-center justify-content-between">
+                <div class="row h-100 align-items-center ">
                     <!-- Breaking News -->
                     <div class="col-12 col-sm-6">
                         <div class="breaking-news">
@@ -44,14 +44,12 @@
                             {
                                 <a>Witaj @userName!</a>
                                 <a asp-action="LogOut" asp-controller="UserAutentication">Wyloguj się</a>
-                                <a asp-action="Create" asp-controller="Drink"><button class="btn btn-success">Stwórz Drinka</button></a>
-                                <a asp-action="Index" asp-controller="Drink"><button class="btn btn-success">Lista Drinków</button> </a>
+                                <a asp-action="LogOut" asp-controller="UserAutentication">Dane konta</a>
                             }
                             else
                             {
                                 <a asp-action="RegisterUser" asp-controller="UserAutentication">Zarejestruj się</a>
                                 <a asp-action="Login" asp-controller="UserAutentication">Zaloguj się</a>
-                                <a asp-action="Index" asp-controller="Drink"><button class="btn btn-success">Lista Drinków</button> </a>
                             }
                         </div>
                     </div>
@@ -59,19 +57,18 @@
             </div>
         </div>
 
-        <!-- Navbar Area -->
+                <!-- Navbar Area -->
         <div class="delicious-main-menu">
             <div class="classy-nav-container breakpoint-off">
                 <div class="container">
                     <!-- Menu -->
                     <nav class="classy-navbar justify-content-center" id="deliciousNav">
                         <!-- Logo -->
-                        <a class="nav-brand" href="index.html"><img src="~/img/core-img/logo_GreenFlamingos.png" alt=""></a>
+                        <img src="~/img/core-img/logo_GreenFlamingos.png">
                         <!-- Navbar Toggler -->
                         <div class="classy-navbar-toggler">
                             <span class="navbarToggler">
                         </div>
-
                         <!-- Menu -->
                         <div class="classy-menu">
                             <!-- close btn -->
@@ -110,23 +107,16 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li>
-                                        <a href="#">TOP RATED</a>
-                                        <div class="megamenu">
-                                            <ul class="dropdown">
-                                                <li> @Html.ActionLink("top rated","GetTopRatedDrinks","DrinkService")</li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="#">ULUBIONE</a>
-                                        <div class="megamenu">
-                                            <ul class="dropdown">
-                                                <li><a href="index.html">Koktajle Warzywne</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
+                                    @if (userName == "Admin")
+                                    {
+                                        <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="Create">Stwóz drinka</a></li>
+                                    }
+                                    else if(userName != null)
+                                    {
+                                        <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="GetFavouriteDrinks">Moje Drinki</a></li>
+                                    }
                                 </ul>
+
                                 <!-- Newsletter Form -->
                                 <div class="search-btn">
                                     <i class="fa fa-search" aria-hidden="true"></i>
