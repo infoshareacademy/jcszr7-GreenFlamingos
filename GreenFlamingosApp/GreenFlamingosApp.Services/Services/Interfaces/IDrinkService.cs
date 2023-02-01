@@ -7,7 +7,7 @@ namespace GreenFlamingos.Services.Services.Interfaces
     public interface IDrinkService
     {
         public Task<List<Drink>> GetAllDrinks();
-        public Task AddDrink(Drink drink);
+        public Task<bool> AddDrink(Drink drink);
         public Task<Drink> GetDrinkById(int id);
         public  Task RemoveDrink(Drink drink);
        // public List<Drink> SearchDrink(string searchedWord);

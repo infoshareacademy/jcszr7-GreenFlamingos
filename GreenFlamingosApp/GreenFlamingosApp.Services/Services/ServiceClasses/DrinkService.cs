@@ -65,7 +65,7 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
 
             return dbIngredients;
         }
-        public async Task AddDrink(Drink newDrink)
+        public async Task<bool> AddDrink(Drink newDrink)
         {
             if (newDrink.Photo != null)
             {
@@ -86,8 +86,11 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
             {
                 dbIngredients = await CreateIngredientsList(newDrink);
             }
+            else
+            {
+                return false;
+            }
 
-            //var drinkAuthor = await _drinkRepository.GetUserById(randuserId);
             var drinkToAdd = new DbDrink
             {
                 Name = newDrink.Name,
@@ -103,6 +106,7 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
             };
 
             await _drinkRepository.AddDrinkToDb(drinkToAdd, dbIngredients, ingredientsCapacity);
+            return true;
         }
         public async Task EditDrink(Drink drink)
         {

@@ -5,6 +5,7 @@ using GreenFlamingosApp.DataBase.DbModels.Identity;
 using GreenFlamingosApp.Services.Services.Interfaces;
 using GreenFlamingosApp.DataBase.DbModels;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace GreenFlamingosWebApp.Controllers
 {
@@ -14,13 +15,20 @@ namespace GreenFlamingosWebApp.Controllers
         private readonly IConfiguration _config;
         private readonly IUserService _userService;
         private readonly UserManager<DbUser> _userManager;
-
         public UserAutentication(IUserAutentication userAutenticationService, IConfiguration config, IUserService userService, UserManager<DbUser> userManager)
         {
             _userAutenticationService = userAutenticationService;
             _config = config;
             _userService = userService;
             _userManager = userManager;
+        }
+
+        public async Task<IActionResult> UserDetails()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+            var model = await _userService.GetUserById(userId);
+            return View(model);
+
         }
         public IActionResult RegisterUser()
         {
@@ -86,7 +94,6 @@ namespace GreenFlamingosWebApp.Controllers
                 UserDetails = null
             };
             var result = await _userAutenticationService.RegistrationAsync(model);
-           // await _userManager.AddToRoleAsync(model.Role);
             return RedirectToAction("Index", "Home");
         }
     }

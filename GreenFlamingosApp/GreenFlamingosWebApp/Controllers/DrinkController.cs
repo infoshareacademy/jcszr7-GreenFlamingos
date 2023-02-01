@@ -75,8 +75,13 @@ namespace GreenFlamingosWebApp.Controllers
                         drink.Ingredients.Add(ingredientToAdd);
                     }
 
-                    await _drinkService.AddDrink(drink);
-                    return RedirectToAction(nameof(Index));
+                    var result = await _drinkService.AddDrink(drink);
+                    if(!result)
+                    {
+                        ModelState.AddModelError("Ingredients", "Lista składników zawiera taki, który nie znajduje się w bazie. Spróbuj ponownie.");
+                        return View();
+                    }
+                    return RedirectToAction("Index","Home");
                 }
                 ModelState.AddModelError("Name", "Drink o podanej nazwie już istnieje");
                 return View();
