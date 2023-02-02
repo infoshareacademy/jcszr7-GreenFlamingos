@@ -152,11 +152,12 @@ namespace GreenFlamingosWebApp.Controllers
         }
 
         // GET: DrinkController/Search
-        //public ActionResult Search(string searchedWord)
-        //{
-        //    var model = _drinkService.SearchDrink(searchedWord);
-        //    return View(model);
-        //}
+        [HttpGet]
+        public async Task<ActionResult> Search(string searchedPhrase)
+        {
+            var model = await _drinkService.GetSearchedDrinks(searchedPhrase);
+            return View(model);
+        }
 
         [HttpPost]
         public async Task<ActionResult> AddRating(IFormCollection rating)

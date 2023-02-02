@@ -7,6 +7,7 @@ using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Identity.Interfaces;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using GreenFlamingos.Model.Users;
 
 namespace GreenFlamingosApp.Services.Services.ServiceClass
 {
@@ -153,12 +154,18 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
         {
             await _drinkRepository.RemoveDrinkFromDB(drink.Id);
         }
-        //public List<Drink> SearchDrink(string searchedWord)
-        //{
-        //    if (searchedWord != null)
-        //        return DataBaseDrinkService.drinkList.Where(d => d.Name.Contains(searchedWord)).ToList();
-        //    return Repository.DataBaseDrinkService.drinkList;
-        //}
+        public async Task<List<Drink>> GetSearchedDrinks(string searchedPhrase)
+        {
+            if (searchedPhrase != null)
+            {
+                var dbDrinks = await _drinkRepository.GetAllDrinks();
+                return dbDrinks.Where(d => d.Name.Contains(searchedPhrase)).ToList();
+            }
+            else
+            {
+                return await _drinkRepository.GetAllDrinks();
+            }
+        }
         public async Task<List<Drink>> GetDrinksByMainIngredient(string mainIngredient)
         {
             var dbDrinks = await _drinkRepository.GetDbDrinksByMainIngredient(mainIngredient);
