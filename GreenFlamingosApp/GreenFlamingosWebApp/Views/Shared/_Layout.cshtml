@@ -116,31 +116,33 @@
                                         <ul class="dropdown">
                                             <li> @Html.ActionLink("Drinki z Wódką","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Wódka"})</li>
                                             <li> @Html.ActionLink("Drinki z Rumem","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Rum"})</li>
+                                            <li> @Html.ActionLink("Drinki z Tequilą","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Tequila"})</li>
+                                            <li> @Html.ActionLink("Drinki z Aperolem","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Aperol"})</li>
+                                            <li> @Html.ActionLink("Drinki z Malibu","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Malibu"})</li>
+                                            <li> @Html.ActionLink("Drinki z Ginem","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Gin"})</li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="#">Shoty</a>
-                                        <div class="megamenu">
-                                            <ul class="dropdown">
-                                                <li><a href="index.html">Shoty z Wódką</a></li>
-                                                <li><a href="about.html">Shoty z Jagermeister</a></li>
-                                                <li><a href="blog-post.html">Shoty z Rumem</a></li>
-                                                <li><a href="blog-post.html">Shoty z Malibu</a></li>
-                                            </ul>
-                                        </div>
+                                        <ul class="dropdown">
+                                            <li> @Html.ActionLink("Shoty z Wódką","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Wódka"})</li>
+                                            <li> @Html.ActionLink("Shoty z Rumem","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Rum"})</li>
+                                            <li> @Html.ActionLink("Shoty z Jagermeister","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Jagermeister"})</li>
+                                            <li> @Html.ActionLink("Drinki z Malibu","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Malibu"})</li>
+                                        </ul>
                                     </li>
                                     <li>
                                         <a href="#">Koktajle</a>
-                                        <div class="megamenu">
-                                            <ul class="dropdown">
-                                                <li><a href="index.html">Koktajle Warzywne</a></li>
-                                                <li><a href="about.html">Koktajle Owocowe</a></li>
-                                            </ul>
-                                        </div>
+                                        <ul class="dropdown">
+                                            <li> @Html.ActionLink("z Truskawkami","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Truskawka"})</li>
+                                            <li> @Html.ActionLink("z Bananem","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Banan"})</li>
+                                            <li> @Html.ActionLink("z Pomarańczą ","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Pomarańcza"})</li>
+                                            <li> @Html.ActionLink("z Brzoskwinią","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Brzoskwinia"})</li>
+                                        </ul>
                                     </li>
                                     @if (userName == "Admin")
                                     {
-                                        <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="Create">Stwóz drinka</a></li>
+                                        <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="Create">Stwórz drinka</a></li>
                                     }
                                     else if(userName != null)
                                     {

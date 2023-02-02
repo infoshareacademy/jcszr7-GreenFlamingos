@@ -132,8 +132,14 @@ namespace GreenFlamingosWebApp.Controllers
                 ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();
                 var drinkTypes = await _drinkService.GetAllDrinkTypes();
                 ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
-                await _drinkService.EditDrink(drink);
-                return RedirectToAction(nameof(Index));
+                var result = await _drinkService.EditDrink(drink);
+                if(!result)
+                {
+
+                    ModelState.AddModelError("Ingredients", "Lista składników zawiera taki, który nie znajduje się w bazie. Spróbuj ponownie.");
+                    return View();
+                }
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
@@ -156,7 +162,7 @@ namespace GreenFlamingosWebApp.Controllers
             try
             {
                 await _drinkService.RemoveDrink(drink);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
