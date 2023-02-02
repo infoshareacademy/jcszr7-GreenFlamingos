@@ -152,7 +152,6 @@ namespace GreenFlamingosWebApp.Controllers
         }
 
         // GET: DrinkController/Search
-        [HttpGet]
         public async Task<ActionResult> Search(string searchedPhrase)
         {
             var model = await _drinkService.GetSearchedDrinks(searchedPhrase);
