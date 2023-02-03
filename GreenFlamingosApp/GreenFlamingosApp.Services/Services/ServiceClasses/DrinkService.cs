@@ -223,7 +223,7 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
         {
             var user = await _userAutentication.GetUserById(userId);
             var model = await _drinkRepository.GetFavouriteDrinks(user);
-
+            var dictonaryRating = await _drinkRepository.GetDrinkIdRatingDicotnary();
             return model.Select(dbDrinks => new Drink
             {
                 Id = dbDrinks.Id,
@@ -236,6 +236,7 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
                 Calories = dbDrinks.Calories,
                 Description = dbDrinks.Description,
                 ImageUrl = dbDrinks.ImageUrl,
+                AverageRating = dictonaryRating.FirstOrDefault(r => r.Key == dbDrinks.Id).Value,
                 Ingredients = dbDrinks.DrinkIngredients.Select(i => new
                 {
                     SimplyIngredient = i.Ingredient,
@@ -247,6 +248,37 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
                                                            Capacity = x.SimplyIngredientCapacity
                                                        }).ToList()
             }).ToList();
+        }
+
+        public async Task<List<Drink>> GetMatchedDrinks(DrinkMatch drinkToMatch)
+        {
+            var dbDrinksMatched = await _drinkRepository.GetMatchedDrinks(drinkToMatch);
+            var dictonaryRating = await _drinkRepository.GetDrinkIdRatingDicotnary();
+            return dbDrinksMatched.Select(dbDrinks => new Drink
+            {
+                Id = dbDrinks.Id,
+                Name = dbDrinks.Name,
+                DrinkType = dbDrinks.DrinkType.Name,
+                MainIngredient = dbDrinks.MainIngredient.Name,
+                Capacity = dbDrinks.Capacity,
+                AlcoholContent = dbDrinks.AlcoholContent,
+                Preparation = dbDrinks.Preparations,
+                Calories = dbDrinks.Calories,
+                Description = dbDrinks.Description,
+                ImageUrl = dbDrinks.ImageUrl,
+                AverageRating = dictonaryRating.FirstOrDefault(r => r.Key == dbDrinks.Id).Value,
+                Ingredients = dbDrinks.DrinkIngredients.Select(i => new
+                {
+                    SimplyIngredient = i.Ingredient,
+                    SimplyIngredientCapacity = i.IngredientCapacity
+                })
+                                                       .Select(x => new Ingredient
+                                                       {
+                                                           Name = x.SimplyIngredient.Name,
+                                                           Capacity = x.SimplyIngredientCapacity
+                                                       }).ToList()
+            }).ToList();
+
         }
     }
 }

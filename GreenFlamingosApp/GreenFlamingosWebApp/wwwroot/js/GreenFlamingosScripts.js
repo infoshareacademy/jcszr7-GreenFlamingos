@@ -6,6 +6,9 @@ function GetDynamicTextbox1(value) {
 function GetDynamicTextbox(value) {
     return '<div><input type="text" style="width:90%" name="Preparations"/><input type="button" style="width:8.5%; background-color:red; height:38px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="RemoveTextBox2(this)" value="-" /></div>';
 }
+function GetDynamicTextbox8(value) {
+    return '<div><input type="text" style="width:90%" name="Ingredients"/><input type="button" style="width:8%; background-color:red; height:38px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="RemoveTextBox8(this)" value="-" /></div>';
+}
 function AddTextBox1() {
     var div = document.createElement('DIV');
     div.innerHTML = GetDynamicTextbox1("");
@@ -15,6 +18,12 @@ function AddTextBox() {
     var div = document.createElement('DIV');
     div.innerHTML = GetDynamicTextbox("");
     document.getElementById("divCont2").appendChild(div);
+}
+
+function AddTextBox8() {
+    var div = document.createElement('DIV');
+    div.innerHTML = GetDynamicTextbox8("");
+    document.getElementById("divCont8").appendChild(div);
 }
 
 Element.prototype.remove = function () {
@@ -38,6 +47,9 @@ function RemoveTextBox2(div) {
 }
 function RemoveTextBox3(div) {
     document.getElementById("divCont3").remove();
+}
+function RemoveTextBox8(div) {
+    document.getElementById("divCont8").removeChild(div.parentNode.parentNode);
 }
 
 function CRateOut(rating) {

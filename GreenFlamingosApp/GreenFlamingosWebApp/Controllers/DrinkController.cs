@@ -25,7 +25,7 @@ namespace GreenFlamingosWebApp.Controllers
         public async Task<ActionResult> Index()
         {
            var model = await _drinkService.GetAllDrinks();
-            return View(model);
+           return View(model);
         }
         // GET: DrinkController/Details/5
         public async Task<ActionResult> Details(int id)
@@ -146,14 +146,22 @@ namespace GreenFlamingosWebApp.Controllers
                 return View();
             }
         }
-
+        public ActionResult MatchDrink()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> MatchDrink(DrinkMatch drinks)
+        {
+            var model = await _drinkService.GetMatchedDrinks(drinks);
+            return View("Index",model);
+        }
         // GET: DrinkController/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
             var model = await _drinkService.GetDrinkById(id);
             return View(model);
         }
-
         // POST: DrinkController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -21,5 +21,6 @@ namespace GreenFlamingos.Services.Services.Interfaces
         public Task<Dictionary<DbDrink, decimal>> GetTopRatedDrinks();
         public Task<List<Drink>> GetFavouriteDrinks(Claim userId);
         public Task<List<Drink>> GetSearchedDrinks(string searchedPhrase);
+        public Task<List<Drink>> GetMatchedDrinks(DrinkMatch drinkToMatch);
     }
 }

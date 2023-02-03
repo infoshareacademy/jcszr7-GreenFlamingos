@@ -214,5 +214,30 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
                                                                  .Select(du=>du.Drink)
                                                                  .ToListAsync();
         }
+
+        public async Task<List<DbDrink>> GetMatchedDrinks(DrinkMatch drinkMatch)
+        {
+            var dbMainIngredientsDrinkMatched = await _greenFlamingosDbContext.DbDrinks.Include(m => m.MainIngredient)
+                                                                  .Include(dt => dt.DrinkType)
+                                                                  .Include(a => a.Author)
+                                                                  .Include(d => d.DrinkIngredients).ThenInclude(x => x.Ingredient)
+                                                                  .Where(d => d.MainIngredient.Name == drinkMatch.MainIngredient)
+                                                                  .ToListAsync();
+            var dbDrinkMatched = new List<DbDrink>();
+
+            foreach (var drink in dbMainIngredientsDrinkMatched)
+            {
+                foreach (var ingredient in drinkMatch.Ingredients)
+                {
+                    if(drink.DrinkIngredients.Any(i=>i.Ingredient.Name == ingredient))
+                    {
+                        dbDrinkMatched.Add(drink);
+                        break;
+                    }
+
+                }
+            }
+            return dbDrinkMatched;
+        }
     }
 }
