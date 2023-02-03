@@ -69,7 +69,37 @@ namespace GreenFlamingosApp.DataBase
                          new DbIngredient { Id = 3, Name = "Whisky" },
                          new DbIngredient { Id = 4, Name = "Kostki lodu" },
                          new DbIngredient { Id = 5, Name = "Woda" },
-                         new DbIngredient { Id = 6, Name = "Sok Pomarańczowy" });
+                         new DbIngredient { Id = 6, Name = "Sok Pomarańczowy"},
+                         new DbIngredient { Id = 7, Name = "Blue Curacao" },
+                         new DbIngredient { Id = 8, Name = "Prosecco" },
+                         new DbIngredient { Id = 9, Name = "Sok pomidorowy" },
+                         new DbIngredient { Id = 10, Name = "Woda Gazowana" },
+                         new DbIngredient { Id = 11, Name = "Sok Jabłkowy" },
+                         new DbIngredient { Id = 12, Name = "Sok Porzeczkowy" },
+                         new DbIngredient { Id = 13, Name = "Gin" },
+                         new DbIngredient { Id = 14, Name = "Malibu" },
+                         new DbIngredient { Id = 15, Name = "Aperol" },
+                         new DbIngredient { Id = 16, Name = "Tequila" },
+                         new DbIngredient { Id = 17, Name = "Jagermeister" },
+                         new DbIngredient { Id = 18, Name = "Sok z cytryny" },
+                         new DbIngredient { Id = 19, Name = "Syrop cukrowy" },
+                         new DbIngredient { Id = 20, Name = "Grenadyna" },
+                         new DbIngredient { Id = 21, Name = "Coca Cola" },
+                         new DbIngredient { Id = 22, Name = "Sok z limonki" },
+                         new DbIngredient { Id = 23, Name = "Limonka" },
+                         new DbIngredient { Id = 24, Name = "Cytryna" },
+                         new DbIngredient { Id = 25, Name = "Pomidor" },
+                         new DbIngredient { Id = 26, Name = "Szpinak" },
+                         new DbIngredient { Id = 27, Name = "Pomarańcza" },
+                         new DbIngredient { Id = 28, Name = "Granat" },
+                         new DbIngredient { Id = 29, Name = "Mięta" },
+                         new DbIngredient { Id = 30, Name = "Truskawki" },
+                         new DbIngredient { Id = 31, Name = "Avokado" },
+                         new DbIngredient { Id = 32, Name = "Brzoskwinia" },
+                         new DbIngredient { Id = 33, Name = "Banan" },
+                         new DbIngredient { Id = 34, Name = "Miód" },
+                         new DbIngredient { Id = 35, Name = "Winogrono Białe" },
+                         new DbIngredient { Id = 36, Name = "Winogrono Czerwone" });
             modelBuilder.Entity<DbDrinkType>()
                 .HasData(new DbDrinkType { Id = 1, Name = "Drink z alkoholem" },
                          new DbDrinkType { Id = 2, Name = "Shot" },
@@ -78,7 +108,11 @@ namespace GreenFlamingosApp.DataBase
                 .HasData(new DbMainIngredient { Id = 1, Name = "Wódka" },
                          new DbMainIngredient { Id = 2, Name = "Rum" },
                          new DbMainIngredient { Id = 3, Name = "Whisky" },
-                         new DbMainIngredient { Id = 4, Name = "Sok pomidorowy" });
+                         new DbMainIngredient { Id = 4, Name = "Sok pomidorowy" },
+                         new DbMainIngredient { Id = 5, Name = "Gin" },
+                         new DbMainIngredient { Id = 6, Name = "Aperol" },
+                         new DbMainIngredient { Id = 7, Name = "Malibu" },
+                         new DbMainIngredient { Id = 8, Name = "Jagermeister" });
         }
     }
 }

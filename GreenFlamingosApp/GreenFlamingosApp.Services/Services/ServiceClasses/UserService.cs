@@ -1,4 +1,5 @@
-﻿using GreenFlamingosApp.DataBase.DbModels;
+﻿using GreenFlamingos.Model.Users;
+using GreenFlamingosApp.DataBase.DbModels;
 using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces;
 using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository;
 using GreenFlamingosApp.Services.Services.Interfaces;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using System.Linq.Expressions;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Claims;
 
 namespace GreenFlamingosApp.Services.Services.ServiceClasses
 {
@@ -20,14 +22,10 @@ namespace GreenFlamingosApp.Services.Services.ServiceClasses
             _config = config;
         }
 
-        public Task<DbUser> LoginUser(DbUser user)
+        public async Task<DbUser> GetUserById(Claim userId)
         {
-           return _userRepository.GetUserByLoginForm(user);
-        }
-
-        public async Task RegisterUser(DbUser user)
-        {
-            await _userRepository.AddUserToDB(user);
+            return await _userRepository.GetUserById(userId);
+           
         }
 
         public void SendEmail(string receiver, string userName)

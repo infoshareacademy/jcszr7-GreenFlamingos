@@ -1,6 +1,7 @@
 ﻿using GreenFlamingosApp.DataBase.DbModels;
 using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
 {
@@ -17,12 +18,9 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             await _greenFlamingosDbContext.Users.AddAsync(user);
             await _greenFlamingosDbContext.SaveChangesAsync();
         }
-        public async Task<DbUser> GetUserById(int id)
+        public async Task<DbUser> GetUserById(Claim userId)
         {
-            var user = new DbUser();
-            return user;
-            //return await _greenFlamingosDbContext.Users.Include(ud => ud.UserDetails)
-            //                                           .FirstOrDefaultAsync(u => u.Id == id);
+           return await _greenFlamingosDbContext.Users.Include(ud => ud.UserDetails).FirstOrDefaultAsync(u => u.Id == userId.Value);
         }
         public async Task<DbUser> GetUserByLoginForm(DbUser user)
         {

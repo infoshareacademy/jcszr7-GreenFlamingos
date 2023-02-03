@@ -186,7 +186,11 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
 
             foreach (var drinkRate in drinkRates)
             {
-                resultDictionary[_greenFlamingosDbContext.DbDrinks.FirstOrDefault(x => x.Id == drinkRate.Key)] = drinkRate.Value;
+                resultDictionary[await _greenFlamingosDbContext.DbDrinks.Include(m => m.MainIngredient)
+                                                                  .Include(dt => dt.DrinkType)
+                                                                  .Include(a => a.Author)
+                                                                  .Include(d => d.DrinkIngredients).ThenInclude(x => x.Ingredient)
+                                                                  .FirstOrDefaultAsync(x => x.Id == drinkRate.Key)] = drinkRate.Value;
             }
             return resultDictionary.Where(d => d.Value > 0).OrderByDescending(d => d.Value).ToDictionary(x => x.Key, y => y.Value);
 
