@@ -5,9 +5,6 @@ using GreenFlamingos.Services.Services.Interfaces;
 using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces;
 using GreenFlamingosApp.DataBase.GreenFlamingosRepository.Identity.Interfaces;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using GreenFlamingos.Model.Users;
 
 namespace GreenFlamingosApp.Services.Services.ServiceClass
 {
@@ -179,6 +176,8 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
         {
             var dbDrinks = await _drinkRepository.GetDbDrinksByMainIngredient(mainIngredient);
 
+            var dictonaryRating = await _drinkRepository.GetDrinkIdRatingDicotnary();
+
             return dbDrinks.Select(dbDrinks => new Drink
             {
                 Id = dbDrinks.Id,
@@ -191,6 +190,7 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
                 Calories = dbDrinks.Calories,
                 Description = dbDrinks.Description,
                 ImageUrl = dbDrinks.ImageUrl,
+                AverageRating = dictonaryRating.FirstOrDefault(r => r.Key == dbDrinks.Id).Value,
                 Ingredients = dbDrinks.DrinkIngredients.Select(i => new
                 {
                     SimplyIngredient = i.Ingredient,
@@ -215,7 +215,7 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
             var user = await _userAutentication.GetUserById(userId);
             await _drinkRepository.AddRateToDrink(user, drinkToRate, rateToAdd);
         }
-        public async Task<Dictionary<DbDrink, int>> GetTopRatedDrinks()
+        public async Task<Dictionary<DbDrink, decimal>> GetTopRatedDrinks()
         {
             return await _drinkRepository.GetTopRatedDrinks();
         }

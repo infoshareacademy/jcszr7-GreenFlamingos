@@ -64,6 +64,8 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
                                                                   .Include(d => d.DrinkIngredients)
                                                                   .ThenInclude(x => x.Ingredient)
                                                                   .ToListAsync();
+            var RatingAverage = new List<decimal>();
+            var dictonaryRating = await GetDrinkIdRatingDicotnary();
 
             return dbDrinks.Select(dbDrinks => new Drink
             {
@@ -77,6 +79,7 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
                 Calories = dbDrinks.Calories,
                 Description = dbDrinks.Description,
                 ImageUrl = dbDrinks.ImageUrl,
+                AverageRating = dictonaryRating.FirstOrDefault(r => r.Key == dbDrinks.Id).Value,
                 Ingredients = dbDrinks.DrinkIngredients.Select(i => new
                 {
                     SimplyIngredient = i.Ingredient,
@@ -174,13 +177,18 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             }
             await _greenFlamingosDbContext.SaveChangesAsync();
         }
+        
+        public async Task<Dictionary<int,decimal>> GetDrinkIdRatingDicotnary()
+        {
+            return await _greenFlamingosDbContext.DrinkUsers.GroupBy(u => u.DrinkId)
+                .Select(r => new KeyValuePair<int, decimal>(r.Key, (decimal)r.Average(x => x.Rating)))
+                .ToDictionaryAsync(x => x.Key, y => y.Value);
+        }
 
         public async Task<Dictionary<DbDrink, decimal>> GetTopRatedDrinks()
 
         {
-            var drinkRates = await _greenFlamingosDbContext.DrinkUsers.GroupBy(u => u.DrinkId)
-                .Select(r => new KeyValuePair<int, decimal>(r.Key, (decimal)r.Average(x => x.Rating)))
-                .ToDictionaryAsync(x => x.Key, y => y.Value);
+            var drinkRates = await GetDrinkIdRatingDicotnary();
 
             Dictionary<DbDrink, decimal> resultDictionary = new Dictionary<DbDrink, decimal>();
 
