@@ -175,14 +175,14 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             await _greenFlamingosDbContext.SaveChangesAsync();
         }
 
-        public async Task<Dictionary<DbDrink, int>> GetTopRatedDrinks()
+        public async Task<Dictionary<DbDrink, decimal>> GetTopRatedDrinks()
 
         {
             var drinkRates = await _greenFlamingosDbContext.DrinkUsers.GroupBy(u => u.DrinkId)
-                .Select(r => new KeyValuePair<int, int>(r.Key, (int)r.Average(x => x.Rating)))
+                .Select(r => new KeyValuePair<int, decimal>(r.Key, (decimal)r.Average(x => x.Rating)))
                 .ToDictionaryAsync(x => x.Key, y => y.Value);
 
-            Dictionary<DbDrink, int> resultDictionary = new Dictionary<DbDrink, int>();
+            Dictionary<DbDrink, decimal> resultDictionary = new Dictionary<DbDrink, decimal>();
 
             foreach (var drinkRate in drinkRates)
             {
