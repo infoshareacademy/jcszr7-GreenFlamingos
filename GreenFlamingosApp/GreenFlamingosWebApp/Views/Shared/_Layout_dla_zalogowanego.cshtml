@@ -31,8 +31,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form action="#" method="post">
-                        <input type="search" name="search" placeholder="Type any keywords...">
+                    <form asp-controller="Drink" asp-action="Search">
+                        <input type="text" name="searchedPhrase" placeholder="Type any keywords...">
                         <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </form>
                 </div>
