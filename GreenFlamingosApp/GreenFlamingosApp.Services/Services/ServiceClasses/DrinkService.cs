@@ -219,6 +219,11 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
         {
             return await _drinkRepository.GetTopRatedDrinks();
         }
+
+        public async Task<Dictionary<DbDrink, decimal>> Get6TopRatedDrinks()
+        {
+            return await _drinkRepository.Get6TopRatedDrinks();
+        }
         public async Task<List<Drink>> GetFavouriteDrinks(Claim userId)
         {
             var user = await _userAutentication.GetUserById(userId);

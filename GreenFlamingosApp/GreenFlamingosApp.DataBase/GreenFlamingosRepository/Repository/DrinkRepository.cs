@@ -204,6 +204,25 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
 
         }
 
+        public async Task<Dictionary<DbDrink, decimal>> Get6TopRatedDrinks()
+
+        {
+            var drinkRates = await GetDrinkIdRatingDicotnary();
+
+            Dictionary<DbDrink, decimal> resultDictionary = new Dictionary<DbDrink, decimal>();
+
+            foreach (var drinkRate in drinkRates)
+            {
+                resultDictionary[await _greenFlamingosDbContext.DbDrinks.Include(m => m.MainIngredient)
+                                                                  .Include(dt => dt.DrinkType)
+                                                                  .Include(a => a.Author)
+                                                                  .Include(d => d.DrinkIngredients).ThenInclude(x => x.Ingredient)
+                                                                  .FirstOrDefaultAsync(x => x.Id == drinkRate.Key)] = drinkRate.Value;
+            }
+            return resultDictionary.Take(6).Where(d => d.Value > 0).OrderByDescending(d => d.Value).ToDictionary(x => x.Key, y => y.Value);
+
+        }
+
         public async Task<List<DbDrink>> GetFavouriteDrinks(DbUser dbUser)
         {
             return await _greenFlamingosDbContext.DrinkUsers.Include(du => du.Drink).ThenInclude(d => d.MainIngredient)
