@@ -18,6 +18,18 @@ namespace GreenFlamingosWebApp.Controllers
             var model = await _drinkService.GetDrinksByMainIngredient(mainIngredient);
             return View(model);
         }
+
+        public async Task<ActionResult> GetDrinksShotByMainIngredient(string mainIngredient)
+        {
+            var model = await _drinkService.GetDrinksShotByMainIngredient(mainIngredient);
+            return View("GetDrinksByMainIngredient",model);
+        }
+
+        public async Task<ActionResult> GetDrinksNoAlcoByMainIngredient(string mainIngredient)
+        {
+            var model = await _drinkService.GetDrinksNoAlcoByMainIngredient(mainIngredient);
+            return View("GetDrinksByMainIngredient", model);
+        }
         public IActionResult Index()
         {
             return View();

@@ -14,13 +14,14 @@
     <div class="row" ">
         @foreach (var drink in Model)
         {
+            solidStars = 0;
         <div class="col-md-5" style="width:500px;height:450px; margin-bottom:20px;" onload="CRateClick(@drink.AverageRating);">
             <div class="card mb-5 shadow-sm">
                 <img src="@drink.ImageUrl" class="img-thumbnail" style="width:500px;height:300px; justify-content:center" />
                 <div class="card-body">
                     <h3 class="card-title" style="margin-top:0px;">@Html.ActionLink(drink.Name, "Details","Drink", new {  id=drink.Id },new {@style="margin:auto;font-size:25px; color:green; text-decoration:none;"})</h3>
                     <div class="text-warning" style="height:20px; margin-bottom:20px;">
-                        @for (var i = 1; i < @drink.AverageRating; i++)
+                        @for (var i = 1; i <= @drink.AverageRating; i++)
                         {
                         <span class="glyphicon glyphicon-star" style="margin-right:10px;"></span>
                         solidStars++;
@@ -31,19 +32,19 @@
                         }
                     </div>
                     <div style="color:black; margin-bottom:20px; text-align:center;">
-                        @*  <h7>Średnia ocena: @Math.Round(@drink.AverageRating,1)/5 z @drink.Ratings.Count() opinii</h7>*@
+                     <h7>Średnia ocena: @Math.Round(@drink.AverageRating,1)</h7>
                     </div>
+                    @if(userName == "Admin")
+                    {
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            @Html.ActionLink("Przepis", "Details", new {  id=drink.Id }, new{ @class="btn btn-success"})
+                            @Html.ActionLink("Usuń Drinka", "Delete","Drink", new {  id=drink.Id }, new{ @class="btn btn-danger"})
                         </div>
                         <div>
-                            @Html.ActionLink("Usuń Drinka", "Delete", new {  id=drink.Id }, new{ @class="btn btn-danger"})
-                        </div>
-                        <div>
-                            @Html.ActionLink("Edytuj", "Edit", new {  id=drink.Id },new{ @class="btn btn-secondary"})
+                            @Html.ActionLink("Edytuj", "Edit","Drink", new {  id=drink.Id },new{ @class="btn btn-secondary"})
                         </div>
                     </div>
+                    }
                 </div>
             </div>
         </div>

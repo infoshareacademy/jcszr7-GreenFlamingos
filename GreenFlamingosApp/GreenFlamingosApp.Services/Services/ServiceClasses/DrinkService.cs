@@ -285,5 +285,69 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
             }).ToList();
 
         }
+
+        public async Task<List<Drink>> GetDrinksShotByMainIngredient(string mainIngredient)
+        {
+            var dbDrinks = await _drinkRepository.GetDbDrinksShotsByMainIngredient(mainIngredient);
+
+            var dictonaryRating = await _drinkRepository.GetDrinkIdRatingDicotnary();
+
+            return dbDrinks.Select(dbDrinks => new Drink
+            {
+                Id = dbDrinks.Id,
+                Name = dbDrinks.Name,
+                DrinkType = dbDrinks.DrinkType.Name,
+                MainIngredient = dbDrinks.MainIngredient.Name,
+                Capacity = dbDrinks.Capacity,
+                AlcoholContent = dbDrinks.AlcoholContent,
+                Preparation = dbDrinks.Preparations,
+                Calories = dbDrinks.Calories,
+                Description = dbDrinks.Description,
+                ImageUrl = dbDrinks.ImageUrl,
+                AverageRating = dictonaryRating.FirstOrDefault(r => r.Key == dbDrinks.Id).Value,
+                Ingredients = dbDrinks.DrinkIngredients.Select(i => new
+                {
+                    SimplyIngredient = i.Ingredient,
+                    SimplyIngredientCapacity = i.IngredientCapacity
+                })
+                                                       .Select(x => new Ingredient
+                                                       {
+                                                           Name = x.SimplyIngredient.Name,
+                                                           Capacity = x.SimplyIngredientCapacity
+                                                       }).ToList()
+            }).ToList();
+        }
+
+        public async Task<List<Drink>> GetDrinksNoAlcoByMainIngredient(string mainIngredient)
+        {
+            var dbDrinks = await _drinkRepository.GetDbDrinksNoAlcoByMainIngredient(mainIngredient);
+
+            var dictonaryRating = await _drinkRepository.GetDrinkIdRatingDicotnary();
+
+            return dbDrinks.Select(dbDrinks => new Drink
+            {
+                Id = dbDrinks.Id,
+                Name = dbDrinks.Name,
+                DrinkType = dbDrinks.DrinkType.Name,
+                MainIngredient = dbDrinks.MainIngredient.Name,
+                Capacity = dbDrinks.Capacity,
+                AlcoholContent = dbDrinks.AlcoholContent,
+                Preparation = dbDrinks.Preparations,
+                Calories = dbDrinks.Calories,
+                Description = dbDrinks.Description,
+                ImageUrl = dbDrinks.ImageUrl,
+                AverageRating = dictonaryRating.FirstOrDefault(r => r.Key == dbDrinks.Id).Value,
+                Ingredients = dbDrinks.DrinkIngredients.Select(i => new
+                {
+                    SimplyIngredient = i.Ingredient,
+                    SimplyIngredientCapacity = i.IngredientCapacity
+                })
+                                                       .Select(x => new Ingredient
+                                                       {
+                                                           Name = x.SimplyIngredient.Name,
+                                                           Capacity = x.SimplyIngredientCapacity
+                                                       }).ToList()
+            }).ToList();
+        }
     }
 }

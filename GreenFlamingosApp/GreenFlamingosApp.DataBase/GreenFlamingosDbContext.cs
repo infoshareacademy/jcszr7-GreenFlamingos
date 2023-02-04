@@ -112,7 +112,9 @@ namespace GreenFlamingosApp.DataBase
                          new DbMainIngredient { Id = 5, Name = "Gin" },
                          new DbMainIngredient { Id = 6, Name = "Aperol" },
                          new DbMainIngredient { Id = 7, Name = "Malibu" },
-                         new DbMainIngredient { Id = 8, Name = "Jagermeister" });
+                         new DbMainIngredient { Id = 8, Name = "Jagermeister" },
+                         new DbMainIngredient { Id = 9, Name = "Truskawka" },
+                         new DbMainIngredient { Id = 10, Name = "Banan" });
         }
     }
 }

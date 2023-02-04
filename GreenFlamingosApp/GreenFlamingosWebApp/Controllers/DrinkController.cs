@@ -195,7 +195,7 @@ namespace GreenFlamingosWebApp.Controllers
             var drinkId = int.Parse(formValues[1]);
             await _drinkService.GetDrinkById(drinkId);
             await _drinkService.AddRateToDrink(drinkId, userId, rateToAdd);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index","Home");
         }
         [HttpGet]
         public async Task<ActionResult> AddDrinkToFavourites(int drinkId)

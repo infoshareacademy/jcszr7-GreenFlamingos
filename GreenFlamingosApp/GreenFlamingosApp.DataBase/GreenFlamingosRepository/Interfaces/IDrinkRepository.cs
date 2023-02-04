@@ -16,6 +16,8 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces
         public Task<List<DbIngredient>> GetAllDbIngredients();
         public Task<List<DbDrinkType>> GetAllDbDrinkTypes();
         public Task<List<DbDrink>> GetDbDrinksByMainIngredient(string mainIngredient);
+        public Task<List<DbDrink>> GetDbDrinksShotsByMainIngredient(string mainIngredient);
+        public Task<List<DbDrink>> GetDbDrinksNoAlcoByMainIngredient(string mainIngredient);
         public Task AddDrinkToDb(DbDrink drinkToAdd, List<DbIngredient> ingredients, List<string> ingredientsCapacity);
         public Task<List<Drink>> GetAllDrinks();
         public Task<bool> CheckIngredientByName(string name);

@@ -123,7 +123,6 @@
                                         <ul class="dropdown">
                                             <li> @Html.ActionLink("Drinki z Wódką","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Wódka"})</li>
                                             <li> @Html.ActionLink("Drinki z Rumem","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Rum"})</li>
-                                            <li> @Html.ActionLink("Drinki z Tequilą","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Tequila"})</li>
                                             <li> @Html.ActionLink("Drinki z Aperolem","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Aperol"})</li>
                                             <li> @Html.ActionLink("Drinki z Malibu","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Malibu"})</li>
                                             <li> @Html.ActionLink("Drinki z Ginem","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Gin"})</li>
@@ -132,19 +131,16 @@
                                     <li>
                                         <a href="#">Shoty</a>
                                         <ul class="dropdown">
-                                            <li> @Html.ActionLink("Shoty z Wódką","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Wódka"})</li>
-                                            <li> @Html.ActionLink("Shoty z Rumem","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Rum"})</li>
-                                            <li> @Html.ActionLink("Shoty z Jagermeister","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Jagermeister"})</li>
-                                            <li> @Html.ActionLink("Drinki z Malibu","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Malibu"})</li>
+                                            <li> @Html.ActionLink("Shoty z Wódką","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Wódka"})</li>
+                                            <li> @Html.ActionLink("Shoty z Rumem","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Rum"})</li>
+                                            <li> @Html.ActionLink("Drinki z Malibu","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Malibu"})</li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="#">Koktajle</a>
                                         <ul class="dropdown">
-                                            <li> @Html.ActionLink("z Truskawkami","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Truskawka"})</li>
-                                            <li> @Html.ActionLink("z Bananem","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Banan"})</li>
-                                            <li> @Html.ActionLink("z Pomarańczą ","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Pomarańcza"})</li>
-                                            <li> @Html.ActionLink("z Brzoskwinią","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Brzoskwinia"})</li>
+                                            <li> @Html.ActionLink("z Truskawkami","GetDrinksNoAlcoByMainIngredient","DrinkService",new {mainIngredient = "Truskawka"})</li>
+                                            <li> @Html.ActionLink("z Bananem","GetDrinksNoAlcoByMainIngredient","DrinkService",new {mainIngredient = "Banan"})</li>
                                         </ul>
                                     </li>
                                     @if (userName == "Admin")
@@ -209,7 +205,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-heading">
-                        <h3>6 NAJLEPIEJ OCENIONYCH DRINKÓW W GREENFLAMINGOS</h3>
+                        <h3>Najyżej Oceniane Drinki</h3>
                     </div>
                 </div>
             </div>
@@ -218,13 +214,14 @@
                 <!-- Single Best Receipe Area -->
                 @foreach (var drink in topRated)
                 {
+                    solidStars = 0;
                     <div class="col-12 col-sm-6 col-lg-4">
                         <div class="single-best-receipe-area mb-30">
                             <img src="@drink.Key.ImageUrl" class="img-thumbnail" style="width:500px;height:300px; justify-content:center" />
                             <div class="card-body">
                                 <h3 class="card-title" style="margin-top:0px;text-align:center;">@Html.ActionLink(drink.Key.Name, "Details","Drink", new {  id=drink.Key.Id },new {@style="font-size:25px; color:green; text-decoration:none;"})</h3>
                                 <div class="text-warning" style="height:20px; margin-bottom:20px;">
-                                    @for (var i = 1; i < @drink.Value; i++)
+                                    @for (var i = 1; i <= @drink.Value; i++)
                                     {
                                         <span class="glyphicon glyphicon-star" style="margin-right:10px;"></span>
                                         solidStars++;
