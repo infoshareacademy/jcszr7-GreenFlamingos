@@ -143,6 +143,7 @@
                                             <li> @Html.ActionLink("z Bananem","GetDrinksNoAlcoByMainIngredient","DrinkService",new {mainIngredient = "Banan"})</li>
                                         </ul>
                                     </li>
+                                    <li> @Html.ActionLink("Dopasuj Drinka","MatchDrink","Drink")</li>
                                     @if (userName == "Admin")
                                     {
                                         <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="Create">Stwórz drinka</a></li>
@@ -205,7 +206,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-heading">
-                        <h3>Najyżej Oceniane Drinki</h3>
+                        <h3>Najwyżej Oceniane Drinki</h3>
                     </div>
                 </div>
             </div>
@@ -252,7 +253,7 @@
     </section>
     <!-- ##### CTA Area End ##### -->
     <!-- ##### Small Receipe Area Start ##### -->
-    <section class="small-receipe-area section-padding-80-0">
+    @*<section class="small-receipe-area section-padding-80-0">
         <div class="container">
             <div class="row">
 
@@ -484,7 +485,7 @@
         </div>
     </section>
     <!-- ##### Small Receipe Area End ##### -->
-    <!-- ##### Follow Us Instagram Area Start ##### -->
+    <!-- ##### Follow Us Instagram Area Start ##### -->*@
     <div class="follow-us-instagram">
         <div class="container">
             <div class="row">

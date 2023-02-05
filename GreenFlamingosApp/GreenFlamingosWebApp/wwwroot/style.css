@@ -1163,7 +1163,7 @@ input[type=text] {
 .best-receipe-area {
     position: relative;
     z-index: 1;
-    padding-bottom: 50px;
+    padding-bottom: 0px;
 }
 
 .single-best-receipe-area {

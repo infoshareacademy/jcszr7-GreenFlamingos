@@ -108,6 +108,8 @@
                                             <li> @Html.ActionLink("z Bananem","GetDrinksNoAlcoByMainIngredient","DrinkService",new {mainIngredient = "Banan"})</li>
                                         </ul>
                                     </li>
+
+                                    <li> @Html.ActionLink("Dopasuj Drinka","MatchDrink","Drink")</li>
                                     @if (userName == "Admin")
                                     {
                                         <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="Create">Stwórz drinka</a></li>

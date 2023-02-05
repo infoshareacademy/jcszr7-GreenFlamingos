@@ -219,8 +219,8 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
                                                                   .Include(d => d.DrinkIngredients).ThenInclude(x => x.Ingredient)
                                                                   .FirstOrDefaultAsync(x => x.Id == drinkRate.Key)] = drinkRate.Value;
             }
-            return resultDictionary.Take(6).Where(d => d.Value > 0).OrderByDescending(d => d.Value).ToDictionary(x => x.Key, y => y.Value);
 
+            return resultDictionary.Where(d => d.Value > 0).OrderByDescending(d => d.Value).Take(6).ToDictionary(x => x.Key, y => y.Value);
         }
 
         public async Task<List<DbDrink>> GetFavouriteDrinks(DbUser dbUser)
