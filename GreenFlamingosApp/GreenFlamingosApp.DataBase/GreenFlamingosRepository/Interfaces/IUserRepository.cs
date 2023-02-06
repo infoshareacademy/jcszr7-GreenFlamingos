@@ -8,5 +8,6 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces
         public Task AddUserToDB(DbUser user);
         public Task<DbUser> GetUserById(Claim userId);
         public Task<DbUser> GetUserByLoginForm(DbUser user);
+        public Task<List<DbUser>> GetAllUsers();
     }
 }

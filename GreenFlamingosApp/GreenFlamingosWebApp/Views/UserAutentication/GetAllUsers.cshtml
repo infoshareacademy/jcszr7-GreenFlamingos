@@ -1,0 +1,51 @@
+﻿@model IEnumerable<GreenFlamingosApp.DataBase.DbModels.DbUser>
+
+    @{
+            Layout = "~/Views/Shared/_LayoutOLD.cshtml";
+    }
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserMail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserDetails.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserDetails.City)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.UserDetails.Street)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserMail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserDetails.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserDetails.City)
+            </td>
+                        <td>
+                @Html.DisplayFor(modelItem => item.UserDetails.Street)
+            </td>
+            <td>
+                @Html.ActionLink("Usuń", "DeleteUser", new {  id=item.Id  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

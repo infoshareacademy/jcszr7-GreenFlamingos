@@ -23,6 +23,11 @@ namespace GreenFlamingosWebApp.Controllers
             _userManager = userManager;
         }
 
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var model = await _userService.GetAllUsers();
+            return View(model);
+        }
         public async Task<IActionResult> UserDetails()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier);

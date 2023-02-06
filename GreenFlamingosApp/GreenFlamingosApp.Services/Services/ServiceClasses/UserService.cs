@@ -22,6 +22,11 @@ namespace GreenFlamingosApp.Services.Services.ServiceClasses
             _config = config;
         }
 
+        public async Task<List<DbUser>> GetAllUsers()
+        {
+           return await _userRepository.GetAllUsers();
+        }
+
         public async Task<DbUser> GetUserById(Claim userId)
         {
             return await _userRepository.GetUserById(userId);

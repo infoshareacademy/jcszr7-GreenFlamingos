@@ -18,6 +18,15 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             await _greenFlamingosDbContext.Users.AddAsync(user);
             await _greenFlamingosDbContext.SaveChangesAsync();
         }
+
+        public async Task<List<DbUser>> GetAllUsers()
+        {
+            return await _greenFlamingosDbContext.Users.Include(ud => ud.UserDetails)
+                                                       .Include(du => du.DrinkUsers)
+                                                       .Where(u=>u.UserName != "Admin")
+                                                       .ToListAsync();
+        }
+
         public async Task<DbUser> GetUserById(Claim userId)
         {
            return await _greenFlamingosDbContext.Users.Include(ud => ud.UserDetails).FirstOrDefaultAsync(u => u.Id == userId.Value);
