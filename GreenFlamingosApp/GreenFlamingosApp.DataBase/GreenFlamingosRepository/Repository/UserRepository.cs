@@ -19,6 +19,14 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             await _greenFlamingosDbContext.SaveChangesAsync();
         }
 
+        public async Task DeleteUser(string id)
+        {
+            var userToDelete = await GetUserById(id);
+            _greenFlamingosDbContext.Users.Remove(userToDelete);
+            await _greenFlamingosDbContext.SaveChangesAsync();
+
+        }
+
         public async Task<List<DbUser>> GetAllUsers()
         {
             return await _greenFlamingosDbContext.Users.Include(ud => ud.UserDetails)
@@ -27,9 +35,9 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
                                                        .ToListAsync();
         }
 
-        public async Task<DbUser> GetUserById(Claim userId)
+        public async Task<DbUser> GetUserById(string userId)
         {
-           return await _greenFlamingosDbContext.Users.Include(ud => ud.UserDetails).FirstOrDefaultAsync(u => u.Id == userId.Value);
+           return await _greenFlamingosDbContext.Users.Include(ud => ud.UserDetails).FirstOrDefaultAsync(u => u.Id == userId);
         }
         public async Task<DbUser> GetUserByLoginForm(DbUser user)
         {

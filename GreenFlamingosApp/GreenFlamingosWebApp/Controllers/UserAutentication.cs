@@ -23,6 +23,17 @@ namespace GreenFlamingosWebApp.Controllers
             _userManager = userManager;
         }
 
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var model = await _userService.GetUserById(id);
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(DbUser user)
+        {
+            await _userService.DeleteUser(user);
+            return RedirectToAction("GetAllUsers","UserAutentication");
+        }
         public async Task<IActionResult> GetAllUsers()
         {
             var model = await _userService.GetAllUsers();
@@ -31,7 +42,7 @@ namespace GreenFlamingosWebApp.Controllers
         public async Task<IActionResult> UserDetails()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier);
-            var model = await _userService.GetUserById(userId);
+            var model = await _userService.GetUserById(userId.Value);
             return View(model);
 
         }

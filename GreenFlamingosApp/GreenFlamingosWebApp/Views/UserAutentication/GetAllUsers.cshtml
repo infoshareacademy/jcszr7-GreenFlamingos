@@ -1,4 +1,5 @@
-﻿@model IEnumerable<GreenFlamingosApp.DataBase.DbModels.DbUser>
+﻿@using System.Security.Claims
+@model IEnumerable<GreenFlamingosApp.DataBase.DbModels.DbUser>
 
     @{
             Layout = "~/Views/Shared/_LayoutOLD.cshtml";
@@ -43,7 +44,7 @@
                 @Html.DisplayFor(modelItem => item.UserDetails.Street)
             </td>
             <td>
-                @Html.ActionLink("Usuń", "DeleteUser", new {  id=item.Id  })
+                @Html.ActionLink("Usuń", "DeleteUser", new {  id= item.Id })
             </td>
         </tr>
 }
