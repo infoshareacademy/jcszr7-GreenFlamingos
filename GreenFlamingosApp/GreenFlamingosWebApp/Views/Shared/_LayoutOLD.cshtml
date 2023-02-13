@@ -51,6 +51,7 @@
                                 else
                                 {
                                     <a asp-action="GetAllUsers" asp-controller="UserAutentication">Lista Użytkowników</a>
+                                    <a asp-action="AddIngredientsToDB" asp-controller="DrinkService">Dodaj Składnik do bazy</a>
                                 }
                             }
                             else
@@ -117,6 +118,7 @@
                                     @if (userName == "Admin")
                                     {
                                         <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="Create">Stwórz drinka</a></li>
+                                        
                                     }
                                     else if (userName != null)
                                     {
