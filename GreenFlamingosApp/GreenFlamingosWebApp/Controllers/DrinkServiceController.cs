@@ -28,13 +28,13 @@ namespace GreenFlamingosWebApp.Controllers
 
 
         [HttpGet]
-        public ActionResult AddIngredientToDB()
+        public ActionResult AddIngredientsToDB()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddIngredientToDB(IFormCollection ingredientsToAdd)
+        public async Task<ActionResult> AddIngredientsToDB(IFormCollection ingredientsToAdd)
         {
             var ingredients = ingredientsToAdd["IngredientsToAdd"].ToList();
             var ingredientsToDb = ingredients.Select(i => new Ingredient { Name = i }).ToList();
