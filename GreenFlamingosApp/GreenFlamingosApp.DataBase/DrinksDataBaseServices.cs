@@ -22,7 +22,7 @@ namespace GreenFlamingosApp.DataBase
         {
            JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };    
            var json = JsonConvert.SerializeObject(drinkList, Formatting.Indented, settings);
-            File.WriteAllText(@"..\..\..\..\DrinksDataBase.json", json);
+           File.WriteAllText(@"..\..\..\..\DrinksDataBase.json", json);
         }
 
         public static List<User> ReadAllUsers()
