@@ -34,17 +34,17 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
             var dbDrinkTypes = await _drinkRepository.GetAllDbDrinkTypes();
             return dbDrinkTypes.Select(dt => new DrinkType { Id = dt.Id, Name = dt.Name }).ToList();
         }
-        public async Task<bool> AreDrinkIngredientsInDb(Drink drink)
+        public async Task<bool> AreDrinkIngredientsInDb(List<Ingredient> ingredients)
         {
             var ingredientCounter = 0;
-            foreach (var ingredient in drink.Ingredients)
+            foreach (var ingredient in ingredients)
             {
                 var ingredientInDb = await _drinkRepository.CheckIngredientByName(ingredient.Name);
                 if (ingredientInDb)
                     ingredientCounter++;
             }
 
-            if (ingredientCounter == drink.Ingredients.Count())
+            if (ingredientCounter == ingredients.Count())
             {
                 return true;
             }
@@ -52,10 +52,10 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
             return false;
 
         }
-        public async Task<List<DbIngredient>> CreateIngredientsList(Drink drink)
+        public async Task<List<DbIngredient>> CreateIngredientsList(List<Ingredient> ingredients)
         {
             var dbIngredients = new List<DbIngredient>();
-            foreach (var ingredient in drink.Ingredients)
+            foreach (var ingredient in ingredients)
             {
                 var dbIngredient = await _drinkRepository.GetIngredientByName(ingredient.Name);
                 dbIngredients.Add(dbIngredient);
@@ -80,9 +80,9 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
 
             var dbIngredients = new List<DbIngredient>();
 
-            if (await AreDrinkIngredientsInDb(newDrink))
+            if (await AreDrinkIngredientsInDb(newDrink.Ingredients))
             {
-                dbIngredients = await CreateIngredientsList(newDrink);
+                dbIngredients = await CreateIngredientsList(newDrink.Ingredients);
             }
             else
             {
@@ -124,9 +124,9 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
 
             var dbIngredients = new List<DbIngredient>();
 
-            if (await AreDrinkIngredientsInDb(drink))
+            if (await AreDrinkIngredientsInDb(drink.Ingredients))
             {
-                dbIngredients = await CreateIngredientsList(drink);
+                dbIngredients = await CreateIngredientsList(drink.Ingredients);
             }
             else
             {
@@ -348,6 +348,18 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
                                                            Capacity = x.SimplyIngredientCapacity
                                                        }).ToList()
             }).ToList();
+        }
+
+        public async Task<bool> AddIngredientsToDB(List<Ingredient> ingredients)
+        {
+                var IsIngredientInDB = await AreDrinkIngredientsInDb(ingredients);
+                if(!IsIngredientInDB)
+                {
+                    var dbIngredients = ingredients.Select(i => new DbIngredient { Name = i.Name }).ToList();
+                    await _drinkRepository.AddIngredientsToDB(dbIngredients);
+                    return true;
+                }
+            return false;
         }
     }
 }

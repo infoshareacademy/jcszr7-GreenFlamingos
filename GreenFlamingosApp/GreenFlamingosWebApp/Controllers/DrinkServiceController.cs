@@ -1,4 +1,5 @@
-﻿using GreenFlamingos.Services.Services.Interfaces;
+﻿using GreenFlamingos.Model.Drinks;
+using GreenFlamingos.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GreenFlamingosWebApp.Controllers
@@ -25,6 +26,29 @@ namespace GreenFlamingosWebApp.Controllers
             return View("GetDrinksByMainIngredient",model);
         }
 
+
+        [HttpGet]
+        public ActionResult AddIngredientToDB()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddIngredientToDB(IFormCollection ingredientsToAdd)
+        {
+            var ingredients = ingredientsToAdd["IngredientsToAdd"].ToList();
+            var ingredientsToDb = ingredients.Select(i => new Ingredient { Name = i }).ToList();
+            var result = await _drinkService.AddIngredientsToDB(ingredientsToDb);
+            if(result)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("Name", "Podany składnik jest już w bazie danych");
+                return View();
+            }
+        }
         public async Task<ActionResult> GetDrinksNoAlcoByMainIngredient(string mainIngredient)
         {
             var model = await _drinkService.GetDrinksNoAlcoByMainIngredient(mainIngredient);

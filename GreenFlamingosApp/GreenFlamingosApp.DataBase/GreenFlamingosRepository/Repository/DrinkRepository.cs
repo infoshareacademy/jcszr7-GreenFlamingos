@@ -282,5 +282,14 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
                                                           .Where(db => db.MainIngredient.Name == mainIngredient && db.DrinkType.Name == drinkType.Name)
                                                           .ToListAsync();
         }
+
+        public async Task AddIngredientsToDB(List<DbIngredient> dbIngredients)
+        {
+            foreach(var dbIngredient in dbIngredients)
+            {
+                await _greenFlamingosDbContext.Ingredients.AddAsync(dbIngredient);
+            }
+            await _greenFlamingosDbContext.SaveChangesAsync();
+        }
     }
 }

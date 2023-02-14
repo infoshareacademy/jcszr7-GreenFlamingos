@@ -32,5 +32,6 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces
         public Task<List<DbDrink>> GetFavouriteDrinks(DbUser dbUser);
         public Task<Dictionary<int, decimal>> GetDrinkIdRatingDicotnary();
         public Task<List<DbDrink>> GetMatchedDrinks(DrinkMatch drinkMatch);
+        public Task AddIngredientsToDB(List<DbIngredient> dbIngredients);
     }
 }
