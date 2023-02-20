@@ -5,10 +5,10 @@ namespace GreenFlamingos.Model.Drinks
 {
     public class DrinkMatch
     {
-        [DisplayName("Główny Składnik")]
-        [Required(ErrorMessage = "Główny składnik jest wymagany")]
+        [DisplayName("Main ingredient")]
+        [Required(ErrorMessage = "Main ingredient is required")]
         public string MainIngredient { get; set; }
-        [DisplayName("Podaj Składniki Dodatkowe")]
+        [DisplayName("Provide additional ingredients")]
         public List<string> Ingredients { get; set; }
     }
 }

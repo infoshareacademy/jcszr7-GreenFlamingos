@@ -106,12 +106,12 @@ namespace GreenFlamingosWebApp.Controllers
                     var result = await _drinkService.AddDrink(drink);
                     if (!result)
                     {
-                        ModelState.AddModelError("Ingredients", "Lista składników zawiera taki, który nie znajduje się w bazie. Spróbuj ponownie.");
+                        ModelState.AddModelError("Ingredients", "The list of ingredients contains one that is not in the database. Try again.");
                         return View();
                     }
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("Name", "Drink o podanej nazwie już istnieje");
+                ModelState.AddModelError("Name", "Drink with the given name already exists");
                 return View();
             }
             catch
@@ -164,7 +164,7 @@ namespace GreenFlamingosWebApp.Controllers
                 if (!result)
                 {
 
-                    ModelState.AddModelError("Ingredients", "Lista składników zawiera taki, który nie znajduje się w bazie. Spróbuj ponownie.");
+                    ModelState.AddModelError("Ingredients", "The list of ingredients contains one that is not in the database. Try again.");
                     return View();
                 }
                 return RedirectToAction("Index", "Home");

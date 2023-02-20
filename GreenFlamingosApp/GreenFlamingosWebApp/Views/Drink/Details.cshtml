@@ -1,7 +1,7 @@
 ﻿@model GreenFlamingos.Model.Drinks.Drink
 @{
     Layout = "~/Views/Shared/_LayoutOLD.cshtml";
-    ViewData["Title"] = "Przepis";
+    ViewData["Title"] = "Recipe";
     var preparationSteps = Model.Preparation.Split("\r\n").ToList();
     var userName = User.Identity.Name;
 }
@@ -39,7 +39,7 @@
 
             <div class="row">
                 <div class="col-12 col-lg-8">
-                    <h4 style="color:#474747; margin-bottom:30px;">Przygotowanie:</h4>
+                    <h4 style="color:#474747; margin-bottom:30px;">Preparation:</h4>
 
                     @foreach (var preparation in preparationSteps)
                     {
@@ -70,7 +70,7 @@
             @if (userName != null)
             {
                 <form id="Rating" method="post" style="text-align:center;" asp-action="AddRating" asp-controller="Drink">
-                    <h2 style="margin-right:25px;">Oceń przepis</h2>
+                    <h2 style="margin-right:25px;">Rate the recipe</h2>
                     <div class="text-warning" onmouseout="CRateSelected()">
                         <span id="span1" onmouseout="CRateOut(1)" onmouseover="CRateOver(1)" onclick="CRateClick(1)" class="glyphicon glyphicon-star-empty" style="margin-right:30px;"></span>
                         <span id="span2" onmouseout="CRateOut(2)" onmouseover="CRateOver(2)" onclick="CRateClick(2)" class="glyphicon glyphicon-star-empty" style="margin-right:30px;"></span>
