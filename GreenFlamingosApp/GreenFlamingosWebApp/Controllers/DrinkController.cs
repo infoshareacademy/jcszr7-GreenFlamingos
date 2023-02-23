@@ -35,7 +35,7 @@ namespace GreenFlamingosWebApp.Controllers
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri("https://the-cocktail-db.p.rapidapi.com/search.php?s=vodka"),
+                RequestUri = new Uri("https://the-cocktail-db.p.rapidapi.com/search.php?i=vodka"),
                 Headers =
     {
         { "X-RapidAPI-Key", "6644d4071bmsh563adbf6d3e9af9p166644jsn00e21c66c99d" },
@@ -46,7 +46,10 @@ namespace GreenFlamingosWebApp.Controllers
             {
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
-                JObject json = JObject.Parse(body);
+                //var dynamicObject = JsonConvert.DeserializeObject<dynamic>(body);
+                var dynamicObject = JsonConvert.DeserializeObject<Dictionary<object,object>>(body);
+                var test = dynamicObject.Values.First();      //var idIngredient = dynamicObject.idIngredient;
+                //var strIngredient = dynamicObject.strIngredient;
             }
             return RedirectToAction("Index", "Home");
         }
