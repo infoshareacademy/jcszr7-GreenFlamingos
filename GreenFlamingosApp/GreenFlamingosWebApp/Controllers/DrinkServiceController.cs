@@ -45,7 +45,7 @@ namespace GreenFlamingosWebApp.Controllers
             }
             else
             {
-                ModelState.AddModelError("Name", "The specified component is already in the database.");
+                ModelState.AddModelError("Name", "The specified ingredient is already in the database.");
                 return View();
             }
         }
