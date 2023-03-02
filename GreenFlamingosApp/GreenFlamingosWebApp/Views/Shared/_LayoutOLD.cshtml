@@ -28,10 +28,10 @@
                         <div class="breaking-news">
                             <div id="breakingNewsTicker" class="ticker">
                                 <ul>
-                                    <li><a href="#">Witamy w Aplikacji GreenFlamingos!</a></li>
-                                    <li><a href="#">Najlepsze Drinki!</a></li>
-                                    <li><a href="#">Najlepsze Shoty!</a></li>
-                                    <li><a href="#">Najlepsze Koktajle!</a></li>
+                                    <li><a href="#">Welcome to the GreenFlamingos app!</a></li>
+                                    <li><a href="#">The best drinks!</a></li>
+                                    <li><a href="#">The best shots!</a></li>
+                                    <li><a href="#">The best cocktails!</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -42,22 +42,22 @@
                         <div class="top-social-info text-right">
                             @if (userName != null)
                             {
-                                <a>Witaj @userName!</a>
-                                <a asp-action="LogOut" asp-controller="UserAutentication">Wyloguj się</a>
+                                <a>Hello @userName!</a>
+                                <a asp-action="LogOut" asp-controller="UserAutentication">Log out</a>
                                 @if (userName != "Admin")
                                 {
-                                    <a asp-action="UserDetails" asp-controller="UserAutentication">Dane konta</a>
+                                    <a asp-action="UserDetails" asp-controller="UserAutentication">Account information</a>
                                 }
                                 else
                                 {
-                                    <a asp-action="GetAllUsers" asp-controller="UserAutentication">Lista Użytkowników</a>
-                                    <a asp-action="AddIngredientsToDB" asp-controller="DrinkService">Dodaj Składnik do bazy</a>
+                                    <a asp-action="GetAllUsers" asp-controller="UserAutentication">User list</a>
+                                    <a asp-action="AddIngredientsToDB" asp-controller="DrinkService">Add ingredient to database</a>
                                 }
                             }
                             else
                             {
-                                <a asp-action="RegisterUser" asp-controller="UserAutentication">Zarejestruj się</a>
-                                <a asp-action="Login" asp-controller="UserAutentication">Zaloguj się</a>
+                                <a asp-action="RegisterUser" asp-controller="UserAutentication">Register</a>
+                                <a asp-action="Login" asp-controller="UserAutentication">Log in</a>
                             }
                         </div>
                     </div>
@@ -87,42 +87,42 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li class="active"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Strona Główna</a></li>
+                                    <li class="active"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                                     <li>
-                                        <a href="#">Drinki</a>
+                                        <a href="#">Drinks</a>
                                         <ul class="dropdown">
-                                            <li> @Html.ActionLink("Drinki z Wódką","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Wódka"})</li>
-                                            <li> @Html.ActionLink("Drinki z Rumem","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Rum"})</li>
-                                            <li> @Html.ActionLink("Drinki z Aperolem","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Aperol"})</li>
-                                            <li> @Html.ActionLink("Drinki z Malibu","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Malibu"})</li>
-                                            <li> @Html.ActionLink("Drinki z Ginem","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Gin"})</li>
+                                            <li> @Html.ActionLink("Vodka","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Vodka"})</li>
+                                            <li> @Html.ActionLink("Rum","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Rum"})</li>
+                                            <li> @Html.ActionLink("Aperol","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Aperol"})</li>
+                                            <li> @Html.ActionLink("Malibu","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Malibu"})</li>
+                                            <li> @Html.ActionLink("Gin","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Gin"})</li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#">Shoty</a>
+                                        <a href="#">Shots</a>
                                         <ul class="dropdown">
-                                            <li> @Html.ActionLink("Shoty z Wódką","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Wódka"})</li>
-                                            <li> @Html.ActionLink("Shoty z Rumem","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Rum"})</li>
-                                            <li> @Html.ActionLink("Drinki z Malibu","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Malibu"})</li>
+                                            <li> @Html.ActionLink("Vodka","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Vodka"})</li>
+                                            <li> @Html.ActionLink("Rum","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Rum"})</li>
+                                            <li> @Html.ActionLink("Malibu","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Malibu"})</li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#">Koktajle</a>
+                                        <a href="#">Cocktails</a>
                                         <ul class="dropdown">
-                                            <li> @Html.ActionLink("z Truskawkami","GetDrinksNoAlcoByMainIngredient","DrinkService",new {mainIngredient = "Truskawka"})</li>
-                                            <li> @Html.ActionLink("z Bananem","GetDrinksNoAlcoByMainIngredient","DrinkService",new {mainIngredient = "Banan"})</li>
+                                            <li> @Html.ActionLink("Strawberries","GetDrinksNoAlcoByMainIngredient","DrinkService",new {mainIngredient = "Strawberries"})</li>
+                                            <li> @Html.ActionLink("Bananas","GetDrinksNoAlcoByMainIngredient","DrinkService",new {mainIngredient = "Bananas"})</li>
                                         </ul>
                                     </li>
 
-                                    <li> @Html.ActionLink("Dopasuj Drinka","MatchDrink","Drink")</li>
+                                    <li> @Html.ActionLink("Match the drink","MatchDrink","Drink")</li>
                                     @if (userName == "Admin")
                                     {
-                                        <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="Create">Stwórz drinka</a></li>
+                                        <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="Create">Create a drink</a></li>
                                         
                                     }
                                     else if (userName != null)
                                     {
-                                        <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="GetFavouriteDrinks">Moje Drinki</a></li>
+                                        <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="GetFavouriteDrinks">My Drinks</a></li>
                                     }
                                 </ul>
 

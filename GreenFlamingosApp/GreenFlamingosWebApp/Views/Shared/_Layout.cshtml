@@ -77,7 +77,7 @@
                         <div class="top-social-info text-right">
                             @if (userName != null)
                             {
-                                <a>Witaj @userName!</a>
+                                <a>Hello @userName!</a>
                                 <a asp-action="LogOut" asp-controller="UserAutentication">Log out</a>
                                 @if (userName != "Admin")
                                 {
@@ -126,26 +126,26 @@
                                     <li>
                                         <a href="#">Drinks</a>
                                         <ul class="dropdown">
-                                            <li> @Html.ActionLink("Drinks with Vodka","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Vodka"})</li>
-                                            <li> @Html.ActionLink("Drinks with Rum","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Rum"})</li>
-                                            <li> @Html.ActionLink("Drinks with Aperol","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Aperol"})</li>
-                                            <li> @Html.ActionLink("Drinks with Malibu","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Malibu"})</li>
-                                            <li> @Html.ActionLink("Drinks with Gin","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Gin"})</li>
+                                            <li> @Html.ActionLink("Vodka","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Vodka"})</li>
+                                            <li> @Html.ActionLink("Rum","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Rum"})</li>
+                                            <li> @Html.ActionLink("Aperol","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Aperol"})</li>
+                                            <li> @Html.ActionLink("Malibu","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Malibu"})</li>
+                                            <li> @Html.ActionLink("Gin","GetDrinksByMainIngredient","DrinkService",new {mainIngredient = "Gin"})</li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="#">Shots</a>
                                         <ul class="dropdown">
-                                            <li> @Html.ActionLink("Shots with Vodka","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Vodka"})</li>
-                                            <li> @Html.ActionLink("Shots with Rum","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Rum"})</li>
-                                            <li> @Html.ActionLink("Shots with Malibu","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Malibu"})</li>
+                                            <li> @Html.ActionLink("Vodka","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Vodka"})</li>
+                                            <li> @Html.ActionLink("Rum","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Rum"})</li>
+                                            <li> @Html.ActionLink("Malibu","GetDrinksShotByMainIngredient","DrinkService",new {mainIngredient = "Malibu"})</li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="#">Cocktails</a>
                                         <ul class="dropdown">
-                                            <li> @Html.ActionLink("Cocktails with Strawberries","GetDrinksNoAlcoByMainIngredient","DrinkService",new {mainIngredient = "Strawberries"})</li>
-                                            <li> @Html.ActionLink("Cocktails with Bananas","GetDrinksNoAlcoByMainIngredient","DrinkService",new {mainIngredient = "Bananas"})</li>
+                                            <li> @Html.ActionLink("Strawberries","GetDrinksNoAlcoByMainIngredient","DrinkService",new {mainIngredient = "Strawberries"})</li>
+                                            <li> @Html.ActionLink("Bananas","GetDrinksNoAlcoByMainIngredient","DrinkService",new {mainIngredient = "Bananas"})</li>
                                         </ul>
                                     </li>
                                     <li> @Html.ActionLink("Match the drink","MatchDrink","Drink")</li>
@@ -238,16 +238,16 @@
                                     }
                                 </div>
                                 <div style="color:black; margin-bottom:20px; text-align:center;">
-                                    <h7>Średnia ocena: @Math.Round(@drink.Value,1)</h7>
+                                    <h7>Average rating: @Math.Round(@drink.Value,1)</h7>
                                 </div>
                                 @if (userName == "Admin")
                                 {
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            @Html.ActionLink("Usuń Drinka", "Delete","Drink", new {  id=drink.Key.Id }, new{ @class="btn btn-danger"})
+                                            @Html.ActionLink("Delete drink", "Delete","Drink", new {  id=drink.Key.Id }, new{ @class="btn btn-danger"})
                                         </div>
                                         <div>
-                                            @Html.ActionLink("Edytuj", "Edit", "Drink", new {  id=drink.Key.Id },new{ @class="btn btn-secondary"})
+                                            @Html.ActionLink("Edit drink", "Edit", "Drink", new {  id=drink.Key.Id },new{ @class="btn btn-secondary"})
                                         </div>
                                     </div>
                                 }
@@ -495,7 +495,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h5>Follow Us Instragram</h5>
+                    <h5>Follow us on Instagram</h5>
                 </div>
             </div>
         </div>
