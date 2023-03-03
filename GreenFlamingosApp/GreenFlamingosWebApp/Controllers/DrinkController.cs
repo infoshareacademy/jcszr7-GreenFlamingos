@@ -246,5 +246,63 @@ namespace GreenFlamingosWebApp.Controllers
             return View(await _drinkService.GetTopRatedDrinks());
         }
 
+        // Get: DrinkController/DrinkProposal
+        [HttpGet]
+        public async Task<ActionResult> DrinkProposal()
+        {
+            var mainIngredients = await _drinkService.GetAllMainIngredients();
+            ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();
+            var drinkTypes = await _drinkService.GetAllDrinkTypes();
+            ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
+            var ingredients = await _drinkService.GetAllIngredients();
+            ViewBag.Ingredients = ingredients.Select(i => i.Name).ToList();
+            return View();
+        }
+
+        // POST: DrinkController/DrinkProposal
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DrinkProposal(Drink drink, IFormCollection userFormValues)
+        {
+            try
+            {
+                var mainIngredients = await _drinkService.GetAllMainIngredients();
+                ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();
+                var drinkTypes = await _drinkService.GetAllDrinkTypes();
+                ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
+                if (!await _validationService.IsDrinkExistInDB(drink.Name))
+                {
+                    var userIngredients = userFormValues["Ingredients"].ToList();
+                    var userIngredientsCapacity = userFormValues["IngredientCapacity"].ToList();
+                    var userPreparations = userFormValues["Preparations"].ToList();
+                    if (userPreparations.Contains(""))
+                    {
+                        userPreparations.Remove("");
+                    }
+
+                    drink.Preparation = string.Join("\r\n", userPreparations);
+
+                    foreach (var ingredient in userIngredients)
+                    {
+                        var ingredientToAdd = new Ingredient { Id = userIngredients.IndexOf(ingredient) + 1, Name = ingredient, Capacity = userIngredientsCapacity[userIngredients.IndexOf(ingredient)] };
+                        drink.Ingredients.Add(ingredientToAdd);
+                    }
+
+                    var result = await _drinkService.AddProposedDrink(drink);
+                    if (!result)
+                    {
+                        ModelState.AddModelError("Ingredients", "Ingredients list has ingredient not from data base. Try Again.");
+                        return View();
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("Name", "Proposed drink name is already used.");
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }

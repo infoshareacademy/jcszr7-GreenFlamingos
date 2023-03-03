@@ -291,5 +291,15 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             }
             await _greenFlamingosDbContext.SaveChangesAsync();
         }
+        public async Task AddProposedDrinkToProposalDB(DbProposedDrink drinkToAdd, List<DbIngredient> ingredients, List<string> ingredientsCapacity)
+        {
+            await _greenFlamingosDbContext.ProposedDrinks.AddAsync(drinkToAdd);
+            foreach (var ingredient in ingredients)
+            {
+                var dbProposalDrinkIngredient = new DbProposedDrinkIngredient { ProposedDrink = drinkToAdd, Ingredient = ingredient, IngredientCapacity = ingredientsCapacity[ingredients.IndexOf(ingredient)] };
+                await _greenFlamingosDbContext.ProposedDrinkIngriedents.AddAsync(dbProposalDrinkIngredient);
+            }
+            await _greenFlamingosDbContext.SaveChangesAsync();
+        }
     }
 }

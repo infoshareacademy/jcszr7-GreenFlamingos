@@ -17,6 +17,25 @@
     <link rel="stylesheet" href="~/style.css">
 </head>
 <body>
+    <!-- Search Wrapper -->
+    <div class="search-wrapper">
+        <!-- Close Btn -->
+        <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <form asp-controller="Drink" asp-action="Search">
+                        <input type="text" name="searchedPhrase" placeholder="Type any keywords...">
+                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>
+
+                    <!-- wczesniejsze pola w form action="#" method="post" -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header class="header-area">
 
         <!-- Top Header Area -->
@@ -123,6 +142,7 @@
                                     else if (userName != null)
                                     {
                                         <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="GetFavouriteDrinks">Moje Drinki</a></li>
+                                        <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="DrinkProposal">Propose Drink</a></li>
                                     }
                                 </ul>
 
