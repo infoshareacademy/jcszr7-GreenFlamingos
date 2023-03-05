@@ -65,6 +65,66 @@ namespace GreenFlamingosApp.Services.Services.ServiceClasses
             catch (Exception e)
             { Console.WriteLine(e.Message); }
         }
+
+        public void SendEmailProposedDrinkWaiting(DbUser user)
+        {
+            try
+            {
+                                var fromMail = _config.GetSection("EmailUserName").Value;
+                var fromPassword = _config.GetSection("EmailPassword").Value;
+
+                MailMessage message = new MailMessage();
+                message.From = new MailAddress(fromMail);
+                message.Subject = "Green Flamingos Your Proposed Drink Is Waiting For Acceptance";
+                message.To.Add(new MailAddress(user.UserMail));
+                message.Body = $"<html><body> <div>Hello user {user.UserName} !</div>  <div>Your proposed drink was saved in database and waiting for accaptance from administrator. You will receive new email with information when drink will be accepted.</div></body></html>";
+                message.IsBodyHtml = true;
+
+                var smtpClient = new SmtpClient(_config.GetSection("EmailHost").Value)
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential(fromMail, fromPassword),
+                    EnableSsl = true
+                };
+                smtpClient.Send(message);
+            }
+            catch (Exception e)
+            { Console.WriteLine(e.Message); }
+        }
+        public void SendEmailProposedDrinkSolved(DbUser user, bool adminDecision) 
+        { 
+            //try
+            //{
+            //    var fromMail = _config.GetSection("EmailUserName").Value;
+            //    var fromPassword = _config.GetSection("EmailPassword").Value;
+
+            //    MailMessage message = new MailMessage();
+            //    message.From = new MailAddress(fromMail);
+            //    message.To.Add(new MailAddress(userMail);
+            //    if (adminDecision) 
+            //    {
+            //        message.Subject = "Green Flamingos Your Proposed Drink Has Been Accepted";
+            //        message.Body = $"<html><body> <div>Hello user {userName} !</div>  <div>Your proposed drink has been accepted and added to our website.</div></body></html>";
+            //    } 
+            //    else
+            //    {
+            //        message.Subject = "Green Flamingos Your Proposed Drink Has Been Rejected";
+            //        message.Body = $"<html><body> <div>Hello user {userName} !</div>  <div>Your proposed drink has been rejected.</div></body></html>";
+            //    }
+            //    message.IsBodyHtml = true;
+
+            //    var smtpClient = new SmtpClient(_config.GetSection("EmailHost").Value)
+            //    {
+            //        Port = 587,
+            //        Credentials = new NetworkCredential(fromMail, fromPassword),
+            //        EnableSsl = true
+            //    };
+            //    smtpClient.Send(message);
+
+            //}
+            //catch (Exception e)
+            //{ Console.WriteLine(e.Message); }
+        }
     }
-    }
+}
 

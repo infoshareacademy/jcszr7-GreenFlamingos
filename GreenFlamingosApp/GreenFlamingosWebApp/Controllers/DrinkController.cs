@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using GreenFlamingosApp.Services.Services.ServiceClasses;
 
 namespace GreenFlamingosWebApp.Controllers
 {
@@ -19,14 +20,16 @@ namespace GreenFlamingosWebApp.Controllers
         // GET: DrinkController
         private readonly IDrinkService _drinkService;
         private readonly IValidationService _validationService;
+        private readonly IUserService _userService;
         private readonly UserManager<DbUser> _userManager;
         string baseUrl = "https://api.api-ninjas.com/v1/cocktail?name=";
 
-        public DrinkController(IDrinkService drinkService, UserManager<DbUser> userManager, IValidationService validationService)
+        public DrinkController(IDrinkService drinkService, UserManager<DbUser> userManager, IValidationService validationService, IUserService userService)
         {
             _drinkService = drinkService;
             _userManager = userManager;
             _validationService = validationService;
+            _userService = userService;
         }
 
         public async Task<ActionResult> ApiComm()
@@ -294,6 +297,11 @@ namespace GreenFlamingosWebApp.Controllers
                         ModelState.AddModelError("Ingredients", "Ingredients list has ingredient not from data base. Try Again.");
                         return View();
                     }
+
+                    var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+                    var user = await _userService.GetUserById(userId.Value);
+                    _userService.SendEmailProposedDrinkWaiting(user);
+
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("Name", "Proposed drink name is already used.");
