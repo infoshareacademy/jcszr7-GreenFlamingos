@@ -43,6 +43,7 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
                                                           .Include(a => a.Author)
                                                           .Include(d => d.DrinkIngredients)
                                                           .ThenInclude(x => x.Ingredient)
+                                                          .Include(du => du.DrinkUsers)
                                                           .Where(db => db.MainIngredient.Name == mainIngredient && db.DrinkType.Name == drinkType.Name)
                                                           .ToListAsync();
         }
@@ -56,11 +57,18 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             }
             await _greenFlamingosDbContext.SaveChangesAsync();
         }
+
+        public List<string> GetCommentsList(DbDrink dbDrink)
+        {
+            return dbDrink.DrinkUsers.Where(d => d.DrinkId == dbDrink.Id).Select(du => du.Comment).ToList();
+        }
+
         public async Task<List<Drink>> GetAllDrinks()
         {
             var dbDrinks = await _greenFlamingosDbContext.DbDrinks.Include(m => m.MainIngredient)
                                                                   .Include(dt => dt.DrinkType)
                                                                   .Include(a => a.Author)
+                                                                  .Include(du => du.DrinkUsers)
                                                                   .Include(d => d.DrinkIngredients)
                                                                   .ThenInclude(x => x.Ingredient)
                                                                   .ToListAsync();
@@ -79,6 +87,7 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
                 Calories = dbDrinks.Calories,
                 Description = dbDrinks.Description,
                 ImageUrl = dbDrinks.ImageUrl,
+                Comments = GetCommentsList(dbDrinks),
                 AverageRating = dictonaryRating.FirstOrDefault(r => r.Key == dbDrinks.Id).Value,
                 Ingredients = dbDrinks.DrinkIngredients.Select(i => new
                 {

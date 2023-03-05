@@ -172,6 +172,12 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
                 return await _drinkRepository.GetAllDrinks();
             }
         }
+
+        public List<string> GetCommentsList(DbDrink dbDrink)
+        {
+            return dbDrink.DrinkUsers.Where(d => d.DrinkId == dbDrink.Id).Select(du => du.Comment).ToList();
+        }
+
         public async Task<List<Drink>> GetDrinksByMainIngredient(string mainIngredient)
         {
             var dbDrinks = await _drinkRepository.GetDbDrinksByMainIngredient(mainIngredient);
@@ -190,6 +196,7 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
                 Calories = dbDrinks.Calories,
                 Description = dbDrinks.Description,
                 ImageUrl = dbDrinks.ImageUrl,
+                Comments = GetCommentsList(dbDrinks),
                 AverageRating = dictonaryRating.FirstOrDefault(r => r.Key == dbDrinks.Id).Value,
                 Ingredients = dbDrinks.DrinkIngredients.Select(i => new
                 {

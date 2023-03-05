@@ -90,11 +90,11 @@
         @if (userName != null)
         {
             <div class="Kuba_Test">
-                @Html.ActionLink("Add to favourites", "AddDrinkToFavourites", new {  drinkId=Model.Id},new{@class="btn btn-lg btn-success"})
+                @Html.ActionLink("Add to favourites", "AddDrinkToFavourites", new { drinkId=Model.Id },new{@class="btn btn-lg btn-success"})
             </div>
         }
-        </div>
     </div>
+</div>
 <div>
     <!-- Comments -->
     <!--ADD COMMENT-->
@@ -109,5 +109,12 @@
     <!--SHOW COMMENT-->
 
     <h4>Comments</h4>
+
+    @foreach (var comment in Model.Comments)
+    {
+        <div class="comment">
+            <label class="custom-control-label" for="customCheck1">@comment</label>
+        </div>
+    }
 
 </div>
