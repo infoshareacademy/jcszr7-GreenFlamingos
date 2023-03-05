@@ -225,6 +225,17 @@ namespace GreenFlamingosWebApp.Controllers
             await _drinkService.AddRateToDrink(drinkId, userId, rateToAdd);
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpPost]
+        public async Task<ActionResult> AddComment(IFormCollection comment, IFormCollection drinkId)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+            var commentFromUser = comment["comment"].ToString();
+            var drinkIdFromUser = drinkId["drinkId"];
+            //await _drinkService.GetDrinkById(int.Parse(drinkIdFromUser));
+            await _drinkService.AddCommentToDrink(int.Parse(drinkIdFromUser), userId, commentFromUser);
+            return RedirectToAction("Index", "Home");
+        }
         [HttpGet]
         public async Task<ActionResult> AddDrinkToFavourites(int drinkId)
         {

@@ -95,3 +95,19 @@
         }
         </div>
     </div>
+<div>
+    <!-- Comments -->
+    <!--ADD COMMENT-->
+    <form method="post" asp-action="AddComment" asp-controller="Drink">
+        <div class="form-group">
+            <label for="comment">Add comment:</label>
+            <textarea class="form-control" name="comment" rows="3"></textarea>
+        </div>
+        <input type="hidden" name="drinkId" value="@Model.Id" />
+        <button type="submit" class="btn btn-primary">Add comment</button>
+    </form>
+    <!--SHOW COMMENT-->
+
+    <h4>Comments</h4>
+
+</div>

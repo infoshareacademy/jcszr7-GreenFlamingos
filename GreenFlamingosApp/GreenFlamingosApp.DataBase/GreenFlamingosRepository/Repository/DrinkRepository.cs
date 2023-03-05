@@ -177,7 +177,22 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             }
             await _greenFlamingosDbContext.SaveChangesAsync();
         }
-        
+
+        public async Task AddCommentToDrink(DbUser user, DbDrink drink, string commentText)
+        {
+            var drinkUser = _greenFlamingosDbContext.DrinkUsers.FirstOrDefault(du => du.DrinkId == drink.Id && du.UserId == user.Id);
+            if (drinkUser == null)
+            {
+                var userCommentedDrink = new DbDrinkUser { Drink = drink, User = user, Comment = commentText, Rating = 0, IsFavourite = false };
+                await _greenFlamingosDbContext.DrinkUsers.AddAsync(userCommentedDrink);
+            }
+            else
+            {
+                drinkUser.Comment = commentText;
+            }
+            await _greenFlamingosDbContext.SaveChangesAsync();
+        }
+
         public async Task<Dictionary<int,decimal>> GetDrinkIdRatingDicotnary()
         {
             return await _greenFlamingosDbContext.DrinkUsers.GroupBy(u => u.DrinkId)
