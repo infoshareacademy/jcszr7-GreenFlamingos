@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using GreenFlamingos.Model.APIResponses;
 
 namespace GreenFlamingosWebApp.Controllers
 {
@@ -29,30 +30,7 @@ namespace GreenFlamingosWebApp.Controllers
             _validationService = validationService;
         }
 
-        public async Task<ActionResult> ApiComm()
-        {
-            var client = new HttpClient();
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri("https://the-cocktail-db.p.rapidapi.com/search.php?i=vodka"),
-                Headers =
-    {
-        { "X-RapidAPI-Key", "6644d4071bmsh563adbf6d3e9af9p166644jsn00e21c66c99d" },
-        { "X-RapidAPI-Host", "the-cocktail-db.p.rapidapi.com" },
-    },
-            };
-            using (var response = await client.SendAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-                //var dynamicObject = JsonConvert.DeserializeObject<dynamic>(body);
-                var dynamicObject = JsonConvert.DeserializeObject<Dictionary<object,object>>(body);
-                var test = dynamicObject.Values.First();      //var idIngredient = dynamicObject.idIngredient;
-                //var strIngredient = dynamicObject.strIngredient;
-            }
-            return RedirectToAction("Index", "Home");
-        }
+        
         public async Task<ActionResult> Index()
         {
             var model = await _drinkService.GetAllDrinks();
