@@ -1,4 +1,8 @@
-﻿using GreenFlamingosWebApp.Models;
+﻿using GreenFlamingos.Services.Services.Interfaces;
+using GreenFlamingosApp.DataBase.DbModels;
+using GreenFlamingosApp.Services.Services.ServiceClass;
+using GreenFlamingosWebApp.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,25 +10,35 @@ namespace GreenFlamingosWebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly SignInManager<DbUser> _signInManager;
+        private readonly UserManager<DbUser> _userManager;
+        private readonly IDrinkService _drinkService;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(SignInManager<DbUser> signInManager, UserManager<DbUser> userManager, IDrinkService drinkService )
         {
-            _logger = logger;
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _drinkService = drinkService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            if (_signInManager.IsSignedIn(User))
+            {
+                var user = await _userManager.FindByIdAsync(_userManager.GetUserId(User));
+            }
+            var topRated = await _drinkService.Get6TopRatedDrinks();
+            return View(topRated);
         }
 
-        public IActionResult Privacy()
+        public ActionResult Privacy()
         {
             return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public ActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }

@@ -1,0 +1,34 @@
+﻿@model GreenFlamingos.Model.Drinks.DrinkMatch
+
+@{
+    ViewData["Title"] = "Match the drink";
+    Layout = "~/Views/Shared/_LayoutOLD.cshtml";
+}
+<head margin-bottom:30px;>
+    <script src="~/js/GreenFlamingosScripts.js"></script>
+</head>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="MatchDrink">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MainIngredient" class="control-label"></label>
+                <input asp-for="MainIngredient" style="width:100%;"  class="form-control" />
+                <span asp-validation-for="MainIngredient" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Ingredients" class="control-label"></label>
+                <div id="divCont8">
+                    <div><input type="text" style="width:90%" name="Ingredients" /><input type="button" style="width:8%; background-color:green; height:38px; border: 1px solid #ced4da; border-radius: 0.25rem;" onclick="AddTextBox8()" value="+" /></div>
+                </div>
+                 <span asp-validation-for="Ingredients" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Match the drink" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,6 +1,8 @@
 ﻿using GreenFlamingos.Model;
 using GreenFlamingosApp.Services.MenuServices;
 
+
+
 int userInput;
 var mainMenu = new MainMenuService();
 //var user = new User("admin","admin");

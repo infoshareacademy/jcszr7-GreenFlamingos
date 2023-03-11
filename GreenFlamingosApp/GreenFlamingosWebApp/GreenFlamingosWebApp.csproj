@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\User\**" />
+    <Content Remove="Views\User\**" />
+    <EmbeddedResource Remove="Views\User\**" />
+    <None Remove="Views\User\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\.sass-cache\9dcd260a98b05df5e2bbaebb993f2e918e16ad1d\style.scssc" />
     <None Include="wwwroot\.sass-cache\9dcd260a98b05df5e2bbaebb993f2e918e16ad1d\_fonts.scssc" />
     <None Include="wwwroot\.sass-cache\9dcd260a98b05df5e2bbaebb993f2e918e16ad1d\_mixin.scssc" />
@@ -31,13 +38,32 @@
   </ItemGroup>
 
   <ItemGroup>
+    
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.4.0" />
+    <PackageReference Include="MailKit" Version="3.4.3" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
+    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.11" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" Version="4.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\GreenFlamingos.Model\GreenFlamingos.Model.csproj" />
-    <ProjectReference Include="..\GreenFlamingosApp.DataBase\GreenFlamingosApp.DataBase.csproj" />
+    <ProjectReference Include="..\GreenFlamingosApp.Services\GreenFlamingosApp.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Drinks\" />
   </ItemGroup>
 
 </Project>

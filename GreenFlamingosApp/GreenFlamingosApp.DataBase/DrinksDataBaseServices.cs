@@ -1,9 +1,9 @@
 ﻿using GreenFlamingos.Model.Drinks;
-using GreenFlamingos.Model;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
-
+using GreenFlamingos.Model.Users;
+using GreenFlamingos.Model;
 
 namespace GreenFlamingosApp.DataBase
 {
@@ -22,7 +22,7 @@ namespace GreenFlamingosApp.DataBase
         {
            JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };    
            var json = JsonConvert.SerializeObject(drinkList, Formatting.Indented, settings);
-            File.WriteAllText(@"..\..\..\..\DrinksDataBase.json", json);
+           File.WriteAllText(@"..\..\..\..\DrinksDataBase.json", json);
         }
 
         public static List<User> ReadAllUsers()
@@ -56,5 +56,6 @@ namespace GreenFlamingosApp.DataBase
             var json = JsonConvert.SerializeObject(ingredientsList, Formatting.Indented, settings);
             File.WriteAllText(@"..\..\..\..\IngredientsDataBase.json", json);
         }
+
     }
 }

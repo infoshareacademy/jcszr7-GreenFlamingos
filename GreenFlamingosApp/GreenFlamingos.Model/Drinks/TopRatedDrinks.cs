@@ -1,0 +1,2 @@
+﻿namespace GreenFlamingos.Model.Drinks
+{}

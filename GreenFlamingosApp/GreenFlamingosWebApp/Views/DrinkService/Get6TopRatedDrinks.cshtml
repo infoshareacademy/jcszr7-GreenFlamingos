@@ -1,0 +1,47 @@
+﻿@model Dictionary<GreenFlamingosApp.DataBase.DbModels.DbDrink, decimal>
+
+@{
+    ViewData["Title"] = "Top rated drinks";
+    Layout = "~/Views/Shared/_LayoutOLD.cshtml";
+}
+
+<div style="text-align:center">
+    <h4>Top rated drinks</h4>
+</div>
+
+<br>
+<br>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Drink name
+            </th>
+
+            <th>
+                Rating
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Key.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.ActionLink("Recipe", "Details","Drink", new {  id=item.Key.Id }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
