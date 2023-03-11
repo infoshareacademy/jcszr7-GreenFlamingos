@@ -4,14 +4,14 @@
     var mainIngredient = Model.Select(d => d.MainIngredient).FirstOrDefault();
     var pageTitle = "";
     var userName = User.Identity.Name;
-    if (mainIngredient == "Wódka")
+    if (mainIngredient == "Vodka")
     {
-        pageTitle = "Drinki z Wódką";
+        pageTitle = "Drinks with vodka";
         ViewData["Title"] = pageTitle;
     }
     if (mainIngredient == "Rum")
     {
-        pageTitle = "Drinki z Rumem";
+        pageTitle = "Drinks with rum";
         ViewData["Title"] = pageTitle;
     }
 
@@ -49,10 +49,10 @@
                     {
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            @Html.ActionLink("Usuń Drinka", "Delete","Drink", new {  id=drink.Id }, new{ @class="btn btn-danger"})
+                            @Html.ActionLink("Delete Drink", "Delete","Drink", new {  id=drink.Id }, new{ @class="btn btn-danger"})
                         </div>
                         <div>
-                            @Html.ActionLink("Edytuj", "Edit", "Drink", new {  id=drink.Id },new{ @class="btn btn-secondary"})
+                            @Html.ActionLink("Edit", "Edit", "Drink", new {  id=drink.Id },new{ @class="btn btn-secondary"})
                         </div>
                     </div>
                     }

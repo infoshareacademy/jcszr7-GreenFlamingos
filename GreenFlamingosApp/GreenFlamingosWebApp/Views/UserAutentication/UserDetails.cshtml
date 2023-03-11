@@ -1,7 +1,7 @@
 ﻿@model GreenFlamingosApp.DataBase.DbModels.DbUser
 @{
     Layout = "~/Views/Shared/_LayoutOLD.cshtml";
-    ViewData["Title"] = "Dane konta";
+    ViewData["Title"] = "Account information";
 }
 
 <section>
@@ -21,7 +21,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Email</p>
+                                <p class="mb-0">E-mail</p>
                             </div>
                             <div class="col-sm-9">
                                 <p class="text-muted mb-0">@Model.UserMail</p>
@@ -30,7 +30,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Numer Telefonu</p>
+                                <p class="mb-0">Phone number</p>
                             </div>
                             <div class="col-sm-9">
                                 <p class="text-muted mb-0">(+48) @Model.UserDetails.PhoneNumber</p>
@@ -39,7 +39,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Adres</p>
+                                <p class="mb-0">Address</p>
                             </div>
                             <div class="col-sm-9">
                                 <p class="text-muted mb-0">@Model.UserDetails.Street, @Model.UserDetails.City</p>

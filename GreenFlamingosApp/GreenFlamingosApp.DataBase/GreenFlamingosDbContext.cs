@@ -64,7 +64,7 @@ namespace GreenFlamingosApp.DataBase
 
             // SEEDING
             modelBuilder.Entity<DbIngredient>()
-                .HasData(new DbIngredient { Id = 1, Name = "Wódka" },
+                .HasData(new DbIngredient { Id = 1, Name = "Vodka" },
                          new DbIngredient { Id = 2, Name = "Rum" },
                          new DbIngredient { Id = 3, Name = "Whisky" },
                          new DbIngredient { Id = 4, Name = "Kostki lodu" },
@@ -105,7 +105,7 @@ namespace GreenFlamingosApp.DataBase
                          new DbDrinkType { Id = 2, Name = "Shot" },
                          new DbDrinkType { Id = 3, Name = "Drink bezalkoholowy" });
             modelBuilder.Entity<DbMainIngredient>()
-                .HasData(new DbMainIngredient { Id = 1, Name = "Wódka" },
+                .HasData(new DbMainIngredient { Id = 1, Name = "Vodka" },
                          new DbMainIngredient { Id = 2, Name = "Rum" },
                          new DbMainIngredient { Id = 3, Name = "Whisky" },
                          new DbMainIngredient { Id = 4, Name = "Sok pomidorowy" },

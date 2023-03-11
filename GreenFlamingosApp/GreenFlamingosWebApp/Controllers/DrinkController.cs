@@ -106,12 +106,12 @@ namespace GreenFlamingosWebApp.Controllers
                     var result = await _drinkService.AddDrink(drink);
                     if (!result)
                     {
-                        ModelState.AddModelError("Ingredients", "Lista składników zawiera taki, który nie znajduje się w bazie. Spróbuj ponownie.");
+                        ModelState.AddModelError("Ingredients", "The list of ingredients contains one that is not in the database. Try again.");
                         return View();
                     }
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("Name", "Drink o podanej nazwie już istnieje");
+                ModelState.AddModelError("Name", "Drink with the given name already exists");
                 return View();
             }
             catch
@@ -164,7 +164,7 @@ namespace GreenFlamingosWebApp.Controllers
                 if (!result)
                 {
 
-                    ModelState.AddModelError("Ingredients", "Lista składników zawiera taki, który nie znajduje się w bazie. Spróbuj ponownie.");
+                    ModelState.AddModelError("Ingredients", "The list of ingredients contains one that is not in the database. Try again.");
                     return View();
                 }
                 return RedirectToAction("Index", "Home");
@@ -223,6 +223,17 @@ namespace GreenFlamingosWebApp.Controllers
             var drinkId = int.Parse(formValues[1]);
             await _drinkService.GetDrinkById(drinkId);
             await _drinkService.AddRateToDrink(drinkId, userId, rateToAdd);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddComment(IFormCollection comment, IFormCollection drinkId)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+            var commentFromUser = comment["comment"].ToString();
+            var drinkIdFromUser = drinkId["drinkId"];
+            //await _drinkService.GetDrinkById(int.Parse(drinkIdFromUser));
+            await _drinkService.AddCommentToDrink(int.Parse(drinkIdFromUser), userId, commentFromUser);
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
