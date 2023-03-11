@@ -402,7 +402,7 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
                 Author = null,
             };
 
-            await _drinkRepository.AddProposedDrinkToProposalDB(drinkToAdd, dbIngredients, ingredientsCapacity);
+            await _drinkRepository.AddProposedDrinkToDB(drinkToAdd, dbIngredients, ingredientsCapacity);
             return true;
         }
     }

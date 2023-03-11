@@ -291,7 +291,7 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             }
             await _greenFlamingosDbContext.SaveChangesAsync();
         }
-        public async Task AddProposedDrinkToProposalDB(DbProposedDrink drinkToAdd, List<DbIngredient> ingredients, List<string> ingredientsCapacity)
+        public async Task AddProposedDrinkToDB(DbProposedDrink drinkToAdd, List<DbIngredient> ingredients, List<string> ingredientsCapacity)
         {
             await _greenFlamingosDbContext.ProposedDrinks.AddAsync(drinkToAdd);
             foreach (var ingredient in ingredients)

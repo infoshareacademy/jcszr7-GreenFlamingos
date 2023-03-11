@@ -33,6 +33,6 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces
         public Task<Dictionary<int, decimal>> GetDrinkIdRatingDicotnary();
         public Task<List<DbDrink>> GetMatchedDrinks(DrinkMatch drinkMatch);
         public Task AddIngredientsToDB(List<DbIngredient> dbIngredients);
-        public Task AddProposedDrinkToProposalDB(DbProposedDrink drinkToAdd, List<DbIngredient> ingredients, List<string> ingredientsCapacity);
+        public Task AddProposedDrinkToDB(DbProposedDrink drinkToAdd, List<DbIngredient> ingredients, List<string> ingredientsCapacity);
     }
 }
