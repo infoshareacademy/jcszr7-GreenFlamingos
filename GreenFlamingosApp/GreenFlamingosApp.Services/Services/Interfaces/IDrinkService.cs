@@ -27,5 +27,6 @@ namespace GreenFlamingos.Services.Services.Interfaces
         public Task<List<Drink>> GetSearchedDrinks(string searchedPhrase);
         public Task<List<Drink>> GetMatchedDrinks(DrinkMatch drinkToMatch);
         public Task<bool> AddIngredientsToDB(List<Ingredient> ingredients);
+
     }
 }
