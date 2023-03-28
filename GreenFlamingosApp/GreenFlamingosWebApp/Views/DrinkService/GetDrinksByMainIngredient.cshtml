@@ -7,22 +7,14 @@
     var userName = User.Identity.Name;
     if (mainIngredient == "Vodka")
     {
-<<<<<<< HEAD
         pageTitle = "Drinks with vodka";
-=======
         mainIngredientENG = "vodka";
-        pageTitle = "Drinki z Wódką";
->>>>>>> origin/feature/GRFLAMI_42_JG
         ViewData["Title"] = pageTitle;
     }
     if (mainIngredient == "Rum")
     {
-<<<<<<< HEAD
         pageTitle = "Drinks with rum";
-=======
         mainIngredientENG = "rum";
-        pageTitle = "Drinki z Rumem";
->>>>>>> origin/feature/GRFLAMI_42_JG
         ViewData["Title"] = pageTitle;
     }
 
@@ -54,7 +46,7 @@
                         }
                     </div>
                     <div style="color:black; margin-bottom:20px; text-align:center;">
-                        <h7>Średnia ocena: @Math.Round(@drink.AverageRating,1)</h7>
+                        <h7>Rate: @Math.Round(@drink.AverageRating,1)</h7>
                     </div>
                     @if(userName == "Admin")
                     {
@@ -74,7 +66,7 @@
     </div>
         <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h4> If you want to learn more about @mainIngredientENG click here: @Html.ActionLink("About", "ApiComm","DrinkService", new {alcoType = mainIngredientENG})</h4>
+            <h4> If you want to learn more about @mainIngredient click here: @Html.ActionLink("About", "ApiComm","DrinkService", new {alcoType = mainIngredient})</h4>
         </div>
     </div>
 </div>

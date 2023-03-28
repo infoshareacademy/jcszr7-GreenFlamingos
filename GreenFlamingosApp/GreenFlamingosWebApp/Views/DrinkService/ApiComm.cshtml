@@ -5,51 +5,38 @@
     Layout = "~/Views/Shared/_LayoutOLD.cshtml";
 }
 
-<h1>ApiComm</h1>
+<h1>@Model.StrIngredient</h1>
 
 <div>
-    <h4>ApiIngredient</h4>
-    <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdIngredient)
+            @Html.DisplayNameFor(model=>model.StrDescription)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdIngredient)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StrIngredient)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StrIngredient)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StrDescription)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StrDescription)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StrType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StrType)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StrAlcohol)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StrAlcohol)
+        <dd class = "col-sm-10" style="text-align:justify;text-justify:inter-word">
+            @if (Model.StrDescription != null)
+            {
+                @Html.DisplayFor(model => model.StrDescription)
+            }else
+            {
+                Model.StrDescription = "This ingredient is not described in an external API";
+                 @Html.DisplayFor(model => model.StrDescription)
+                
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.StrABV)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StrABV)
+            @if (Model.StrABV != null)
+            {
+                @Html.DisplayFor(model => model.StrABV)
+            }
+            else
+            {
+                Model.StrABV = "0%";
+                @Html.DisplayFor(model => model.StrABV)
+            }
         </dd>
     </dl>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+
