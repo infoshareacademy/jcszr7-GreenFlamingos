@@ -337,5 +337,11 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
                                                        }).ToList()
             }).ToList();
         }
+        public async Task RemoveProposedDrinkFromDB(int id)
+        {
+            var drinkToRemove = await _greenFlamingosDbContext.ProposedDrinks.FirstOrDefaultAsync(d => d.Id == id);
+            _greenFlamingosDbContext.ProposedDrinks.Remove(drinkToRemove);
+            await _greenFlamingosDbContext.SaveChangesAsync();
+        }
     }
 }

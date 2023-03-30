@@ -17,6 +17,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.AlcoholContent)
             </th>
             <th>
@@ -24,9 +27,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DrinkType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.MainIngredient)
@@ -38,22 +38,7 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Preparation)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AverageRating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RequiresValidationContext)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ErrorMessage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ErrorMessageResourceName)
             </th>
             <th></th>
         </tr>
@@ -62,6 +47,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.AlcoholContent)
             </td>
             <td>
@@ -69,9 +57,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DrinkType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MainIngredient)
@@ -83,27 +68,10 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Preparation)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.ImageUrl)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AverageRating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequiresValidationContext)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ErrorMessage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ErrorMessageResourceName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Proposed Drink Details", "ProposedDrinkDetails", new {  id=item.Id })
             </td>
         </tr>
 }

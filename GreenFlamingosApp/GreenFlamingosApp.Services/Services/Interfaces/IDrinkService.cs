@@ -10,7 +10,6 @@ namespace GreenFlamingos.Services.Services.Interfaces
         public Task<bool> AddDrink(Drink drink);
         public Task<Drink> GetDrinkById(int id);
         public Task RemoveDrink(Drink drink);
-        // public List<Drink> SearchDrink(string searchedWord);
         public Task<bool> EditDrink(Drink drink);
         public Task<List<MainIngredient>> GetAllMainIngredients();
         public Task<List<DrinkType>> GetAllDrinkTypes();
@@ -28,6 +27,7 @@ namespace GreenFlamingos.Services.Services.Interfaces
         public Task<bool> AddIngredientsToDB(List<Ingredient> ingredients);
         public Task<bool> AddProposedDrink(Drink drink);
         public Task<List<Drink>> GetAllProposedDrinks();
-
+        public Task<Drink> GetProposedDrinkById(int id);
+        public Task RemoveProposedDrink(Drink drink);
     }
 }

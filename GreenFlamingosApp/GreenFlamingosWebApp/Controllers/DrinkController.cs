@@ -312,11 +312,59 @@ namespace GreenFlamingosWebApp.Controllers
                 return View();
             }
         }
+
         // GET: DrinkController/ProposedDrinksList
         public async Task<ActionResult> ProposedDrinksList()
         {
             var model = await _drinkService.GetAllProposedDrinks();
             return View(model);
         }
+
+        //GET: DrinkController/ProposedDrinkDetails
+        public async Task<ActionResult> ProposedDrinkDetails(int id)
+        {
+            var model = await _drinkService.GetProposedDrinkById(id);
+            return View(model);
+        }
+
+        // POST: DrinkController/AcceptProposedDrink
+        public async Task<ActionResult> AcceptProposedDrink(int id)
+        {
+            try
+            {
+                var drink = await _drinkService.GetProposedDrinkById(id);
+                await _drinkService.AddDrink(drink);
+                await _drinkService.RemoveProposedDrink(drink);
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+                var user = await _userService.GetUserById(userId.Value);
+                _userService.SendEmailProposedDrinkSolved(user, true);
+                return RedirectToAction("ProposedDrinksList", "Drink");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // POST: DrinkController/RejectProposedDrink
+        public async Task<ActionResult> RejectProposedDrink(int id)
+        {
+            try
+            {
+                var drink = await _drinkService.GetProposedDrinkById(id);
+                await _drinkService.RemoveProposedDrink(drink);
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+                var user = await _userService.GetUserById(userId.Value);
+                _userService.SendEmailProposedDrinkSolved(user, false);
+                return RedirectToAction("ProposedDrinksList", "Drink");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
     }
 }
