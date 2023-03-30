@@ -405,5 +405,11 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
             await _drinkRepository.AddProposedDrinkToDB(drinkToAdd, dbIngredients, ingredientsCapacity);
             return true;
         }
+        public async Task<List<Drink>> GetAllProposedDrinks()
+        {
+            var drinks = await _drinkRepository.GetAllProposedDrinks();
+            return drinks;
+        }
+
     }
 }

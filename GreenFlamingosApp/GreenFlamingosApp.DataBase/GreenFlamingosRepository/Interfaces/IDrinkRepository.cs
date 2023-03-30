@@ -34,5 +34,6 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Interfaces
         public Task<List<DbDrink>> GetMatchedDrinks(DrinkMatch drinkMatch);
         public Task AddIngredientsToDB(List<DbIngredient> dbIngredients);
         public Task AddProposedDrinkToDB(DbProposedDrink drinkToAdd, List<DbIngredient> ingredients, List<string> ingredientsCapacity);
+        public Task<List<Drink>> GetAllProposedDrinks();
     }
 }

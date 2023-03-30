@@ -312,5 +312,11 @@ namespace GreenFlamingosWebApp.Controllers
                 return View();
             }
         }
+        // GET: DrinkController/ProposedDrinksList
+        public async Task<ActionResult> ProposedDrinksList()
+        {
+            var model = await _drinkService.GetAllProposedDrinks();
+            return View(model);
+        }
     }
 }
