@@ -15,6 +15,8 @@ namespace GreenFlamingosApp.DataBase
         public DbSet<DbIngredient> Ingredients { get; set; }
         public DbSet<DbDrinkIngredient> DrinksIngredients { get; set; }
         public DbSet<DbDrinkUser> DrinkUsers { get; set; }
+        public DbSet<DbProposedDrink> ProposedDrinks { get; set; }
+        public DbSet<DbProposedDrinkIngredient> ProposedDrinkIngriedents { get; set; }
         public GreenFlamingosDbContext(DbContextOptions<GreenFlamingosDbContext> options) : base(options) {}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,12 +28,22 @@ namespace GreenFlamingosApp.DataBase
                 .WithOne(ud => ud.User)
                 .HasForeignKey<DbUserDetails>(ud => ud.UserId);
 
-            //Relations one to many
+            //Relations one to many drink ->
             modelBuilder.Entity<DbDrink>()
                 .HasOne(d => d.MainIngredient)
                 .WithMany()
                 .HasForeignKey(d => d.MainIngredientId);
             modelBuilder.Entity<DbDrink>()
+                .HasOne(d => d.DrinkType)
+                .WithMany()
+                .HasForeignKey(d => d.DrinkTypeId);
+
+            //Relations one to many ProposedDrink ->
+            modelBuilder.Entity<DbProposedDrink>()
+                .HasOne(d => d.MainIngredient)
+                .WithMany()
+                .HasForeignKey(d => d.MainIngredientId);
+            modelBuilder.Entity<DbProposedDrink>()
                 .HasOne(d => d.DrinkType)
                 .WithMany()
                 .HasForeignKey(d => d.DrinkTypeId);
@@ -47,6 +59,19 @@ namespace GreenFlamingosApp.DataBase
             modelBuilder.Entity<DbDrinkIngredient>()
                 .HasOne(x => x.Ingredient)
                 .WithMany(x=>x.DrinkIngredients)
+                .HasForeignKey(x => x.IngredientId);
+
+            //Relations many to many ProposedDrinks < - > ingredients
+            modelBuilder.Entity<DbProposedDrinkIngredient>()
+                .HasKey(x => new { x.DrinkId, x.IngredientId });
+
+            modelBuilder.Entity<DbProposedDrinkIngredient>()
+                .HasOne(x => x.ProposedDrink)
+                .WithMany(x => x.ProposedDrinkIngredients)
+                .HasForeignKey(x => x.DrinkId);
+            modelBuilder.Entity<DbProposedDrinkIngredient>()
+                .HasOne(x => x.Ingredient)
+                .WithMany(x => x.ProposedDrinkIngredients)
                 .HasForeignKey(x => x.IngredientId);
 
             //Relation many to many drinks < - > users

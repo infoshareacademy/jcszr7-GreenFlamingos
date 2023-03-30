@@ -315,5 +315,57 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             }
             await _greenFlamingosDbContext.SaveChangesAsync();
         }
+        public async Task AddProposedDrinkToDB(DbProposedDrink drinkToAdd, List<DbIngredient> ingredients, List<string> ingredientsCapacity)
+        {
+            await _greenFlamingosDbContext.ProposedDrinks.AddAsync(drinkToAdd);
+            foreach (var ingredient in ingredients)
+            {
+                var dbProposalDrinkIngredient = new DbProposedDrinkIngredient { ProposedDrink = drinkToAdd, Ingredient = ingredient, IngredientCapacity = ingredientsCapacity[ingredients.IndexOf(ingredient)] };
+                await _greenFlamingosDbContext.ProposedDrinkIngriedents.AddAsync(dbProposalDrinkIngredient);
+            }
+            await _greenFlamingosDbContext.SaveChangesAsync();
+        }
+        public async Task<List<Drink>> GetAllProposedDrinks()
+        {
+            var dbProposedDrinks = await _greenFlamingosDbContext.ProposedDrinks.Include(m => m.MainIngredient)
+                                                                  .Include(dt => dt.DrinkType)
+                                                                  .Include(a => a.Author)
+                                                                  .Include(d => d.ProposedDrinkIngredients)
+                                                                  .ThenInclude(x => x.Ingredient)
+                                                                  .ToListAsync();
+            var RatingAverage = new List<decimal>();
+            //var dictonaryRating = await GetDrinkIdRatingDicotnary();
+
+            return dbProposedDrinks.Select(dbProposedDrinks => new Drink
+            {
+                Id = dbProposedDrinks.Id,
+                Name = dbProposedDrinks.Name,
+                DrinkType = dbProposedDrinks.DrinkType.Name,
+                MainIngredient = dbProposedDrinks.MainIngredient.Name,
+                Capacity = dbProposedDrinks.Capacity,
+                AlcoholContent = dbProposedDrinks.AlcoholContent,
+                Preparation = dbProposedDrinks.Preparations,
+                Calories = dbProposedDrinks.Calories,
+                Description = dbProposedDrinks.Description,
+                ImageUrl = dbProposedDrinks.ImageUrl,
+                AverageRating = 0,
+                Ingredients = dbProposedDrinks.ProposedDrinkIngredients.Select(i => new
+                {
+                    SimplyIngredient = i.Ingredient,
+                    SimplyIngredientCapacity = i.IngredientCapacity
+                })
+                                                       .Select(x => new Ingredient
+                                                       {
+                                                           Name = x.SimplyIngredient.Name,
+                                                           Capacity = x.SimplyIngredientCapacity
+                                                       }).ToList()
+            }).ToList();
+        }
+        public async Task RemoveProposedDrinkFromDB(int id)
+        {
+            var drinkToRemove = await _greenFlamingosDbContext.ProposedDrinks.FirstOrDefaultAsync(d => d.Id == id);
+            _greenFlamingosDbContext.ProposedDrinks.Remove(drinkToRemove);
+            await _greenFlamingosDbContext.SaveChangesAsync();
+        }
     }
 }

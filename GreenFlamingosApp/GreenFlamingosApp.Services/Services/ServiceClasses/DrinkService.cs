@@ -375,5 +375,63 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
                 }
             return false;
         }
+
+        public async Task<bool> AddProposedDrink(Drink newDrink)
+        {
+            if (newDrink.Photo != null)
+            {
+                var folder = "Drinks/";
+                folder += Guid.NewGuid().ToString() + "_" + newDrink.Photo.FileName;
+                var serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+                newDrink.ImageUrl = "/" + folder;
+                newDrink.Photo.CopyTo(new FileStream(serverFolder, FileMode.Create));
+            }
+            var mainIngredient = await _drinkRepository.GetMainIngredientByName(newDrink.MainIngredient);
+            var drinkType = await _drinkRepository.GetDrinkTypeByName(newDrink.DrinkType);
+
+            var ingredientsCapacity = newDrink.Ingredients.Select(i => i.Capacity).ToList();
+
+            var dbIngredients = new List<DbIngredient>();
+
+            if (await AreDrinkIngredientsInDb(newDrink.Ingredients))
+            {
+                dbIngredients = await CreateIngredientsList(newDrink.Ingredients);
+            }
+            else
+            {
+                return false;
+            }
+
+            var drinkToAdd = new DbProposedDrink
+            {
+                Name = newDrink.Name,
+                Capacity = newDrink.Capacity,
+                AlcoholContent = newDrink.AlcoholContent,
+                Calories = newDrink.Calories,
+                DrinkType = drinkType,
+                MainIngredient = mainIngredient,
+                Preparations = newDrink.Preparation,
+                Description = newDrink.Description,
+                ImageUrl = newDrink.ImageUrl,
+                Author = null,
+            };
+
+            await _drinkRepository.AddProposedDrinkToDB(drinkToAdd, dbIngredients, ingredientsCapacity);
+            return true;
+        }
+        public async Task<List<Drink>> GetAllProposedDrinks()
+        {
+            var drinks = await _drinkRepository.GetAllProposedDrinks();
+            return drinks;
+        }
+        public async Task<Drink> GetProposedDrinkById(int id)
+        {
+            var drinks = await GetAllProposedDrinks();
+            return drinks.FirstOrDefault(d => d.Id == id);
+        }
+        public async Task RemoveProposedDrink(Drink drink)
+        {
+            await _drinkRepository.RemoveProposedDrinkFromDB(drink.Id);
+        }
     }
 }

@@ -152,10 +152,12 @@
                                     @if (userName == "Admin")
                                     {
                                         <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="Create">Create a drink</a></li>
+                                        <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="ProposedDrinksList">Proposed Drinks List</a></li>
                                     }
                                     else if (userName != null)
                                     {
                                         <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="GetFavouriteDrinks">My Drinks</a></li>
+                                        <li class="megamenu"><a class="nav-link text-dark" asp-area="" asp-controller="Drink" asp-action="DrinkProposal">Propose Drink</a></li>
                                     }
                                 </ul>
 

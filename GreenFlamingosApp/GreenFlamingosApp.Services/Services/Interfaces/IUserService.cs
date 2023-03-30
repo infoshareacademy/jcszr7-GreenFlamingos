@@ -10,6 +10,7 @@ namespace GreenFlamingosApp.Services.Services.Interfaces
         public void SendEmail(string receiver, string userName);
         public Task<List<DbUser>> GetAllUsers();
         public Task DeleteUser(DbUser user);
-
+        public void SendEmailProposedDrinkWaiting(DbUser user);
+        public void SendEmailProposedDrinkSolved(DbUser user, bool adminDecision);
     }
 }

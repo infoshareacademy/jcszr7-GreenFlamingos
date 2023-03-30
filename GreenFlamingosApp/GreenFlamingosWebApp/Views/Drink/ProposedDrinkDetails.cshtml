@@ -1,0 +1,78 @@
+﻿@model GreenFlamingos.Model.Drinks.Drink
+@{
+    Layout = "~/Views/Shared/_LayoutOLD.cshtml";
+    ViewData["Title"] = "Proposed Drink Details";
+    var preparationSteps = Model.Preparation.Split("\r\n").ToList();
+    var userName = User.Identity.Name;
+}
+<script src="https://kit.fontawesome.com/71a3607229.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="~/js/GreenFlamingosScripts.js"></script>
+<div>
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="Kuba_Test2">
+        <img src="@Model.ImageUrl" class="center" />
+    </div>
+    <div class="receipe-content-area">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-12 col-md-8">
+                    <div class="receipe-headline my-5">
+                        <h2>@Model.Name</h2>
+                        <div class="receipe-duration">
+                            @Model.Description
+                        </div>
+                    </div>
+                </div>
+                <div class="Information">
+                    <div class="additionalInfo">
+                        <h6 style="color:black;">Alcohol</h6>
+                        <h6 style="color:black;">@Model.AlcoholContent %</h6>
+                    </div>
+                    <div style="color:black;" class="additionalInfo">
+                        <h6 style="color:black;">Calories</h6>
+                        <h6 style="color:black;">@Model.Calories</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    <h4 style="color:#474747; margin-bottom:30px;">Preparation:</h4>
+
+                    @foreach (var preparation in preparationSteps)
+                    {
+                        <!-- Single Preparation Step -->
+                        <div class="single-preparation-step d-flex">
+                            <h4>@(preparationSteps.IndexOf(preparation) + 1).</h4>
+                            <h5>@preparation</h5>
+                        </div>
+                    }
+                </div>
+
+                <!-- Ingredients -->
+                <div>
+                    <div class="ingredients">
+                        <h4>Ingredients</h4>
+
+                        @foreach (var ingredient in Model.Ingredients)
+                        {
+                            <!-- Custom Checkbox -->
+                            <div class="ingredient">
+                                <input type="checkbox" style="width:25px; height:25px; margin-bottom:20px; margin-right:20px;" id="cb1">
+                                <label class="custom-control-label" for="customCheck1">@ingredient.Name : @ingredient.Capacity</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            @if (userName != null)
+            {
+                <div class="d-flex justify-content-between align-items-center">
+                    @Html.ActionLink("Accept", "AcceptProposedDrink","Drink", new {  id=Model.Id }, new{ @class="btn btn-success"})
+                    @Html.ActionLink("Reject", "RejectProposedDrink","Drink", new {  id=Model.Id }, new{ @class="btn btn-danger"})
+                </div>
+            }
+
+    </div>
