@@ -1,0 +1,42 @@
+﻿@model GreenFlamingos.Model.APIResponses.ApiIngredient
+
+@{
+    ViewData["Title"] = "ApiComm";
+    Layout = "~/Views/Shared/_LayoutOLD.cshtml";
+}
+
+<h1>@Model.StrIngredient</h1>
+
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model=>model.StrDescription)
+        </dt>
+        <dd class = "col-sm-10" style="text-align:justify;text-justify:inter-word">
+            @if (Model.StrDescription != null)
+            {
+                @Html.DisplayFor(model => model.StrDescription)
+            }else
+            {
+                Model.StrDescription = "This ingredient is not described in an external API";
+                 @Html.DisplayFor(model => model.StrDescription)
+                
+            }
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StrABV)
+        </dt>
+        <dd class = "col-sm-10">
+            @if (Model.StrABV != null)
+            {
+                @Html.DisplayFor(model => model.StrABV)
+            }
+            else
+            {
+                Model.StrABV = "0%";
+                @Html.DisplayFor(model => model.StrABV)
+            }
+        </dd>
+    </dl>
+</div>
+

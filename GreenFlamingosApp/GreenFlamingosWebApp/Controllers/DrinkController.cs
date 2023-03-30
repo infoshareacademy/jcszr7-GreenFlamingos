@@ -11,6 +11,8 @@ using System.Security.Claims;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using GreenFlamingos.Model.APIResponses;
+using GreenFlamingosApp.Services.Services.ServiceClasses;
 
 namespace GreenFlamingosWebApp.Controllers
 {
@@ -19,37 +21,19 @@ namespace GreenFlamingosWebApp.Controllers
         // GET: DrinkController
         private readonly IDrinkService _drinkService;
         private readonly IValidationService _validationService;
+        private readonly IUserService _userService;
         private readonly UserManager<DbUser> _userManager;
         string baseUrl = "https://api.api-ninjas.com/v1/cocktail?name=";
 
-        public DrinkController(IDrinkService drinkService, UserManager<DbUser> userManager, IValidationService validationService)
+        public DrinkController(IDrinkService drinkService, UserManager<DbUser> userManager, IValidationService validationService, IUserService userService)
         {
             _drinkService = drinkService;
             _userManager = userManager;
             _validationService = validationService;
+            _userService = userService;
         }
 
-        public async Task<ActionResult> ApiComm()
-        {
-            var client = new HttpClient();
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri("https://the-cocktail-db.p.rapidapi.com/search.php?s=vodka"),
-                Headers =
-    {
-        { "X-RapidAPI-Key", "6644d4071bmsh563adbf6d3e9af9p166644jsn00e21c66c99d" },
-        { "X-RapidAPI-Host", "the-cocktail-db.p.rapidapi.com" },
-    },
-            };
-            using (var response = await client.SendAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-                JObject json = JObject.Parse(body);
-            }
-            return RedirectToAction("Index", "Home");
-        }
+        
         public async Task<ActionResult> Index()
         {
             var model = await _drinkService.GetAllDrinks();
@@ -257,11 +241,122 @@ namespace GreenFlamingosWebApp.Controllers
             return View(await _drinkService.GetTopRatedDrinks());
         }
 
+        // Get: DrinkController/DrinkProposal
         [HttpGet]
-        public async Task<ActionResult> GetUserName()
+        public async Task<ActionResult> DrinkProposal()
         {
-            return View(await _drinkService.GetTopRatedDrinks());
+            var mainIngredients = await _drinkService.GetAllMainIngredients();
+            ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();
+            var drinkTypes = await _drinkService.GetAllDrinkTypes();
+            ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
+            var ingredients = await _drinkService.GetAllIngredients();
+            ViewBag.Ingredients = ingredients.Select(i => i.Name).ToList();
+            return View();
         }
+
+        // POST: DrinkController/DrinkProposal
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DrinkProposal(Drink drink, IFormCollection userFormValues)
+        {
+            try
+            {
+                var mainIngredients = await _drinkService.GetAllMainIngredients();
+                ViewBag.MainIngredients = mainIngredients.Select(m => m.Name).ToList();
+                var drinkTypes = await _drinkService.GetAllDrinkTypes();
+                ViewBag.DrinkType = drinkTypes.Select(dt => dt.Name).ToList();
+                if (!await _validationService.IsDrinkExistInDB(drink.Name))
+                {
+                    var userIngredients = userFormValues["Ingredients"].ToList();
+                    var userIngredientsCapacity = userFormValues["IngredientCapacity"].ToList();
+                    var userPreparations = userFormValues["Preparations"].ToList();
+                    if (userPreparations.Contains(""))
+                    {
+                        userPreparations.Remove("");
+                    }
+
+                    drink.Preparation = string.Join("\r\n", userPreparations);
+
+                    foreach (var ingredient in userIngredients)
+                    {
+                        var ingredientToAdd = new Ingredient { Id = userIngredients.IndexOf(ingredient) + 1, Name = ingredient, Capacity = userIngredientsCapacity[userIngredients.IndexOf(ingredient)] };
+                        drink.Ingredients.Add(ingredientToAdd);
+                    }
+
+                    var result = await _drinkService.AddProposedDrink(drink);
+                    if (!result)
+                    {
+                        ModelState.AddModelError("Ingredients", "Ingredients list has ingredient not from data base. Try Again.");
+                        return View();
+                    }
+
+                    var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+                    var user = await _userService.GetUserById(userId.Value);
+                    _userService.SendEmailProposedDrinkWaiting(user);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("Name", "Proposed drink name is already used.");
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: DrinkController/ProposedDrinksList
+        public async Task<ActionResult> ProposedDrinksList()
+        {
+            var model = await _drinkService.GetAllProposedDrinks();
+            return View(model);
+        }
+
+        //GET: DrinkController/ProposedDrinkDetails
+        public async Task<ActionResult> ProposedDrinkDetails(int id)
+        {
+            var model = await _drinkService.GetProposedDrinkById(id);
+            return View(model);
+        }
+
+        // POST: DrinkController/AcceptProposedDrink
+        public async Task<ActionResult> AcceptProposedDrink(int id)
+        {
+            try
+            {
+                var drink = await _drinkService.GetProposedDrinkById(id);
+                await _drinkService.AddDrink(drink);
+                await _drinkService.RemoveProposedDrink(drink);
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+                var user = await _userService.GetUserById(userId.Value);
+                _userService.SendEmailProposedDrinkSolved(user, true);
+                return RedirectToAction("ProposedDrinksList", "Drink");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // POST: DrinkController/RejectProposedDrink
+        public async Task<ActionResult> RejectProposedDrink(int id)
+        {
+            try
+            {
+                var drink = await _drinkService.GetProposedDrinkById(id);
+                await _drinkService.RemoveProposedDrink(drink);
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+                var user = await _userService.GetUserById(userId.Value);
+                _userService.SendEmailProposedDrinkSolved(user, false);
+                return RedirectToAction("ProposedDrinksList", "Drink");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
 
     }
 }

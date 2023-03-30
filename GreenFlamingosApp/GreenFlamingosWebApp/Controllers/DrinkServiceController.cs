@@ -1,6 +1,8 @@
-﻿using GreenFlamingos.Model.Drinks;
+﻿using GreenFlamingos.Model.APIResponses;
+using GreenFlamingos.Model.Drinks;
 using GreenFlamingos.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace GreenFlamingosWebApp.Controllers
 {
@@ -12,6 +14,31 @@ namespace GreenFlamingosWebApp.Controllers
         {
             _drinkService = drinkService;
         }
+
+        [HttpGet]
+        public async Task<ActionResult> ApiComm(string alcoType)
+        {
+            var client = new HttpClient();
+            var responseObject = new IngredientResponse();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://the-cocktail-db.p.rapidapi.com/search.php?i={alcoType}"),
+                Headers =
+            {
+                { "X-RapidAPI-Key", "6644d4071bmsh563adbf6d3e9af9p166644jsn00e21c66c99d" },
+                { "X-RapidAPI-Host", "the-cocktail-db.p.rapidapi.com" },
+            },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                responseObject = JsonConvert.DeserializeObject<IngredientResponse>(body);
+            }
+            return View(responseObject.Ingredients.First());
+        }
+
 
         [HttpGet("mainIngredient")]
         public async Task<ActionResult> GetDrinksByMainIngredient(string mainIngredient)

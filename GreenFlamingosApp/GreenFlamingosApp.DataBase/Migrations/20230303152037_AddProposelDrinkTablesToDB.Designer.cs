@@ -4,6 +4,7 @@ using GreenFlamingosApp.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GreenFlamingosApp.DataBase.Migrations
 {
     [DbContext(typeof(GreenFlamingosDbContext))]
-    partial class GreenFlamingosDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230303152037_AddProposelDrinkTablesToDB")]
+    partial class AddProposelDrinkTablesToDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -133,9 +135,6 @@ namespace GreenFlamingosApp.DataBase.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("DbProposedDrinkId")
                         .HasColumnType("int");
 
@@ -173,7 +172,7 @@ namespace GreenFlamingosApp.DataBase.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Vodka"
+                            Name = "Wódka"
                         },
                         new
                         {
@@ -188,17 +187,17 @@ namespace GreenFlamingosApp.DataBase.Migrations
                         new
                         {
                             Id = 4,
-                            Name = "Ice Cube"
+                            Name = "Kostki lodu"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Water"
+                            Name = "Woda"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Orange Juice"
+                            Name = "Sok Pomarańczowy"
                         },
                         new
                         {
@@ -213,22 +212,22 @@ namespace GreenFlamingosApp.DataBase.Migrations
                         new
                         {
                             Id = 9,
-                            Name = "Tomato Juice"
+                            Name = "Sok pomidorowy"
                         },
                         new
                         {
                             Id = 10,
-                            Name = "Sparkling Water"
+                            Name = "Woda Gazowana"
                         },
                         new
                         {
                             Id = 11,
-                            Name = "Apple Juice"
+                            Name = "Sok Jabłkowy"
                         },
                         new
                         {
                             Id = 12,
-                            Name = "Currant Juice"
+                            Name = "Sok Porzeczkowy"
                         },
                         new
                         {
@@ -258,97 +257,97 @@ namespace GreenFlamingosApp.DataBase.Migrations
                         new
                         {
                             Id = 18,
-                            Name = "Lemon Juice"
+                            Name = "Sok z cytryny"
                         },
                         new
                         {
                             Id = 19,
-                            Name = "Sugar syrup"
+                            Name = "Syrop cukrowy"
                         },
                         new
                         {
                             Id = 20,
-                            Name = "Grenadine"
+                            Name = "Grenadyna"
                         },
                         new
                         {
                             Id = 21,
-                            Name = "Coke"
+                            Name = "Coca Cola"
                         },
                         new
                         {
                             Id = 22,
-                            Name = "Lime Juice"
+                            Name = "Sok z limonki"
                         },
                         new
                         {
                             Id = 23,
-                            Name = "Lime"
+                            Name = "Limonka"
                         },
                         new
                         {
                             Id = 24,
-                            Name = "Lemon"
+                            Name = "Cytryna"
                         },
                         new
                         {
                             Id = 25,
-                            Name = "Tomato"
+                            Name = "Pomidor"
                         },
                         new
                         {
                             Id = 26,
-                            Name = "Spinach"
+                            Name = "Szpinak"
                         },
                         new
                         {
                             Id = 27,
-                            Name = "Orange"
+                            Name = "Pomarańcza"
                         },
                         new
                         {
                             Id = 28,
-                            Name = "Pomegranate"
+                            Name = "Granat"
                         },
                         new
                         {
                             Id = 29,
-                            Name = "Mint"
+                            Name = "Mięta"
                         },
                         new
                         {
                             Id = 30,
-                            Name = "Strawberry"
+                            Name = "Truskawki"
                         },
                         new
                         {
                             Id = 31,
-                            Name = "Avocado"
+                            Name = "Avokado"
                         },
                         new
                         {
                             Id = 32,
-                            Name = "Peach"
+                            Name = "Brzoskwinia"
                         },
                         new
                         {
                             Id = 33,
-                            Name = "Banana"
+                            Name = "Banan"
                         },
                         new
                         {
                             Id = 34,
-                            Name = "Honey"
+                            Name = "Miód"
                         },
                         new
                         {
                             Id = 35,
-                            Name = "White Grape"
+                            Name = "Winogrono Białe"
                         },
                         new
                         {
                             Id = 36,
-                            Name = "Red Grape"
+                            Name = "Winogrono Czerwone"
                         });
                 });
 
@@ -371,7 +370,7 @@ namespace GreenFlamingosApp.DataBase.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Vodka"
+                            Name = "Wódka"
                         },
                         new
                         {
@@ -386,7 +385,7 @@ namespace GreenFlamingosApp.DataBase.Migrations
                         new
                         {
                             Id = 4,
-                            Name = "Orange Juice"
+                            Name = "Sok pomidorowy"
                         },
                         new
                         {
@@ -411,12 +410,12 @@ namespace GreenFlamingosApp.DataBase.Migrations
                         new
                         {
                             Id = 9,
-                            Name = "Strawberry"
+                            Name = "Truskawka"
                         },
                         new
                         {
                             Id = 10,
-                            Name = "Banana"
+                            Name = "Banan"
                         });
                 });
 

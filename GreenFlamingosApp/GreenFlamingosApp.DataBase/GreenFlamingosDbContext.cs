@@ -15,6 +15,8 @@ namespace GreenFlamingosApp.DataBase
         public DbSet<DbIngredient> Ingredients { get; set; }
         public DbSet<DbDrinkIngredient> DrinksIngredients { get; set; }
         public DbSet<DbDrinkUser> DrinkUsers { get; set; }
+        public DbSet<DbProposedDrink> ProposedDrinks { get; set; }
+        public DbSet<DbProposedDrinkIngredient> ProposedDrinkIngriedents { get; set; }
         public GreenFlamingosDbContext(DbContextOptions<GreenFlamingosDbContext> options) : base(options) {}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,12 +28,22 @@ namespace GreenFlamingosApp.DataBase
                 .WithOne(ud => ud.User)
                 .HasForeignKey<DbUserDetails>(ud => ud.UserId);
 
-            //Relations one to many
+            //Relations one to many drink ->
             modelBuilder.Entity<DbDrink>()
                 .HasOne(d => d.MainIngredient)
                 .WithMany()
                 .HasForeignKey(d => d.MainIngredientId);
             modelBuilder.Entity<DbDrink>()
+                .HasOne(d => d.DrinkType)
+                .WithMany()
+                .HasForeignKey(d => d.DrinkTypeId);
+
+            //Relations one to many ProposedDrink ->
+            modelBuilder.Entity<DbProposedDrink>()
+                .HasOne(d => d.MainIngredient)
+                .WithMany()
+                .HasForeignKey(d => d.MainIngredientId);
+            modelBuilder.Entity<DbProposedDrink>()
                 .HasOne(d => d.DrinkType)
                 .WithMany()
                 .HasForeignKey(d => d.DrinkTypeId);
@@ -47,6 +59,19 @@ namespace GreenFlamingosApp.DataBase
             modelBuilder.Entity<DbDrinkIngredient>()
                 .HasOne(x => x.Ingredient)
                 .WithMany(x=>x.DrinkIngredients)
+                .HasForeignKey(x => x.IngredientId);
+
+            //Relations many to many ProposedDrinks < - > ingredients
+            modelBuilder.Entity<DbProposedDrinkIngredient>()
+                .HasKey(x => new { x.DrinkId, x.IngredientId });
+
+            modelBuilder.Entity<DbProposedDrinkIngredient>()
+                .HasOne(x => x.ProposedDrink)
+                .WithMany(x => x.ProposedDrinkIngredients)
+                .HasForeignKey(x => x.DrinkId);
+            modelBuilder.Entity<DbProposedDrinkIngredient>()
+                .HasOne(x => x.Ingredient)
+                .WithMany(x => x.ProposedDrinkIngredients)
                 .HasForeignKey(x => x.IngredientId);
 
             //Relation many to many drinks < - > users
@@ -67,39 +92,39 @@ namespace GreenFlamingosApp.DataBase
                 .HasData(new DbIngredient { Id = 1, Name = "Vodka" },
                          new DbIngredient { Id = 2, Name = "Rum" },
                          new DbIngredient { Id = 3, Name = "Whisky" },
-                         new DbIngredient { Id = 4, Name = "Kostki lodu" },
-                         new DbIngredient { Id = 5, Name = "Woda" },
-                         new DbIngredient { Id = 6, Name = "Sok Pomarańczowy"},
+                         new DbIngredient { Id = 4, Name = "Ice Cube" },
+                         new DbIngredient { Id = 5, Name = "Water" },
+                         new DbIngredient { Id = 6, Name = "Orange Juice"},
                          new DbIngredient { Id = 7, Name = "Blue Curacao" },
                          new DbIngredient { Id = 8, Name = "Prosecco" },
-                         new DbIngredient { Id = 9, Name = "Sok pomidorowy" },
-                         new DbIngredient { Id = 10, Name = "Woda Gazowana" },
-                         new DbIngredient { Id = 11, Name = "Sok Jabłkowy" },
-                         new DbIngredient { Id = 12, Name = "Sok Porzeczkowy" },
+                         new DbIngredient { Id = 9, Name = "Tomato Juice" },
+                         new DbIngredient { Id = 10, Name = "Sparkling Water" },
+                         new DbIngredient { Id = 11, Name = "Apple Juice" },
+                         new DbIngredient { Id = 12, Name = "Currant Juice" },
                          new DbIngredient { Id = 13, Name = "Gin" },
                          new DbIngredient { Id = 14, Name = "Malibu" },
                          new DbIngredient { Id = 15, Name = "Aperol" },
                          new DbIngredient { Id = 16, Name = "Tequila" },
                          new DbIngredient { Id = 17, Name = "Jagermeister" },
-                         new DbIngredient { Id = 18, Name = "Sok z cytryny" },
-                         new DbIngredient { Id = 19, Name = "Syrop cukrowy" },
-                         new DbIngredient { Id = 20, Name = "Grenadyna" },
-                         new DbIngredient { Id = 21, Name = "Coca Cola" },
-                         new DbIngredient { Id = 22, Name = "Sok z limonki" },
-                         new DbIngredient { Id = 23, Name = "Limonka" },
-                         new DbIngredient { Id = 24, Name = "Cytryna" },
-                         new DbIngredient { Id = 25, Name = "Pomidor" },
-                         new DbIngredient { Id = 26, Name = "Szpinak" },
-                         new DbIngredient { Id = 27, Name = "Pomarańcza" },
-                         new DbIngredient { Id = 28, Name = "Granat" },
-                         new DbIngredient { Id = 29, Name = "Mięta" },
-                         new DbIngredient { Id = 30, Name = "Truskawki" },
-                         new DbIngredient { Id = 31, Name = "Avokado" },
-                         new DbIngredient { Id = 32, Name = "Brzoskwinia" },
-                         new DbIngredient { Id = 33, Name = "Banan" },
-                         new DbIngredient { Id = 34, Name = "Miód" },
-                         new DbIngredient { Id = 35, Name = "Winogrono Białe" },
-                         new DbIngredient { Id = 36, Name = "Winogrono Czerwone" });
+                         new DbIngredient { Id = 18, Name = "Lemon Juice" },
+                         new DbIngredient { Id = 19, Name = "Sugar syrup" },
+                         new DbIngredient { Id = 20, Name = "Grenadine" },
+                         new DbIngredient { Id = 21, Name = "Coke" },
+                         new DbIngredient { Id = 22, Name = "Lime Juice" },
+                         new DbIngredient { Id = 23, Name = "Lime" },
+                         new DbIngredient { Id = 24, Name = "Lemon" },
+                         new DbIngredient { Id = 25, Name = "Tomato" },
+                         new DbIngredient { Id = 26, Name = "Spinach" },
+                         new DbIngredient { Id = 27, Name = "Orange" },
+                         new DbIngredient { Id = 28, Name = "Pomegranate" },
+                         new DbIngredient { Id = 29, Name = "Mint" },
+                         new DbIngredient { Id = 30, Name = "Strawberry" },
+                         new DbIngredient { Id = 31, Name = "Avocado" },
+                         new DbIngredient { Id = 32, Name = "Peach" },
+                         new DbIngredient { Id = 33, Name = "Banana" },
+                         new DbIngredient { Id = 34, Name = "Honey" },
+                         new DbIngredient { Id = 35, Name = "White Grape" },
+                         new DbIngredient { Id = 36, Name = "Red Grape" });
             modelBuilder.Entity<DbDrinkType>()
                 .HasData(new DbDrinkType { Id = 1, Name = "Drink z alkoholem" },
                          new DbDrinkType { Id = 2, Name = "Shot" },
@@ -108,13 +133,13 @@ namespace GreenFlamingosApp.DataBase
                 .HasData(new DbMainIngredient { Id = 1, Name = "Vodka" },
                          new DbMainIngredient { Id = 2, Name = "Rum" },
                          new DbMainIngredient { Id = 3, Name = "Whisky" },
-                         new DbMainIngredient { Id = 4, Name = "Sok pomidorowy" },
+                         new DbMainIngredient { Id = 4, Name = "Orange Juice" },
                          new DbMainIngredient { Id = 5, Name = "Gin" },
                          new DbMainIngredient { Id = 6, Name = "Aperol" },
                          new DbMainIngredient { Id = 7, Name = "Malibu" },
                          new DbMainIngredient { Id = 8, Name = "Jagermeister" },
-                         new DbMainIngredient { Id = 9, Name = "Truskawka" },
-                         new DbMainIngredient { Id = 10, Name = "Banan" });
+                         new DbMainIngredient { Id = 9, Name = "Strawberry" },
+                         new DbMainIngredient { Id = 10, Name = "Banana" });
         }
     }
 }
