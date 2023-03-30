@@ -173,9 +173,9 @@ namespace GreenFlamingosApp.Services.Services.ServiceClass
             }
         }
 
-        public List<string> GetCommentsList(DbDrink dbDrink)
+        public Dictionary<string, string> GetCommentsList(DbDrink dbDrink)
         {
-            return dbDrink.DrinkUsers.Where(d => d.DrinkId == dbDrink.Id).Select(du => du.Comment).ToList();
+            return dbDrink.DrinkUsers.Where(d => d.DrinkId == dbDrink.Id).ToDictionary(du => du.User.UserName, du => du.Comment);
         }
 
         public async Task<List<Drink>> GetDrinksByMainIngredient(string mainIngredient)

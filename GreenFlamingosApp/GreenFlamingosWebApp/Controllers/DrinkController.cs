@@ -257,5 +257,11 @@ namespace GreenFlamingosWebApp.Controllers
             return View(await _drinkService.GetTopRatedDrinks());
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GetUserName()
+        {
+            return View(await _drinkService.GetTopRatedDrinks());
+        }
+
     }
 }

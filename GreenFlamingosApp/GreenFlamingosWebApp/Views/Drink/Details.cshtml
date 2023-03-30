@@ -98,23 +98,52 @@
 <div>
     <!-- Comments -->
     <!--ADD COMMENT-->
-    <form method="post" asp-action="AddComment" asp-controller="Drink">
-        <div class="form-group">
-            <label for="comment">Add comment:</label>
-            <textarea class="form-control" name="comment" rows="3"></textarea>
-        </div>
-        <input type="hidden" name="drinkId" value="@Model.Id" />
-        <button type="submit" class="btn btn-primary">Add comment</button>
-    </form>
-    <!--SHOW COMMENT-->
+    @if (userName != null)
+    {
+        <form method="post" asp-action="AddComment" asp-controller="Drink">
+            <div class="form-group">
+                <label for="comment">Your comment:</label>
+                <textarea class="form-control" name="comment" rows="3"></textarea>
+            </div>
+            <input type="hidden" name="drinkId" value="@Model.Id" />
+            <button type="submit" class="btn btn-success">Add comment</button>
+        </form>
+    }
+    else
+    {
+        <h2>Login to leave a comment</h2>
+    }
 
-    <h4>Comments</h4>
+    <!--SHOW COMMENT-->
+    <hr>
+    <h2>Comments</h2>
 
     @foreach (var comment in Model.Comments)
     {
         <div class="comment">
-            <label class="custom-control-label" for="customCheck1">@comment</label>
+            <label class="custom-control-label" for="customCheck1">
+                @comment.Key:
+                <span class="text-muted"> @comment.Value</span>
+                <hr style="margin-top:10px;">
+            </label>
         </div>
     }
 
+    @foreach (var comment in Model.Comments)
+    {
+        <div class="media">
+            <div class="media-body">
+                <h4 class="media-heading">@comment.Key</h4>
+                <p>@comment.Value</p>
+                <ul class="list-unstyled list-inline media-detail pull-left">
+                    <li><i class="fa fa-calendar"></i> 27/02/2014</li>
+                    <li><i class="fa fa-thumbs-up"></i>13</li>
+                </ul>
+                <ul class="list-unstyled list-inline media-detail">
+                    <li class=""><a href="">Like</a></li>
+                    <li class=""><a href="">Reply</a></li>
+                </ul>
+            </div>
+        </div>
+    }
 </div>

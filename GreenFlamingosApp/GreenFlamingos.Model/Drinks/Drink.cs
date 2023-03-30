@@ -37,6 +37,6 @@ namespace GreenFlamingos.Model.Drinks
         public IFormFile Photo { get; set; }
         public string ImageUrl { get; set; }
         public decimal AverageRating { get; set; }
-        public List<string> Comments { get; set; }
+        public Dictionary<string, string> Comments { get; set; }
     }
 }

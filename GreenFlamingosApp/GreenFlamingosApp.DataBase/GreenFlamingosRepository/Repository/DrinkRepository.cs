@@ -58,9 +58,9 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
             await _greenFlamingosDbContext.SaveChangesAsync();
         }
 
-        public List<string> GetCommentsList(DbDrink dbDrink)
+        public Dictionary<string, string> GetCommentsList(DbDrink dbDrink)
         {
-            return dbDrink.DrinkUsers.Where(d => d.DrinkId == dbDrink.Id).Select(du => du.Comment).ToList();
+            return dbDrink.DrinkUsers.Where(d => d.DrinkId == dbDrink.Id).ToDictionary(du => du.User.UserName, du => du.Comment);
         }
 
         public async Task<List<Drink>> GetAllDrinks()
@@ -69,6 +69,7 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
                                                                   .Include(dt => dt.DrinkType)
                                                                   .Include(a => a.Author)
                                                                   .Include(du => du.DrinkUsers)
+                                                                  .ThenInclude(u => u.User)
                                                                   .Include(d => d.DrinkIngredients)
                                                                   .ThenInclude(x => x.Ingredient)
                                                                   .ToListAsync();
