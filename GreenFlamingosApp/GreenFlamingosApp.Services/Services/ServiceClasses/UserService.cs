@@ -48,9 +48,9 @@ namespace GreenFlamingosApp.Services.Services.ServiceClasses
 
                 MailMessage message = new MailMessage();
                 message.From = new MailAddress(fromMail);
-                message.Subject = "Green Flamingos Potwierdzenie Rejestracji ";
+                message.Subject = "Green Flamingos registration confirmation";
                 message.To.Add(new MailAddress(receiver));
-                message.Body = $"<html><body> <div>Witaj użytkowniku {userName} !</div>  <div>Pomyślnie zalożyłeś konto w serwisie GreeenFlamingos :)</div></body></html>";
+                message.Body = $"<html><body> <div>Hello user {userName} !</div>  <div>You have successfully created an account in the GreeenFlamingos app :)</div></body></html>";
                 message.IsBodyHtml = true;
 
                 var smtpClient = new SmtpClient(_config.GetSection("EmailHost").Value)

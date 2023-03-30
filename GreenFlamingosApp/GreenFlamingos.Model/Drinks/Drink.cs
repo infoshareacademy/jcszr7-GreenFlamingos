@@ -9,34 +9,34 @@ namespace GreenFlamingos.Model.Drinks
     {
         public int Id { get; set; }
         public User Owner {get; set; }
-        [DisplayName("Zawartość Alkoholu")]
-        [Required(ErrorMessage = "Zawartość alkoholu jest wymagana")]
-        [Range(0,99,ErrorMessage ="Podaj Zawartość Alkoholu z przedziału 0 - 99%")]
+        [DisplayName("Alkohol content")]
+        [Required(ErrorMessage = "Alkohol content is required")]
+        [Range(0,99,ErrorMessage ="Enter the alkohol content in the range 0 - 99%")]
         public float AlcoholContent { get; set; }
-        [DisplayName("Ilość Kalori")]
-        [Required(ErrorMessage = "Kalorie są wymagane")]
+        [DisplayName("Amount of calories")]
+        [Required(ErrorMessage = "Calories are required")]
         public int Calories { get; set; }
-        [DisplayName("Rodzaj Drinka")]
+        [DisplayName("Type of drink")]
         public string DrinkType { get; set; }
-        [DisplayName("Nazwa")]
-        [Required(ErrorMessage = "Nazwa jest wymagana")]
+        [DisplayName("Name")]
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
-        [DisplayName("Główny Składnik")]
-        [Required(ErrorMessage = "Główny składnik jest wymagany")]
+        [DisplayName("Main ingredient")]
+        [Required(ErrorMessage = "Main ingredient is required")]
         public string MainIngredient { get; set; }
-        [DisplayName("Pojemność")]
-        [Required(ErrorMessage = "Pojemność jest wymagana")]
+        [DisplayName("Capacity")]
+        [Required(ErrorMessage = "Capacity is required")]
         public int Capacity { get; set; }
-        [DisplayName("Składniki")]
+        [DisplayName("Ingredients")]
         public List<Ingredient> Ingredients { get; set; }
-        [DisplayName("Opis Napoju")]
+        [DisplayName("Description of the drink")]
         public string Description { get; set; }
-        [DisplayName("Przygotowanie")]
+        [DisplayName("Preparation")]
         public string Preparation { get; set; }
-        [DisplayName("Zdjęcie")] 
+        [DisplayName("Photo")] 
         public IFormFile Photo { get; set; }
         public string ImageUrl { get; set; }
-        public List<int>? Ratings { get; set; }
         public decimal AverageRating { get; set; }
+        public List<string> Comments { get; set; }
     }
 }

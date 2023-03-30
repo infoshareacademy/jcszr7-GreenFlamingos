@@ -4,6 +4,7 @@ using GreenFlamingosApp.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GreenFlamingosApp.DataBase.Migrations
 {
     [DbContext(typeof(GreenFlamingosDbContext))]
-    partial class GreenFlamingosDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230305115820_seeding-edited2")]
+    partial class seedingedited2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,9 +138,6 @@ namespace GreenFlamingosApp.DataBase.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DbProposedDrinkId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsFavourite")
                         .HasColumnType("bit");
 
@@ -146,8 +145,6 @@ namespace GreenFlamingosApp.DataBase.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("DrinkId", "UserId");
-
-                    b.HasIndex("DbProposedDrinkId");
 
                     b.HasIndex("UserId");
 
@@ -188,17 +185,17 @@ namespace GreenFlamingosApp.DataBase.Migrations
                         new
                         {
                             Id = 4,
-                            Name = "Ice Cube"
+                            Name = "Kostki lodu"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Water"
+                            Name = "Woda"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Orange Juice"
+                            Name = "Sok Pomarańczowy"
                         },
                         new
                         {
@@ -213,22 +210,22 @@ namespace GreenFlamingosApp.DataBase.Migrations
                         new
                         {
                             Id = 9,
-                            Name = "Tomato Juice"
+                            Name = "Sok pomidorowy"
                         },
                         new
                         {
                             Id = 10,
-                            Name = "Sparkling Water"
+                            Name = "Woda Gazowana"
                         },
                         new
                         {
                             Id = 11,
-                            Name = "Apple Juice"
+                            Name = "Sok Jabłkowy"
                         },
                         new
                         {
                             Id = 12,
-                            Name = "Currant Juice"
+                            Name = "Sok Porzeczkowy"
                         },
                         new
                         {
@@ -258,97 +255,97 @@ namespace GreenFlamingosApp.DataBase.Migrations
                         new
                         {
                             Id = 18,
-                            Name = "Lemon Juice"
+                            Name = "Sok z cytryny"
                         },
                         new
                         {
                             Id = 19,
-                            Name = "Sugar syrup"
+                            Name = "Syrop cukrowy"
                         },
                         new
                         {
                             Id = 20,
-                            Name = "Grenadine"
+                            Name = "Grenadyna"
                         },
                         new
                         {
                             Id = 21,
-                            Name = "Coke"
+                            Name = "Coca Cola"
                         },
                         new
                         {
                             Id = 22,
-                            Name = "Lime Juice"
+                            Name = "Sok z limonki"
                         },
                         new
                         {
                             Id = 23,
-                            Name = "Lime"
+                            Name = "Limonka"
                         },
                         new
                         {
                             Id = 24,
-                            Name = "Lemon"
+                            Name = "Cytryna"
                         },
                         new
                         {
                             Id = 25,
-                            Name = "Tomato"
+                            Name = "Pomidor"
                         },
                         new
                         {
                             Id = 26,
-                            Name = "Spinach"
+                            Name = "Szpinak"
                         },
                         new
                         {
                             Id = 27,
-                            Name = "Orange"
+                            Name = "Pomarańcza"
                         },
                         new
                         {
                             Id = 28,
-                            Name = "Pomegranate"
+                            Name = "Granat"
                         },
                         new
                         {
                             Id = 29,
-                            Name = "Mint"
+                            Name = "Mięta"
                         },
                         new
                         {
                             Id = 30,
-                            Name = "Strawberry"
+                            Name = "Truskawki"
                         },
                         new
                         {
                             Id = 31,
-                            Name = "Avocado"
+                            Name = "Avokado"
                         },
                         new
                         {
                             Id = 32,
-                            Name = "Peach"
+                            Name = "Brzoskwinia"
                         },
                         new
                         {
                             Id = 33,
-                            Name = "Banana"
+                            Name = "Banan"
                         },
                         new
                         {
                             Id = 34,
-                            Name = "Honey"
+                            Name = "Miód"
                         },
                         new
                         {
                             Id = 35,
-                            Name = "White Grape"
+                            Name = "Winogrono Białe"
                         },
                         new
                         {
                             Id = 36,
-                            Name = "Red Grape"
+                            Name = "Winogrono Czerwone"
                         });
                 });
 
@@ -386,7 +383,7 @@ namespace GreenFlamingosApp.DataBase.Migrations
                         new
                         {
                             Id = 4,
-                            Name = "Orange Juice"
+                            Name = "Sok pomidorowy"
                         },
                         new
                         {
@@ -411,83 +408,13 @@ namespace GreenFlamingosApp.DataBase.Migrations
                         new
                         {
                             Id = 9,
-                            Name = "Strawberry"
+                            Name = "Truskawka"
                         },
                         new
                         {
                             Id = 10,
-                            Name = "Banana"
+                            Name = "Banan"
                         });
-                });
-
-            modelBuilder.Entity("GreenFlamingosApp.DataBase.DbModels.DbProposedDrink", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<float>("AlcoholContent")
-                        .HasColumnType("real");
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AuthorId1")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Calories")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DrinkTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MainIngredientId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Preparations")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId1");
-
-                    b.HasIndex("DrinkTypeId");
-
-                    b.HasIndex("MainIngredientId");
-
-                    b.ToTable("ProposedDrinks");
-                });
-
-            modelBuilder.Entity("GreenFlamingosApp.DataBase.DbModels.DbProposedDrinkIngredient", b =>
-                {
-                    b.Property<int>("DrinkId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IngredientId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("IngredientCapacity")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("DrinkId", "IngredientId");
-
-                    b.HasIndex("IngredientId");
-
-                    b.ToTable("ProposedDrinkIngriedents");
                 });
 
             modelBuilder.Entity("GreenFlamingosApp.DataBase.DbModels.DbUser", b =>
@@ -769,10 +696,6 @@ namespace GreenFlamingosApp.DataBase.Migrations
 
             modelBuilder.Entity("GreenFlamingosApp.DataBase.DbModels.DbDrinkUser", b =>
                 {
-                    b.HasOne("GreenFlamingosApp.DataBase.DbModels.DbProposedDrink", null)
-                        .WithMany("DrinkUsers")
-                        .HasForeignKey("DbProposedDrinkId");
-
                     b.HasOne("GreenFlamingosApp.DataBase.DbModels.DbDrink", "Drink")
                         .WithMany("DrinkUsers")
                         .HasForeignKey("DrinkId")
@@ -788,50 +711,6 @@ namespace GreenFlamingosApp.DataBase.Migrations
                     b.Navigation("Drink");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("GreenFlamingosApp.DataBase.DbModels.DbProposedDrink", b =>
-                {
-                    b.HasOne("GreenFlamingosApp.DataBase.DbModels.DbUser", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId1");
-
-                    b.HasOne("GreenFlamingosApp.DataBase.DbModels.DbDrinkType", "DrinkType")
-                        .WithMany()
-                        .HasForeignKey("DrinkTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GreenFlamingosApp.DataBase.DbModels.DbMainIngredient", "MainIngredient")
-                        .WithMany()
-                        .HasForeignKey("MainIngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("DrinkType");
-
-                    b.Navigation("MainIngredient");
-                });
-
-            modelBuilder.Entity("GreenFlamingosApp.DataBase.DbModels.DbProposedDrinkIngredient", b =>
-                {
-                    b.HasOne("GreenFlamingosApp.DataBase.DbModels.DbProposedDrink", "ProposedDrink")
-                        .WithMany("ProposedDrinkIngredients")
-                        .HasForeignKey("DrinkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GreenFlamingosApp.DataBase.DbModels.DbIngredient", "Ingredient")
-                        .WithMany("ProposedDrinkIngredients")
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ingredient");
-
-                    b.Navigation("ProposedDrink");
                 });
 
             modelBuilder.Entity("GreenFlamingosApp.DataBase.DbModels.DbUserDetails", b =>
@@ -904,15 +783,6 @@ namespace GreenFlamingosApp.DataBase.Migrations
             modelBuilder.Entity("GreenFlamingosApp.DataBase.DbModels.DbIngredient", b =>
                 {
                     b.Navigation("DrinkIngredients");
-
-                    b.Navigation("ProposedDrinkIngredients");
-                });
-
-            modelBuilder.Entity("GreenFlamingosApp.DataBase.DbModels.DbProposedDrink", b =>
-                {
-                    b.Navigation("DrinkUsers");
-
-                    b.Navigation("ProposedDrinkIngredients");
                 });
 
             modelBuilder.Entity("GreenFlamingosApp.DataBase.DbModels.DbUser", b =>

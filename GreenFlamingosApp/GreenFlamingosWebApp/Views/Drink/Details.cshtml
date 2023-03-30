@@ -1,7 +1,7 @@
 ﻿@model GreenFlamingos.Model.Drinks.Drink
 @{
     Layout = "~/Views/Shared/_LayoutOLD.cshtml";
-    ViewData["Title"] = "Przepis";
+    ViewData["Title"] = "Recipe";
     var preparationSteps = Model.Preparation.Split("\r\n").ToList();
     var userName = User.Identity.Name;
 }
@@ -27,11 +27,11 @@
                 </div>
                 <div class="Information">
                     <div class="additionalInfo">
-                        <h6 style="color:black;">Alkohol</h6>
+                        <h6 style="color:black;">Alcohol</h6>
                         <h6 style="color:black;">@Model.AlcoholContent %</h6>
                     </div>
                     <div style="color:black;" class="additionalInfo">
-                        <h6 style="color:black;">Kalorie</h6>
+                        <h6 style="color:black;">Calories</h6>
                         <h6 style="color:black;">@Model.Calories</h6>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
 
             <div class="row">
                 <div class="col-12 col-lg-8">
-                    <h4 style="color:#474747; margin-bottom:30px;">Przygotowanie:</h4>
+                    <h4 style="color:#474747; margin-bottom:30px;">Preparation:</h4>
 
                     @foreach (var preparation in preparationSteps)
                     {
@@ -70,7 +70,7 @@
             @if (userName != null)
             {
                 <form id="Rating" method="post" style="text-align:center;" asp-action="AddRating" asp-controller="Drink">
-                    <h2 style="margin-right:25px;">Oceń przepis</h2>
+                    <h2 style="margin-right:25px;">Rate the recipe</h2>
                     <div class="text-warning" onmouseout="CRateSelected()">
                         <span id="span1" onmouseout="CRateOut(1)" onmouseover="CRateOver(1)" onclick="CRateClick(1)" class="glyphicon glyphicon-star-empty" style="margin-right:30px;"></span>
                         <span id="span2" onmouseout="CRateOut(2)" onmouseover="CRateOver(2)" onclick="CRateClick(2)" class="glyphicon glyphicon-star-empty" style="margin-right:30px;"></span>
@@ -90,8 +90,31 @@
         @if (userName != null)
         {
             <div class="Kuba_Test">
-                @Html.ActionLink("Dodaj Do Ulubionych", "AddDrinkToFavourites", new {  drinkId=Model.Id},new{@class="btn btn-lg btn-success"})
+                @Html.ActionLink("Add to favourites", "AddDrinkToFavourites", new { drinkId=Model.Id },new{@class="btn btn-lg btn-success"})
             </div>
         }
-        </div>
     </div>
+</div>
+<div>
+    <!-- Comments -->
+    <!--ADD COMMENT-->
+    <form method="post" asp-action="AddComment" asp-controller="Drink">
+        <div class="form-group">
+            <label for="comment">Add comment:</label>
+            <textarea class="form-control" name="comment" rows="3"></textarea>
+        </div>
+        <input type="hidden" name="drinkId" value="@Model.Id" />
+        <button type="submit" class="btn btn-primary">Add comment</button>
+    </form>
+    <!--SHOW COMMENT-->
+
+    <h4>Comments</h4>
+
+    @foreach (var comment in Model.Comments)
+    {
+        <div class="comment">
+            <label class="custom-control-label" for="customCheck1">@comment</label>
+        </div>
+    }
+
+</div>

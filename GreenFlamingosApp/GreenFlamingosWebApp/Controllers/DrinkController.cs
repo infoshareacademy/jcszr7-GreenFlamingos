@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using GreenFlamingos.Model.APIResponses;
 using GreenFlamingosApp.Services.Services.ServiceClasses;
 
 namespace GreenFlamingosWebApp.Controllers
@@ -32,27 +33,7 @@ namespace GreenFlamingosWebApp.Controllers
             _userService = userService;
         }
 
-        public async Task<ActionResult> ApiComm()
-        {
-            var client = new HttpClient();
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri("https://the-cocktail-db.p.rapidapi.com/search.php?s=vodka"),
-                Headers =
-    {
-        { "X-RapidAPI-Key", "6644d4071bmsh563adbf6d3e9af9p166644jsn00e21c66c99d" },
-        { "X-RapidAPI-Host", "the-cocktail-db.p.rapidapi.com" },
-    },
-            };
-            using (var response = await client.SendAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-                JObject json = JObject.Parse(body);
-            }
-            return RedirectToAction("Index", "Home");
-        }
+        
         public async Task<ActionResult> Index()
         {
             var model = await _drinkService.GetAllDrinks();
@@ -109,12 +90,12 @@ namespace GreenFlamingosWebApp.Controllers
                     var result = await _drinkService.AddDrink(drink);
                     if (!result)
                     {
-                        ModelState.AddModelError("Ingredients", "Lista składników zawiera taki, który nie znajduje się w bazie. Spróbuj ponownie.");
+                        ModelState.AddModelError("Ingredients", "The list of ingredients contains one that is not in the database. Try again.");
                         return View();
                     }
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("Name", "Drink o podanej nazwie już istnieje");
+                ModelState.AddModelError("Name", "Drink with the given name already exists");
                 return View();
             }
             catch
@@ -167,7 +148,7 @@ namespace GreenFlamingosWebApp.Controllers
                 if (!result)
                 {
 
-                    ModelState.AddModelError("Ingredients", "Lista składników zawiera taki, który nie znajduje się w bazie. Spróbuj ponownie.");
+                    ModelState.AddModelError("Ingredients", "The list of ingredients contains one that is not in the database. Try again.");
                     return View();
                 }
                 return RedirectToAction("Index", "Home");
@@ -226,6 +207,17 @@ namespace GreenFlamingosWebApp.Controllers
             var drinkId = int.Parse(formValues[1]);
             await _drinkService.GetDrinkById(drinkId);
             await _drinkService.AddRateToDrink(drinkId, userId, rateToAdd);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddComment(IFormCollection comment, IFormCollection drinkId)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+            var commentFromUser = comment["comment"].ToString();
+            var drinkIdFromUser = drinkId["drinkId"];
+            //await _drinkService.GetDrinkById(int.Parse(drinkIdFromUser));
+            await _drinkService.AddCommentToDrink(int.Parse(drinkIdFromUser), userId, commentFromUser);
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
