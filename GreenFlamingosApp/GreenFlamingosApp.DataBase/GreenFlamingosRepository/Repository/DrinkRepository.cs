@@ -44,6 +44,7 @@ namespace GreenFlamingosApp.DataBase.GreenFlamingosRepository.Repository
                                                           .Include(d => d.DrinkIngredients)
                                                           .ThenInclude(x => x.Ingredient)
                                                           .Include(du => du.DrinkUsers)
+                                                          .ThenInclude(u => u.User)
                                                           .Where(db => db.MainIngredient.Name == mainIngredient && db.DrinkType.Name == drinkType.Name)
                                                           .ToListAsync();
         }
