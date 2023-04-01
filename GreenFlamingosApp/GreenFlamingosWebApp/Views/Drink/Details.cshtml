@@ -120,17 +120,6 @@
 
     @foreach (var comment in Model.Comments)
     {
-        <div class="comment">
-            <label class="custom-control-label" for="customCheck1">
-                @comment.Key:
-                <span class="text-muted"> @comment.Value</span>
-                <hr style="margin-top:10px;">
-            </label>
-        </div>
-    }
-
-    @foreach (var comment in Model.Comments)
-    {
         <div class="media">
             <div class="media-body">
                 <h4 class="media-heading">@comment.Key</h4>
